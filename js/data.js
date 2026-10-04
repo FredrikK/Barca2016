@@ -43,9 +43,9 @@ export const META = {
 
 const jarnaComponents = { results: 74, league: 52, pathway: 70, tournament: 78 };
 const gavaComponents = { results: 50, league: 78, pathway: 82, tournament: 72 };
-const kilcullenComponents = { results: 58, league: 48, pathway: 42, tournament: 40 };
+const kilcullenComponents = { results: 70, league: 58, pathway: 48, tournament: 42 };
 const spangaComponents = { results: 70, league: 62, pathway: 66, tournament: 48 };
-const villaComponents = { results: 50, league: 46, pathway: 44, tournament: 40 };
+const villaComponents = { results: 62, league: 56, pathway: 46, tournament: 40 };
 const patsComponents = { results: 50, league: 42, pathway: 35, tournament: 40 };
 
 export const TEAMS = [
@@ -212,39 +212,92 @@ export const TEAMS = [
     rank: 4,
     components: kilcullenComponents,
     index: indexOf(kilcullenComponents),
-    range: [42, 60],
-    confidence: 34,
-    confidenceLabel: "Low",
+    range: [52, 68],
+    confidence: 62,
+    confidenceLabel: "Medium",
     verified:
-      "Kilcullen AFC’s under-16 girls are the team raising money for Cambrils in October 2026. The Kilcullen Diary, 16 August 2026, calls them the club’s first juvenile all-girls team and the first girls’ team to represent the club abroad.",
+      "This is Kilcullen AFC’s U16 girls, the side in the Kilcullen Diary going to Cambrils. The KDUL page for team 160768 in competition 13331 is titled U16 Girls, and the cup final on that site is Kilcullen against Maynooth on 23 August 2026, the Sunday the Diary named.",
     identity:
-      "Community club in Kilcullen, about 50 km from Castle Villa in Castledermot. Both are Kildare clubs. They meet in this group on Saturday at 13:10, so the Irish pair already share a county even though no earlier girls’ fixture between them was found.",
+      "Kildare & District Underage League. Home games are at Kilcullen Community Centre. They finished the U16 Girls division above Castle Villa AFC, whose home ground in the same fixtures is Mullarney Park in Castledermot. That is the Kildare club, not Castle Villa of Moynalty.",
     league:
-      "The Diary says they had a cup final against Maynooth on 23 August 2026. No score, venue or competition name was published. The Kildare & District underage league’s public table index shows girls’ divisions at under-14 and under-12, not an under-16 girls’ table. Their exact division is unpublished.",
+      "KDUL U16 Girls, 2026. Five teams, each played eight games. Kilcullen are first on 19 points: 6 wins, 1 draw, 1 loss, 31–11. They also won the U16 Girls Cup, 7–0 against Maynooth United on 23 August at Corrigan Park, after beating Prosperous United 3–0 on 12 July.",
     style: {
-      status: "Unknown",
+      status: "Inferred from results",
       formation: "Not published",
       summary:
-        "No lineup, shape or match report was found. Reaching a cup final says they can prepare for one knockout game. It does not say whether they press, play direct, or keep a back four.",
+        "No shape or lineup is published. The scores say they score in bursts and can also be opened up. Four of the eight league games were won by three goals or more. The game they lost was 0–2, and the game they won against the same team was 5–3.",
       points: [
-        "First international tournament. The flight and the occasion are new. That can lift a team for 40 minutes or leave them slow to the first game.",
-        "They play Castle Villa, the other Kildare side, on Saturday afternoon. Whoever wins that will carry the county derby into Sunday.",
-        "A December 2025 awards list and the 2026 Gaynor Cup names (Ava Lily Kelly, Alesha Redmond) are under-14 players. They are a younger group. They are not treated as this squad.",
+        "League goals against the bottom two were 5–0 and 6–3 versus Maynooth, and 2–0 and 7–1 versus Derry Rovers. The cup final was another 7–0 against Maynooth.",
+        "Against the other two contenders the record is a draw and a win versus Prosperous (2–2, 4–0, plus 3–0 in the cup) and a loss and a win versus Castle Villa (0–2, 5–3).",
+        "First tournament abroad. The Diary calls them the club’s first juvenile all-girls team to represent Kilcullen outside Ireland.",
       ],
     },
     approach:
-      "Spånga meet them Sunday at 09:00, the first game of the second day, after three Saturday matches. Kilcullen will also have played three games. Set pieces and the second ball will matter more than any system we cannot see. Don’t read a quiet first five minutes as a weak team: there is no public evidence of their tempo.",
-    players: [],
-    playersNote:
-      "No under-16 player is named in the Cambrils fundraising note. Yvonne Carey Tyrrell wrote that note. The page does not call her the coach. Publishing the December 2025 under-14 award winners as this team would be a mistake, so they are not listed.",
-    staff: "No under-16 coach is named in the sources that were opened.",
-    results: [
-      { date: "23 Aug 2026", comp: "Cup final", score: "Kilcullen U16 girls vs Maynooth", note: "Fixture only. The Diary of 16 August said the final was the following Sunday. No result was found." },
+      "Spånga meet them Sunday at 09:00, first game of the day, after three Saturday matches. They are league winners and cup winners in a five-team Kildare division, not an unknown. The only team that shut them out in that league was Castle Villa, 2–0 on 30 April, with Abbie Landon scoring both. Kilcullen won the return 5–3. If Saturday’s 13:10 game is another open score, Sunday morning will be too.",
+    players: [
+      {
+        name: "Ella-Louise Donnelly",
+        number: "—",
+        role: "Two goals in the 5–0",
+        why: "The 19 April card lists Ella-louise donnelly twice in the 5–0 against Maynooth. The registered squad has E. donnelly. A December 2025 club award named Ella Louise Donnelly as Players’ Player. Shirt number unpublished.",
+      },
+      {
+        name: "Amelia Reddy",
+        number: "—",
+        role: "Scorer in the 5–0, club player of the year",
+        why: "The same card lists Ameila Reddy, the spelling on the league tooltip. The squad list has A. Reddy. The December 2025 awards named Amelia Reddy as Player of the Year.",
+      },
+      {
+        name: "Katie Marshall",
+        number: "—",
+        role: "Scorer in the 5–0",
+        why: "Listed on the 19 April goal tooltip. The squad register has K. Marshall.",
+      },
+      {
+        name: "Eila O'Byrne",
+        number: "—",
+        role: "Scorer in the 5–0",
+        why: "Listed on the 19 April goal tooltip. The squad register has E. O'Byrne.",
+      },
+      {
+        name: "Izzy Mae Middleton",
+        number: "—",
+        role: "Named on the 2–0 at Derry",
+        why: "The 8 May card, Derry Rovers 0–2 Kilcullen, names Izzy Mae Middleton. The squad register has I. Middleton. The card does not say she scored both.",
+      },
     ],
-    recordLine: "Cup finalists in August 2026. Score unknown. No other 2024–26 girls’ score for this squad was found.",
+    playersNote:
+      "The competition page registers 18 players by initial and surname. Only the names written on goal tooltips are listed here. No formation or shirt number is published. The December 2025 under-14 awards (Molly Furlong, Emily Browne, Lauren Barrett, Bailey Conn) are a younger group and are not this squad.",
+    staff: "No under-16 coach is named on the league page or in the Diary note. Yvonne Carey Tyrrell wrote the fundraising note. The page does not call her the coach.",
+    results: [
+      { date: "19 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 5–0 Maynooth United", note: "Kilcullen Community Centre. Scorers on the card: Katie Marshall, Ella-Louise Donnelly 2, Amelia Reddy, Eila O'Byrne." },
+      { date: "30 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 0–2 Castle Villa", note: "Kilcullen Community Centre. Abbie Landon scored both. Kilcullen’s only league defeat." },
+      { date: "8 May 2026", comp: "KDUL U16 Girls", score: "Derry Rovers 0–2 Kilcullen", note: "Oaklands, Edenderry. Izzy Mae Middleton is the name on the card." },
+      { date: "17 May 2026", comp: "KDUL U16 Girls", score: "Prosperous United 2–2 Kilcullen", note: "St Farnan's. No scorers on the card." },
+      { date: "24 May 2026", comp: "KDUL U16 Girls", score: "Kilcullen 7–1 Derry Rovers", note: "Kilcullen Community Centre. Scorers not itemised." },
+      { date: "11 Jun 2026", comp: "KDUL U16 Girls", score: "Maynooth United 3–6 Kilcullen", note: "Maynooth Education Campus. Scorers not itemised." },
+      { date: "21 Jun 2026", comp: "KDUL U16 Girls", score: "Castle Villa 3–5 Kilcullen", note: "The fixture list gives the venue as Kilcullen Community Centre. Scorers not itemised." },
+      { date: "5 Jul 2026", comp: "KDUL U16 Girls", score: "Kilcullen 4–0 Prosperous United", note: "Kilcullen Community Centre. Scorers not itemised." },
+      { date: "12 Jul 2026", comp: "KDUL U16 Girls Cup", score: "Kilcullen 3–0 Prosperous United", note: "Kilcullen Community Centre. The win before the final." },
+      { date: "23 Aug 2026", comp: "KDUL U16 Girls Cup final", score: "Kilcullen 7–0 Maynooth United", note: "Corrigan Park, 10:00. This is the final the Diary of 16 August said was the following Sunday." },
+    ],
+    recordLine: "U16 Girls league, 1st of 5: 8 games, 6 wins, 1 draw, 1 loss, 31–11, 19 points. Cup winners, 7–0 in the final.",
+    table: {
+      title: "KDUL U16 Girls, 2026, season complete",
+      rows: [
+        ["1", "Kilcullen AFC", "8", "19", "+20"],
+        ["2", "Castle Villa AFC", "8", "17", "+9"],
+        ["3", "Prosperous United", "8", "15", "+14"],
+        ["4", "Maynooth United FC", "8", "4", "−21"],
+        ["5", "Derry Rovers", "8", "1", "−22"],
+      ],
+    },
     sources: [
+      { label: "U16 Girls fixtures, team 160768", url: "https://soccerleagues.comortais.com/fixtures.aspx?teamID=160768&compId=13331&oid=1012" },
+      { label: "U16 Girls table", url: "https://soccerleagues.comortais.com/competition.aspx?id=13331&oid=1012" },
+      { label: "U16 Girls Cup, including the 7–0", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13428&oid=1012" },
       { label: "Kilcullen Diary, 16 Aug 2026", url: "https://kilcullenbridge.blogspot.com/2026/08/strong-support-for-afc-girls.html" },
-      { label: "Under-14 awards, different group", url: "https://kilcullenbridge.blogspot.com/2025/12/presentations-to-kilcullen-afc.html" },
+      { label: "December 2025 awards", url: "https://kilcullenbridge.blogspot.com/2025/12/presentations-to-kilcullen-afc.html" },
     ],
   },
   {
@@ -328,37 +381,86 @@ export const TEAMS = [
     rank: 5,
     components: villaComponents,
     index: indexOf(villaComponents),
-    range: [36, 58],
-    confidence: 28,
-    confidenceLabel: "Low",
+    range: [48, 64],
+    confidence: 58,
+    confidenceLabel: "Medium",
     verified:
-      "Castle Villa AFC, Castledermot, County Kildare. The club’s own teams page lists U15s Girls, born 2010 and 2011. That is the squad that matches Girls 2010. A separate Castle Villa exists in Moynalty, County Meath. The Kildare club is the one that sits in a group with Kilcullen.",
+      "Castle Villa AFC in KDUL U16 Girls is the Castledermot club. Their home fixtures in that division are at Mullarney Park. Castle Villa of Moynalty play at Villa Park and are a different club. The same five-team division contains Kilcullen.",
     identity:
-      "The club was formed in 1969 by Walter Brookes and plays at Mullarney Park. Senior football is in the Kildare & District Football League. The usual club suffix is AFC. The tournament entry says FC. Kits are described as solid blue with white trim, or blue and white stripes.",
+      "The club was formed in 1969 by Walter Brookes. The usual suffix is AFC. The tournament entry says FC. Kits are described as solid blue with white trim, or blue and white stripes. The club site still lists a U15 girls group born 2010 and 2011. A year on, this U16 girls division is the matching squad.",
     league:
-      "No girls’ league table or 2025–26 girls’ score was found. On the club’s age rule, a May 2025 U16 cup win (both a U12 and a U16 won finals that weekend, genders not stated) belongs to a squad born about 2009, a year older than this group. It is not counted as a Girls 2010 result.",
+      "KDUL U16 Girls, 2026, second of five on 17 points: 5 wins, 2 draws, 1 loss, 21–12. The only league loss is 3–5 to Kilcullen, after they had beaten Kilcullen 2–0. In the U16 Girls Cup they lost 0–2 to Prosperous. In the shield they lost 4–3 at Prosperous.",
     style: {
-      status: "Unknown",
+      status: "Inferred from results",
       formation: "Not published",
       summary:
-        "No girls’ match report, shape or player was found. They share a county with Kilcullen and meet them on Saturday at 13:10. That game is the best public clue you will get before Sunday, and it will already have been played when Spånga have only the morning left.",
+        "No shape is published. The league record is tighter than Kilcullen’s: fewer goals, and two draws with Prosperous, 1–1 and 3–3. The one heavy defeat is the 3–5 against Kilcullen.",
       points: [
-        "The girls born 2010 train on Friday evenings in the club’s published schedule. The squad exists and is active. That is all the page says.",
-        "The unlabeled U16 group on the same page is born 2010 and 2009 and is not identified as girls. It is not used as this team.",
-        "Irish community 11v11 at this age is often direct. That is a country tendency, not a scout of Castle Villa, and it is not used in the score.",
+        "Abbie Landon scored both goals in the 2–0 at Kilcullen on 30 April. That is the only published shutout of the league winners.",
+        "At Derry Rovers on 15 May the 3–1 scorers on the card are Lauren O'Sullivan, Kyia Bird and Annabelle Leigh.",
+        "They drew the two league games with third-placed Prosperous, then lost to them in the cup and again in the shield.",
       ],
     },
     approach:
-      "Spånga play them Saturday at 11:30, the middle of three games, on Field 10. There is no result to game-plan. Use the first ten minutes to see whether they attack the channels or play into a target. Kilcullen’s match against them later the same day is a free scouting look for Sunday.",
-    players: [],
+      "Spånga play them Saturday at 11:30, the middle of three games, on Field 10. They are the league runners-up, and they have already played Kilcullen twice. The series is one win each. Watch whether Abbie Landon is the player they look for: she scored both in the 2–0. Kilcullen against them at 13:10 the same day is the third meeting of 2026, and you will have already played Castle Villa by then.",
+    players: [
+      {
+        name: "Abbie Landon",
+        number: "—",
+        role: "Both goals in the 2–0 at Kilcullen",
+        why: "The 30 April card lists Abbie Landon twice in Castle Villa’s 2–0 win. That is Kilcullen’s only league defeat. No shirt number is published.",
+      },
+      {
+        name: "Lauren O'Sullivan",
+        number: "—",
+        role: "Scorer in the 3–1 at Derry",
+        why: "Named with Kyia Bird and Annabelle Leigh on the 15 May card, Derry Rovers 1–3 Castle Villa.",
+      },
+      {
+        name: "Kyia Bird",
+        number: "—",
+        role: "Scorer in the 3–1 at Derry",
+        why: "On the same 15 May goal tooltip. No other goal of hers is itemised on the pages opened.",
+      },
+      {
+        name: "Annabelle Leigh",
+        number: "—",
+        role: "Scorer in the 3–1 at Derry",
+        why: "On the same 15 May goal tooltip.",
+      },
+    ],
     playersNote:
-      "The club page names Holly and John as contacts for the U15 girls. It does not give them the title of coach, and their phone numbers are left off this app.",
-    staff: "Not confirmed. Friday training contacts are listed on castlevilla.ie and are not repeated here.",
-    results: [],
-    recordLine: "No published girls’ score for the 2010 age group.",
+      "These four names are the scorers written on the league cards. A full Castle Villa squad list was not on the pages opened. Holly and John are Friday contacts for the U15 girls on the club site. They are not titled as the U16 coach, and their numbers are not repeated here.",
+    staff: "No U16 girls coach is named on the league pages.",
+    results: [
+      { date: "26 Apr 2026", comp: "KDUL U16 Girls", score: "Castle Villa 1–1 Prosperous United", note: "Mullarney Park." },
+      { date: "30 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 0–2 Castle Villa", note: "Kilcullen Community Centre. Abbie Landon 2." },
+      { date: "10 May 2026", comp: "KDUL U16 Girls", score: "Castle Villa 3–0 Maynooth United", note: "Mullarney Park." },
+      { date: "15 May 2026", comp: "KDUL U16 Girls", score: "Derry Rovers 1–3 Castle Villa", note: "Oaklands. Castle Villa scorers: Lauren O'Sullivan, Kyia Bird, Annabelle Leigh. Derry: Yara Elbahlawan." },
+      { date: "21 Jun 2026", comp: "KDUL U16 Girls", score: "Castle Villa 3–5 Kilcullen", note: "Venue listed as Kilcullen Community Centre. Their only league defeat." },
+      { date: "28 Jun 2026", comp: "KDUL U16 Girls Cup", score: "Castle Villa 0–2 Prosperous United", note: "Mullarney Park." },
+      { date: "5 Jul 2026", comp: "KDUL U16 Girls", score: "Maynooth United 2–4 Castle Villa", note: "Maynooth Education Campus." },
+      { date: "16 Jul 2026", comp: "KDUL U16 Girls", score: "Prosperous United 3–3 Castle Villa", note: "St Farnan's." },
+      { date: "9 Aug 2026", comp: "KDUL U16 Girls Shield", score: "Prosperous United 4–3 Castle Villa", note: "St Farnan's." },
+      { date: "30 Aug 2026", comp: "KDUL U16 Girls", score: "Castle Villa 2–0 Derry Rovers", note: "Mullarney Park." },
+    ],
+    recordLine: "U16 Girls league, 2nd of 5: 8 games, 5 wins, 2 draws, 1 loss, 21–12, 17 points. Cup exit 0–2 to Prosperous. Shield exit 3–4 to Prosperous.",
+    table: {
+      title: "KDUL U16 Girls, 2026, season complete",
+      rows: [
+        ["1", "Kilcullen AFC", "8", "19", "+20"],
+        ["2", "Castle Villa AFC", "8", "17", "+9"],
+        ["3", "Prosperous United", "8", "15", "+14"],
+        ["4", "Maynooth United FC", "8", "4", "−21"],
+        ["5", "Derry Rovers", "8", "1", "−22"],
+      ],
+    },
     sources: [
+      { label: "U16 Girls fixtures", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13331&oid=1012" },
+      { label: "U16 Girls table", url: "https://soccerleagues.comortais.com/competition.aspx?id=13331&oid=1012" },
+      { label: "U16 Girls Cup", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13428&oid=1012" },
+      { label: "U16 Girls Shield", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13429&oid=1012" },
       { label: "Club teams page", url: "https://www.castlevilla.ie/teams/" },
-      { label: "Club background", url: "https://en.wikipedia.org/wiki/Castle_Villa_A.F.C." },
     ],
   },
   {
@@ -380,7 +482,7 @@ export const TEAMS = [
     identity:
       "Several Irish clubs were checked and do not fit. St Patrick’s Athletic of Dublin uses Athletic, not FC, and its published women’s youth team in 2026 is under-17, about a year older than Girls 2010. A Girls Emerging Talent Programme launched in Dublin in June 2026 with 22 players and no published ages. St Patrick’s Boys of Graiguecullen played the boys’ section of this tournament in 2025. None of those is evidence for this entry.",
     league:
-      "Unknown. If they are a Kildare community side, they belong with Kilcullen and Castle Villa. If they are a Dublin academy side entered under a shortened name, the rank is too low. The range 30–72 is the honest version of that.",
+      "Not the KDUL U16 Girls division. That table is Kilcullen, Castle Villa, Prosperous, Maynooth and Derry Rovers. St Patricks are not on it. If they are a different Irish community side, the rank stays near the bottom. If they are a Dublin academy entered under a shortened name, the rank is too low. The range 30–72 is the honest version of that.",
     style: {
       status: "Unknown",
       formation: "Not published",
@@ -449,8 +551,8 @@ export const STAY = [
 
 export const CHAINS = [
   {
-    depth: "No direct meetings",
-    text: "None of the six teams has a published match against another team in this group. The ranking is not a head-to-head table.",
+    depth: "One direct meeting",
+    text: "Kilcullen and Castle Villa have played twice in KDUL U16 Girls. Kilcullen lost 0–2 at home on 30 April, then won 5–3 on 21 June. One win each, aggregate 5–5. Saturday at 13:10 is the third meeting. No other pair in this group has a published match.",
   },
   {
     depth: "One step from Järna",
@@ -465,8 +567,8 @@ export const CHAINS = [
     text: "No page that was opened puts Bollstanäs SK U, MHFF, Kungsängen, Enebyberg, Rotebro or Sollentuna F15 U in a match against Täby, Stureby, Sjöstaden or Järna. The Swedish chain stops at one step. There is no third-level bridge, and the Bollstanäs team in Spånga’s series is a year younger than the Bollstanäs teams in the 2010 series.",
   },
   {
-    depth: "Ireland",
-    text: "Kilcullen’s only published opponent is Maynooth, in a cup final with no score. Castle Villa and St Patricks have no published girls’ opponents. No common opponent links the three Irish entries. Kilcullen and Castle Villa do share County Kildare, which is context, not a result.",
+    depth: "Ireland, one step",
+    text: "The other three clubs in that division are Prosperous United, Maynooth United and Derry Rovers. Kilcullen took four league points from Prosperous (2–2, 4–0) and beat Maynooth 5–0, 6–3 and 7–0 in the cup final. Castle Villa drew Prosperous 1–1 and 3–3, then lost to them 0–2 in the cup and 3–4 in the shield, and beat Maynooth 3–0 and 4–2. St Patricks are not in the division. Prosperous, Maynooth and Derry have no published match against Järna, Spånga or Gavà, so the chain stops at one step.",
   },
   {
     depth: "Spain and across borders",
@@ -481,7 +583,7 @@ export const LEAGUES = [
   },
   {
     country: "Ireland",
-    body: "Kilcullen and Castle Villa sit in Kildare community football. The underage league publishes girls’ tables at younger ages and did not show an under-16 girls’ division. Cups are real — Kilcullen reached a final — and the paper trail is thin. Irish results at this age often live on club social pages rather than a federation table. What was not on a page that could be opened is not in the model.",
+    body: "Kilcullen and Castle Villa both play KDUL U16 Girls, a five-team Kildare division that finished in 2026. Kilcullen won it on 19 points and won the cup 7–0. Castle Villa were second on 17. The bottom two, Maynooth and Derry Rovers, conceded 31 and 27. That is a real league, and it is a small one. It is not treated as the same standard as a Stockholm series until a common opponent says so. St Patricks are not in this division.",
   },
   {
     country: "Spain",
@@ -499,7 +601,8 @@ export const METHOD = [
 
 export const ASSUMPTIONS = [
   "Spånga’s entry is F11-U Gul, confirmed on the club page as the F2011U 1 squad in F2011-2A. They are born in 2011, so they are a year young for Girls 2010. The model uses that season and does not treat them as an F10 team.",
-  "St Patricks FC is Irish because the official schedule card carries the Irish flag. The club itself is unidentified.",
+  "Kilcullen on the KDUL U16 Girls page, team 160768, is the Cambrils side. The 23 August 2026 cup final against Maynooth is the final the Diary named, and the score is 7–0. Castle Villa in that division play at Mullarney Park, so they are the Castledermot club.",
+  "St Patricks FC is Irish because the official schedule card carries the Irish flag. The club itself is unidentified, and it is not one of the five teams in KDUL U16 Girls.",
   "Non-Spånga pairings were read from the official group page, which blocks a plain download. All five Spånga group lines match the club travel sheet on date, time, field and opponent. The other ten games are the rest of that same grid.",
   "Hotel name, rooming and the Sunday play-off opponent depend on documents that were not in the PDF.",
 ];

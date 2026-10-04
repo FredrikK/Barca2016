@@ -56,6 +56,17 @@ if (!teamById("jarna").players.some((player) => player.name === "Sofia Vall")) {
   throw new Error("Vall missing");
 }
 
+const kilcullen = teamById("kilcullen");
+if (!kilcullen.results.some((result) => result.score.includes("7–0"))) {
+  throw new Error("Kilcullen cup final missing");
+}
+if (!kilcullen.results.some((result) => result.score === "Kilcullen 0–2 Castle Villa")) {
+  throw new Error("Kilcullen league loss missing");
+}
+if (!teamById("castlevilla").results.some((result) => result.score === "Castle Villa 3–5 Kilcullen")) {
+  throw new Error("Castle Villa return game missing");
+}
+
 const phone = JSON.stringify({ TEAMS, MATCHES });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
   throw new Error("personal phone number leaked into the data");

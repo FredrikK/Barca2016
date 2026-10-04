@@ -160,7 +160,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. The club still unidentified is St Patricks FC.
+          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. Kilcullen won KDUL U16 Girls and the cup. Castle Villa finished second in that division. St Patricks FC is still unidentified.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">See the order</button></div>
         </div>
       </div>
@@ -256,7 +256,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Spånga’s number is a 2011 side playing up into Girls 2010, with 56 goals in 16 series games. The three Irish entries sit below that group.
+          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Kilcullen won a five-team Kildare U16 girls division and the cup, and Castle Villa were second. They have already split two league games, 2–0 and 5–3. Both still sit below the top three, because that division has not been linked to a Swedish or Catalan opponent. St Patricks are not in it.
         </div>
       </div>
       <div class="section">
