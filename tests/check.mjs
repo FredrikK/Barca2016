@@ -48,12 +48,59 @@ spanga.forEach((match, index) => {
 });
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,gava,spanga,kilcullen,castlevilla,stpatricks") {
+if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 
-if (!teamById("jarna").players.some((player) => player.name === "Sofia Vall")) {
-  throw new Error("Vall missing");
+const jarna = teamById("jarna");
+if (!jarna.players.some((player) => player.name === "Sofia Vall" && player.number === "10")) {
+  throw new Error("Vall missing from the 2026 roster");
+}
+if (jarna.players.length !== 17) throw new Error("Järna roster length");
+
+const expectedRosters = {
+  jarna: 17,
+  gava: 20,
+  kilcullen: 18,
+  spanga: 17,
+  castlevilla: 19,
+  stpatricks: 17,
+};
+for (const [id, count] of Object.entries(expectedRosters)) {
+  const team = teamById(id);
+  if (team.players.length !== count) throw new Error(`${id} roster length ${team.players.length}`);
+  if (!team.sources.some((source) => source.label === "Tournament roster")) {
+    throw new Error(`${id} missing tournament roster source`);
+  }
+}
+
+const spangaTeam = teamById("spanga");
+if (!spangaTeam.players.some((player) => player.name === "Mira Drougge" && player.number === "10")) {
+  throw new Error("Spånga roster missing Mira Drougge");
+}
+if (!spangaTeam.staff.includes("Thomas Gustafsson") || !spangaTeam.staff.includes("Malin Drougge")) {
+  throw new Error("Spånga coaches missing");
+}
+const spangaText = JSON.stringify(spangaTeam);
+if (spangaText.includes("Vendela") || spangaText.includes("Michelle Rojas") || spangaText.includes("Persbeck")) {
+  throw new Error("Spånga page still names people who are not on the tournament roster");
+}
+
+if (!teamById("castlevilla").players.some((player) => player.name === "Abbie Landon" && player.number === "11")) {
+  throw new Error("Castle Villa roster missing Landon");
+}
+if (!teamById("gava").staff.includes("Ania Torres Torres")) throw new Error("Gavà coach missing");
+if (!teamById("gava").players.some((player) => player.name === "Noa Mostazo Salvatierra")) {
+  throw new Error("Gavà roster spelling");
+}
+if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
+  throw new Error("Gavà division missing");
+}
+if (teamById("gava").rank !== 3 || teamById("spanga").rank !== 2) {
+  throw new Error("Gavà should be third and Spånga second");
+}
+if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
+  throw new Error("Kilcullen shirt numbers should stay 0, as printed");
 }
 
 const kilcullen = teamById("kilcullen");
@@ -66,6 +113,12 @@ if (!kilcullen.results.some((result) => result.score === "Kilcullen 0–2 Castle
 if (!teamById("castlevilla").results.some((result) => result.score === "Castle Villa 3–5 Kilcullen")) {
   throw new Error("Castle Villa return game missing");
 }
+
+const pats = teamById("stpatricks");
+if (!pats.players.some((player) => player.name === "Ciara Cahoon" && player.number === "7")) {
+  throw new Error("St Patricks roster missing Cahoon");
+}
+if (pats.players.length !== 17) throw new Error("St Patricks roster length");
 
 const phone = JSON.stringify({ TEAMS, MATCHES });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {

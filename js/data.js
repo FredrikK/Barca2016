@@ -42,11 +42,11 @@ export const META = {
 };
 
 const jarnaComponents = { results: 74, league: 52, pathway: 70, tournament: 78 };
-const gavaComponents = { results: 50, league: 78, pathway: 82, tournament: 72 };
+const gavaComponents = { results: 50, league: 62, pathway: 78, tournament: 72 };
 const kilcullenComponents = { results: 70, league: 58, pathway: 48, tournament: 42 };
 const spangaComponents = { results: 70, league: 62, pathway: 66, tournament: 48 };
 const villaComponents = { results: 62, league: 56, pathway: 46, tournament: 40 };
-const patsComponents = { results: 50, league: 42, pathway: 35, tournament: 40 };
+const patsComponents = { results: 50, league: 44, pathway: 40, tournament: 42 };
 
 export const TEAMS = [
   {
@@ -76,58 +76,34 @@ export const TEAMS = [
         "No formation or match report describes how they line up. The scorelines say they are dangerous when the game opens and lose clearly to well-organised Nordic teams.",
       points: [
         "At Gothia 2025 they scored 15 goals in three group games, including 7–0 and 5–1.",
-        "Against Frösö IF the goals were shared: Sofia Vall (3' and 35'), Josefine Malmia (12'), Valentina Saavedra (14') and Freja Goddard (20'). The attack is not a one-player team on a good day.",
+        "Against Frösö IF the goals were shared: Sofia Vall (3' and 35'), Josefine Malmia (12'), Valentina Saavedra (14') and Freja Goddard (20'). Vall is 10, Malmia is 12 and Goddard is 8 on the 2026 roster. Saavedra is not on this list.",
         "They still lost the matches that mattered against structure: Stabæk 4–0, Stureby 0–4, Sjöstaden 3–5, Täby 0–1, Phénix de Québec 0–1.",
-        "Sofia Vall scored all four of Järna’s goals at this tournament in 2024. Stopping her supply does not, by itself, stop the 2025 version of the team.",
+        "Sofia Vall scored all four of Järna’s goals at this tournament in 2024. She is number 10 on the 2026 roster. No positions are printed.",
       ],
     },
     approach:
       "Treat the first 10 minutes as the match. Games here are only 40 minutes. Järna’s best public games became blowouts once they scored early. A compact block and no early transition goal is the pattern that has actually beaten them. If the game stretches, they have several finishers.",
     players: [
-      {
-        name: "Sofia Vall",
-        number: "10",
-        role: "Reference attacker",
-        why: "Marked with four goals on the October 2024 tournament roster. Järna scored four in that tournament, so every goal was hers. She also scored twice against Frösö IF at Gothia 2025.",
-      },
-      {
-        name: "Josefine Malmia",
-        number: "12",
-        role: "Attacker who has scored on this stage",
-        why: "On the 2024 roster and scored the 2–1 against Frösö IF at Gothia 2025 (12').",
-      },
-      {
-        name: "Valentina Saavedra",
-        number: "11",
-        role: "Attacker who has scored on this stage",
-        why: "On the 2024 roster. The Gothia live page spells the Frösö goal (14') as Valentina Saveedra. Treated as the same player.",
-      },
-      {
-        name: "Freja Goddard",
-        number: "—",
-        role: "Gothia scorer, not on the 2024 roster",
-        why: "Scored the 4–1 against Frösö IF (20'). She is not the same public entry as Freja Wahlberg (number 15 in 2024). Do not merge them.",
-      },
-      {
-        name: "Siri Alexandersson",
-        number: "7",
-        role: "Named in the Gothia match stats",
-        why: "On the 2024 roster and listed beside the scorers on the Frösö match page. No goal time was printed for her in the text that loaded.",
-      },
-      {
-        name: "Imra Hansson",
-        number: "26",
-        role: "Public voice of the 2024 trip",
-        why: "Quoted by Länstidningen about the fundraising that paid for the 2024 Barcelona cup. She was on that roster. That is not a scouting grade.",
-      },
-      {
-        name: "Kelly Wahlberg",
-        number: "30",
-        role: "Named in local coverage",
-        why: "Named in the same February 2025 article and on the 2024 roster. No goals were attached to her name.",
-      },
+      { name: "Molly Haglöf", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ebba Boija", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Anna Auregård", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 2024 coaches included Kjell Magnus Auregård. This page does not say they are related." },
+      { name: "Patricia Okoro-Omaka", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Alexis Abrahamsson", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Fanny Fredriksson", number: "7", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Freja Goddard", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page. She scored the 4–1 against Frösö IF at Gothia 2025 (20'). She was not on the 2024 roster." },
+      { name: "Ritta Chamoun", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
+      { name: "Sofia Vall", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 2024 roster marked her with four goals, and Järna scored four in that tournament. She scored at 3' and 35' against Frösö IF at Gothia 2025." },
+      { name: "Josefine Malmia", number: "12", role: "Tournament roster", why: "Named on the Girls 2010 team page. She scored the 2–1 against Frösö IF at Gothia 2025 (12')." },
+      { name: "Lea Vang", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page. The coach is Are Vang. The page does not say they are related." },
+      { name: "Pavlina Gospodinova", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Rebecka Kesenci", number: "19", role: "Tournament roster", why: "Named on the Girls 2010 team page. The February 2025 newspaper caption names her. She was not on the 2024 roster." },
+      { name: "Emma Gustavsson", number: "21", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Julia Kucheriavyi", number: "22", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Cecilia Jonsson", number: "23", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Imra Hansson", number: "27", role: "Tournament roster", why: "Named on the Girls 2010 team page. Länstidningen quoted her about the fundraising for the 2024 trip. Her number on that roster was 26." },
     ],
-    staff: "October 2024 coaches on the official roster: Kjell Magnus Auregård and Esteban Ricardo Saveedra. No 2026 coach was found.",
+    playersNote: "Numbers and names are copied from the 2026 tournament team page. No positions are printed. Numbers 2, 11, 13, 16, 17, 18 and 20 are unused.",
+    staff: "Coach Are Vang. Assistant coach Lars Fredrik Nicklas Larsson. Both titles are on the tournament page.",
     results: [
       { date: "19 Oct 2024", comp: "This cup, group", score: "Stabæk JF 4–0 Järna SK", note: "Printed on the team page." },
       { date: "19 Oct 2024", comp: "This cup, group", score: "Järna SK 0–1 Täby FK", note: "Hedda Hamrin. Täby won the group with 12 points." },
@@ -140,9 +116,8 @@ export const TEAMS = [
       { date: "17 Jul 2025", comp: "Gothia, 1/64", score: "Järna SK 0–4 Stureby FF", note: "Play off A. Stureby is a Stockholm club." },
     ],
     recordLine: "Barcelona 2024: 10th. 1 win, 1 draw, 3 losses, 4–9. Gothia 2025 group: 2nd, 2 wins, 1 loss, 15–6, then out 0–4.",
-    otherNames:
-      "Rebecka Kesenci is named in the 2025 newspaper caption and was not on the 2024 tournament roster. A September 2026 article about a Järna girls’ team that plays boys’ leagues describes 11–12 and 14–15 year olds. That is a younger group, not this one.",
     sources: [
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12782/jarna-sk" },
       { label: "Barcelona 2024 team page", url: "https://www.footballcupbarcelona.com/en/results/2024-OCT-1/G10/team/11058" },
       { label: "Järna 0–1 Täby", url: "https://www.footballcupbarcelona.com/en/results/2024-OCT-1/G10/match/9799" },
       { label: "Järna 0–1 Phénix de Québec", url: "https://www.footballcupbarcelona.com/en/results/2024-OCT-1/G10/match/9797" },
@@ -159,18 +134,18 @@ export const TEAMS = [
     flag: "ct",
     place: "Gavà, Baix Llobregat, Catalonia",
     colors: ["#8c1d40", "#f2c14e"],
-    rank: 2,
+    rank: 3,
     components: gavaComponents,
     index: indexOf(gavaComponents),
-    range: [50, 82],
-    confidence: 38,
-    confidenceLabel: "Low",
+    range: [54, 70],
+    confidence: 54,
+    confidenceLabel: "Medium on the division, low on the score",
     verified:
       "The entry is Escola de Futbol Gavà, the Villarreal CF partner school in Gavà. It is not Villarreal CF’s own girls’ cadete team in Castellón, and it is not the senior club CF Gavà.",
     identity:
       "Escola de Futbol Gavà was founded in 2000. On 30 December 2021 Villarreal announced a collaboration agreement. Gavà’s sporting director Ramón López is quoted in that piece. A Villarreal campus article in February 2026 still calls EF Gavà an associated club. The tournament name EF Gava Villarreal CF is the name Gavà uses for these entries.",
     league:
-      "Girls born in 2010 are juvenil in the Catalan federation’s 2026–27 age table (juvenil femenino covers 2008, 2009 and 2010). No classification was found for an Escola F. Gavà juvenil or cadete femenino side made up of the 2010 age group. Their division this season is unknown.",
+      "The 2026–27 licence table puts girls born in 2010 in juvenil femenino, with 2008 and 2009. This club has no juvenil femenino team. The Salou squad is licensed in Segona Divisió Femení Cadet F11, Grup 8, a 15-team group. On 4 October 2026 that table showed Escola F. Gavà A with 0 games. Santboià had played and won 3–2, Viladecans B and Ciudad Cooperativa had drawn 1–1, and Atlètic Sant Just had lost 2–3. Gavà’s place at 14th is an empty row, not a result. Jornada 1 is against Espluguenc and jornada 2 is away at Casablanca. No score for Gavà was on the page.",
     style: {
       status: "Club method, not a scout",
       formation: "Not published",
@@ -180,21 +155,46 @@ export const TEAMS = [
         "Expect them to try to play, because that is the published point of the partnership. That is a prior, not a video scout.",
         "Do not copy a Villarreal first-team shape onto this team. The convenio does not publish a formation for the 2010 girls.",
         "They are the home side: no flight, familiar climate, and the fields are in their region.",
-        "An older Gavà girls’ juvenil team (born 2007–2009) played Segona Divisió in 2025–26. Those players are too old for this age class, apart from a possible 2009 inside the four-player dispensation. They are not listed here as the opposition.",
+        "The 2026 tournament page lists 20 players and two coaches. No positions are printed. The federation cadet list that loaded has 17 names and overlaps this squad. An older Gavà girls’ juvenil team played Segona Divisió in 2025–26. Those players and their coaches are not this list.",
       ],
     },
     approach:
-      "The model has Gavà two points behind Järna only because Järna has matches and Gavà does not. On the day Gavà can be the best team in the group. For Spånga this is the last group game, Sunday 11:00. If Gavà are still playing for first place they will not sit off. The practical problem is their rest defence if they do keep the ball: wait for the pass that sticks, and don’t spend the first half chasing wide centre-backs.",
-    players: [],
-    playersNote:
-      "No player born in 2010 is named in a public squad list that could be tied to this entry. Names from Gavà’s older juvenil femenino, and from a 2014 girls’ cup team coached by Rubén Raya López, belong to other age groups and are left out on purpose.",
-    staff: "No coach is publicly tied to the 2010 girls. Ramón López is the school’s sporting director in the 2021 Villarreal announcement, not the proven match coach of this squad.",
+      "Gavà are third because the division is now known and they still have no score. They are a Villarreal partner school in a 15-team Segona Divisió cadet group, not a juvenil side with a table. For Spånga this is the last group game, Sunday 11:00. The coaches on the tournament page are Ania Torres Torres and David Pelay Cortes. The federation page did not print a coach. No shape is printed. If they are still playing for a place they will not sit off. The practical problem is their rest defence if they do keep the ball: wait for the pass that sticks, and don’t spend the first half chasing wide centre-backs.",
+    players: [
+      { name: "Lluna Puente Carnice", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Candela Ruiz Rosa", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Valentina Romero Perona", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Anna Chafer Tercero", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Noa Verdu Leal", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Carlota Cañada Corrales", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Idaira Parra Molina", number: "7", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Olivia Delgado Tarrega", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Thais Ibañez Vargas", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
+      { name: "Valentina Bousetta Fernandez", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 10 is not a published position." },
+      { name: "Julietta Puigdomenech Navia", number: "11", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ariadna Cabello Arceredillo", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Alba Romero Ternero", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Laia Premuda Medina", number: "16", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Noa Mostazo Salvatierra", number: "17", role: "Tournament roster", why: "Named on the Girls 2010 team page. The federation cadet list spells the surname Mostazo." },
+      { name: "Valentina Peacock", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Marina Garcia Caseiro", number: "19", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Mila Lorch Restiau", number: "20", role: "Tournament roster", why: "Named on the Girls 2010 team page. The federation list that loaded shows a player named Mila and does not print the rest of the name." },
+      { name: "Adriana Vila Mengual", number: "21", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Katalella Ventura Lara", number: "22", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+    ],
+    playersNote: "Numbers and names are copied from the tournament team page. No positions are printed. Numbers 12 and 13 are unused.",
+    otherNames:
+      "The federation cadet list that loaded has 17 names. It includes Carla Helena Millán Menis, who is not on the Salou roster. Four Salou names were not on that list: Valentina Romero Perona, Noa Verdu Leal, Idaira Parra Molina and Olivia Delgado Tarrega.",
+    staff: "Coach Ania Torres Torres. Coach David Pelay Cortes. Both titles are on the tournament page. The federation cadet page did not print a coach.",
     results: [],
-    recordLine: "No published match for the 2010 girls was found. The ranking uses a neutral results score of 50, then adds the academy and home context.",
+    recordLine: "Licensed in Segona Divisió Femení Cadet F11, Grup 8. On 4 October 2026 the table showed 0 games. The results score stays neutral.",
     contextResults: [
       { date: "2025–26", comp: "Older age group only", score: "Escola F. Gavà A in Segona Divisió Femení Juvenil, Grup 8", note: "Born 2007–2009 under that season’s licence table. Not this tournament team. Sample: 3–1 and 2–0 vs Begues, 2–1 at Sant Just, 1–3 vs Viladecans, and a 5–2 acta at Fontsanta-Fatjó." },
     ],
     sources: [
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/13380/ef-gava-villarreal-cf" },
+      { label: "Cadet girls licence list", url: "https://www.fcf.cat/clubs/1255/categories/58156838" },
+      { label: "Segona Divisió Cadet Femení, Grup 8", url: "https://www.fcf.cat/ca/competicio?temporadaId=22&disciplinaId=19308237&competicioId=59922684&grupId=59924024" },
       { label: "Villarreal convenio, 30 Dec 2021", url: "https://villarrealcf.es/el-villarreal-expande-sus-horizontes-en-futbol-formativo/" },
       { label: "Still a partner club, Feb 2026", url: "https://campusytorneos.villarrealcf.es/es/yellow-cup-easter/multimedia/noticias/item/2567-talento-desde-el-baix-llobregat" },
       { label: "FCF ages 2026–27", url: "https://www.fcf.cat/docs/edat2026-2027.pdf" },
@@ -235,40 +235,27 @@ export const TEAMS = [
     approach:
       "Spånga meet them Sunday at 09:00, first game of the day, after three Saturday matches. They are league winners and cup winners in a five-team Kildare division, not an unknown. The only team that shut them out in that league was Castle Villa, 2–0 on 30 April, with Abbie Landon scoring both. Kilcullen won the return 5–3. If Saturday’s 13:10 game is another open score, Sunday morning will be too.",
     players: [
-      {
-        name: "Ella-Louise Donnelly",
-        number: "—",
-        role: "Two goals in the 5–0",
-        why: "The 19 April card lists Ella-louise donnelly twice in the 5–0 against Maynooth. The registered squad has E. donnelly. A December 2025 club award named Ella Louise Donnelly as Players’ Player. Shirt number unpublished.",
-      },
-      {
-        name: "Amelia Reddy",
-        number: "—",
-        role: "Scorer in the 5–0, club player of the year",
-        why: "The same card lists Ameila Reddy, the spelling on the league tooltip. The squad list has A. Reddy. The December 2025 awards named Amelia Reddy as Player of the Year.",
-      },
-      {
-        name: "Katie Marshall",
-        number: "—",
-        role: "Scorer in the 5–0",
-        why: "Listed on the 19 April goal tooltip. The squad register has K. Marshall.",
-      },
-      {
-        name: "Eila O'Byrne",
-        number: "—",
-        role: "Scorer in the 5–0",
-        why: "Listed on the 19 April goal tooltip. The squad register has E. O'Byrne.",
-      },
-      {
-        name: "Izzy Mae Middleton",
-        number: "—",
-        role: "Named on the 2–0 at Derry",
-        why: "The 8 May card, Derry Rovers 0–2 Kilcullen, names Izzy Mae Middleton. The squad register has I. Middleton. The card does not say she scored both.",
-      },
+      { name: "Ella-Louise Donnelly", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 19 April card lists Ella-louise donnelly twice in the 5–0 against Maynooth. A December 2025 award named Ella Louise Donnelly as Players’ Player." },
+      { name: "Isabel Connolly", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is listed as Rob Comnolly. The page does not say they are related." },
+      { name: "Lauren Dunne", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Zoe Corrigan", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Katie Marshall", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 19 April goal tooltip lists Katie Marshall." },
+      { name: "Maya Tyrrell", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is John Tyrrell. The page does not say they are related." },
+      { name: "Ciara Kirwin", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Emily Deane", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Amelia Reddy", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 19 April tooltip spells a scorer Ameila Reddy. The December 2025 awards named Amelia Reddy as Player of the Year." },
+      { name: "Sophie Grant", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Emily Kate Monks", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Katie Duignan", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Gracie-Mae Brady", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Izzy Middleton", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 8 May card, Derry Rovers 0–2 Kilcullen, names Izzy Mae Middleton." },
+      { name: "Ella O'Byrne", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 19 April tooltip spells a scorer Eila O'Byrne." },
+      { name: "Amelia Matthews", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Caoimhe Wilson", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sophia Dempsey", number: "0", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
     ],
-    playersNote:
-      "The competition page registers 18 players by initial and surname. Only the names written on goal tooltips are listed here. No formation or shirt number is published. The December 2025 under-14 awards (Molly Furlong, Emily Browne, Lauren Barrett, Bailey Conn) are a younger group and are not this squad.",
-    staff: "No under-16 coach is named on the league page or in the Diary note. Yvonne Carey Tyrrell wrote the fundraising note. The page does not call her the coach.",
+    playersNote: "Numbers and names are copied from the tournament team page. The page prints 0 as the shirt number for every player, so no shirt number is confirmed. No positions are printed. The December 2025 under-14 awards are a younger group and are not on this list.",
+    staff: "Coach Rob Comnolly. Coach John Tyrrell. Both titles are on the tournament page. The page spells the first coach Comnolly.",
     results: [
       { date: "19 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 5–0 Maynooth United", note: "Kilcullen Community Centre. Scorers on the card: Katie Marshall, Ella-Louise Donnelly 2, Amelia Reddy, Eila O'Byrne." },
       { date: "30 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 0–2 Castle Villa", note: "Kilcullen Community Centre. Abbie Landon scored both. Kilcullen’s only league defeat." },
@@ -293,6 +280,7 @@ export const TEAMS = [
       ],
     },
     sources: [
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12981/kilcullen-afc" },
       { label: "U16 Girls fixtures, team 160768", url: "https://soccerleagues.comortais.com/fixtures.aspx?teamID=160768&compId=13331&oid=1012" },
       { label: "U16 Girls table", url: "https://soccerleagues.comortais.com/competition.aspx?id=13331&oid=1012" },
       { label: "U16 Girls Cup, including the 7–0", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13428&oid=1012" },
@@ -308,7 +296,7 @@ export const TEAMS = [
     flag: "se",
     place: "Spånga, Stockholm",
     colors: ["#8d6b12", "#f4efe6"],
-    rank: 3,
+    rank: 2,
     yours: true,
     components: spangaComponents,
     index: indexOf(spangaComponents),
@@ -330,16 +318,32 @@ export const TEAMS = [
         "They beat MHFF 8–4 at home and 5–3 away in May, and won 7–2 at Kungsängen on 1 May.",
         "Bollstanäs, the team above them, has beaten them in the three meetings found: 7–2 on 11 April, 2–1 on 29 August, and 3–2 on 5 September.",
         "After 10 games they led the series, 7 wins, 1 draw, 2 losses, 46–22. The later table has them third after a harder autumn.",
-        "Lineups on Bollstanäs and Kungsängen match pages are those clubs’ players. They are not this squad.",
+        "The tournament page lists 17 players and two coaches. No positions are printed. Lineups on Bollstanäs and Kungsängen match pages are those clubs’ players. They are not this squad.",
       ],
     },
     approach:
-      "This is your group, and you are a year young for it. The public record does not know your shape. What it does know is that games against your own age open up: you have won 8–4, 5–3 and 7–2, and you have also lost 2–7 to the league leaders. Järna and Gavà are the matches where that age gap is the question. Saturday is still three games in about four hours, 09:50, 11:30 and 13:10.",
-    players: [],
-    playersNote:
-      "The club page does not name the 17 players. Opponent lineups were not copied across, and the F2011U 2 squad is a different team.",
-    staff:
-      "On 18 September 2025 the club announced Vendela Persbeck and Michelle Rojas as coaching reinforcement for that autumn. The club says both play in Elitettan and have Damallsvenskan and youth-national-team experience. Persbeck’s published 2025 Elitettan record is as a goalkeeper: 9 matches for Bollstanäs and 1 for Gamla Upsala, after 9 Damallsvenskan matches for AIK in 2024. That post does not say they are the 2026 match coaches in Salou. Malin Drougge is the contact the club lists for friendlies. Her email is not repeated here.",
+      "This is your group, and you are a year young for it. The tournament page names the squad and the coaches, Thomas Gustafsson and Malin Drougge. It does not print a shape. What the league record knows is that games against your own age open up: you have won 8–4, 5–3 and 7–2, and you have also lost 2–7 to the league leaders. Järna and Gavà are the matches where that age gap is the question. Saturday is still three games in about four hours, 09:50, 11:30 and 13:10.",
+    players: [
+      { name: "Alma Karlsson Rydberg", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ellen Widén", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Blanca Montes Karlsson", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Clara Eld", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sara Gustafsson Arrhén", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is Thomas Gustafsson. The page does not say they are related." },
+      { name: "Elvira Mattes", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Isabelle Ahlmalm", number: "7", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Felicia Orostica", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Mira Drougge", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is Malin Drougge. The page does not say they are related." },
+      { name: "Edessa Baykal", number: "11", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Louise Bruhn Axäll", number: "12", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Kristina Gustafsson", number: "13", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is Thomas Gustafsson. The page does not say they are related." },
+      { name: "Ellie Åsbrink", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Smilla Haglund Lundstedt", number: "17", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Lova Hedberg Andersson", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Felicia Jonsson", number: "20", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Olivia Norberg", number: "22", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+    ],
+    playersNote: "Numbers and names are copied from the tournament team page. No positions are printed. Numbers 9, 15, 16, 19 and 21 are unused.",
+    staff: "Coach Thomas Gustafsson. Coach Malin Drougge. Both titles are on the tournament page.",
     results: [
       { date: "11 Apr 2026", comp: "Stockholm F2011-2A", score: "Bollstanäs SK 7–2 Spånga IS FK F2011U 1", note: "Bollstanäs IP 1. The lineup on that page is Bollstanäs." },
       { date: "1 May 2026", comp: "Stockholm F2011-2A", score: "Kungsängens IF 2–7 Spånga IS FK F2011U 1", note: "Kungsängens IP 2." },
@@ -362,12 +366,12 @@ export const TEAMS = [
       ],
     },
     sources: [
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/13115/sp-nga-is" },
       { label: "F11-U Gul club page", url: "https://www.spangafotboll.se/start/?ID=466714" },
       { label: "F2011-2A table", url: "https://www.laget.se/Malarhojden-HagerstenFF-MHFFF2011/Division/Standings/577175" },
       { label: "MHFF results, including 8–4 and 5–3", url: "https://www.laget.se/Malarhojden-HagerstenFF-MHFFF2011/Division/Games/577175" },
       { label: "Kungsängen 2–7", url: "https://www.kifen.se/kungsangensif-fotboll-u-15flick/match/20027367/spanga-is-fk-f2011u-1" },
       { label: "Bollstanäs 7–2", url: "https://www.svenskalag.se/bollstanassk-fotboll-f15u2011/match/20023066/spanga-is-fk-f2011u-1" },
-      { label: "Coaching note, 18 Sep 2025", url: "https://www.spangafotboll.se/nyheter/?ID=466715&NID=1293736" },
     ],
   },
   {
@@ -402,36 +406,30 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Spånga play them Saturday at 11:30, the middle of three games, on Field 10. They are the league runners-up, and they have already played Kilcullen twice. The series is one win each. Watch whether Abbie Landon is the player they look for: she scored both in the 2–0. Kilcullen against them at 13:10 the same day is the third meeting of 2026, and you will have already played Castle Villa by then.",
+      "Spånga play them Saturday at 11:30, the middle of three games, on Field 10. They are the league runners-up, and they have already played Kilcullen twice. The series is one win each. Abbie Landon is number 11 on the tournament roster. She scored both in the 2–0. Kilcullen against them at 13:10 the same day is the third meeting of 2026, and you will have already played Castle Villa by then.",
     players: [
-      {
-        name: "Abbie Landon",
-        number: "—",
-        role: "Both goals in the 2–0 at Kilcullen",
-        why: "The 30 April card lists Abbie Landon twice in Castle Villa’s 2–0 win. That is Kilcullen’s only league defeat. No shirt number is published.",
-      },
-      {
-        name: "Lauren O'Sullivan",
-        number: "—",
-        role: "Scorer in the 3–1 at Derry",
-        why: "Named with Kyia Bird and Annabelle Leigh on the 15 May card, Derry Rovers 1–3 Castle Villa.",
-      },
-      {
-        name: "Kyia Bird",
-        number: "—",
-        role: "Scorer in the 3–1 at Derry",
-        why: "On the same 15 May goal tooltip. No other goal of hers is itemised on the pages opened.",
-      },
-      {
-        name: "Annabelle Leigh",
-        number: "—",
-        role: "Scorer in the 3–1 at Derry",
-        why: "On the same 15 May goal tooltip.",
-      },
+      { name: "Lena Daskiewicz", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Amelia Cosgrave", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sofia Frusci", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ciara Kelly", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Kate Kelly", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Gráinne Horan", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Kacie Mooney", number: "7", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Lauren O'Sullivan", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 15 May card lists her in the 3–1 at Derry Rovers, with Kyia Bird and Annabelle Leigh." },
+      { name: "Lucy Fadian", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
+      { name: "Ellen Byrne", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 10 is not a published position." },
+      { name: "Abbie Landon", number: "11", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 30 April card lists her twice in the 2–0 at Kilcullen. That is Kilcullen’s only league defeat." },
+      { name: "Ruby Sheridan", number: "12", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Annabelle Leigh", number: "13", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 15 May card lists her in the 3–1 at Derry Rovers." },
+      { name: "Sibéal O'Neill", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Lily Foxe", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sarah Cogan", number: "16", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Jessica Clow", number: "17", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Grace Murphy", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page. A coach is Holly Evelyn Murphy. The page does not say they are related." },
+      { name: "Kyia Bird", number: "19", role: "Tournament roster", why: "Named on the Girls 2010 team page. The 15 May card lists Kyia Bird in the 3–1 at Derry Rovers." },
     ],
-    playersNote:
-      "These four names are the scorers written on the league cards. A full Castle Villa squad list was not on the pages opened. Holly and John are Friday contacts for the U15 girls on the club site. They are not titled as the U16 coach, and their numbers are not repeated here.",
-    staff: "No U16 girls coach is named on the league pages.",
+    playersNote: "Numbers and names are copied from the tournament team page. No positions are printed.",
+    staff: "Coach Holly Evelyn Murphy. Coach Aisling Oreilly. Both titles are on the tournament page.",
     results: [
       { date: "26 Apr 2026", comp: "KDUL U16 Girls", score: "Castle Villa 1–1 Prosperous United", note: "Mullarney Park." },
       { date: "30 Apr 2026", comp: "KDUL U16 Girls", score: "Kilcullen 0–2 Castle Villa", note: "Kilcullen Community Centre. Abbie Landon 2." },
@@ -456,6 +454,7 @@ export const TEAMS = [
       ],
     },
     sources: [
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12851/castle-villa-fc" },
       { label: "U16 Girls fixtures", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13331&oid=1012" },
       { label: "U16 Girls table", url: "https://soccerleagues.comortais.com/competition.aspx?id=13331&oid=1012" },
       { label: "U16 Girls Cup", url: "https://soccerleagues.comortais.com/fixtures.aspx?compId=13428&oid=1012" },
@@ -469,41 +468,63 @@ export const TEAMS = [
     short: "St Patricks",
     country: "Ireland",
     flag: "ie",
-    place: "Club not identified",
+    place: "Graiguecullen, County Carlow — best match",
     colors: ["#1f7a43", "#f4efe6"],
     rank: 6,
     components: patsComponents,
     index: indexOf(patsComponents),
-    range: [30, 72],
-    confidence: 15,
-    confidenceLabel: "Very low",
+    range: [38, 56],
+    confidence: 46,
+    confidenceLabel: "Low on the club, high on the squad list",
     verified:
-      "The group list says St Patricks FC, with no apostrophe. A reading of the official schedule cards put the same Irish flag on St Patricks as on Kilcullen and Castle Villa. That flag could not be re-checked here, because a plain download of the page gets a captcha. No club website, league or girls’ team born in 2010 could be tied to the exact name.",
+      "The tournament publishes this squad. The page is Ireland, St Patricks FC, Girls 2010, with 17 players and two coaches. The best club match is St Patrick’s Boys AFC of Graiguecullen, Carlow. That is not printed on the roster page itself.",
     identity:
-      "Several Irish clubs were checked and do not fit. St Patrick’s Athletic of Dublin uses Athletic, not FC, and its published women’s youth team in 2026 is under-17, about a year older than Girls 2010. A Girls Emerging Talent Programme launched in Dublin in June 2026 with 22 players and no published ages. St Patrick’s Boys of Graiguecullen played the boys’ section of this tournament in 2025. None of those is evidence for this entry.",
+      "Ciara Cahoon is number 7 on the roster. On 28 January 2026 the Carlow Nationalist called her 15, so she is a 2010 birth, the right age for this tournament. Her racing biography says she plays soccer for St Pats in Carlow. St Patrick’s Boys AFC play at The Meadows, Sleaty Street, Graiguecullen. Their boys’ 2011 side played this same tournament in October 2025 under the name St Patrick’s Boys. The girls’ entry drops Boys and says FC. St Patrick’s Athletic of Dublin is a different club, and its women’s youth teams are older than this squad.",
     league:
-      "Not the KDUL U16 Girls division. That table is Kilcullen, Castle Villa, Prosperous, Maynooth and Derry Rovers. St Patricks are not on it. If they are a different Irish community side, the rank stays near the bottom. If they are a Dublin academy entered under a shortened name, the rank is too low. The range 30–72 is the honest version of that.",
+      "No girls’ league table for this squad was found. They are not in KDUL U16 Girls. They are also not in the Carlow juvenile U16 or U15 girls leagues that are open for 2026/27. Those tables are St Anne’s, Hanover Harps, Killeshin and Ballymurphy at U16, and Killeshin, Parkville, Hanover, Vale Wanderers and New Oak at U15. No score from those pages is used.",
     style: {
       status: "Unknown",
       formation: "Not published",
       summary:
-        "No players, coach, formation or match. Inventing a shape would only look like information. Spånga open the tournament against them, so the first ten minutes are the scout.",
+        "The roster gives shirt numbers and nothing else. No shape, no league score, no scorer. Spånga open the tournament against them, so the first ten minutes are still the scout.",
       points: [
-        "Saturday 09:50, Field 1, is Spånga’s first kick. A short tournament punishes a slow start against an unknown team.",
-        "They also play Järna at 11:30 on Saturday. That score, if you can see it or hear it, is the first real ranking evidence of the weekend.",
-        "Do not import the St Patrick’s Athletic under-17 squad. Wrong age group, unconfirmed club.",
+        "Seventeen names are on the list. Number 17 is not used. Niamh O'Rourke is 18.",
+        "Saturday 09:50, Field 1, is Spånga’s first kick. A short tournament punishes a slow start even when the names are known.",
+        "They play Järna at 11:30. That score is the first result you can use to place them against a team with a public record.",
       ],
     },
     approach:
-      "Play your own game for the first twenty minutes and collect information: which side they attack, who takes the second ball, whether the goalkeeper plays short. There is nothing public to confirm before then.",
-    players: [],
-    playersNote: "No player can be named without guessing the club.",
-    staff: "Unknown.",
+      "You know the names and the coach, not the system. Play your own game for the first twenty minutes and see who wears 9 and 10, Leah O'Sullivan and Roisin Murphy, and whether Garry Doody changes the shape after the first goal. There is still no public match to copy a plan from.",
+    players: [
+      { name: "Alex Kelly", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page. No position or league goal is published." },
+      { name: "Caitlin Byrne", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ciara Cox", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Emma Canning", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sophia Rea", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Mia Doody", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page. The head coach is Garry Doody. The page does not say they are related." },
+      { name: "Ciara Cahoon", number: "7", role: "The name that places the club", why: "On the roster. The Carlow Nationalist of 28 January 2026 calls her 15, from Killerig. Her racing page says she plays soccer for St Pats in Carlow." },
+      { name: "Sienna Murnane", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Leah O'Sullivan", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
+      { name: "Roisin Murphy", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 10 is not a published position." },
+      { name: "Aoibhinn Cadinot", number: "11", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Kiyah Mahony", number: "12", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Erika Owens", number: "13", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ellie Walker", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Holly O'Donoghue", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Erin Walker", number: "16", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Niamh O'Rourke", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page. The assistant coach is David O'Rourke. The page does not say they are related." },
+    ],
+    playersNote:
+      "Numbers and names are copied from the tournament team page. No positions are printed. Number 17 is unused.",
+    staff: "Coach Garry Doody. Assistant coach David O'Rourke. Both titles are on the tournament page.",
     results: [],
-    recordLine: "No matched results. Ranked last because there is no positive evidence, not because they were shown to be the weakest.",
+    recordLine: "Roster of 17 is published. No league score was found. Ranked last because the results score stays neutral, not because the squad is unknown.",
     sources: [
-      { label: "Official group page", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/groups" },
-      { label: "Namesake checked and set aside", url: "https://stpatsfc.com/womens-under17s.php" },
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
+      { label: "Ciara Cahoon, 15 in January 2026", url: "https://www.carlow-nationalist.ie/sport/other-sports/ciara-cahoons-race-to-glory_arid-85559.html" },
+      { label: "Plays soccer for St Pats in Carlow", url: "https://ciaracahoonracing.co.uk/" },
+      { label: "St Patrick's Boys AFC, Graiguecullen", url: "https://www.igp-web.com/Carlow/St_Patricks_AFC.htm" },
+      { label: "Carlow U16 girls table, they are not on it", url: "https://soccerleagues.comortais.com/competition.aspx?id=14227&oid=1016" },
     ],
   },
 ];
@@ -572,7 +593,7 @@ export const CHAINS = [
   },
   {
     depth: "Spain and across borders",
-    text: "The 2010 Gavà girls have no published opponent, so they cannot be linked in one, two or three steps. No common opponent was found between Sweden, Ireland and Catalonia.",
+    text: "Gavà’s cadet group includes Santboià, Viladecans B, Ciudad Cooperativa, Atlètic Sant Just, Espluguenc and Casablanca. None of those clubs has a published match against Järna, Spånga, Kilcullen or Castle Villa. The chain still stops inside Catalonia. No common opponent was found between Sweden, Ireland and Catalonia.",
   },
 ];
 
@@ -587,7 +608,7 @@ export const LEAGUES = [
   },
   {
     country: "Spain",
-    body: "The Catalan federation sets the age bands. In 2026–27, girls born in 2010 are juvenil, in a three-year band with 2008 and 2009. A juvenil team is therefore not a pure 2010 squad. Gavà’s 2010 division was not found. The older Gavà girls’ team in Segona Divisió is cited only as the level of the school’s previous girls’ juvenil group, and those players are mostly too old to play here.",
+    body: "The Catalan federation sets the age bands. In 2026–27, girls born in 2010 are juvenil, in a three-year band with 2008 and 2009. Cadet femenino is 2011 and 2012. Escola F. Gavà have no juvenil femenino team. The Salou squad is licensed in Segona Divisió Femení Cadet F11, Grup 8, and had played 0 games on 4 October 2026. The older girls’ juvenil team from 2025–26 is a different squad.",
   },
 ];
 
@@ -600,9 +621,9 @@ export const METHOD = [
 ];
 
 export const ASSUMPTIONS = [
-  "Spånga’s entry is F11-U Gul, confirmed on the club page as the F2011U 1 squad in F2011-2A. They are born in 2011, so they are a year young for Girls 2010. The model uses that season and does not treat them as an F10 team.",
+  "Spånga’s entry is F11-U Gul, confirmed on the club page as the F2011U 1 squad in F2011-2A. They are born in 2011, so they are a year young for Girls 2010. The model uses that season and does not treat them as an F10 team. The people on the Spånga page are the tournament roster, the same rule as the other five teams.",
   "Kilcullen on the KDUL U16 Girls page, team 160768, is the Cambrils side. The 23 August 2026 cup final against Maynooth is the final the Diary named, and the score is 7–0. Castle Villa in that division play at Mullarney Park, so they are the Castledermot club.",
-  "St Patricks FC is Irish because the official schedule card carries the Irish flag. The club itself is unidentified, and it is not one of the five teams in KDUL U16 Girls.",
+  "St Patricks FC has a published roster of 17. The best club match is St Patrick’s Boys AFC, Graiguecullen, Carlow, because Ciara Cahoon is on the roster and plays for St Pats in Carlow. The roster page itself does not print the town, and no girls’ league score was found.",
   "Non-Spånga pairings were read from the official group page, which blocks a plain download. All five Spånga group lines match the club travel sheet on date, time, field and opponent. The other ten games are the rest of that same grid.",
   "Hotel name, rooming and the Sunday play-off opponent depend on documents that were not in the PDF.",
 ];
