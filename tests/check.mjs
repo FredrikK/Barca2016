@@ -52,8 +52,46 @@ if (order.join() !== "jarna,gava,spanga,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 
-if (!teamById("jarna").players.some((player) => player.name === "Sofia Vall")) {
-  throw new Error("Vall missing");
+const jarna = teamById("jarna");
+if (!jarna.players.some((player) => player.name === "Sofia Vall" && player.number === "10")) {
+  throw new Error("Vall missing from the 2026 roster");
+}
+if (jarna.players.length !== 17) throw new Error("Järna roster length");
+
+const expectedRosters = {
+  jarna: 17,
+  gava: 20,
+  kilcullen: 18,
+  spanga: 17,
+  castlevilla: 19,
+  stpatricks: 17,
+};
+for (const [id, count] of Object.entries(expectedRosters)) {
+  const team = teamById(id);
+  if (team.players.length !== count) throw new Error(`${id} roster length ${team.players.length}`);
+  if (!team.sources.some((source) => source.label === "Tournament roster")) {
+    throw new Error(`${id} missing tournament roster source`);
+  }
+}
+
+const spangaTeam = teamById("spanga");
+if (!spangaTeam.players.some((player) => player.name === "Mira Drougge" && player.number === "10")) {
+  throw new Error("Spånga roster missing Mira Drougge");
+}
+if (!spangaTeam.staff.includes("Thomas Gustafsson") || !spangaTeam.staff.includes("Malin Drougge")) {
+  throw new Error("Spånga coaches missing");
+}
+const spangaText = JSON.stringify(spangaTeam);
+if (spangaText.includes("Vendela") || spangaText.includes("Michelle Rojas") || spangaText.includes("Persbeck")) {
+  throw new Error("Spånga page still names people who are not on the tournament roster");
+}
+
+if (!teamById("castlevilla").players.some((player) => player.name === "Abbie Landon" && player.number === "11")) {
+  throw new Error("Castle Villa roster missing Landon");
+}
+if (!teamById("gava").staff.includes("Ania Torres Torres")) throw new Error("Gavà coach missing");
+if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
+  throw new Error("Kilcullen shirt numbers should stay 0, as printed");
 }
 
 const kilcullen = teamById("kilcullen");

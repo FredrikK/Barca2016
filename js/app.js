@@ -12,7 +12,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js?v=pats";
+} from "./data.js?v=roster";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -160,7 +160,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. Kilcullen won KDUL U16 Girls and the cup. Castle Villa finished second in that division. St Patricks have a published roster of 17. The best club match is St Patrick’s of Graiguecullen, Carlow.
+          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. Kilcullen won KDUL U16 Girls and the cup. Castle Villa finished second in that division. Every team in the group has a published roster. St Patricks’ best club match is St Patrick’s of Graiguecullen, Carlow.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">See the order</button></div>
         </div>
       </div>
@@ -256,7 +256,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Kilcullen won a five-team Kildare U16 girls division and the cup, and Castle Villa were second. They have already split two league games, 2–0 and 5–3. Both still sit below the top three, because that division has not been linked to a Swedish or Catalan opponent. St Patricks are not in that Kildare division. Their roster is published, and the best club match is St Patrick’s of Graiguecullen in Carlow.
+          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Kilcullen won a five-team Kildare U16 girls division and the cup, and Castle Villa were second. They have already split two league games, 2–0 and 5–3. Both still sit below the top three, because that division has not been linked to a Swedish or Catalan opponent. St Patricks are not in that Kildare division. Their best club match is St Patrick’s of Graiguecullen in Carlow. Every squad list below is the tournament roster.
         </div>
       </div>
       <div class="section">
@@ -374,12 +374,11 @@ function viewTeam(id) {
           <span class="pill ink">${esc(team.style.status)}</span>
           <p class="small" style="margin-top:8px"><b>Starting formation:</b> ${esc(team.style.formation)}. ${esc(team.style.summary)}</p>
           <ul class="list">${team.style.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
-          ${team.id === "jarna" ? jarnaPitch() : ""}
           ${team.id === "gava" ? gavaPitch() : ""}
         </div>
       </div>
       <div class="section">
-        <h2>Players who show up in the record</h2>
+        <h2>Tournament roster</h2>
         <div class="card pad" style="margin-top:10px">
           ${team.players.length ? team.players.map((player) => `
             <div class="player">
@@ -428,14 +427,6 @@ function tableHtml(table) {
         ${table.rows.map((row) => `<tr class="${row[1].includes("Spånga") ? "you" : ""}">${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}
       </tbody>
     </table>`;
-}
-
-function jarnaPitch() {
-  return `
-    <div class="pitch" aria-label="Illustrative attack, not a lineup">
-      <div class="dot" style="left:50%; top:34%">Vall 10</div>
-      <div class="zone" style="left:12%; width:76%; bottom:18px">Only Sofia Vall is placed. The other scorers have no published positions.</div>
-    </div>`;
 }
 
 function gavaPitch() {
