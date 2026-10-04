@@ -12,7 +12,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js";
+} from "./data.js?v=f11";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -116,7 +116,7 @@ function viewTrip() {
         </div>
       </header>
       <div class="hero">
-        <div class="kicker">Spånga IS · first kick</div>
+        <div class="kicker">Spånga IS F11-U Gul · first kick</div>
         <h2>${clock.started ? "Tournament day" : `${clock.days} days`}</h2>
         <p>${clock.started ? "Group games are underway." : `${clock.hours} hours until Saturday 09:50, Field 1, against St Patricks.`}</p>
         <div class="countdown">
@@ -160,7 +160,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Two things would move it: which Spånga squad is traveling, and which club St Patricks FC actually is.
+          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. The club still unidentified is St Patricks FC.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">See the order</button></div>
         </div>
       </div>
@@ -256,7 +256,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna lead by 2.5 points on results we can read. Gavà’s band is much wider: the academy prior can make them the best team on the day, and a low Catalan division would drop them. Places 3 to 6 are one result apart.
+          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Spånga’s number is a 2011 side playing up into Girls 2010, with 56 goals in 16 series games. The three Irish entries sit below that group.
         </div>
       </div>
       <div class="section">

@@ -44,7 +44,7 @@ export const META = {
 const jarnaComponents = { results: 74, league: 52, pathway: 70, tournament: 78 };
 const gavaComponents = { results: 50, league: 78, pathway: 82, tournament: 72 };
 const kilcullenComponents = { results: 58, league: 48, pathway: 42, tournament: 40 };
-const spangaComponents = { results: 42, league: 60, pathway: 48, tournament: 45 };
+const spangaComponents = { results: 70, league: 62, pathway: 66, tournament: 48 };
 const villaComponents = { results: 50, league: 46, pathway: 44, tournament: 40 };
 const patsComponents = { results: 50, league: 42, pathway: 35, tournament: 40 };
 
@@ -209,7 +209,7 @@ export const TEAMS = [
     flag: "ie",
     place: "Kilcullen, County Kildare",
     colors: ["#c9842a", "#1a2332"],
-    rank: 3,
+    rank: 4,
     components: kilcullenComponents,
     index: indexOf(kilcullenComponents),
     range: [42, 60],
@@ -249,70 +249,72 @@ export const TEAMS = [
   },
   {
     id: "spanga",
-    name: "Spånga IS",
+    name: "Spånga IS F11-U Gul",
     short: "Spånga",
     country: "Sweden",
     flag: "se",
     place: "Spånga, Stockholm",
-    colors: ["#2c5eaa", "#f4efe6"],
-    rank: 4,
+    colors: ["#8d6b12", "#f4efe6"],
+    rank: 3,
     yours: true,
     components: spangaComponents,
     index: indexOf(spangaComponents),
-    range: [36, 58],
-    confidence: 48,
-    confidenceLabel: "Medium on the results, low on which squad",
+    range: [54, 72],
+    confidence: 64,
+    confidenceLabel: "Medium-high on the season, medium on playing up",
     verified:
-      "Spånga IS is the Stockholm club on the group list and on the travel sheet (Stockholm–Frankfurt–Barcelona, 16 October). The sheet does not say which girls’ 2010 squad is on the flight.",
+      "The traveling team is Spånga IS F11-U Gul. The club’s own page for that squad says they play Stockholm F2011-2A in 2026, and the fixtures on that page are in the name Spånga IS FK F2011U 1. The sponsor page calls the same squad Spånga IS FK F2011-U Gul. Kungsängen listed them as Spånga U11 Gul in December 2025. This is not the F10U squad.",
     identity:
-      "Spånga IS FK fields more than one girls’ team born in 2010. In 2025, F10U 1 played Stockholm F2010-2A and F10U 2 played F2010-3A. A trip of this size is more consistent with the higher squad or a mixed select. That is an assumption, and the rank uses it. If the traveling team is F10U 2, this model drops Spånga to last.",
+      "Girls born in 2011. The club describes 17 players who train three times a week, plus matches, and at least three cups. Girls 2010 at this tournament is for players born on or after 1 January 2010, so a 2011 squad is eligible and a year younger than the oldest players in the age class. There is also an F2011U 2 side in F2011-3A. That is a different team, and its results are not used here.",
     league:
-      "Stockholm district series, birth year 2010. 2A is the second tier of that series and 3A is the third. No 2026 table was found for either squad. FOGIS is behind a login.",
+      "Stockholm F2011-2A, the second tier of the 2011 birth-year series. On 4 October 2026 the published table had Spånga 3rd: 16 matches, 9 wins, 1 draw, 6 losses, 56–37, 28 points. Bollstanäs SK U led on 34 points, Enebybergs IF 1 were second on 32.",
     style: {
-      status: "Unknown",
+      status: "Inferred from the 2026 series",
       formation: "Not published",
       summary:
-        "No Spånga formation is public. The two F10U 1 scores that were found are both defeats to Bollstanäs SK 2A, one of them 0–7. That is a sample of two games inside their own division, not a season table.",
+        "No lineup or shape is published for F11-U Gul. The season says they score a lot and also give chances away. 56 goals in 16 games is 3.5 per match. They have conceded 37.",
       points: [
-        "F10U 1, 7 June 2025: Spånga 2–4 Bollstanäs SK 2A, at Spånga IP 4.",
-        "F10U 1, 15 August 2025: Bollstanäs SK 2A 7–0 Spånga, at Bollstanäs IP 1.",
-        "F10U 2 finished 9th in F2010-3A: 16 games, 4 wins, 1 draw, 11 losses, 23–40, 13 points.",
-        "Lineups on the Skå IK and Bollstanäs match pages are the opponents’ squads. They are not Spånga players.",
+        "They beat MHFF 8–4 at home and 5–3 away in May, and won 7–2 at Kungsängen on 1 May.",
+        "Bollstanäs, the team above them, has beaten them in the three meetings found: 7–2 on 11 April, 2–1 on 29 August, and 3–2 on 5 September.",
+        "After 10 games they led the series, 7 wins, 1 draw, 2 losses, 46–22. The later table has them third after a harder autumn.",
+        "Lineups on Bollstanäs and Kungsängen match pages are those clubs’ players. They are not this squad.",
       ],
     },
     approach:
-      "This is your group. The public record does not know your shape, so the app does not invent one. The five opponents are ordered by the model as Gavà and Järna first, then Kilcullen, Castle Villa and St Patricks in a tight band. Saturday is three games in about four hours: 09:50, 11:30 and 13:10. The 2×20 format rewards the team that starts on time.",
+      "This is your group, and you are a year young for it. The public record does not know your shape. What it does know is that games against your own age open up: you have won 8–4, 5–3 and 7–2, and you have also lost 2–7 to the league leaders. Järna and Gavà are the matches where that age gap is the question. Saturday is still three games in about four hours, 09:50, 11:30 and 13:10.",
     players: [],
     playersNote:
-      "No Spånga F10 player or coach was named on a Spånga page that could be opened. Opponent lineups were deliberately not copied across.",
-    staff: "Not found in public sources.",
+      "The club page does not name the 17 players. Opponent lineups were not copied across, and the F2011U 2 squad is a different team.",
+    staff:
+      "On 18 September 2025 the club announced Vendela Persbeck and Michelle Rojas as coaching reinforcement for that autumn. The club says both play in Elitettan and have Damallsvenskan and youth-national-team experience. Persbeck’s published 2025 Elitettan record is as a goalkeeper: 9 matches for Bollstanäs and 1 for Gamla Upsala, after 9 Damallsvenskan matches for AIK in 2024. That post does not say they are the 2026 match coaches in Salou. Malin Drougge is the contact the club lists for friendlies. Her email is not repeated here.",
     results: [
-      { date: "7 Jun 2025", comp: "Stockholm F2010-2A", score: "Spånga IS FK F10U 1 2–4 Bollstanäs SK 2A", note: "Spånga IP 4. Higher squad." },
-      { date: "15 Aug 2025", comp: "Stockholm F2010-2A", score: "Bollstanäs SK 2A 7–0 Spånga IS FK F10U 1", note: "Bollstanäs IP 1. The lineup on that page is Bollstanäs." },
-      { date: "27 Apr 2025", comp: "Stockholm F2010-3A", score: "Skå IK F10 2–0 Spånga IS FK F10U 2", note: "Lower squad." },
-      { date: "10 May 2025", comp: "Stockholm F2010-3A", score: "Bollstanäs SK 3A 2–1 Spånga IS FK F10U 2", note: "Different Bollstanäs team from the 2A side." },
-      { date: "14 Sep 2025", comp: "Stockholm F2010-3A", score: "Spånga IS FK F10U 2 0–2 Bollstanäs SK 3A", note: "Bromstens IP 2." },
-      { date: "27 Sep 2025", comp: "Stockholm F2010-3A", score: "Spånga IS FK F10U 2 0–2 Skå IK F10", note: "Spånga IP 4." },
+      { date: "11 Apr 2026", comp: "Stockholm F2011-2A", score: "Bollstanäs SK 7–2 Spånga IS FK F2011U 1", note: "Bollstanäs IP 1. The lineup on that page is Bollstanäs." },
+      { date: "1 May 2026", comp: "Stockholm F2011-2A", score: "Kungsängens IF 2–7 Spånga IS FK F2011U 1", note: "Kungsängens IP 2." },
+      { date: "23 May 2026", comp: "Stockholm F2011-2A", score: "Spånga IS FK F2011U 1 8–4 MHFF 2", note: "From MHFF’s series fixture list." },
+      { date: "31 May 2026", comp: "Stockholm F2011-2A", score: "MHFF 2 3–5 Spånga IS FK F2011U 1", note: "From the same MHFF list." },
+      { date: "29 Aug 2026", comp: "Stockholm F2011-2A", score: "Spånga IS FK F2011U 1 1–2 Bollstanäs SK", note: "Spånga IP 4." },
+      { date: "5 Sep 2026", comp: "Stockholm F2011-2A", score: "Bollstanäs SK 3–2 Spånga IS FK F2011U 1", note: "Bollstanäs IP 1." },
     ],
-    recordLine: "F10U 2, full 2025 table: 9th of the teams that played, 13 points, 23–40. F10U 1: no full table, two known losses to Bollstanäs 2A.",
+    recordLine: "F2011-2A, 4 October 2026: 3rd. 16 games, 9 wins, 1 draw, 6 losses, 56–37, 28 points. After 10 games they had led the series.",
     table: {
-      title: "Stockholm F2010-3A, 2025, F10U 2",
+      title: "Stockholm F2011-2A, 4 Oct 2026",
       rows: [
-        ["1", "Skå IK & Bygdegård", "16", "46", "46"],
-        ["2", "Sollentuna FK F2010 1", "16", "28", "7"],
-        ["3", "Bollstanäs SK", "16", "27", "12"],
-        ["4", "Apollon Solna FK Svart", "16", "24", "2"],
-        ["5", "IF Brommapojkarna 10-12", "16", "22", "−19"],
-        ["6", "Djurgårdens IF FF 4", "16", "19", "−10"],
-        ["7", "IFK Viksjö F10", "16", "18", "−9"],
-        ["8", "Österåker United FK 2", "16", "15", "−12"],
-        ["9", "Spånga IS FK F10U 2", "16", "13", "−17"],
+        ["1", "Bollstanäs SK U", "16", "34", "16"],
+        ["2", "Enebybergs IF 1", "17", "32", "3"],
+        ["3", "Spånga IS FK F2011U 1", "16", "28", "19"],
+        ["4", "MHFF 2", "17", "25", "7"],
+        ["5", "Rotebro IS FF", "15", "22", "−8"],
+        ["6", "Sollentuna FK F15 U", "15", "14", "−9"],
+        ["7", "Kungsängens IF 1", "16", "5", "−28"],
       ],
     },
     sources: [
-      { label: "Bollstanäs 7–0 F10U 1", url: "https://www.svenskalag.se/bollstanassk-fotboll-f15u2011/match/17693375/spanga-is-fk-f10u-1" },
-      { label: "Bollstanäs 2025 fixtures (includes 2–4)", url: "https://www.svenskalag.se/bollstanassk-fotboll-f15u2011/matcher?seasonYear=2025" },
-      { label: "F10U 2 table via Skå IK", url: "https://www.skaik.se/skaik-fotboll-dam-j/match/18459278/spanga-is-fk-f10u-2" },
+      { label: "F11-U Gul club page", url: "https://www.spangafotboll.se/start/?ID=466714" },
+      { label: "F2011-2A table", url: "https://www.laget.se/Malarhojden-HagerstenFF-MHFFF2011/Division/Standings/577175" },
+      { label: "MHFF results, including 8–4 and 5–3", url: "https://www.laget.se/Malarhojden-HagerstenFF-MHFFF2011/Division/Games/577175" },
+      { label: "Kungsängen 2–7", url: "https://www.kifen.se/kungsangensif-fotboll-u-15flick/match/20027367/spanga-is-fk-f2011u-1" },
+      { label: "Bollstanäs 7–2", url: "https://www.svenskalag.se/bollstanassk-fotboll-f15u2011/match/20023066/spanga-is-fk-f2011u-1" },
+      { label: "Coaching note, 18 Sep 2025", url: "https://www.spangafotboll.se/nyheter/?ID=466715&NID=1293736" },
     ],
   },
   {
@@ -456,11 +458,11 @@ export const CHAINS = [
   },
   {
     depth: "One step from Spånga",
-    text: "F10U 1’s published opponents are only Bollstanäs SK 2A. F10U 2’s published opponents in the scores found are Bollstanäs SK 3A and Skå IK. Those are different Bollstanäs teams.",
+    text: "F11-U Gul’s published 2026 opponents in F2011-2A include Bollstanäs SK U, Kungsängens IF, and MHFF 2. The rest of that series is Enebybergs IF, Rotebro IS, and Sollentuna FK F15 U. Bollstanäs SK U is the 2011 team. It is not the Bollstanäs 2A or 3A side from the 2010 series.",
   },
   {
     depth: "Two and three steps",
-    text: "No page that was opened puts Bollstanäs 2A, Bollstanäs 3A or Skå IK in a match against Täby, Stureby, Sjöstaden or Järna. The Swedish chain stops at one step. There is no third-level bridge.",
+    text: "No page that was opened puts Bollstanäs SK U, MHFF, Kungsängen, Enebyberg, Rotebro or Sollentuna F15 U in a match against Täby, Stureby, Sjöstaden or Järna. The Swedish chain stops at one step. There is no third-level bridge, and the Bollstanäs team in Spånga’s series is a year younger than the Bollstanäs teams in the 2010 series.",
   },
   {
     depth: "Ireland",
@@ -496,7 +498,7 @@ export const METHOD = [
 ];
 
 export const ASSUMPTIONS = [
-  "The traveling Spånga squad is treated as the higher 2010 team, F10U 1, or a select built around it. The travel sheet does not say this. F10U 2’s 2025 season would put Spånga last in the same model.",
+  "Spånga’s entry is F11-U Gul, confirmed on the club page as the F2011U 1 squad in F2011-2A. They are born in 2011, so they are a year young for Girls 2010. The model uses that season and does not treat them as an F10 team.",
   "St Patricks FC is Irish because the official schedule card carries the Irish flag. The club itself is unidentified.",
   "Non-Spånga pairings were read from the official group page, which blocks a plain download. All five Spånga group lines match the club travel sheet on date, time, field and opponent. The other ten games are the rest of that same grid.",
   "Hotel name, rooming and the Sunday play-off opponent depend on documents that were not in the PDF.",

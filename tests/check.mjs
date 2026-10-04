@@ -48,7 +48,7 @@ spanga.forEach((match, index) => {
 });
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,gava,kilcullen,spanga,castlevilla,stpatricks") {
+if (order.join() !== "jarna,gava,spanga,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 
