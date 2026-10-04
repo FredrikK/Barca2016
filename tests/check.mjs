@@ -48,7 +48,7 @@ spanga.forEach((match, index) => {
 });
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,gava,spanga,kilcullen,castlevilla,stpatricks") {
+if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 
@@ -90,6 +90,15 @@ if (!teamById("castlevilla").players.some((player) => player.name === "Abbie Lan
   throw new Error("Castle Villa roster missing Landon");
 }
 if (!teamById("gava").staff.includes("Ania Torres Torres")) throw new Error("Gavà coach missing");
+if (!teamById("gava").players.some((player) => player.name === "Noa Mostazo Salvatierra")) {
+  throw new Error("Gavà roster spelling");
+}
+if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
+  throw new Error("Gavà division missing");
+}
+if (teamById("gava").rank !== 3 || teamById("spanga").rank !== 2) {
+  throw new Error("Gavà should be third and Spånga second");
+}
 if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
   throw new Error("Kilcullen shirt numbers should stay 0, as printed");
 }

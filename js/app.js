@@ -12,7 +12,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js?v=roster";
+} from "./data.js?v=gava";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -160,7 +160,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. Kilcullen won KDUL U16 Girls and the cup. Castle Villa finished second in that division. Every team in the group has a published roster. St Patricks’ best club match is St Patrick’s of Graiguecullen, Carlow.
+          The ranking is a public-data projection, researched ${esc(META.researched)}. It is not the official table. Spånga here is F11-U Gul, the 2011 squad, playing up a year. Kilcullen won KDUL U16 Girls and the cup. Castle Villa finished second in that division. Gavà are licensed in Segona Divisió Cadet Femení and had played 0 games on 4 October. Every team in the group has a published roster. St Patricks’ best club match is St Patrick’s of Graiguecullen, Carlow.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">See the order</button></div>
         </div>
       </div>
@@ -256,7 +256,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna lead on matches against older opposition. Gavà and Spånga F11-U Gul are half a point apart. Kilcullen won a five-team Kildare U16 girls division and the cup, and Castle Villa were second. They have already split two league games, 2–0 and 5–3. Both still sit below the top three, because that division has not been linked to a Swedish or Catalan opponent. St Patricks are not in that Kildare division. Their best club match is St Patrick’s of Graiguecullen in Carlow. Every squad list below is the tournament roster.
+          Järna lead on matches against older opposition. Spånga F11-U Gul are second. Gavà are third: a Villarreal partner school, licensed in a 15-team Segona Divisió cadet group, with no score yet. Kilcullen won a five-team Kildare U16 girls division and the cup, and Castle Villa were second. They have already split two league games, 2–0 and 5–3. That division has not been linked to a Swedish or Catalan opponent. St Patricks are not in that Kildare division. Their best club match is St Patrick’s of Graiguecullen in Carlow. Every squad list below is the tournament roster.
         </div>
       </div>
       <div class="section">
@@ -435,7 +435,7 @@ function gavaPitch() {
       <div class="zone" style="left:8%; top:28%; width:28%">Build</div>
       <div class="zone" style="left:36%; top:28%; width:28%">Half-spaces</div>
       <div class="zone" style="left:64%; top:28%; width:28%">Decisions</div>
-      <div class="zone" style="left:12%; bottom:18px; width:76%">Partnership habits only. No Gavà 2010 lineup is public.</div>
+      <div class="zone" style="left:12%; bottom:18px; width:76%">Partnership habits only. The roster has numbers and no positions.</div>
     </div>`;
 }
 

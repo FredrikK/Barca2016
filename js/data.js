@@ -42,7 +42,7 @@ export const META = {
 };
 
 const jarnaComponents = { results: 74, league: 52, pathway: 70, tournament: 78 };
-const gavaComponents = { results: 50, league: 78, pathway: 82, tournament: 72 };
+const gavaComponents = { results: 50, league: 62, pathway: 78, tournament: 72 };
 const kilcullenComponents = { results: 70, league: 58, pathway: 48, tournament: 42 };
 const spangaComponents = { results: 70, league: 62, pathway: 66, tournament: 48 };
 const villaComponents = { results: 62, league: 56, pathway: 46, tournament: 40 };
@@ -134,18 +134,18 @@ export const TEAMS = [
     flag: "ct",
     place: "Gavà, Baix Llobregat, Catalonia",
     colors: ["#8c1d40", "#f2c14e"],
-    rank: 2,
+    rank: 3,
     components: gavaComponents,
     index: indexOf(gavaComponents),
-    range: [50, 82],
-    confidence: 38,
-    confidenceLabel: "Low",
+    range: [54, 70],
+    confidence: 54,
+    confidenceLabel: "Medium on the division, low on the score",
     verified:
       "The entry is Escola de Futbol Gavà, the Villarreal CF partner school in Gavà. It is not Villarreal CF’s own girls’ cadete team in Castellón, and it is not the senior club CF Gavà.",
     identity:
       "Escola de Futbol Gavà was founded in 2000. On 30 December 2021 Villarreal announced a collaboration agreement. Gavà’s sporting director Ramón López is quoted in that piece. A Villarreal campus article in February 2026 still calls EF Gavà an associated club. The tournament name EF Gava Villarreal CF is the name Gavà uses for these entries.",
     league:
-      "Girls born in 2010 are juvenil in the Catalan federation’s 2026–27 age table (juvenil femenino covers 2008, 2009 and 2010). No classification was found for an Escola F. Gavà juvenil or cadete femenino side made up of the 2010 age group. Their division this season is unknown.",
+      "The 2026–27 licence table puts girls born in 2010 in juvenil femenino, with 2008 and 2009. This club has no juvenil femenino team. The Salou squad is licensed in Segona Divisió Femení Cadet F11, Grup 8, a 15-team group. On 4 October 2026 that table showed Escola F. Gavà A with 0 games. Santboià had played and won 3–2, Viladecans B and Ciudad Cooperativa had drawn 1–1, and Atlètic Sant Just had lost 2–3. Gavà’s place at 14th is an empty row, not a result. Jornada 1 is against Espluguenc and jornada 2 is away at Casablanca. No score for Gavà was on the page.",
     style: {
       status: "Club method, not a scout",
       formation: "Not published",
@@ -155,11 +155,11 @@ export const TEAMS = [
         "Expect them to try to play, because that is the published point of the partnership. That is a prior, not a video scout.",
         "Do not copy a Villarreal first-team shape onto this team. The convenio does not publish a formation for the 2010 girls.",
         "They are the home side: no flight, familiar climate, and the fields are in their region.",
-        "The 2026 team page lists 20 players and two coaches. No positions are printed. An older Gavà girls’ juvenil team (born 2007–2009) played Segona Divisió in 2025–26. Those players are not this list.",
+        "The 2026 tournament page lists 20 players and two coaches. No positions are printed. The federation cadet list that loaded has 17 names and overlaps this squad. An older Gavà girls’ juvenil team played Segona Divisió in 2025–26. Those players and their coaches are not this list.",
       ],
     },
     approach:
-      "The model has Gavà two points behind Järna only because Järna has matches and Gavà does not. On the day Gavà can be the best team in the group. For Spånga this is the last group game, Sunday 11:00. The coaches on the roster page are Ania Torres Torres and David Pelay Cortes. No shape is printed. If Gavà are still playing for first place they will not sit off. The practical problem is their rest defence if they do keep the ball: wait for the pass that sticks, and don’t spend the first half chasing wide centre-backs.",
+      "Gavà are third because the division is now known and they still have no score. They are a Villarreal partner school in a 15-team Segona Divisió cadet group, not a juvenil side with a table. For Spånga this is the last group game, Sunday 11:00. The coaches on the tournament page are Ania Torres Torres and David Pelay Cortes. The federation page did not print a coach. No shape is printed. If they are still playing for a place they will not sit off. The practical problem is their rest defence if they do keep the ball: wait for the pass that sticks, and don’t spend the first half chasing wide centre-backs.",
     players: [
       { name: "Lluna Puente Carnice", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Candela Ruiz Rosa", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
@@ -175,22 +175,26 @@ export const TEAMS = [
       { name: "Ariadna Cabello Arceredillo", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Alba Romero Ternero", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Laia Premuda Medina", number: "16", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
-      { name: "Noa Mosteiro Salvatierra", number: "17", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Noa Mostazo Salvatierra", number: "17", role: "Tournament roster", why: "Named on the Girls 2010 team page. The federation cadet list spells the surname Mostazo." },
       { name: "Valentina Peacock", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Marina Garcia Caseiro", number: "19", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
-      { name: "Mila Lorch Restiau", number: "20", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Mila Lorch Restiau", number: "20", role: "Tournament roster", why: "Named on the Girls 2010 team page. The federation list that loaded shows a player named Mila and does not print the rest of the name." },
       { name: "Adriana Vila Mengual", number: "21", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Katalella Ventura Lara", number: "22", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
     ],
     playersNote: "Numbers and names are copied from the tournament team page. No positions are printed. Numbers 12 and 13 are unused.",
-    staff: "Coach Ania Torres Torres. Coach David Pelay Cortes. Both titles are on the tournament page.",
+    otherNames:
+      "The federation cadet list that loaded has 17 names. It includes Carla Helena Millán Menis, who is not on the Salou roster. Four Salou names were not on that list: Valentina Romero Perona, Noa Verdu Leal, Idaira Parra Molina and Olivia Delgado Tarrega.",
+    staff: "Coach Ania Torres Torres. Coach David Pelay Cortes. Both titles are on the tournament page. The federation cadet page did not print a coach.",
     results: [],
-    recordLine: "No published match for the 2010 girls was found. The ranking uses a neutral results score of 50, then adds the academy and home context.",
+    recordLine: "Licensed in Segona Divisió Femení Cadet F11, Grup 8. On 4 October 2026 the table showed 0 games. The results score stays neutral.",
     contextResults: [
       { date: "2025–26", comp: "Older age group only", score: "Escola F. Gavà A in Segona Divisió Femení Juvenil, Grup 8", note: "Born 2007–2009 under that season’s licence table. Not this tournament team. Sample: 3–1 and 2–0 vs Begues, 2–1 at Sant Just, 1–3 vs Viladecans, and a 5–2 acta at Fontsanta-Fatjó." },
     ],
     sources: [
       { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/13380/ef-gava-villarreal-cf" },
+      { label: "Cadet girls licence list", url: "https://www.fcf.cat/clubs/1255/categories/58156838" },
+      { label: "Segona Divisió Cadet Femení, Grup 8", url: "https://www.fcf.cat/ca/competicio?temporadaId=22&disciplinaId=19308237&competicioId=59922684&grupId=59924024" },
       { label: "Villarreal convenio, 30 Dec 2021", url: "https://villarrealcf.es/el-villarreal-expande-sus-horizontes-en-futbol-formativo/" },
       { label: "Still a partner club, Feb 2026", url: "https://campusytorneos.villarrealcf.es/es/yellow-cup-easter/multimedia/noticias/item/2567-talento-desde-el-baix-llobregat" },
       { label: "FCF ages 2026–27", url: "https://www.fcf.cat/docs/edat2026-2027.pdf" },
@@ -292,7 +296,7 @@ export const TEAMS = [
     flag: "se",
     place: "Spånga, Stockholm",
     colors: ["#8d6b12", "#f4efe6"],
-    rank: 3,
+    rank: 2,
     yours: true,
     components: spangaComponents,
     index: indexOf(spangaComponents),
@@ -589,7 +593,7 @@ export const CHAINS = [
   },
   {
     depth: "Spain and across borders",
-    text: "The 2010 Gavà girls have no published opponent, so they cannot be linked in one, two or three steps. No common opponent was found between Sweden, Ireland and Catalonia.",
+    text: "Gavà’s cadet group includes Santboià, Viladecans B, Ciudad Cooperativa, Atlètic Sant Just, Espluguenc and Casablanca. None of those clubs has a published match against Järna, Spånga, Kilcullen or Castle Villa. The chain still stops inside Catalonia. No common opponent was found between Sweden, Ireland and Catalonia.",
   },
 ];
 
@@ -604,7 +608,7 @@ export const LEAGUES = [
   },
   {
     country: "Spain",
-    body: "The Catalan federation sets the age bands. In 2026–27, girls born in 2010 are juvenil, in a three-year band with 2008 and 2009. A juvenil team is therefore not a pure 2010 squad. Gavà’s 2010 division was not found. The older Gavà girls’ team in Segona Divisió is cited only as the level of the school’s previous girls’ juvenil group, and those players are mostly too old to play here.",
+    body: "The Catalan federation sets the age bands. In 2026–27, girls born in 2010 are juvenil, in a three-year band with 2008 and 2009. Cadet femenino is 2011 and 2012. Escola F. Gavà have no juvenil femenino team. The Salou squad is licensed in Segona Divisió Femení Cadet F11, Grup 8, and had played 0 games on 4 October 2026. The older girls’ juvenil team from 2025–26 is a different squad.",
   },
 ];
 
