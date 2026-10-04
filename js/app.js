@@ -12,7 +12,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js?v=f11";
+} from "./data.js?v=u16";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
