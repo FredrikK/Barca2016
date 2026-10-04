@@ -503,7 +503,7 @@ export const TEAMS = [
       { name: "Emma Canning", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Sophia Rea", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Mia Doody", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page. The head coach is Garry Doody. The page does not say they are related." },
-      { name: "Ciara Cahoon", number: "7", role: "The name that places the club", why: "On the roster, and the Carlow Nationalist of 28 January 2026 calls Ciara Cahoon a 15-year-old from Killerig who plays football. Her racing biography says she plays soccer for St Pats in Carlow." },
+      { name: "Ciara Cahoon", number: "7", role: "The name that places the club", why: "On the roster. The Carlow Nationalist of 28 January 2026 calls her 15, from Killerig. Her racing page says she plays soccer for St Pats in Carlow." },
       { name: "Sienna Murnane", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
       { name: "Leah O'Sullivan", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
       { name: "Roisin Murphy", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 10 is not a published position." },
@@ -523,6 +523,7 @@ export const TEAMS = [
     sources: [
       { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
       { label: "Ciara Cahoon, 15 in January 2026", url: "https://www.carlow-nationalist.ie/sport/other-sports/ciara-cahoons-race-to-glory_arid-85559.html" },
+      { label: "Plays soccer for St Pats in Carlow", url: "https://ciaracahoonracing.co.uk/" },
       { label: "St Patrick's Boys AFC, Graiguecullen", url: "https://www.igp-web.com/Carlow/St_Patricks_AFC.htm" },
       { label: "Carlow U16 girls table, they are not on it", url: "https://soccerleagues.comortais.com/competition.aspx?id=14227&oid=1016" },
     ],
