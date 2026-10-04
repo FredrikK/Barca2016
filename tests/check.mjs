@@ -67,6 +67,12 @@ if (!teamById("castlevilla").results.some((result) => result.score === "Castle V
   throw new Error("Castle Villa return game missing");
 }
 
+const pats = teamById("stpatricks");
+if (!pats.players.some((player) => player.name === "Ciara Cahoon" && player.number === "7")) {
+  throw new Error("St Patricks roster missing Cahoon");
+}
+if (pats.players.length !== 17) throw new Error("St Patricks roster length");
+
 const phone = JSON.stringify({ TEAMS, MATCHES });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
   throw new Error("personal phone number leaked into the data");

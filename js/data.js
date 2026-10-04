@@ -46,7 +46,7 @@ const gavaComponents = { results: 50, league: 78, pathway: 82, tournament: 72 };
 const kilcullenComponents = { results: 70, league: 58, pathway: 48, tournament: 42 };
 const spangaComponents = { results: 70, league: 62, pathway: 66, tournament: 48 };
 const villaComponents = { results: 62, league: 56, pathway: 46, tournament: 40 };
-const patsComponents = { results: 50, league: 42, pathway: 35, tournament: 40 };
+const patsComponents = { results: 50, league: 44, pathway: 40, tournament: 42 };
 
 export const TEAMS = [
   {
@@ -469,41 +469,62 @@ export const TEAMS = [
     short: "St Patricks",
     country: "Ireland",
     flag: "ie",
-    place: "Club not identified",
+    place: "Graiguecullen, County Carlow — best match",
     colors: ["#1f7a43", "#f4efe6"],
     rank: 6,
     components: patsComponents,
     index: indexOf(patsComponents),
-    range: [30, 72],
-    confidence: 15,
-    confidenceLabel: "Very low",
+    range: [38, 56],
+    confidence: 46,
+    confidenceLabel: "Low on the club, high on the squad list",
     verified:
-      "The group list says St Patricks FC, with no apostrophe. A reading of the official schedule cards put the same Irish flag on St Patricks as on Kilcullen and Castle Villa. That flag could not be re-checked here, because a plain download of the page gets a captcha. No club website, league or girls’ team born in 2010 could be tied to the exact name.",
+      "The tournament publishes this squad. The page is Ireland, St Patricks FC, Girls 2010, with 17 players and two coaches. The best club match is St Patrick’s Boys AFC of Graiguecullen, Carlow. That is not printed on the roster page itself.",
     identity:
-      "Several Irish clubs were checked and do not fit. St Patrick’s Athletic of Dublin uses Athletic, not FC, and its published women’s youth team in 2026 is under-17, about a year older than Girls 2010. A Girls Emerging Talent Programme launched in Dublin in June 2026 with 22 players and no published ages. St Patrick’s Boys of Graiguecullen played the boys’ section of this tournament in 2025. None of those is evidence for this entry.",
+      "Ciara Cahoon is number 7 on the roster. On 28 January 2026 the Carlow Nationalist called her 15, so she is a 2010 birth, the right age for this tournament. Her racing biography says she plays soccer for St Pats in Carlow. St Patrick’s Boys AFC play at The Meadows, Sleaty Street, Graiguecullen. Their boys’ 2011 side played this same tournament in October 2025 under the name St Patrick’s Boys. The girls’ entry drops Boys and says FC. St Patrick’s Athletic of Dublin is a different club, and its women’s youth teams are older than this squad.",
     league:
-      "Not the KDUL U16 Girls division. That table is Kilcullen, Castle Villa, Prosperous, Maynooth and Derry Rovers. St Patricks are not on it. If they are a different Irish community side, the rank stays near the bottom. If they are a Dublin academy entered under a shortened name, the rank is too low. The range 30–72 is the honest version of that.",
+      "No girls’ league table for this squad was found. They are not in KDUL U16 Girls. They are also not in the Carlow juvenile U16 or U15 girls leagues that are open for 2026/27. Those tables are St Anne’s, Hanover Harps, Killeshin and Ballymurphy at U16, and Killeshin, Parkville, Hanover, Vale Wanderers and New Oak at U15. No score from those pages is used.",
     style: {
       status: "Unknown",
       formation: "Not published",
       summary:
-        "No players, coach, formation or match. Inventing a shape would only look like information. Spånga open the tournament against them, so the first ten minutes are the scout.",
+        "The roster gives shirt numbers and nothing else. No shape, no league score, no scorer. Spånga open the tournament against them, so the first ten minutes are still the scout.",
       points: [
-        "Saturday 09:50, Field 1, is Spånga’s first kick. A short tournament punishes a slow start against an unknown team.",
-        "They also play Järna at 11:30 on Saturday. That score, if you can see it or hear it, is the first real ranking evidence of the weekend.",
-        "Do not import the St Patrick’s Athletic under-17 squad. Wrong age group, unconfirmed club.",
+        "Seventeen names are on the list. Number 17 is not used. Niamh O'Rourke is 18.",
+        "Saturday 09:50, Field 1, is Spånga’s first kick. A short tournament punishes a slow start even when the names are known.",
+        "They play Järna at 11:30. That score is the first result you can use to place them against a team with a public record.",
       ],
     },
     approach:
-      "Play your own game for the first twenty minutes and collect information: which side they attack, who takes the second ball, whether the goalkeeper plays short. There is nothing public to confirm before then.",
-    players: [],
-    playersNote: "No player can be named without guessing the club.",
-    staff: "Unknown.",
+      "You know the names and the coach, not the system. Play your own game for the first twenty minutes and see who wears 9 and 10, Leah O'Sullivan and Roisin Murphy, and whether Garry Doody changes the shape after the first goal. There is still no public match to copy a plan from.",
+    players: [
+      { name: "Alex Kelly", number: "1", role: "Tournament roster", why: "Named on the Girls 2010 team page. No position or league goal is published." },
+      { name: "Caitlin Byrne", number: "2", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ciara Cox", number: "3", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Emma Canning", number: "4", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Sophia Rea", number: "5", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Mia Doody", number: "6", role: "Tournament roster", why: "Named on the Girls 2010 team page. The head coach is Garry Doody. The page does not say they are related." },
+      { name: "Ciara Cahoon", number: "7", role: "The name that places the club", why: "On the roster, and the Carlow Nationalist of 28 January 2026 calls Ciara Cahoon a 15-year-old from Killerig who plays football. Her racing biography says she plays soccer for St Pats in Carlow." },
+      { name: "Sienna Murnane", number: "8", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Leah O'Sullivan", number: "9", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 9 is not a published position." },
+      { name: "Roisin Murphy", number: "10", role: "Tournament roster", why: "Named on the Girls 2010 team page. Shirt 10 is not a published position." },
+      { name: "Aoibhinn Cadinot", number: "11", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Kiyah Mahony", number: "12", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Erika Owens", number: "13", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Ellie Walker", number: "14", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Holly O'Donoghue", number: "15", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Erin Walker", number: "16", role: "Tournament roster", why: "Named on the Girls 2010 team page." },
+      { name: "Niamh O'Rourke", number: "18", role: "Tournament roster", why: "Named on the Girls 2010 team page. The assistant coach is David O'Rourke. The page does not say they are related." },
+    ],
+    playersNote:
+      "Numbers and names are copied from the tournament team page. No positions are printed. Number 17 is unused.",
+    staff: "Coach Garry Doody. Assistant coach David O'Rourke. Both titles are on the tournament page.",
     results: [],
-    recordLine: "No matched results. Ranked last because there is no positive evidence, not because they were shown to be the weakest.",
+    recordLine: "Roster of 17 is published. No league score was found. Ranked last because the results score stays neutral, not because the squad is unknown.",
     sources: [
-      { label: "Official group page", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/groups" },
-      { label: "Namesake checked and set aside", url: "https://stpatsfc.com/womens-under17s.php" },
+      { label: "Tournament roster", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
+      { label: "Ciara Cahoon, 15 in January 2026", url: "https://www.carlow-nationalist.ie/sport/other-sports/ciara-cahoons-race-to-glory_arid-85559.html" },
+      { label: "St Patrick's Boys AFC, Graiguecullen", url: "https://www.igp-web.com/Carlow/St_Patricks_AFC.htm" },
+      { label: "Carlow U16 girls table, they are not on it", url: "https://soccerleagues.comortais.com/competition.aspx?id=14227&oid=1016" },
     ],
   },
 ];
@@ -602,7 +623,7 @@ export const METHOD = [
 export const ASSUMPTIONS = [
   "Spånga’s entry is F11-U Gul, confirmed on the club page as the F2011U 1 squad in F2011-2A. They are born in 2011, so they are a year young for Girls 2010. The model uses that season and does not treat them as an F10 team.",
   "Kilcullen on the KDUL U16 Girls page, team 160768, is the Cambrils side. The 23 August 2026 cup final against Maynooth is the final the Diary named, and the score is 7–0. Castle Villa in that division play at Mullarney Park, so they are the Castledermot club.",
-  "St Patricks FC is Irish because the official schedule card carries the Irish flag. The club itself is unidentified, and it is not one of the five teams in KDUL U16 Girls.",
+  "St Patricks FC has a published roster of 17. The best club match is St Patrick’s Boys AFC, Graiguecullen, Carlow, because Ciara Cahoon is on the roster and plays for St Pats in Carlow. The roster page itself does not print the town, and no girls’ league score was found.",
   "Non-Spånga pairings were read from the official group page, which blocks a plain download. All five Spånga group lines match the club travel sheet on date, time, field and opponent. The other ten games are the rest of that same grid.",
   "Hotel name, rooming and the Sunday play-off opponent depend on documents that were not in the PDF.",
 ];
