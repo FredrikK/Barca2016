@@ -182,7 +182,40 @@ h3 { font-size: 16px; font-weight: 700; }
 .match.check { cursor: default; background: #f4f7f8; border-color: #d5dee6; }
 .match.travel { cursor: default; background: #f7f5f2; border-color: #ddd4c8; }
 .match.prep { cursor: default; background: #fffaf0; border-color: #e6d7b8; }
-.match.snack { cursor: default; background: #f8f3e8; border-color: #e4d3b0; }
+.match.snack { cursor: pointer; background: #f8f3e8; border-color: #e4d3b0; }
+.match.game { display: block; padding: 0; }
+.match-hit {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+.pitch-link {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin: 0 12px 12px;
+  color: inherit;
+  text-decoration: none;
+}
+.pitch-link img {
+  width: 120px;
+  height: 78px;
+  object-fit: cover;
+  object-position: 62% 42%;
+  border-radius: 10px;
+  display: block;
+  background: var(--bg-deep);
+}
+.pitch-link b { display: block; font-size: 13px; }
 .weather { background: #eef3f8; border-color: #c9d6e4; margin-bottom: 12px; }
 .weather-line { display: grid; grid-template-columns: 4.6rem 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--line); }
 .weather-line:first-of-type { border-top: 0; padding-top: 0; }

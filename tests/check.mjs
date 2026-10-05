@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, VENUE, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -250,6 +250,10 @@ if (HOTEL.photos.length !== 3) throw new Error("hotel photos drifted");
 const poolFact = HOTEL.facts.find((item) => item.includes("Poolerna är öppna"));
 if (!poolFact || !poolFact.includes("13 mars") || !poolFact.includes("klockslag")) throw new Error("pool season drifted");
 if (/\d{1,2}:\d{2}/.test(poolFact)) throw new Error("pool fact invented a daily clock time");
+if (HOTEL.audience !== "För 15-åriga tjejer") throw new Error("hotel audience drifted");
+if (!HOTEL.facts.some((item) => item.includes("15-åringar får bada"))) throw new Error("pool is not aimed at 15-year-olds");
+const ageLimit = HOTEL.facts.find((item) => item.includes("16 år"));
+if (!ageLimit || !ageLimit.includes("15-åring kommer inte in") || !ageLimit.includes("10:30")) throw new Error("spa age rule drifted");
 for (const photo of HOTEL.photos) {
   if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
 }
@@ -266,10 +270,10 @@ if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || 
 }
 
 const forecast = {
-  fri: [24, 15, 24, 7, "Växlande molnighet"],
-  sat: [24, 17, 20, 15, "Mestadels klart"],
-  sun: [23, 14, 19, 12, "Växlande molnighet"],
-  mon: [22, 14, 19, 9, "Mulet"],
+  fri: [24, 18, 24, 8, "Lätt duggregn"],
+  sat: [26, 17, 20, 12, "Mulet"],
+  sun: [21, 15, 19, 25, "Mulet"],
+  mon: [16, 12, 19, 18, "Tätt duggregn"],
 };
 for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) {
   const weather = WEATHER.days[day];
@@ -280,6 +284,37 @@ for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) 
 if (WEATHER.fetched !== "5 oktober 2026" || !WEATHER.note.includes("0 mm")) {
   throw new Error("weather source note drifted");
 }
+const satGames = WEATHER.days.sat.games;
+const sunGames = WEATHER.days.sun.games;
+if (satGames.map((game) => game.time).join() !== "09:50,11:30,13:10") throw new Error("Saturday game weather drifted");
+if (sunGames.map((game) => game.time).join() !== "09:00,11:00,13:00") throw new Error("Sunday game weather drifted");
+if (satGames.some((game) => game.mm !== 0) || sunGames.some((game) => game.mm !== 0)) throw new Error("a game hour invented rain");
+if (satGames[0].hour !== "10:00" || satGames[0].temp !== 20 || sunGames[0].temp !== 16 || sunGames[2].wind !== 4) {
+  throw new Error("kickoff forecast drifted");
+}
+if (WEATHER.days.fri.games || WEATHER.days.mon.games) throw new Error("a rest day invented game weather");
+
+const endsAt = { "09:50": "10:35", "11:30": "12:15", "13:10": "13:55", "09:00": "09:45", "11:00": "11:45", "13:00": "13:45" };
+for (const match of [...MATCHES, ...PLAYOFFS]) {
+  if (pitchPlan(match.time).ends !== endsAt[match.time]) throw new Error(`${match.id} end time drifted`);
+  const surface = fieldSurface(match.field);
+  const n = Number(match.field);
+  if (n >= 1 && n <= 4 && surface.label !== "Naturgräs") throw new Error(`${match.id} should be natural grass`);
+  if (n >= 5 && n <= 8 && surface.label !== "Konstgräs") throw new Error(`${match.id} should be artificial grass`);
+  if (n === 10 && (surface.known || surface.label !== "Ytan är inte angiven")) throw new Error("field 10 surface was invented");
+}
+if (fieldSurface("5").label !== "Konstgräs" || fieldSurface("8").label !== "Konstgräs") throw new Error("artificial range drifted");
+if (!fs.existsSync(new URL(`../${VENUE.image}`, import.meta.url))) throw new Error("venue map is missing");
+if (!VENUE.map.includes("openstreetmap.org") || !VENUE.credit.includes("OpenStreetMap")) throw new Error("venue map credit drifted");
+if (SNACK_PAGE.audience !== "För 15-åriga tjejer") throw new Error("snack page audience drifted");
+const snackText = JSON.stringify(SNACK_PAGE).toLowerCase();
+if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.includes("energidryck") || !snackText.includes("15-åring")) {
+  throw new Error("snack page lost the 15-year-old guidance");
+}
+const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
+if (!appSource.includes('["trip", "schedule", "rank", "teams"]')) throw new Error("tab bar drifted");
+if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
+if (!appSource.includes("till ${esc(ends)}") || !appSource.includes("Plan ${esc(match.field)}")) throw new Error("a game card lost the end time or the field");
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
