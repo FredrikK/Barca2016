@@ -223,6 +223,9 @@ if (JSON.stringify(AIRPORT_BUS).toLowerCase().includes("plana")) throw new Error
 if (HOTEL.name !== "Alannia Salou" || !HOTEL.address.includes("Pompeu Fabra 37")) throw new Error("hotel address drifted");
 if (!HOTEL.url.startsWith("https://alanniaresorts.com/")) throw new Error("hotel link drifted");
 if (HOTEL.photos.length !== 3) throw new Error("hotel photos drifted");
+const poolFact = HOTEL.facts.find((item) => item.includes("Poolerna är öppna"));
+if (!poolFact || !poolFact.includes("13 mars") || !poolFact.includes("klockslag")) throw new Error("pool season drifted");
+if (/\d{1,2}:\d{2}/.test(poolFact)) throw new Error("pool fact invented a daily clock time");
 for (const photo of HOTEL.photos) {
   if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
 }
