@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=grass";
+} from "./data.js?v=motstandare";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -48,7 +48,7 @@ const ICONS = {
 const TAB_LABELS = {
   trip: "Resa",
   schedule: "Schema",
-  rank: "Ranking",
+  rank: "Motståndare",
   area: "Området",
 };
 
@@ -265,8 +265,8 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          Rankingen är en prognos från öppna källor, researchad ${esc(META.researched)}. Den är inte den officiella tabellen. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
-          <div style="margin-top:8px"><button class="text-btn" data-go="#rank">Se ordningen</button></div>
+          Motståndarna är ordnade som en prognos från öppna källor, researchad ${esc(META.researched)}. Den är inte den officiella tabellen. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
+          <div style="margin-top:8px"><button class="text-btn" data-go="#rank">Se motståndarna</button></div>
         </div>
       </div>
     </section>`;
@@ -515,7 +515,7 @@ function viewRank() {
       <header class="topbar">
         <div>
           <p class="eyebrow">Prognos · inte tabellen</p>
-          <h1>Ranking</h1>
+          <h1>Motståndare</h1>
           <p class="sub">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i. Tryck på ett lag för trupp och matcher. Identiteten är kollad mot grupplistan. Spelare nämns bara när en sida nämner dem.</p>
         </div>
       </header>
@@ -566,7 +566,7 @@ function viewRank() {
 function viewMethod() {
   return `
     <section class="view">
-      <button class="back" data-go="#rank">Tillbaka till rankingen</button>
+      <button class="back" data-go="#rank">Tillbaka till motståndarna</button>
       <p class="eyebrow">Metod</p>
       <h1>Det som vägde in</h1>
       <div class="card pad" style="margin-top:14px"><ul class="list">${METHOD.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
@@ -651,7 +651,7 @@ function viewTeam(id) {
   const games = MATCHES.filter((match) => match.home === id || match.away === id);
   return `
     <section class="view">
-      <button class="back" data-go="#rank">Tillbaka till rankingen</button>
+      <button class="back" data-go="#rank">Tillbaka till motståndarna</button>
       <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
       <h1>${esc(team.name)}</h1>
       <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
