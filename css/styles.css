@@ -181,6 +181,10 @@ h3 { font-size: 16px; font-weight: 700; }
 .match.meal { cursor: default; background: var(--green-soft); border-color: #c5ddd2; }
 .match.prep { cursor: default; background: #fffaf0; border-color: #e6d7b8; }
 .match.snack { cursor: default; background: #f8f3e8; border-color: #e4d3b0; }
+.weather { background: #eef3f8; border-color: #c9d6e4; margin-bottom: 12px; }
+.weather-line { display: grid; grid-template-columns: 4.6rem 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--line); }
+.weather-line:first-of-type { border-top: 0; padding-top: 0; }
+.weather-line b { white-space: nowrap; }
 .match .meal-note { margin: 6px 0 0; }
 .match time { font-weight: 800; font-size: 14px; display: block; }
 .match .field { color: var(--ink-soft); font-size: 12px; }

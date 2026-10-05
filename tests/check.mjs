@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -69,7 +69,7 @@ const expectedRosters = {
 for (const [id, count] of Object.entries(expectedRosters)) {
   const team = teamById(id);
   if (team.players.length !== count) throw new Error(`${id} roster length ${team.players.length}`);
-  if (!team.sources.some((source) => source.label === "Tournament roster")) {
+  if (!team.sources.some((source) => source.label === "Turneringstrupp")) {
     throw new Error(`${id} missing tournament roster source`);
   }
 }
@@ -136,18 +136,18 @@ for (const surname of ["Vall", "Landon", "Cahoon", "Fredriksson", "Mostazo", "Sa
 
 function expectMeal(day, name, start, end) {
   const meal = MEALS.find((item) => item.day === day && item.name === name);
-  if (!meal || meal.start !== start || meal.end !== end || meal.place !== "Hotel buffet") {
+  if (!meal || meal.start !== start || meal.end !== end || meal.place !== "Hotellbuffé") {
     throw new Error(`${day} ${name} meal time drifted`);
   }
 }
-expectMeal("fri", "Dinner", "19:00", "21:30");
-expectMeal("sat", "Breakfast", "07:00", "10:00");
+expectMeal("fri", "Middag", "19:00", "21:30");
+expectMeal("sat", "Frukost", "07:00", "10:00");
 expectMeal("sat", "Lunch", "13:00", "14:30");
-expectMeal("sat", "Dinner", "19:00", "21:30");
-expectMeal("sun", "Breakfast", "07:00", "10:00");
+expectMeal("sat", "Middag", "19:00", "21:30");
+expectMeal("sun", "Frukost", "07:00", "10:00");
 expectMeal("sun", "Lunch", "13:00", "14:30");
-expectMeal("sun", "Dinner", "19:00", "21:30");
-expectMeal("mon", "Breakfast", "07:00", "10:00");
+expectMeal("sun", "Middag", "19:00", "21:30");
+expectMeal("mon", "Frukost", "07:00", "10:00");
 function expectUsable(day, name, start, end) {
   const meal = MEALS.find((item) => item.day === day && item.name === name);
   const windows = usableMeal(meal);
@@ -158,14 +158,14 @@ function expectUsable(day, name, start, end) {
     throw new Error(`${day} ${name} lost the official buffet hours`);
   }
 }
-expectUsable("fri", "Dinner", "19:00", "21:30");
-expectUsable("sat", "Breakfast", "07:00", "08:20");
+expectUsable("fri", "Middag", "19:00", "21:30");
+expectUsable("sat", "Frukost", "07:00", "08:20");
 expectUsable("sat", "Lunch", "14:10", "14:30");
-expectUsable("sat", "Dinner", "19:00", "21:30");
-expectUsable("sun", "Breakfast", "07:00", "07:30");
+expectUsable("sat", "Middag", "19:00", "21:30");
+expectUsable("sun", "Frukost", "07:00", "07:30");
 expectUsable("sun", "Lunch", "14:00", "14:30");
-expectUsable("sun", "Dinner", "19:00", "21:30");
-expectUsable("mon", "Breakfast", "07:00", "10:00");
+expectUsable("sun", "Middag", "19:00", "21:30");
+expectUsable("mon", "Frukost", "07:00", "10:00");
 const satLunch = usableMeal(MEALS.find((meal) => meal.id === "sat-lunch"))[0];
 const sunLunch = usableMeal(MEALS.find((meal) => meal.id === "sun-lunch"))[0];
 if (satLunch.start <= "13:10" || sunLunch.start <= "13:00") throw new Error("lunch still sorts inside a game");
@@ -185,7 +185,7 @@ function expectSnack(day, index, start, end, kick) {
   if (!snack || snack.start !== start || snack.end !== end || !snack.note.includes(kick)) {
     throw new Error(`${day} snack ${index} drifted: ${JSON.stringify(snack)}`);
   }
-  if (!snack.note.includes("banana") || !snack.note.toLowerCase().includes("water")) {
+  if (!snack.note.includes("banan") || !snack.note.toLowerCase().includes("vatten")) {
     throw new Error(`${day} snack ${index} is missing food or drink`);
   }
 }
@@ -201,17 +201,17 @@ if (satSnacks[0].start <= "09:50" || satSnacks[1].start <= "11:30" || sunSnacks[
   throw new Error("a snack sorts inside the game before it");
 }
 const satBreakfast = usableMeal(MEALS.find((meal) => meal.id === "sat-breakfast"))[0];
-if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes("change")) {
+if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes("byt")) {
   throw new Error("breakfast no longer names the bus or the packing time");
 }
 if (MEALS.length !== 8) throw new Error("expected 8 meals");
-if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Dinner")) throw new Error("Friday should list dinner only");
-if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Breakfast")) throw new Error("Monday should list breakfast only");
+if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Middag")) throw new Error("Friday should list dinner only");
+if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Frukost")) throw new Error("Monday should list breakfast only");
 
 if (AIRPORT_BUS.company || AIRPORT_BUS.routeNumber) throw new Error("airport bus company was not published");
 if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15:30") throw new Error("arrival bus flight drifted");
 if (AIRPORT_BUS.arrival.airport !== "Barcelona El Prat") throw new Error("arrival airport drifted");
-if (!AIRPORT_BUS.arrival.meet.includes("arrivals area")) throw new Error("Barcelona meeting point missing");
+if (!AIRPORT_BUS.arrival.meet.includes("ankomsthallen")) throw new Error("Barcelona meeting point missing");
 if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTime !== "19:00") throw new Error("departure flight drifted");
 if (AIRPORT_BUS.departure.hotelLeave !== "15:00" || AIRPORT_BUS.departure.checkout !== "11:00") throw new Error("hotel departure drifted");
 if (AIRPORT_BUS.minOnFlight !== 20) throw new Error("minimum group for the airport bus drifted");
@@ -230,6 +230,22 @@ if (pitchPlan("09:00").leave !== "07:45" || pitchPlan("13:10").back !== "14:10" 
 if (RIDES.breakMin !== 5) throw new Error("half-time break drifted");
 if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || canReturnBetween("09:00", "11:00") || canReturnBetween("11:00", "13:00")) {
   throw new Error("a return to the hotel was allowed inside a match gap");
+}
+
+const forecast = {
+  fri: [24, 15, 24, 7, "Växlande molnighet"],
+  sat: [24, 17, 20, 15, "Mestadels klart"],
+  sun: [23, 14, 19, 12, "Växlande molnighet"],
+  mon: [22, 14, 19, 9, "Mulet"],
+};
+for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) {
+  const weather = WEATHER.days[day];
+  if (!weather || weather.high !== high || weather.low !== low || weather.rain !== rain || weather.wind !== wind || weather.summary !== summary) {
+    throw new Error(`weather ${day} drifted: ${JSON.stringify(weather)}`);
+  }
+}
+if (WEATHER.fetched !== "5 oktober 2026" || !WEATHER.note.includes("0 mm")) {
+  throw new Error("weather source note drifted");
 }
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
