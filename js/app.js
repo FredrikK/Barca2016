@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=meet";
+} from "./data.js?v=grass";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -308,21 +308,6 @@ function rideLine(time, staying) {
   return `Lämna ${HOTEL.name} ${plan.leave}. Var på planen senast ${plan.arrive}.`;
 }
 
-function pitchFigure(field) {
-  const surface = fieldSurface(field);
-  const detail = surface.known
-    ? VENUE.mapNote
-    : `Arrangören anger bara plan 1–4 som naturgräs och plan 5–8 som konstgräs. ${VENUE.mapNote}`;
-  return `
-    <a class="pitch-link" href="${esc(VENUE.map)}" target="_blank" rel="noopener">
-      <img src="${esc(VENUE.image)}" alt="${esc(VENUE.imageAlt)}. Plan ${esc(field)}.">
-      <span>
-        <b>Plan ${esc(field)} · ${esc(surface.label)}</b>
-        <span class="tiny">${esc(detail)} ${esc(VENUE.credit)}</span>
-      </span>
-    </a>`;
-}
-
 function matchButton(match) {
   const home = teamById(match.home);
   const away = teamById(match.away);
@@ -335,6 +320,7 @@ function matchButton(match) {
           <time>${esc(match.time)}</time>
           <div class="field">till ${esc(ends)}</div>
           <div class="field">Plan ${esc(match.field)}</div>
+          <div class="field">${esc(fieldSurface(match.field).label)}</div>
         </div>
         <div class="teams-mini">
           <div class="vs-row">${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
@@ -343,7 +329,6 @@ function matchButton(match) {
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
       </button>
-      ${pitchFigure(match.field)}
     </article>`;
 }
 
@@ -439,6 +424,7 @@ function playoffCard(game) {
           <time>${esc(game.time)}</time>
           <div class="field">till ${esc(ends)}</div>
           <div class="field">Plan ${esc(game.field)}</div>
+          <div class="field">${esc(fieldSurface(game.field).label)}</div>
         </div>
         <div class="teams-mini">
           <div class="vs-row">${esc(game.label)}</div>
@@ -447,7 +433,6 @@ function playoffCard(game) {
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
       </div>
-      ${pitchFigure(game.field)}
     </article>`;
 }
 
@@ -518,7 +503,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Mellanmål mellan matcherna packas på frukosten. De är inte en hotellmåltid. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 1–4 är naturgräs och plan 5–8 är konstgräs. Plan 10 står inte i den listan. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
+        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Mellanmål mellan matcherna packas på frukosten. De är inte en hotellmåltid. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
     </section>`;
 }
@@ -798,7 +783,7 @@ function viewMatch(id) {
       <p class="eyebrow">${esc(match.date)} · Plan ${esc(match.field)} · ${esc(surface.label)}</p>
       <h1>${esc(match.time)}–${esc(ends)}</h1>
       <p class="sub">2×20 minuter, ${esc(RIDES.breakMin)} minuters paus · Grupp A</p>
-      <div class="card pad" style="margin-top:14px">${pitchFigure(match.field)}<p class="tiny" style="margin-top:8px">${esc(VENUE.studs)} <a href="${esc(VENUE.source)}">Arrangörens venuesida</a></p></div>
+      <p class="tiny" style="margin-top:8px">${esc(VENUE.studs)}</p>
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
         <div class="tiny" style="text-align:center">står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta.</div>

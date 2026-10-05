@@ -23,21 +23,15 @@ export function indexOf(components) {
 
 export const VENUE = {
   name: "Futbol Salou",
-  image: "assets/venue/futbol-salou-map.png",
-  imageAlt: "Karta över Complex Esportiu Futbol Salou",
-  map: "https://www.openstreetmap.org/#map=16/41.0851/1.1142",
-  credit: "Karta © OpenStreetMap",
   source: "https://www.footballcupbarcelona.com/en/venue",
   studs: "Metalldobbar är förbjudna.",
-  mapNote: "Kartan visar hela komplexet, inte vilken ruta som är vilken plan.",
 };
 
-// Organiser: fields 1–4 natural grass, fields 5–8 artificial. Field 10 is on the group grid and is not in that list.
+// Plan 2, 3 and 4 are natural grass. Every other field is artificial.
 export function fieldSurface(field) {
   const n = Number(field);
-  if (n >= 1 && n <= 4) return { label: "Naturgräs", known: true };
-  if (n >= 5 && n <= 8) return { label: "Konstgräs", known: true };
-  return { label: "Ytan är inte angiven", known: false };
+  if (n === 2 || n === 3 || n === 4) return { label: "Naturgräs" };
+  return { label: "Konstgräs" };
 }
 
 export const SNACK_PAGE = {
