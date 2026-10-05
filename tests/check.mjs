@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, MATCHES, MEALS, TEAMS, indexOf, teamById } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, canReturnBetween, indexOf, pitchPlan, teamById } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -148,6 +148,18 @@ if (AIRPORT_BUS.minOnFlight !== 20) throw new Error("minimum group for the airpo
 if (AIRPORT_BUS.officePhone !== "+34 932 808 062") throw new Error("office phone drifted");
 if (JSON.stringify(AIRPORT_BUS).includes("679")) throw new Error("unverified arrivals mobile leaked");
 if (JSON.stringify(AIRPORT_BUS).toLowerCase().includes("plana")) throw new Error("unnamed coach company was guessed");
+
+if (HOTEL.name !== "Alannia Salou" || !HOTEL.address.includes("Pompeu Fabra 37")) throw new Error("hotel address drifted");
+if (AIRPORT_BUS.arrival.hotelFrom !== "17:40" || AIRPORT_BUS.arrival.hotelTo !== "18:10") throw new Error("Friday hotel window drifted");
+if (AIRPORT_BUS.departure.airportFrom !== "16:10" || AIRPORT_BUS.departure.airportTo !== "16:40") throw new Error("Monday airport window drifted");
+const first = pitchPlan("09:50");
+if (first.leave !== "08:35" || first.arrive !== "08:50" || first.back !== "10:45") throw new Error("first pitch plan drifted");
+if (pitchPlan("09:00").leave !== "07:45" || pitchPlan("13:10").back !== "14:05" || pitchPlan("13:00").back !== "13:55") {
+  throw new Error("later pitch plan drifted");
+}
+if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || canReturnBetween("09:00", "11:00") || canReturnBetween("11:00", "13:00")) {
+  throw new Error("a return to the hotel was allowed inside a match gap");
+}
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {

@@ -3,6 +3,7 @@ import {
   CHAINS,
   AIRPORT_BUS,
   FLIGHTS,
+  HOTEL,
   LEAGUES,
   MATCHES,
   MEALS,
@@ -12,9 +13,12 @@ import {
   STAY,
   TEAMS,
   WEIGHTS,
+  RIDES,
+  canReturnBetween,
+  pitchPlan,
   rankedTeams,
   teamById,
-} from "./data.js?v=bus";
+} from "./data.js?v=hotel";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -158,16 +162,17 @@ function viewTrip() {
       <div class="section">
         <div class="section-head"><h2>Airport bus</h2></div>
         <div class="card pad">
-          <p class="small">The organiser’s shuttle. No coach company and no bus number are published, on the tournament pages or on the travel sheet.</p>
+          <p class="small">The organiser’s shuttle to ${esc(HOTEL.name)}, ${esc(HOTEL.address)}. No coach company and no bus number are published.</p>
           <div class="flight">
             <div>
               <b>Fri 16</b>
-              <div class="tiny">To Salou</div>
+              <div class="tiny">To the hotel</div>
             </div>
             <div>
-              <div class="route">${esc(AIRPORT_BUS.arrival.airport)} arrivals</div>
+              <div class="route">Hotel about ${esc(AIRPORT_BUS.arrival.hotelFrom)}–${esc(AIRPORT_BUS.arrival.hotelTo)}</div>
               <div class="times small">${esc(AIRPORT_BUS.arrival.flight)} lands ${esc(AIRPORT_BUS.arrival.land)}</div>
               <p class="tiny" style="margin-top:6px">${esc(AIRPORT_BUS.arrival.meet)}</p>
+              <p class="tiny" style="margin-top:6px">The drive is about ${esc(RIDES.airportKm)} km. Clear roads are about 1 hour 10 minutes. A transfer quote for this hotel says 1 hour 40 minutes. The hotel window assumes the bus leaves about an hour after landing. Dinner is 19:00–21:30.</p>
               <p class="tiny" style="margin-top:6px">At Reus and Girona the bus waits in the parking area with the team name. This flight is Barcelona, so that is not the meeting point.</p>
             </div>
           </div>
@@ -177,12 +182,13 @@ function viewTrip() {
               <div class="tiny">To the airport</div>
             </div>
             <div>
-              <div class="route">Hotel departure ${esc(AIRPORT_BUS.departure.hotelLeave)}</div>
-              <div class="times small">Check out by ${esc(AIRPORT_BUS.departure.checkout)} · ${esc(AIRPORT_BUS.departure.flight)} at ${esc(AIRPORT_BUS.departure.flightTime)}</div>
-              <p class="tiny" style="margin-top:6px">The bus leaves the hotel ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} is ${esc(AIRPORT_BUS.departure.flightTime)}, which makes ${esc(AIRPORT_BUS.departure.hotelLeave)}. The public team page does not print its own clock time.</p>
+              <div class="route">Airport about ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}</div>
+              <div class="times small">Leave the hotel ${esc(AIRPORT_BUS.departure.hotelLeave)} · check out by ${esc(AIRPORT_BUS.departure.checkout)} · ${esc(AIRPORT_BUS.departure.flight)} at ${esc(AIRPORT_BUS.departure.flightTime)}</div>
+              <p class="tiny" style="margin-top:6px">The bus leaves the hotel ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} is ${esc(AIRPORT_BUS.departure.flightTime)}, which makes ${esc(AIRPORT_BUS.departure.hotelLeave)}. The same drive then puts the group at the airport about ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}.</p>
             </div>
           </div>
-          <p class="tiny" style="margin-top:8px">The bus goes to the age check at Futbol Salou, then to the hotel. Friday’s age check is open until 18:00. A group that lands too late does the check on Saturday before the first match.</p>
+          <p class="tiny" style="margin-top:8px">The bus goes to the age check at Futbol Salou, then to the hotel. Friday’s age check closes at 18:00. On the slower drive that window is already shut, and the check moves to Saturday before the first match.</p>
+          <p class="tiny" style="margin-top:8px">${esc(HOTEL.name)} to Futbol Salou is about ${esc(RIDES.pitchKm)} km and 10 minutes by car. Allow ${esc(RIDES.pitchMin)} minutes for the team bus. These are map estimates. The organiser has not printed the shuttle clock times.</p>
           <p class="tiny" style="margin-top:8px">Fewer than ${esc(AIRPORT_BUS.minOnFlight)} people on the same flight means the organiser does not arrange this airport bus. The roster has 17 players, and the travel sheet does not say how many people are booked on these flights. Parents and supporters booked through the organiser ride the same shuttle. Anyone on a different flight arranges their own transfer. The Saturday and Sunday buses between the hotel and the fields are still arranged.</p>
           <p class="tiny" style="margin-top:8px">Tournament office: <a href="mailto:${esc(AIRPORT_BUS.officeEmail)}">${esc(AIRPORT_BUS.officeEmail)}</a> · ${esc(AIRPORT_BUS.officePhone)}. Sources: <a href="${esc(META.officialFaq)}">FAQ</a> · <a href="${esc(META.officialTerms)}">legal terms</a>.</p>
         </div>
@@ -202,9 +208,20 @@ function viewTrip() {
     </section>`;
 }
 
+function earlierMine(match) {
+  return MATCHES.some((other) => other.mine && other.day === match.day && other.time < match.time);
+}
+
+function rideLine(time, staying) {
+  const plan = pitchPlan(time);
+  if (staying) return `Stay at Futbol Salou. Be at this field by ${plan.arrive}.`;
+  return `Leave ${HOTEL.name} ${plan.leave}. Be at the field by ${plan.arrive}.`;
+}
+
 function matchButton(match) {
   const home = teamById(match.home);
   const away = teamById(match.away);
+  const note = match.mine ? rideLine(match.time, earlierMine(match)) : "";
   return `
     <button class="match ${match.mine ? "mine" : ""}" data-go="#match/${match.id}">
       <div>
@@ -214,6 +231,7 @@ function matchButton(match) {
       <div class="teams-mini">
         <div class="vs-row">${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">You</span>' : ""}</div>
         <div class="vs-row">${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">You</span>' : ""}</div>
+        ${note ? `<p class="tiny meal-note">${esc(note)}</p>` : ""}
       </div>
       <span class="tiny">2×20</span>
     </button>`;
@@ -245,9 +263,22 @@ function playoffCard(game) {
       <div class="teams-mini">
         <div class="vs-row">${esc(game.label)}</div>
         <div class="vs-row">${esc(game.pairing)}</div>
+        <p class="tiny meal-note">${esc(rideLine(game.time, true))}</p>
       </div>
       <span class="tiny">2×20</span>
     </div>`;
+}
+
+function dayRideNote(day) {
+  const mine = MATCHES.filter((match) => match.mine && match.day === day).sort((a, b) => a.time.localeCompare(b.time));
+  if (!mine.length) return "";
+  const last = day === "sun" ? "13:00" : mine[mine.length - 1].time;
+  const back = pitchPlan(last).back;
+  const hops = mine.slice(0, -1).every((match, index) => !canReturnBetween(match.time, mine[index + 1].time));
+  const nextAfterGroups = day === "sun" ? "13:00" : null;
+  const noReturnToPlayoff = nextAfterGroups ? !canReturnBetween(mine[mine.length - 1].time, nextAfterGroups) : true;
+  if (!hops || !noReturnToPlayoff) return "";
+  return `No time to go back to ${HOTEL.name} between these games. A game is 40 minutes, and the next one needs you at the field an hour before it. After the ${last} game you can be back about ${back}. Lunch is open until 14:30 if the game does not run long.`;
 }
 
 function viewSchedule() {
@@ -282,6 +313,7 @@ function viewSchedule() {
         <button class="chip ${state.filter === "mine" ? "on" : ""}" data-filter="mine">Spånga only</button>
         <button class="chip ${state.filter === "all" ? "on" : ""}" data-filter="all">Full group</button>
       </div>
+      ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
       <div class="stack">
         ${items.length ? items.map((item) => {
           if (item.kind === "meal") return mealCard(item.meal);
