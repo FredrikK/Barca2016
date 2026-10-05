@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, VENUE, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, AREA, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, VENUE, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -312,7 +312,17 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
   throw new Error("snack page lost the 15-year-old guidance");
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
-if (!appSource.includes('["trip", "schedule", "rank", "teams"]')) throw new Error("tab bar drifted");
+if (!appSource.includes('["trip", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
+if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
+if (!appSource.includes('data-go="#rank">Tillbaka till rankingen')) throw new Error("a team page no longer returns to the ranking");
+if (AREA.audience !== "För 15-åriga tjejer") throw new Error("area audience drifted");
+const areaText = JSON.stringify(AREA);
+if (!areaText.includes("10 minuter") || !areaText.includes("Capellans") || !areaText.includes("17 minuter")) throw new Error("walk times drifted");
+if (!areaText.includes("16 år") || !areaText.includes("PortAventura") || !areaText.includes("flera kilometer")) throw new Error("area limits drifted");
+if (areaText.includes("PortAventura är flera kilometer") === false) throw new Error("PortAventura was listed as a short walk");
+if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some((item) => item.text.includes("tonåringar"))) {
+  throw new Error("hotel fun for 15-year-olds drifted");
+}
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("till ${esc(ends)}") || !appSource.includes("Plan ${esc(match.field)}")) throw new Error("a game card lost the end time or the field");
 
