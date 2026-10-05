@@ -22,8 +22,9 @@ import {
   rankedTeams,
   snackStops,
   teamById,
+  travelStops,
   usableMeal,
-} from "./data.js?v=age";
+} from "./data.js?v=travel";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -310,6 +311,23 @@ function matchButton(match) {
     </button>`;
 }
 
+function travelCard(item) {
+  const endLabel = item.end ? (item.start === "före" ? item.end : `till ${item.end}`) : "";
+  return `
+    <div class="match travel">
+      <div>
+        <time>${esc(item.start)}</time>
+        ${endLabel ? `<div class="field">${esc(endLabel)}</div>` : ""}
+      </div>
+      <div>
+        <div class="teams-mini">${esc(item.name)}</div>
+        <div class="field">${esc(item.place)}</div>
+        ${item.note ? `<p class="tiny meal-note">${esc(item.note)}</p>` : ""}
+      </div>
+      <span class="pill ink">${esc(item.pill)}</span>
+    </div>`;
+}
+
 function checkCard(check) {
   return `
     <div class="match check">
@@ -410,8 +428,10 @@ function viewSchedule() {
   const snacks = snackStops(state.day);
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
   const checks = AGE_CHECK.day === state.day ? [AGE_CHECK] : [];
-  const kindRank = { check: 0, meal: 1, prep: 2, match: 3, snack: 4, playoff: 5 };
+  const travel = travelStops(state.day);
+  const kindRank = { travel: 0, check: 1, meal: 2, prep: 3, match: 4, snack: 5, playoff: 6 };
   const items = [
+    ...travel.map((item) => ({ sort: item.sort, kind: "travel", item })),
     ...checks.map((check) => ({ sort: check.start, kind: "check", check })),
     ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
     ...(prep ? [{ sort: prep.start, kind: "prep", prep }] : []),
@@ -445,6 +465,7 @@ function viewSchedule() {
       ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
       <div class="stack">
         ${items.length ? items.map((item) => {
+          if (item.kind === "travel") return travelCard(item.item);
           if (item.kind === "check") return checkCard(item.check);
           if (item.kind === "meal") return mealCard(item.meal);
           if (item.kind === "prep") return prepCard(item.prep);

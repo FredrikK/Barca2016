@@ -851,6 +851,82 @@ AIRPORT_BUS.arrival.hotelTo = clock(land + RIDES.luggageMin + RIDES.airportSlowM
 AIRPORT_BUS.departure.airportFrom = clock(hotelLeave + RIDES.airportFastMin);
 AIRPORT_BUS.departure.airportTo = clock(hotelLeave + RIDES.airportSlowMin);
 
+function flightPlace(name) {
+  return name === "Stockholm" ? "Arlanda" : name;
+}
+
+function flightStop(flight) {
+  const note = flight.arrNote
+    ? `${flight.arrNote}. Tiderna är lokal tid på varje flygplats, som på resebladet.`
+    : "Tiderna är lokal tid på varje flygplats, som på resebladet.";
+  return {
+    id: flight.no.replaceAll(" ", "").toLowerCase(),
+    kind: "flight",
+    sort: flight.dep,
+    start: flight.dep,
+    end: flight.arr,
+    name: flight.no,
+    place: `${flightPlace(flight.from)} → ${flightPlace(flight.to)}`,
+    note,
+    pill: "Flyg",
+  };
+}
+
+// Travel rows for the schedule. The sheet prints the flights and no separate
+// Arlanda meeting clock, so the gathering sits before LH 801's departure.
+export function travelStops(day) {
+  const flights = FLIGHTS.filter((flight) => {
+    if (day === "fri") return flight.date.startsWith("Fre");
+    if (day === "mon") return flight.date.startsWith("Mån");
+    return false;
+  }).map(flightStop);
+  if (day === "fri") {
+    const outbound = flights.find((item) => item.name === "LH 801");
+    return [
+      {
+        id: "meet-arn",
+        kind: "meet",
+        sort: "09:49",
+        start: "före",
+        end: outbound.start,
+        name: "Samling",
+        place: "Arlanda, terminal 5",
+        note: "Träffas inför LH 801. Resebladet anger avgången 09:50 och ingen egen mötestid. LH 801 går från terminal 5.",
+        pill: "Möte",
+      },
+      ...flights,
+      {
+        id: "bus-in",
+        kind: "bus",
+        sort: AIRPORT_BUS.arrival.land,
+        start: AIRPORT_BUS.arrival.land,
+        end: "",
+        name: "Flygbuss",
+        place: "Ankomsthallen, Barcelona",
+        note: `${AIRPORT_BUS.arrival.meet} Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet, ungefär ${AIRPORT_BUS.arrival.hotelFrom}–${AIRPORT_BUS.arrival.hotelTo}. Inget bussbolag och inget linjenummer är publicerat.`,
+        pill: "Buss",
+      },
+    ];
+  }
+  if (day === "mon") {
+    return [
+      {
+        id: "bus-out",
+        kind: "bus",
+        sort: AIRPORT_BUS.departure.hotelLeave,
+        start: AIRPORT_BUS.departure.hotelLeave,
+        end: "",
+        name: "Flygbuss",
+        place: `${HOTEL.name} → Barcelona El Prat`,
+        note: `Bussen lämnar hotellet ${AIRPORT_BUS.departure.hotelLeave}. Regeln är ${AIRPORT_BUS.departure.rule}. LH 1135 går ${AIRPORT_BUS.departure.flightTime}. Flygplatsen ungefär ${AIRPORT_BUS.departure.airportFrom}–${AIRPORT_BUS.departure.airportTo}. Checka ut senast ${AIRPORT_BUS.departure.checkout}. Inget bussbolag är publicerat.`,
+        pill: "Buss",
+      },
+      ...flights,
+    ];
+  }
+  return [];
+}
+
 export const STAY = [
   "Alannia Salou, Avinguda de Pompeu Fabra 37. Tre nätter. Resebladet namngav inte hotellet.",
   "Helpension från middag 16 oktober (19:00–21:30) till frukost 19 oktober (07:00–10:00). Lunch lördag och söndag är 13:00–14:30. Vatten ingår till lunch och middag.",
