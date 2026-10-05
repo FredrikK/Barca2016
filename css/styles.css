@@ -178,6 +178,8 @@ h3 { font-size: 16px; font-weight: 700; }
   border-radius: 16px;
 }
 .match.mine { border-color: #d7c398; background: linear-gradient(180deg, #fffaf0, #fffdf9); }
+.match.meal { cursor: default; background: var(--green-soft); border-color: #c5ddd2; }
+.match .meal-note { margin: 6px 0 0; }
 .match time { font-weight: 800; font-size: 14px; display: block; }
 .match .field { color: var(--ink-soft); font-size: 12px; }
 .teams-mini { display: flex; flex-direction: column; gap: 3px; font-weight: 650; font-size: 14px; }
@@ -196,7 +198,7 @@ h3 { font-size: 16px; font-weight: 700; }
 .pill.red { background: var(--red-soft); color: var(--red); }
 .pill.ink { background: #ece7df; color: var(--ink); }
 
-.filters { display: flex; gap: 8px; margin: 4px 0 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
 .chip {
   border: 1px solid var(--line);
   background: transparent;

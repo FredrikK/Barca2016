@@ -4,6 +4,7 @@ import {
   FLIGHTS,
   LEAGUES,
   MATCHES,
+  MEALS,
   META,
   METHOD,
   PLAYOFFS,
@@ -12,7 +13,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js?v=gava";
+} from "./data.js?v=meals";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -184,42 +185,79 @@ function matchButton(match) {
     </button>`;
 }
 
+function mealCard(meal) {
+  return `
+    <div class="match meal">
+      <div>
+        <time>${esc(meal.start)}</time>
+        <div class="field">until ${esc(meal.end)}</div>
+      </div>
+      <div>
+        <div class="teams-mini">${esc(meal.name)}</div>
+        <div class="field">${esc(meal.place)}</div>
+        ${meal.note ? `<p class="tiny meal-note">${esc(meal.note)}</p>` : ""}
+      </div>
+      <span class="pill green">Meal</span>
+    </div>`;
+}
+
+function playoffCard(game) {
+  return `
+    <div class="match">
+      <div>
+        <time>${esc(game.time)}</time>
+        <div class="field">Field ${esc(game.field)}</div>
+      </div>
+      <div class="teams-mini">
+        <div class="vs-row">${esc(game.label)}</div>
+        <div class="vs-row">${esc(game.pairing)}</div>
+      </div>
+      <span class="tiny">2×20</span>
+    </div>`;
+}
+
 function viewSchedule() {
   const games = MATCHES.filter((match) => state.day === match.day).filter((match) => state.filter === "all" || match.mine);
+  const meals = MEALS.filter((meal) => meal.day === state.day);
+  const playoffs = state.day === "sun" ? PLAYOFFS : [];
+  const kindRank = { meal: 0, match: 1, playoff: 2 };
+  const items = [
+    ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
+    ...games.map((match) => ({ sort: match.time, kind: "match", match })),
+    ...playoffs.map((game) => ({ sort: game.time, kind: "playoff", game })),
+  ].sort((a, b) => a.sort.localeCompare(b.sort) || kindRank[a.kind] - kindRank[b.kind]);
+  const days = [
+    ["fri", "Friday 16"],
+    ["sat", "Saturday 17"],
+    ["sun", "Sunday 18"],
+    ["mon", "Monday 19"],
+  ];
   return `
     <section class="view">
       <header class="topbar">
         <div>
           <p class="eyebrow">Group A · 2×20</p>
           <h1>Schedule</h1>
-          <p class="sub">Fifteen group games, then a placement match. Your five lines match the travel sheet.</p>
+          <p class="sub">Fifteen group games, then a placement match. Breakfast, lunch and dinner are the hotel times from the official programme.</p>
         </div>
       </header>
       <div class="filters">
-        <button class="chip ${state.day === "sat" ? "on" : ""}" data-day="sat">Saturday 17</button>
-        <button class="chip ${state.day === "sun" ? "on" : ""}" data-day="sun">Sunday 18</button>
+        ${days.map(([day, label]) => `<button class="chip ${state.day === day ? "on" : ""}" data-day="${day}">${label}</button>`).join("")}
       </div>
       <div class="filters">
         <button class="chip ${state.filter === "mine" ? "on" : ""}" data-filter="mine">Spånga only</button>
         <button class="chip ${state.filter === "all" ? "on" : ""}" data-filter="all">Full group</button>
       </div>
       <div class="stack">
-        ${games.length ? games.map(matchButton).join("") : `<div class="card pad small">No Spånga game in this slice. Switch to the full group.</div>`}
+        ${items.length ? items.map((item) => {
+          if (item.kind === "meal") return mealCard(item.meal);
+          if (item.kind === "match") return matchButton(item.match);
+          return playoffCard(item.game);
+        }).join("") : `<div class="card pad small">Nothing listed for this day.</div>`}
       </div>
-      ${state.day === "sun" ? `
-        <div class="section">
-          <div class="section-head"><h2>Placement, 13:00</h2></div>
-          <div class="stack">
-            ${PLAYOFFS.map((game) => `
-              <div class="card pad">
-                <b>${esc(game.label)}</b>
-                <div class="small" style="margin-top:4px">Field ${esc(game.field)} · ${esc(game.pairing)}</div>
-                <p class="tiny" style="margin-top:6px">Opponent comes from the group table. A draw goes straight to penalties, five kicks then sudden death.</p>
-              </div>`).join("")}
-          </div>
-        </div>` : ""}
+      ${state.day === "sun" ? `<p class="tiny">Opponent in a placement match comes from the group table. A draw goes straight to penalties, five kicks then sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Official list: <a href="${esc(META.officialGroups)}">group matches</a> · <a href="${esc(META.officialPlayoffs)}">playoffs</a>. The site blocks a plain download, so the non-Spånga pairings were read from the page and checked against a full round-robin. Spånga’s five games also match the PDF.</p>
+        <p class="tiny">Meals: <a href="${esc(META.officialRules)}">17–18 October programme</a>. Breakfast 07:00–10:00, lunch 13:00–14:30, dinner 19:00–21:30. Friday is dinner only. Monday is breakfast only, then check out by 11:00. The organiser can change these times. Matches: <a href="${esc(META.officialGroups)}">group list</a> · <a href="${esc(META.officialPlayoffs)}">playoffs</a>. Spånga’s five games also match the travel sheet.</p>
       </div>
     </section>`;
 }

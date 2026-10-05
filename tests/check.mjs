@@ -1,4 +1,4 @@
-import { MATCHES, TEAMS, indexOf, teamById } from "../js/data.js";
+import { MATCHES, MEALS, TEAMS, indexOf, teamById } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -120,7 +120,25 @@ if (!pats.players.some((player) => player.name === "Ciara Cahoon" && player.numb
 }
 if (pats.players.length !== 17) throw new Error("St Patricks roster length");
 
-const phone = JSON.stringify({ TEAMS, MATCHES });
+function expectMeal(day, name, start, end) {
+  const meal = MEALS.find((item) => item.day === day && item.name === name);
+  if (!meal || meal.start !== start || meal.end !== end || meal.place !== "Hotel buffet") {
+    throw new Error(`${day} ${name} meal time drifted`);
+  }
+}
+expectMeal("fri", "Dinner", "19:00", "21:30");
+expectMeal("sat", "Breakfast", "07:00", "10:00");
+expectMeal("sat", "Lunch", "13:00", "14:30");
+expectMeal("sat", "Dinner", "19:00", "21:30");
+expectMeal("sun", "Breakfast", "07:00", "10:00");
+expectMeal("sun", "Lunch", "13:00", "14:30");
+expectMeal("sun", "Dinner", "19:00", "21:30");
+expectMeal("mon", "Breakfast", "07:00", "10:00");
+if (MEALS.length !== 8) throw new Error("expected 8 meals");
+if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Dinner")) throw new Error("Friday should list dinner only");
+if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Breakfast")) throw new Error("Monday should list breakfast only");
+
+const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
   throw new Error("personal phone number leaked into the data");
 }
