@@ -313,7 +313,9 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
 if (!appSource.includes('["trip", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
-if (!appSource.includes('data-go="#rank">Tillbaka till rankingen')) throw new Error("a team page no longer returns to the ranking");
+if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
+if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
+if (!appSource.includes('data-go="#rank">Tillbaka till motståndarna')) throw new Error("a team page no longer returns to the opponents page");
 if (AREA.audience !== "För 15-åriga tjejer") throw new Error("area audience drifted");
 const areaText = JSON.stringify(AREA);
 if (!areaText.includes("10 minuter") || !areaText.includes("Capellans") || !areaText.includes("17 minuter")) throw new Error("walk times drifted");
