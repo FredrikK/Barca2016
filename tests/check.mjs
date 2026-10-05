@@ -53,7 +53,7 @@ if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
 }
 
 const jarna = teamById("jarna");
-if (!jarna.players.some((player) => player.name === "Sofia Vall" && player.number === "10")) {
+if (!jarna.players.some((player) => player.name === "Sofia V." && player.number === "10")) {
   throw new Error("Vall missing from the 2026 roster");
 }
 if (jarna.players.length !== 17) throw new Error("Järna roster length");
@@ -75,7 +75,7 @@ for (const [id, count] of Object.entries(expectedRosters)) {
 }
 
 const spangaTeam = teamById("spanga");
-if (!spangaTeam.players.some((player) => player.name === "Mira Drougge" && player.number === "10")) {
+if (!spangaTeam.players.some((player) => player.name === "Mira D." && player.number === "10")) {
   throw new Error("Spånga roster missing Mira Drougge");
 }
 if (!spangaTeam.staff.includes("Thomas Gustafsson") || !spangaTeam.staff.includes("Malin Drougge")) {
@@ -86,11 +86,11 @@ if (spangaText.includes("Vendela") || spangaText.includes("Michelle Rojas") || s
   throw new Error("Spånga page still names people who are not on the tournament roster");
 }
 
-if (!teamById("castlevilla").players.some((player) => player.name === "Abbie Landon" && player.number === "11")) {
+if (!teamById("castlevilla").players.some((player) => player.name === "Abbie L." && player.number === "11")) {
   throw new Error("Castle Villa roster missing Landon");
 }
 if (!teamById("gava").staff.includes("Ania Torres Torres")) throw new Error("Gavà coach missing");
-if (!teamById("gava").players.some((player) => player.name === "Noa Mostazo Salvatierra")) {
+if (!teamById("gava").players.some((player) => player.name === "Noa M. S.")) {
   throw new Error("Gavà roster spelling");
 }
 if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
@@ -115,10 +115,24 @@ if (!teamById("castlevilla").results.some((result) => result.score === "Castle V
 }
 
 const pats = teamById("stpatricks");
-if (!pats.players.some((player) => player.name === "Ciara Cahoon" && player.number === "7")) {
+if (!pats.players.some((player) => player.name === "Ciara C." && player.number === "7")) {
   throw new Error("St Patricks roster missing Cahoon");
 }
 if (pats.players.length !== 17) throw new Error("St Patricks roster length");
+const publicName = /^(?:\p{L}+(?:-\p{L}+)*)(?: \p{Lu}\.)+$/u;
+for (const team of TEAMS) {
+  for (const player of team.players) {
+    if (!publicName.test(player.name)) throw new Error(`player name not anonymized: ${player.name}`);
+  }
+}
+const visible = JSON.stringify(TEAMS.map((team) => ({
+  ...team,
+  staff: "",
+  sources: team.sources.map((source) => source.label),
+})));
+for (const surname of ["Vall", "Landon", "Cahoon", "Fredriksson", "Mostazo", "Saavedra", "Donnelly", "O'Sullivan", "Elbahlawan", "Hamrin", "Roussy", "Menis", "Goddard", "Malmia"]) {
+  if (visible.includes(surname)) throw new Error(`surname still on the page: ${surname}`);
+}
 
 function expectMeal(day, name, start, end) {
   const meal = MEALS.find((item) => item.day === day && item.name === name);

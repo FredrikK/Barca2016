@@ -21,7 +21,7 @@ import {
   snackStops,
   teamById,
   usableMeal,
-} from "./data.js?v=snack";
+} from "./data.js?v=names";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -525,6 +525,7 @@ function viewTeam(id) {
       </div>
       <div class="section">
         <h2>Tournament roster</h2>
+        <p class="tiny">Surnames are shown as an initial.</p>
         <div class="card pad" style="margin-top:10px">
           ${team.players.length ? team.players.map((player) => `
             <div class="player">
