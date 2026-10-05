@@ -622,6 +622,7 @@ export const RIDES = {
   breakMin: 5,
   luggageMin: 60,
   packMin: 15,
+  snackLeadMin: 15,
 };
 
 function matchMinutes() {
@@ -768,6 +769,33 @@ export function morningPrep(day) {
     place: HOTEL.name,
     note: "Fifteen minutes before the bus. Change clothes and collect your things.",
   };
+}
+
+const SNACK = "A banana, a small bread roll, or a cereal bar. Water in the bottle. A few sips of sports drink if it is hot. Nothing heavy, and no energy drink.";
+
+// Gaps at the pitches, after one game ends and 15 minutes before the next kick.
+export function snackStops(day) {
+  const kicks = spangaKicks(day);
+  const breakfast = MEALS.find((meal) => meal.day === day && meal.name === "Breakfast");
+  const stops = [];
+  for (let i = 0; i < kicks.length - 1; i += 1) {
+    const done = pitchPlan(kicks[i]).ends;
+    const nextKick = kicks[i + 1];
+    const until = clock(minutes(nextKick) - RIDES.snackLeadMin);
+    if (minutes(until) - minutes(done) < RIDES.snackLeadMin) continue;
+    const after = i === 0 ? "the first game" : `the ${kicks[i]} game`;
+    stops.push({
+      id: `${day}-snack-${i + 1}`,
+      day,
+      date: breakfast ? breakfast.date : "",
+      start: done,
+      end: until,
+      name: "Snack",
+      place: "At the pitches",
+      note: `After ${after}, before the ${nextKick} kick. Pack it at breakfast. ${SNACK}`,
+    });
+  }
+  return stops;
 }
 
 const land = minutes(AIRPORT_BUS.arrival.land);
