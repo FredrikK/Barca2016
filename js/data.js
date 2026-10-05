@@ -38,6 +38,9 @@ export const META = {
     "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/playoffs",
   officialRules:
     "https://www.footballcupbarcelona.com/en/tournament/17-18-october-2026",
+  officialFaq:
+    "https://www.footballcupbarcelona.com/en/tournament/17-18-october-2026/faq",
+  officialTerms: "https://www.footballcupbarcelona.com/en/legal/legal-notices",
   researched: "4 October 2026",
 };
 
@@ -572,6 +575,32 @@ export const FLIGHTS = [
   { date: "Mon 19 Oct", no: "LH 1135", from: "Barcelona", to: "Frankfurt", dep: "19:00", arr: "21:10" },
   { date: "Mon 19 Oct", no: "LH 810", from: "Frankfurt", to: "Stockholm", dep: "22:15", arr: "00:20", arrNote: "Arrives Tuesday 20 Oct" },
 ];
+
+// The organiser's shuttle. No coach company or route number is printed.
+// hotelLeave is the published 4-hour rule applied to LH 1135, not a time on the team page.
+export const AIRPORT_BUS = {
+  company: "",
+  routeNumber: "",
+  arrival: {
+    date: "Fri 16 Oct",
+    flight: "LH 1130",
+    airport: "Barcelona El Prat",
+    land: "15:30",
+    meet: "Collect the luggage, come through to the arrivals area, and gather the whole group. The tournament rep meets the group there and takes them to the bus.",
+  },
+  departure: {
+    date: "Mon 19 Oct",
+    flight: "LH 1135",
+    airport: "Barcelona El Prat",
+    flightTime: "19:00",
+    hotelLeave: "15:00",
+    checkout: "11:00",
+    rule: "4 hours before a Barcelona flight",
+  },
+  minOnFlight: 20,
+  officePhone: "+34 932 808 062",
+  officeEmail: "info@footballcupbarcelona.com",
+};
 
 export const STAY = [
   "Three nights in a 3–4 star hotel in Salou.",

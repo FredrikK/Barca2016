@@ -1,4 +1,4 @@
-import { MATCHES, MEALS, TEAMS, indexOf, teamById } from "../js/data.js";
+import { AIRPORT_BUS, MATCHES, MEALS, TEAMS, indexOf, teamById } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -137,6 +137,17 @@ expectMeal("mon", "Breakfast", "07:00", "10:00");
 if (MEALS.length !== 8) throw new Error("expected 8 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Dinner")) throw new Error("Friday should list dinner only");
 if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Breakfast")) throw new Error("Monday should list breakfast only");
+
+if (AIRPORT_BUS.company || AIRPORT_BUS.routeNumber) throw new Error("airport bus company was not published");
+if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15:30") throw new Error("arrival bus flight drifted");
+if (AIRPORT_BUS.arrival.airport !== "Barcelona El Prat") throw new Error("arrival airport drifted");
+if (!AIRPORT_BUS.arrival.meet.includes("arrivals area")) throw new Error("Barcelona meeting point missing");
+if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTime !== "19:00") throw new Error("departure flight drifted");
+if (AIRPORT_BUS.departure.hotelLeave !== "15:00" || AIRPORT_BUS.departure.checkout !== "11:00") throw new Error("hotel departure drifted");
+if (AIRPORT_BUS.minOnFlight !== 20) throw new Error("minimum group for the airport bus drifted");
+if (AIRPORT_BUS.officePhone !== "+34 932 808 062") throw new Error("office phone drifted");
+if (JSON.stringify(AIRPORT_BUS).includes("679")) throw new Error("unverified arrivals mobile leaked");
+if (JSON.stringify(AIRPORT_BUS).toLowerCase().includes("plana")) throw new Error("unnamed coach company was guessed");
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
