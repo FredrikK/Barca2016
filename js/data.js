@@ -649,6 +649,97 @@ export function canReturnBetween(thisKick, nextKick) {
   return free >= RIDES.pitchMin * 2;
 }
 
+function spangaKicks(day) {
+  const kicks = MATCHES.filter((match) => match.mine && match.day === day).map((match) => match.time);
+  if (day === "sun") {
+    for (const game of PLAYOFFS) {
+      if (game.day === day) kicks.push(game.time);
+    }
+  }
+  return [...new Set(kicks)].sort((a, b) => minutes(a) - minutes(b));
+}
+
+// Time the team is away from the hotel: leave for the first game through
+// getting back from the last, with no gap when a return is impossible.
+export function awayBlocks(day) {
+  const kicks = spangaKicks(day);
+  if (!kicks.length) return [];
+  const blocks = [];
+  let from = minutes(pitchPlan(kicks[0]).leave);
+  let to = minutes(pitchPlan(kicks[0]).back);
+  for (let i = 1; i < kicks.length; i += 1) {
+    const nextFrom = minutes(pitchPlan(kicks[i]).leave);
+    const nextTo = minutes(pitchPlan(kicks[i]).back);
+    if (canReturnBetween(kicks[i - 1], kicks[i]) && nextFrom > to) {
+      blocks.push({ start: clock(from), end: clock(to) });
+      from = nextFrom;
+    }
+    to = Math.max(to, nextTo);
+  }
+  blocks.push({ start: clock(from), end: clock(to) });
+  return blocks;
+}
+
+function clipNote(meal, start, end) {
+  const open = minutes(meal.start);
+  const close = minutes(meal.end);
+  const from = minutes(start);
+  const to = minutes(end);
+  const clippedStart = from > open;
+  const clippedEnd = to < close;
+  if (clippedStart && clippedEnd) {
+    return `Buffet is ${meal.start}–${meal.end}. This slice is the gap between games.`;
+  }
+  if (clippedEnd) {
+    return `Buffet stays open until ${meal.end}. The bus leaves at ${end}.`;
+  }
+  if (clippedStart) {
+    return `Buffet opens at ${meal.start}. You are back about ${start}. A game is counted as 40 minutes, plus 15 minutes on the bus. If it runs long, this window can disappear.`;
+  }
+  return meal.note || "";
+}
+
+// Official buffet hours stay on the meal. The schedule uses the part Spånga can eat.
+export function usableMeal(meal) {
+  let segments = [[minutes(meal.start), minutes(meal.end)]];
+  for (const block of awayBlocks(meal.day)) {
+    const awayStart = minutes(block.start);
+    const awayEnd = minutes(block.end);
+    const next = [];
+    for (const [from, to] of segments) {
+      if (awayEnd <= from || awayStart >= to) {
+        next.push([from, to]);
+        continue;
+      }
+      if (from < awayStart) next.push([from, Math.min(to, awayStart)]);
+      if (awayEnd < to) next.push([Math.max(from, awayEnd), to]);
+    }
+    segments = next.filter(([from, to]) => to - from >= 1);
+  }
+  if (!segments.length) {
+    return [{
+      ...meal,
+      missed: true,
+      officialStart: meal.start,
+      officialEnd: meal.end,
+      note: `Buffet is ${meal.start}–${meal.end}. The team is at Futbol Salou for the whole window.`,
+    }];
+  }
+  return segments.map(([from, to]) => {
+    const start = clock(from);
+    const end = clock(to);
+    return {
+      ...meal,
+      start,
+      end,
+      officialStart: meal.start,
+      officialEnd: meal.end,
+      missed: false,
+      note: clipNote(meal, start, end),
+    };
+  });
+}
+
 const land = minutes(AIRPORT_BUS.arrival.land);
 const hotelLeave = minutes(AIRPORT_BUS.departure.hotelLeave);
 AIRPORT_BUS.arrival.hotelFrom = clock(land + RIDES.luggageMin + RIDES.airportFastMin);

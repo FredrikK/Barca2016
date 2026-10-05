@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, canReturnBetween, indexOf, pitchPlan, teamById } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, awayBlocks, canReturnBetween, indexOf, pitchPlan, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -134,6 +134,33 @@ expectMeal("sun", "Breakfast", "07:00", "10:00");
 expectMeal("sun", "Lunch", "13:00", "14:30");
 expectMeal("sun", "Dinner", "19:00", "21:30");
 expectMeal("mon", "Breakfast", "07:00", "10:00");
+function expectUsable(day, name, start, end) {
+  const meal = MEALS.find((item) => item.day === day && item.name === name);
+  const windows = usableMeal(meal);
+  if (windows.length !== 1 || windows[0].missed || windows[0].start !== start || windows[0].end !== end) {
+    throw new Error(`${day} ${name} usable window drifted: ${JSON.stringify(windows)}`);
+  }
+  if (windows[0].officialStart !== meal.start || windows[0].officialEnd !== meal.end) {
+    throw new Error(`${day} ${name} lost the official buffet hours`);
+  }
+}
+expectUsable("fri", "Dinner", "19:00", "21:30");
+expectUsable("sat", "Breakfast", "07:00", "08:35");
+expectUsable("sat", "Lunch", "14:05", "14:30");
+expectUsable("sat", "Dinner", "19:00", "21:30");
+expectUsable("sun", "Breakfast", "07:00", "07:45");
+expectUsable("sun", "Lunch", "13:55", "14:30");
+expectUsable("sun", "Dinner", "19:00", "21:30");
+expectUsable("mon", "Breakfast", "07:00", "10:00");
+const satLunch = usableMeal(MEALS.find((meal) => meal.id === "sat-lunch"))[0];
+const sunLunch = usableMeal(MEALS.find((meal) => meal.id === "sun-lunch"))[0];
+if (satLunch.start <= "13:10" || sunLunch.start <= "13:00") throw new Error("lunch still sorts inside a game");
+if (!satLunch.note.includes("13:00") || !sunLunch.note.includes("13:00")) throw new Error("clipped lunch hid the buffet open time");
+const satAway = awayBlocks("sat");
+const sunAway = awayBlocks("sun");
+if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:05") throw new Error("Saturday away block drifted");
+if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "13:55") throw new Error("Sunday away block drifted");
+if (awayBlocks("fri").length || awayBlocks("mon").length) throw new Error("a rest day invented an away block");
 if (MEALS.length !== 8) throw new Error("expected 8 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Dinner")) throw new Error("Friday should list dinner only");
 if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Breakfast")) throw new Error("Monday should list breakfast only");

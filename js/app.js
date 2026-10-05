@@ -18,7 +18,8 @@ import {
   pitchPlan,
   rankedTeams,
   teamById,
-} from "./data.js?v=hotel";
+  usableMeal,
+} from "./data.js?v=eat";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -238,6 +239,7 @@ function matchButton(match) {
 }
 
 function mealCard(meal) {
+  const label = meal.missed ? "Missed" : "Meal";
   return `
     <div class="match meal">
       <div>
@@ -249,7 +251,7 @@ function mealCard(meal) {
         <div class="field">${esc(meal.place)}</div>
         ${meal.note ? `<p class="tiny meal-note">${esc(meal.note)}</p>` : ""}
       </div>
-      <span class="pill green">Meal</span>
+      <span class="pill green">${label}</span>
     </div>`;
 }
 
@@ -278,12 +280,12 @@ function dayRideNote(day) {
   const nextAfterGroups = day === "sun" ? "13:00" : null;
   const noReturnToPlayoff = nextAfterGroups ? !canReturnBetween(mine[mine.length - 1].time, nextAfterGroups) : true;
   if (!hops || !noReturnToPlayoff) return "";
-  return `No time to go back to ${HOTEL.name} between these games. A game is 40 minutes, and the next one needs you at the field an hour before it. After the ${last} game you can be back about ${back}. Lunch is open until 14:30 if the game does not run long.`;
+  return `No time to go back to ${HOTEL.name} between these games. A game is 40 minutes, and the next one needs you at the field an hour before it. After the ${last} game you can be back about ${back}. The lunch card is the part of 13:00–14:30 you can still reach if the game does not run long.`;
 }
 
 function viewSchedule() {
   const games = MATCHES.filter((match) => state.day === match.day).filter((match) => state.filter === "all" || match.mine);
-  const meals = MEALS.filter((meal) => meal.day === state.day);
+  const meals = MEALS.filter((meal) => meal.day === state.day).flatMap((meal) => usableMeal(meal));
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
   const kindRank = { meal: 0, match: 1, playoff: 2 };
   const items = [
@@ -303,7 +305,7 @@ function viewSchedule() {
         <div>
           <p class="eyebrow">Group A · 2×20</p>
           <h1>Schedule</h1>
-          <p class="sub">Fifteen group games, then a placement match. Breakfast, lunch and dinner are the hotel times from the official programme.</p>
+          <p class="sub">Fifteen group games, then a placement match. Meal cards are the part of the hotel buffet Spånga can reach around those games.</p>
         </div>
       </header>
       <div class="filters">
@@ -323,7 +325,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Opponent in a placement match comes from the group table. A draw goes straight to penalties, five kicks then sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Meals: <a href="${esc(META.officialRules)}">17–18 October programme</a>. Breakfast 07:00–10:00, lunch 13:00–14:30, dinner 19:00–21:30. Friday is dinner only. Monday is breakfast only, then check out by 11:00. The organiser can change these times. Matches: <a href="${esc(META.officialGroups)}">group list</a> · <a href="${esc(META.officialPlayoffs)}">playoffs</a>. Spånga’s five games also match the travel sheet.</p>
+        <p class="tiny">Meals: <a href="${esc(META.officialRules)}">17–18 October programme</a>. The buffet is breakfast 07:00–10:00, lunch 13:00–14:30, dinner 19:00–21:30. Cards show the part Spånga can eat once the bus to the field is taken off. Friday is dinner only. Monday is breakfast only, then check out by 11:00. The organiser can change these times. Matches: <a href="${esc(META.officialGroups)}">group list</a> · <a href="${esc(META.officialPlayoffs)}">playoffs</a>. Spånga’s five games also match the travel sheet.</p>
       </div>
     </section>`;
 }
