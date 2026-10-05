@@ -20,7 +20,7 @@ import {
   rankedTeams,
   teamById,
   usableMeal,
-} from "./data.js?v=pack";
+} from "./data.js?v=break";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -130,7 +130,7 @@ function viewTrip() {
         <div class="countdown">
           <div class="count"><b>${clock.days}</b><span>days</span></div>
           <div class="count"><b>5</b><span>group games</span></div>
-          <div class="count"><b>2×20</b><span>minutes</span></div>
+          <div class="count"><b>2×20</b><span>plus ${esc(RIDES.breakMin)} min break</span></div>
         </div>
       </div>
       <div class="grid-2">
@@ -235,7 +235,7 @@ function matchButton(match) {
         <div class="vs-row">${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">You</span>' : ""}</div>
         ${note ? `<p class="tiny meal-note">${esc(note)}</p>` : ""}
       </div>
-      <span class="tiny">2×20</span>
+      <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min break</span></span>
     </button>`;
 }
 
@@ -284,7 +284,7 @@ function playoffCard(game) {
         <div class="vs-row">${esc(game.pairing)}</div>
         <p class="tiny meal-note">${esc(rideLine(game.time, true))}</p>
       </div>
-      <span class="tiny">2×20</span>
+      <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min break</span></span>
     </div>`;
 }
 
@@ -297,7 +297,7 @@ function dayRideNote(day) {
   const nextAfterGroups = day === "sun" ? "13:00" : null;
   const noReturnToPlayoff = nextAfterGroups ? !canReturnBetween(mine[mine.length - 1].time, nextAfterGroups) : true;
   if (!hops || !noReturnToPlayoff) return "";
-  return `No time to go back to ${HOTEL.name} between these games. A game is 40 minutes, and the next one needs you at the field an hour before it. After the ${last} game you can be back about ${back}. The lunch card is the part of 13:00–14:30 you can still reach if the game does not run long.`;
+  return `No time to go back to ${HOTEL.name} between these games. A game is 40 minutes plus a 5 minute break, and the next one needs you at the field an hour before it. After the ${last} game you can be back about ${back}. The lunch card is the part of 13:00–14:30 you can still reach if the game does not run long.`;
 }
 
 function viewSchedule() {
@@ -577,7 +577,7 @@ function viewMatch(id) {
       <button class="back" data-go="#schedule">Schedule</button>
       <p class="eyebrow">${esc(match.date)} · Field ${esc(match.field)}</p>
       <h1>${esc(match.time)}</h1>
-      <p class="sub">2×20 minutes · Group A</p>
+      <p class="sub">2×20 minutes, ${esc(RIDES.breakMin)} minute break · Group A</p>
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
         <div class="tiny" style="text-align:center">listed first on the official card, then second. The page does not mark home and away.</div>

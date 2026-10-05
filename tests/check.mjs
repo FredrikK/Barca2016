@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, teamById, usableMeal } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -146,10 +146,10 @@ function expectUsable(day, name, start, end) {
 }
 expectUsable("fri", "Dinner", "19:00", "21:30");
 expectUsable("sat", "Breakfast", "07:00", "08:20");
-expectUsable("sat", "Lunch", "14:05", "14:30");
+expectUsable("sat", "Lunch", "14:10", "14:30");
 expectUsable("sat", "Dinner", "19:00", "21:30");
 expectUsable("sun", "Breakfast", "07:00", "07:30");
-expectUsable("sun", "Lunch", "13:55", "14:30");
+expectUsable("sun", "Lunch", "14:00", "14:30");
 expectUsable("sun", "Dinner", "19:00", "21:30");
 expectUsable("mon", "Breakfast", "07:00", "10:00");
 const satLunch = usableMeal(MEALS.find((meal) => meal.id === "sat-lunch"))[0];
@@ -158,8 +158,8 @@ if (satLunch.start <= "13:10" || sunLunch.start <= "13:00") throw new Error("lun
 if (!satLunch.note.includes("13:00") || !sunLunch.note.includes("13:00")) throw new Error("clipped lunch hid the buffet open time");
 const satAway = awayBlocks("sat");
 const sunAway = awayBlocks("sun");
-if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:05") throw new Error("Saturday away block drifted");
-if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "13:55") throw new Error("Sunday away block drifted");
+if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:10") throw new Error("Saturday away block drifted");
+if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "14:00") throw new Error("Sunday away block drifted");
 if (awayBlocks("fri").length || awayBlocks("mon").length) throw new Error("a rest day invented an away block");
 const satPrep = morningPrep("sat");
 const sunPrep = morningPrep("sun");
@@ -189,10 +189,11 @@ if (HOTEL.name !== "Alannia Salou" || !HOTEL.address.includes("Pompeu Fabra 37")
 if (AIRPORT_BUS.arrival.hotelFrom !== "17:40" || AIRPORT_BUS.arrival.hotelTo !== "18:10") throw new Error("Friday hotel window drifted");
 if (AIRPORT_BUS.departure.airportFrom !== "16:10" || AIRPORT_BUS.departure.airportTo !== "16:40") throw new Error("Monday airport window drifted");
 const first = pitchPlan("09:50");
-if (first.leave !== "08:35" || first.arrive !== "08:50" || first.back !== "10:45") throw new Error("first pitch plan drifted");
-if (pitchPlan("09:00").leave !== "07:45" || pitchPlan("13:10").back !== "14:05" || pitchPlan("13:00").back !== "13:55") {
+if (first.leave !== "08:35" || first.arrive !== "08:50" || first.ends !== "10:35" || first.back !== "10:50") throw new Error("first pitch plan drifted");
+if (pitchPlan("09:00").leave !== "07:45" || pitchPlan("13:10").back !== "14:10" || pitchPlan("13:00").back !== "14:00") {
   throw new Error("later pitch plan drifted");
 }
+if (RIDES.breakMin !== 5) throw new Error("half-time break drifted");
 if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || canReturnBetween("09:00", "11:00") || canReturnBetween("11:00", "13:00")) {
   throw new Error("a return to the hotel was allowed inside a match gap");
 }

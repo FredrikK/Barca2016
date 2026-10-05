@@ -31,7 +31,7 @@ export const META = {
   address: "Vial Salou Cambrils, 43840 Salou",
   kickoff: "2026-10-17T09:50:00+02:00",
   format:
-    "11v11, 2×20 minutes, size 5 ball, offside, three referees. Squad 13–25. Up to four players may be one year older (born 2009). Each team plays five group games plus a placement match.",
+    "11v11, 2×20 minutes, size 5 ball, offside, three referees. Squad 13–25. Up to four players may be one year older (born 2009). Each team plays five group games plus a placement match. The guide counts a 5 minute half-time in every game. The organiser has not printed that break.",
   officialGroups:
     "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/groups",
   officialPlayoffs:
@@ -619,9 +619,14 @@ export const RIDES = {
   pitchMin: 15,
   earlyMin: 60,
   playMin: 40,
+  breakMin: 5,
   luggageMin: 60,
   packMin: 15,
 };
+
+function matchMinutes() {
+  return RIDES.playMin + RIDES.breakMin;
+}
 
 function minutes(time) {
   const [h, m] = time.split(":").map(Number);
@@ -640,13 +645,13 @@ export function pitchPlan(time) {
   return {
     leave: clock(kick - RIDES.earlyMin - RIDES.pitchMin),
     arrive: clock(kick - RIDES.earlyMin),
-    ends: clock(kick + RIDES.playMin),
-    back: clock(kick + RIDES.playMin + RIDES.pitchMin),
+    ends: clock(kick + matchMinutes()),
+    back: clock(kick + matchMinutes() + RIDES.pitchMin),
   };
 }
 
 export function canReturnBetween(thisKick, nextKick) {
-  const free = minutes(nextKick) - RIDES.earlyMin - (minutes(thisKick) + RIDES.playMin);
+  const free = minutes(nextKick) - RIDES.earlyMin - (minutes(thisKick) + matchMinutes());
   return free >= RIDES.pitchMin * 2;
 }
 
@@ -698,7 +703,7 @@ function clipNote(meal, start, end) {
     return `Buffet stays open until ${meal.end}. The bus leaves at ${end}.`;
   }
   if (clippedStart) {
-    return `Buffet opens at ${meal.start}. You are back about ${start}. A game is counted as 40 minutes, plus 15 minutes on the bus. If it runs long, this window can disappear.`;
+    return `Buffet opens at ${meal.start}. You are back about ${start}. A game is counted as 40 minutes plus a 5 minute break, then 15 minutes on the bus. If it runs long, this window can disappear.`;
   }
   return meal.note || "";
 }
