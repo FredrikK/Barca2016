@@ -629,6 +629,7 @@ export const HOTEL = {
     "Fyrstjärnigt resort med 346 temarum. Utomhusytorna är bilfria, med parkering under jord.",
     "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
     "Poolområdet är 1 000 m² och har rutschkanor. Minsta längd för rutschkanan är 1 meter. Poolhandduk ingår inte.",
+    "Poolerna är öppna från 13 mars. Hotellet anger inget slutdatum och inga klockslag per dag.",
     "Det finns en multisportplan för fotboll och basket.",
     "Hotellet anger ungefär 10 minuter till PortAventura och 5–10 minuter till stranden Capellans.",
   ],

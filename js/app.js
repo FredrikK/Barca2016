@@ -22,7 +22,7 @@ import {
   snackStops,
   teamById,
   usableMeal,
-} from "./data.js?v=hotel";
+} from "./data.js?v=pool";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
