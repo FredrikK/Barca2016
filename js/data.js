@@ -35,7 +35,6 @@ export function fieldSurface(field) {
 }
 
 export const SNACK_PAGE = {
-  audience: "För 15-åriga tjejer",
   title: "Mellanmål vid planen",
   lead: "Mellan matcherna hinner ni inte till hotellet. Mellanmålet är bränsle till nästa match. Det är inte en måltid, och det är inte något ni hoppar över.",
   packTitle: "Det som ska ner i påsen",
@@ -46,7 +45,7 @@ export const SNACK_PAGE = {
   ],
   leaveTitle: "Det som stannar hemma",
   leave: [
-    "Ingen energidryck. Den är inte till för 15-åringar, och den kan göra er yra när det är varmt.",
+    "Ingen energidryck. Den kan göra er yra när det är varmt.",
     "Inget tungt. Ingen stor portion, ingen friterad mat och ingen maträtt ni inte har ätit förut.",
   ],
   playTitle: "Så ni orkar nästa match",
@@ -699,11 +698,10 @@ export const HOTEL = {
   phoneHours: "10:00–20:00",
   email: "reservas@alannia.com",
   map: "https://www.google.com/maps/search/?api=1&query=Alannia+Salou+Avinguda+de+Pompeu+Fabra+37+43840+Salou",
-  audience: "För 15-åriga tjejer",
   facts: [
-    "Poolen är till för alla åldrar, så 15-åringar får bada. Rutschkanan kräver minst 1 meter. Poolhandduk ingår inte.",
+    "Poolen är till för alla åldrar. Rutschkanan kräver minst 1 meter. Poolhandduk ingår inte.",
     "Poolerna är öppna från 13 mars. Hotellet anger inget slutdatum och inga klockslag per dag.",
-    "Spa och gym är från 16 år. En 15-åring kommer inte in. Spa kostar 10 euro per person och timme, 10:30–14:00 och 15:00–20:00. Gymmet är gratis 08:00–22:00.",
+    "Spa och gym är från 16 år. Spa kostar 10 euro per person och timme, 10:30–14:00 och 15:00–20:00. Gymmet är gratis 08:00–22:00.",
     "Miniclubben är till för de yngre barnen.",
     "Det finns en multisportplan för fotboll och basket.",
     "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
@@ -716,10 +714,9 @@ export const HOTEL = {
   photoCredit: "Bilderna kommer från hotellets officiella sida.",
 };
 
-// Fun for 15-year-olds at Alannia Salou and within about a 20-minute walk.
+// Things to do at Alannia Salou and within about a 20-minute walk.
 // Capellans time is the hotel's own. Other times are map distance at about 5 km/h.
 export const AREA = {
-  audience: "För 15-åriga tjejer",
   title: "Området",
   lead: "Saker ni kan göra på hotellet, promenader inom ungefär 20 minuter, och var butikerna ligger.",
   hotelTitle: "På hotellet",
