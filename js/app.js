@@ -1,6 +1,7 @@
 import {
   ASSUMPTIONS,
   CHAINS,
+  AGE_CHECK,
   AIRPORT_BUS,
   FLIGHTS,
   HOTEL,
@@ -22,7 +23,7 @@ import {
   snackStops,
   teamById,
   usableMeal,
-} from "./data.js?v=pool";
+} from "./data.js?v=age";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -234,7 +235,7 @@ function viewTrip() {
               <p class="tiny" style="margin-top:6px">Bussen lämnar hotellet ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} går ${esc(AIRPORT_BUS.departure.flightTime)}, vilket ger ${esc(AIRPORT_BUS.departure.hotelLeave)}. Samma körning lägger gruppen på flygplatsen ungefär ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}.</p>
             </div>
           </div>
-          <p class="tiny" style="margin-top:8px">Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet. Fredagens kontroll stänger 18:00. På den långsammare körningen är det fönstret redan stängt, och kontrollen flyttas till lördag före första matchen.</p>
+          <p class="tiny" style="margin-top:8px">Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet. Fredagens kontroll är öppen ${esc(AGE_CHECK.start)}–${esc(AGE_CHECK.end)}. På den långsammare körningen är fönstret redan stängt, och kontrollen flyttas till lördag före första matchen.</p>
           <p class="tiny" style="margin-top:8px">${esc(HOTEL.name)} till Futbol Salou är ungefär ${esc(RIDES.pitchKm)} km och 10 minuter med bil. Räkna ${esc(RIDES.pitchMin)} minuter för lagbussen. Det här är kartuppskattningar. Arrangören har inte tryckt klockslag för shutteln.</p>
           <p class="tiny" style="margin-top:8px">Färre än ${esc(AIRPORT_BUS.minOnFlight)} personer på samma flyg betyder att arrangören inte ordnar den här flygbussen. Truppen har 17 spelare, och resebladet säger inte hur många som är bokade på de här flygen. Föräldrar och supportrar som är bokade via arrangören åker samma transfer. Den som har ett annat flyg ordnar egen transfer. Lördag och söndag går bussarna mellan hotellet och planerna ändå.</p>
           <p class="tiny" style="margin-top:8px">Cupkontor: <a href="mailto:${esc(AIRPORT_BUS.officeEmail)}">${esc(AIRPORT_BUS.officeEmail)}</a> · ${esc(AIRPORT_BUS.officePhone)}. Källor: <a href="${esc(META.officialFaq)}">FAQ</a> · <a href="${esc(META.officialTerms)}">juridiska villkor</a>.</p>
@@ -307,6 +308,22 @@ function matchButton(match) {
       </div>
       <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
     </button>`;
+}
+
+function checkCard(check) {
+  return `
+    <div class="match check">
+      <div>
+        <time>${esc(check.start)}</time>
+        <div class="field">till ${esc(check.end)}</div>
+      </div>
+      <div>
+        <div class="teams-mini">${esc(check.name)}</div>
+        <div class="field">${esc(check.place)}</div>
+        ${check.note ? `<p class="tiny meal-note">${esc(check.note)}</p>` : ""}
+      </div>
+      <span class="pill ink">Kontroll</span>
+    </div>`;
 }
 
 function mealCard(meal) {
@@ -392,8 +409,10 @@ function viewSchedule() {
   const prep = morningPrep(state.day);
   const snacks = snackStops(state.day);
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
-  const kindRank = { meal: 0, prep: 1, match: 2, snack: 3, playoff: 4 };
+  const checks = AGE_CHECK.day === state.day ? [AGE_CHECK] : [];
+  const kindRank = { check: 0, meal: 1, prep: 2, match: 3, snack: 4, playoff: 5 };
   const items = [
+    ...checks.map((check) => ({ sort: check.start, kind: "check", check })),
     ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
     ...(prep ? [{ sort: prep.start, kind: "prep", prep }] : []),
     ...games.map((match) => ({ sort: match.time, kind: "match", match })),
@@ -426,6 +445,7 @@ function viewSchedule() {
       ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
       <div class="stack">
         ${items.length ? items.map((item) => {
+          if (item.kind === "check") return checkCard(item.check);
           if (item.kind === "meal") return mealCard(item.meal);
           if (item.kind === "prep") return prepCard(item.prep);
           if (item.kind === "snack") return snackCard(item.snack);
