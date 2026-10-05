@@ -21,6 +21,50 @@ export function indexOf(components) {
   return Math.round(raw * 10) / 10;
 }
 
+export const VENUE = {
+  name: "Futbol Salou",
+  image: "assets/venue/futbol-salou-map.png",
+  imageAlt: "Karta över Complex Esportiu Futbol Salou",
+  map: "https://www.openstreetmap.org/#map=16/41.0851/1.1142",
+  credit: "Karta © OpenStreetMap",
+  source: "https://www.footballcupbarcelona.com/en/venue",
+  studs: "Metalldobbar är förbjudna.",
+  mapNote: "Kartan visar hela komplexet, inte vilken ruta som är vilken plan.",
+};
+
+// Organiser: fields 1–4 natural grass, fields 5–8 artificial. Field 10 is on the group grid and is not in that list.
+export function fieldSurface(field) {
+  const n = Number(field);
+  if (n >= 1 && n <= 4) return { label: "Naturgräs", known: true };
+  if (n >= 5 && n <= 8) return { label: "Konstgräs", known: true };
+  return { label: "Ytan är inte angiven", known: false };
+}
+
+export const SNACK_PAGE = {
+  audience: "För 15-åriga tjejer",
+  title: "Mellanmål vid planen",
+  lead: "Mellan matcherna hinner ni inte till hotellet. Mellanmålet är bränsle till nästa match. Det är inte en måltid, och det är inte något ni hoppar över.",
+  packTitle: "Det som ska ner i påsen",
+  pack: [
+    "En banan, en liten fralla eller en müslibar. Välj en sak.",
+    "Vatten i er egen flaska. Drick i luckan, inte bara när ni redan är törstiga.",
+    "Några klunkar sportdryck om det är varmt, utöver vattnet. Lördagens matcher är varmare än söndagsmorgonen.",
+  ],
+  leaveTitle: "Det som stannar hemma",
+  leave: [
+    "Ingen energidryck. Den är inte till för 15-åringar, och den kan göra er yra när det är varmt.",
+    "Inget tungt. Ingen stor portion, ingen friterad mat och ingen maträtt ni inte har ätit förut.",
+  ],
+  playTitle: "Så ni orkar nästa match",
+  play: [
+    "Ät även om ni inte känner er hungriga. Nästa avspark kommer fort.",
+    "Hoppa inte över mellanmålet för att hålla er lätta. En banan eller en fralla är det som bär nästa halvlek. Att gå tom gör det inte.",
+    "Ät klart ungefär en kvart före avspark, så ni inte springer med full mage.",
+    "Om magen krånglar: bara vatten, och säg till en ledare.",
+  ],
+  when: "Korten i schemat visar luckan, från det att matchen är slut till en kvart före nästa avspark. Packa påsen på frukosten.",
+};
+
 export const META = {
   title: "Grupp A",
   competition: "Football Cup Barcelona",
@@ -49,12 +93,36 @@ export const WEATHER = {
   source: "https://open-meteo.com/",
   sourceLabel: "Open-Meteo",
   place: "Salou",
-  note: "Dygnssumman är 0 mm. Sannolikheten är en liten risk, inte ett skyfall.",
+  note: "Matchtimmarna lördag och söndag har 0 mm. Fredagen har lätt duggregn, och måndagens duggregn ligger främst på morgonen.",
   days: {
-    fri: { summary: "Växlande molnighet", high: 24, low: 15, rain: 24, wind: 7, advice: "Tunn regnjacka i väskan. Lätt jacka på kvällen." },
-    sat: { summary: "Mestadels klart", high: 24, low: 17, rain: 20, wind: 15, advice: "Lätt bris. Tunn regnjacka i väskan. Vatten mellan matcherna." },
-    sun: { summary: "Växlande molnighet", high: 23, low: 14, rain: 19, wind: 12, advice: "Svalare på morgonen. Lätt jacka före första matchen." },
-    mon: { summary: "Mulet", high: 22, low: 14, rain: 19, wind: 9, advice: "Lätt jacka till flygplatsen." },
+    fri: { summary: "Lätt duggregn", high: 24, low: 18, rain: 24, wind: 8, advice: "Lätt duggregn när bussen kan vara framme runt 18. Tunn regnjacka." },
+    sat: {
+      summary: "Mulet",
+      high: 26,
+      low: 17,
+      rain: 20,
+      wind: 12,
+      advice: "Under matcherna är det mulet, 20–25° och 0 mm. Ta vatten mellan matcherna.",
+      games: [
+        { time: "09:50", hour: "10:00", temp: 20, summary: "Mulet", rain: 18, mm: 0, wind: 8 },
+        { time: "11:30", hour: "12:00", temp: 23, summary: "Mulet", rain: 14, mm: 0, wind: 10 },
+        { time: "13:10", hour: "13:00", temp: 25, summary: "Mulet", rain: 13, mm: 0, wind: 11 },
+      ],
+    },
+    sun: {
+      summary: "Mulet",
+      high: 21,
+      low: 15,
+      rain: 19,
+      wind: 25,
+      advice: "16° vid första matchen och 20° vid 13:00. Mulet och 0 mm. Lätt jacka på morgonen. Den hårdare vinden kommer på kvällen, inte under matcherna.",
+      games: [
+        { time: "09:00", hour: "09:00", temp: 16, summary: "Mulet", rain: 15, mm: 0, wind: 13 },
+        { time: "11:00", hour: "11:00", temp: 18, summary: "Mulet", rain: 13, mm: 0, wind: 9 },
+        { time: "13:00", hour: "13:00", temp: 20, summary: "Mulet", rain: 11, mm: 0, wind: 4 },
+      ],
+    },
+    mon: { summary: "Tätt duggregn", high: 16, low: 12, rain: 19, wind: 18, advice: "Duggregnet ligger på morgonen. Vid bussen 15:00 är det omkring 16°, växlande molnighet och uppehåll." },
   },
 };
 
@@ -637,13 +705,14 @@ export const HOTEL = {
   phoneHours: "10:00–20:00",
   email: "reservas@alannia.com",
   map: "https://www.google.com/maps/search/?api=1&query=Alannia+Salou+Avinguda+de+Pompeu+Fabra+37+43840+Salou",
+  audience: "För 15-åriga tjejer",
   facts: [
-    "Fyrstjärnigt resort med 346 temarum. Utomhusytorna är bilfria, med parkering under jord.",
-    "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
-    "Poolområdet är 1 000 m² och har rutschkanor. Minsta längd för rutschkanan är 1 meter. Poolhandduk ingår inte.",
+    "Poolen är till för alla åldrar, så 15-åringar får bada. Rutschkanan kräver minst 1 meter. Poolhandduk ingår inte.",
     "Poolerna är öppna från 13 mars. Hotellet anger inget slutdatum och inga klockslag per dag.",
+    "Spa och gym är från 16 år. En 15-åring kommer inte in. Spa kostar 10 euro per person och timme, 10:30–14:00 och 15:00–20:00. Gymmet är gratis 08:00–22:00.",
+    "Miniclubben är till för de yngre barnen.",
     "Det finns en multisportplan för fotboll och basket.",
-    "Hotellet anger ungefär 10 minuter till PortAventura och 5–10 minuter till stranden Capellans.",
+    "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
   ],
   photos: [
     { src: "assets/hotel/pool.jpg", alt: "Pool och gröna rutschkanor framför det vita hotellet", caption: "Pool och rutschkanor" },
