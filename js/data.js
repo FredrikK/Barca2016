@@ -602,11 +602,65 @@ export const AIRPORT_BUS = {
   officeEmail: "info@footballcupbarcelona.com",
 };
 
+export const HOTEL = {
+  name: "Alannia Salou",
+  address: "Avinguda de Pompeu Fabra 37, 43840 Salou",
+};
+
+// Driving estimates, not printed shuttle times.
+// Airport fast: OpenStreetMap route, Terminal 1 to the hotel, about 97 km.
+// Airport slow: a transfer quote for this hotel, 1 hour 40 minutes.
+// Pitch: about 5 km and 10 minutes by car. 15 minutes is the allowance for the team bus.
+export const RIDES = {
+  airportKm: 97,
+  airportFastMin: 70,
+  airportSlowMin: 100,
+  pitchKm: 5,
+  pitchMin: 15,
+  earlyMin: 60,
+  playMin: 40,
+  luggageMin: 60,
+};
+
+function minutes(time) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function clock(total) {
+  const wrapped = ((total % 1440) + 1440) % 1440;
+  const h = Math.floor(wrapped / 60);
+  const m = wrapped % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+
+export function pitchPlan(time) {
+  const kick = minutes(time);
+  return {
+    leave: clock(kick - RIDES.earlyMin - RIDES.pitchMin),
+    arrive: clock(kick - RIDES.earlyMin),
+    ends: clock(kick + RIDES.playMin),
+    back: clock(kick + RIDES.playMin + RIDES.pitchMin),
+  };
+}
+
+export function canReturnBetween(thisKick, nextKick) {
+  const free = minutes(nextKick) - RIDES.earlyMin - (minutes(thisKick) + RIDES.playMin);
+  return free >= RIDES.pitchMin * 2;
+}
+
+const land = minutes(AIRPORT_BUS.arrival.land);
+const hotelLeave = minutes(AIRPORT_BUS.departure.hotelLeave);
+AIRPORT_BUS.arrival.hotelFrom = clock(land + RIDES.luggageMin + RIDES.airportFastMin);
+AIRPORT_BUS.arrival.hotelTo = clock(land + RIDES.luggageMin + RIDES.airportSlowMin);
+AIRPORT_BUS.departure.airportFrom = clock(hotelLeave + RIDES.airportFastMin);
+AIRPORT_BUS.departure.airportTo = clock(hotelLeave + RIDES.airportSlowMin);
+
 export const STAY = [
-  "Three nights in a 3–4 star hotel in Salou.",
+  "Alannia Salou, Avinguda de Pompeu Fabra 37. Three nights. The travel sheet did not name the hotel.",
   "Full board from dinner on 16 October (19:00–21:30) through breakfast on 19 October (07:00–10:00). Lunch on Saturday and Sunday is 13:00–14:30. Water is included with lunch and dinner.",
   "Sheets are included. Bring an extra towel for the pool or the beach.",
-  "The final travel document is sent about one week before departure. The hotel’s name is not on the sheet.",
+  "The final travel document is sent about one week before departure.",
   "Matches are at Futbol Salou, on the Salou–Cambrils road. The organiser runs the transfers between hotel and fields.",
   "Passports or ID cards are checked. A photo of the document on a phone is accepted. Shirt numbers must match the team list.",
   "The European Health Insurance Card does not cover sports injuries in Spain. The club’s own insurance is the cover that matters.",
