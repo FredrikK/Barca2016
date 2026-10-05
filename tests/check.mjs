@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -213,6 +213,25 @@ if (!AGE_CHECK.note.includes("foto") || !AGE_CHECK.note.includes("lördag") || !
   throw new Error("age check note drifted");
 }
 if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Frukost")) throw new Error("Monday should list breakfast only");
+
+const friTravel = travelStops("fri");
+const monTravel = travelStops("mon");
+if (travelStops("sat").length || travelStops("sun").length) throw new Error("a match day invented a flight");
+const friNames = friTravel.map((item) => item.name).join(",");
+if (friNames !== "Samling,LH 801,LH 1130,Flygbuss") throw new Error(`Friday travel drifted: ${friNames}`);
+const meet = friTravel[0];
+if (meet.start !== "före" || meet.end !== "09:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
+if (!meet.note.includes("ingen egen mötestid")) throw new Error("meeting invented a clock time");
+if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
+if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
+if (friTravel[3].start !== "15:30" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40")) {
+  throw new Error("Friday bus drifted");
+}
+const monNames = monTravel.map((item) => item.name).join(",");
+if (monNames !== "Flygbuss,LH 1135,LH 810") throw new Error(`Monday travel drifted: ${monNames}`);
+if (monTravel[0].start !== "15:00" || !monTravel[0].note.includes("16:10")) throw new Error("Monday bus drifted");
+if (monTravel[2].start !== "22:15" || monTravel[2].end !== "00:20" || !monTravel[2].note.includes("tisdag")) throw new Error("return flight drifted");
+if (JSON.stringify(friTravel.concat(monTravel)).toLowerCase().includes("plana")) throw new Error("travel row guessed a coach company");
 
 if (AIRPORT_BUS.company || AIRPORT_BUS.routeNumber) throw new Error("airport bus company was not published");
 if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15:30") throw new Error("arrival bus flight drifted");
