@@ -321,6 +321,14 @@ const areaText = JSON.stringify(AREA);
 if (!areaText.includes("10 minuter") || !areaText.includes("Capellans") || !areaText.includes("17 minuter")) throw new Error("walk times drifted");
 if (!areaText.includes("16 år") || !areaText.includes("PortAventura") || !areaText.includes("flera kilometer")) throw new Error("area limits drifted");
 if (areaText.includes("PortAventura är flera kilometer") === false) throw new Error("PortAventura was listed as a short walk");
+if (!areaText.includes("Carles Buïgas") || !areaText.includes("0,8 km") || !areaText.includes("mitten av oktober")) {
+  throw new Error("the nearby shopping street drifted");
+}
+if (!areaText.includes("Parc Central") || !areaText.includes("Primark") || !areaText.includes("Söndag är butikerna stängda")) {
+  throw new Error("the Tarragona mall drifted");
+}
+if (!areaText.includes("inget köpcentrum inom 20 minuters promenad")) throw new Error("a mall was placed inside the short walk");
+if (!areaText.includes("2,6 km") || !areaText.includes("året runt")) throw new Error("the year-round centre shops drifted");
 if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some((item) => item.text.includes("tonåringar"))) {
   throw new Error("hotel fun for 15-year-olds drifted");
 }

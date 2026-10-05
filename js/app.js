@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=motstandare";
+} from "./data.js?v=shops";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -619,6 +619,10 @@ function viewArea() {
       <div class="section">
         <div class="section-head"><h2>${esc(AREA.walkTitle)}</h2></div>
         <div class="stack">${AREA.nearby.map(placeCard).join("")}</div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>${esc(AREA.shopTitle)}</h2></div>
+        <div class="stack">${AREA.shops.map(placeCard).join("")}</div>
       </div>
       <div class="section">
         <div class="callout">${esc(AREA.farther)}</div>
