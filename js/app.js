@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=shops";
+} from "./data.js?v=snacklink";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -408,8 +408,7 @@ function snackCard(snack) {
       <div>
         <div class="teams-mini">${esc(snack.name)}</div>
         <div class="field">${esc(snack.place)}</div>
-        ${snack.note ? `<p class="tiny meal-note">${esc(snack.note)}</p>` : ""}
-        <p class="tiny meal-note">Mer om mellanmålet för 15-åringar</p>
+        <p class="tiny meal-note">Klicka för mer om mellanmålet</p>
       </div>
       <span class="pill ink">Mellis</span>
     </button>`;
@@ -445,7 +444,7 @@ function dayRideNote(day) {
   const nextAfterGroups = day === "sun" ? "13:00" : null;
   const noReturnToPlayoff = nextAfterGroups ? !canReturnBetween(mine[mine.length - 1].time, nextAfterGroups) : true;
   if (!hops || !noReturnToPlayoff) return "";
-  return `Ingen tid att åka tillbaka till ${HOTEL.name} mellan de här matcherna. En match är 40 minuter plus 5 minuters paus, och nästa kräver att ni är på planen en timme före. Packa ett mellanmål till de luckorna. Efter matchen ${last} kan ni vara tillbaka ungefär ${back}. Lunchkortet är den del av 13:00–14:30 som ni hinner om matchen inte drar ut på tiden.`;
+  return `Ingen tid att åka tillbaka till ${HOTEL.name} mellan de här matcherna. En match är 40 minuter plus 5 minuters paus, och nästa kräver att ni är på planen en timme före. Klicka på mellanmålet i listan. Efter matchen ${last} kan ni vara tillbaka ungefär ${back}. Lunchkortet är den del av 13:00–14:30 som ni hinner om matchen inte drar ut på tiden.`;
 }
 
 function viewSchedule() {
@@ -503,7 +502,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Mellanmål mellan matcherna packas på frukosten. De är inte en hotellmåltid. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
+        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
     </section>`;
 }
