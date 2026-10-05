@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=noage";
+} from "./data.js?v=events";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");

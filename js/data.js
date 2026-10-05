@@ -727,10 +727,30 @@ export const AREA = {
       text: "Poolen är till för alla åldrar, så ni får bada. Det finns också en barnpool och en vattenpark i samma område, 1000 m². Rutschkanan kräver minst 1 meter. Hotellet skriver att poolerna är öppna från 13 mars och anger inga klockslag. Kolla anslaget den dagen. Poolhandduk ingår inte. Solsängar går inte att reservera.",
     },
     {
-      name: "Kvällens program",
-      text: "Underhållningsteamet har dans i poolen, temafester, kvällsshower, spel på scenen, trolleri, musikaler, workshops och familjespel. Hotellet skriver att det finns för barn, tonåringar och vuxna. Listan för veckan läggs upp på måndagen och kan ändras om hotellet inte är fullt. Veckan 5–11 oktober 2026 hade inga poster. Er vecka börjar måndag 12 oktober.",
-      href: "https://as.alanniaresorts.com/en/events/",
-      hrefLabel: "Veckans program",
+      name: "Hotellets program",
+      text: "Tiderna är från hotellets evenemangssida, hämtade 5 oktober 2026. Listan kan ändras. Här är passen som ryms när ni är på hotellet. Flera är märkta för vuxna och tonåringar. Miniclubben har egna pyssel samma dagar. Den är för yngre barn.",
+      href: "https://as.alanniaresorts.com/all-events/",
+      hrefLabel: "Alla evenemang",
+    },
+    {
+      name: "Fredag kväll",
+      time: "20:30",
+      text: "Ni är på hotellet ungefär 17:40–18:10. Alannia Fun, dans vid poolen, är 18:00–18:30, så den kan redan ha börjat. Minidisco på scenen är 20:30–21:15, för hela familjen. Showen Addams Family är 21:30–22:30 på scenen. Middagen är 19:00–21:30, så showen börjar under buffén.",
+    },
+    {
+      name: "Lördag efter matcherna",
+      time: "16:00",
+      text: "Ni är tillbaka ungefär 14:10. Feria Game vid poolen är 16:00–17:00, spel för alla. Bowling vid poolen är 17:00–18:00, märkt för vuxna och tonåringar. Alannia Fun, dans vid poolen, är 18:00–18:30. Minidisco är 20:30–21:15. Showen Jaque Mate är 21:30–22:30 på scenen. Förmiddagens Zumba och pingpong krockar med matcherna.",
+    },
+    {
+      name: "Söndag efter matcherna",
+      time: "16:00",
+      text: "Ni är tillbaka ungefär 14:00. Bingo Musical på scenen är 16:00–17:00. Dart vid poolen är 17:00–18:00. Alannia Fun är 18:00–18:30. Minidisco är 20:30–21:15. Kahoot Night är 21:30–22:30 på scenen. Hotellet skriver att det gäller att vara snabb, och att mobilen behöver batteri. PS5-turneringen 10:45–12:30 krockar med matcherna.",
+    },
+    {
+      name: "Måndag före bussen",
+      time: "11:30",
+      text: "Utcheckning senast 11:00. Bussen går 15:00. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
     },
     {
       name: "Multisportplanen",
@@ -790,6 +810,7 @@ export const AREA = {
   free: "Ledig tid: fredag efter att ni kommit till hotellet, lördag efter ungefär 14:10 och söndag efter ungefär 14:00. Måndag checkar ni ut senast 11:00 och bussen går 15:00.",
   sources: [
     { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
+    { label: "Alla evenemang", url: "https://as.alanniaresorts.com/all-events/" },
     { label: "Anläggningen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/facilities" },
     { label: "Stränderna", url: "https://alanniaresorts.com/en/resorts/alannia-salou/beaches" },
     { label: "Under vistelsen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/your-stay/during-your-stay" },
