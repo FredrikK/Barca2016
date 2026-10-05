@@ -380,7 +380,7 @@ export const TEAMS = [
     country: "Sverige",
     flag: "se",
     place: "Spånga, Stockholm",
-    colors: ["#8d6b12", "#f4efe6"],
+    colors: ["#003671", "#ffffff"],
     rank: 2,
     yours: true,
     components: spangaComponents,
