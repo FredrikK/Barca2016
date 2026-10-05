@@ -333,6 +333,8 @@ if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some
   throw new Error("hotel fun for 15-year-olds drifted");
 }
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
+if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the schedule no longer asks you to open the snack page");
+if (appSource.includes("${snack.note") || appSource.includes("Mellanmål mellan matcherna packas")) throw new Error("snack advice is still written on the schedule");
 if (!appSource.includes("till ${esc(ends)}") || !appSource.includes("Plan ${esc(match.field)}")) throw new Error("a game card lost the end time or the field");
 if (appSource.includes("pitch-link") || appSource.includes("futbol-salou-map")) throw new Error("the field image is still on the game card");
 
