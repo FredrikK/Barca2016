@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, AREA, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, VENUE, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, AREA, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -299,13 +299,12 @@ for (const match of [...MATCHES, ...PLAYOFFS]) {
   if (pitchPlan(match.time).ends !== endsAt[match.time]) throw new Error(`${match.id} end time drifted`);
   const surface = fieldSurface(match.field);
   const n = Number(match.field);
-  if (n >= 1 && n <= 4 && surface.label !== "Naturgräs") throw new Error(`${match.id} should be natural grass`);
-  if (n >= 5 && n <= 8 && surface.label !== "Konstgräs") throw new Error(`${match.id} should be artificial grass`);
-  if (n === 10 && (surface.known || surface.label !== "Ytan är inte angiven")) throw new Error("field 10 surface was invented");
+  const natural = n === 2 || n === 3 || n === 4;
+  if (natural && surface.label !== "Naturgräs") throw new Error(`${match.id} should be natural grass`);
+  if (!natural && surface.label !== "Konstgräs") throw new Error(`${match.id} should be artificial grass`);
 }
-if (fieldSurface("5").label !== "Konstgräs" || fieldSurface("8").label !== "Konstgräs") throw new Error("artificial range drifted");
-if (!fs.existsSync(new URL(`../${VENUE.image}`, import.meta.url))) throw new Error("venue map is missing");
-if (!VENUE.map.includes("openstreetmap.org") || !VENUE.credit.includes("OpenStreetMap")) throw new Error("venue map credit drifted");
+if (fieldSurface("1").label !== "Konstgräs" || fieldSurface("10").label !== "Konstgräs") throw new Error("field 1 or 10 is not artificial");
+if (fieldSurface("2").label !== "Naturgräs" || fieldSurface("4").label !== "Naturgräs") throw new Error("fields 2 and 4 are not natural");
 if (SNACK_PAGE.audience !== "För 15-åriga tjejer") throw new Error("snack page audience drifted");
 const snackText = JSON.stringify(SNACK_PAGE).toLowerCase();
 if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.includes("energidryck") || !snackText.includes("15-åring")) {
@@ -325,6 +324,7 @@ if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some
 }
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("till ${esc(ends)}") || !appSource.includes("Plan ${esc(match.field)}")) throw new Error("a game card lost the end time or the field");
+if (appSource.includes("pitch-link") || appSource.includes("futbol-salou-map")) throw new Error("the field image is still on the game card");
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
