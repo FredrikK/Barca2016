@@ -721,7 +721,7 @@ export const HOTEL = {
 export const AREA = {
   audience: "För 15-åriga tjejer",
   title: "Området",
-  lead: "Saker ni kan göra på hotellet, och sådant som ligger inom ungefär 20 minuters promenad.",
+  lead: "Saker ni kan göra på hotellet, promenader inom ungefär 20 minuter, och var butikerna ligger.",
   hotelTitle: "På hotellet",
   walkTitle: "Inom 20 minuters promenad",
   hotel: [
@@ -759,9 +759,33 @@ export const AREA = {
     {
       name: "Passeig Jaume I och Platja de Llevant",
       time: "omkring 17 minuter",
-      text: "Strandpromenaden och den långa stadsstranden. Hotellet nämner Jaume I-promenaden som en promenad från området. Kartan ger ungefär 1,4 km, omkring 17 minuter i vanlig takt. Llevant är en av de centrala stränderna, ungefär 1200 meter, med service och vattensport.",
+      text: "Strandpromenaden och den långa stadsstranden. Hotellet nämner Jaume I-promenaden som en promenad från området. Kartan ger ungefär 1,4 km, omkring 17 minuter i vanlig takt. Llevant är en av de centrala stränderna, ungefär 1200 meter, med service och vattensport. Turistbyrån skriver att det också finns butiker och restauranger längs promenaden, främst under säsongen.",
       href: "https://www.google.com/maps/dir/?api=1&origin=Alannia+Salou&destination=Passeig+Jaume+I+Salou&travelmode=walking",
       hrefLabel: "Promenad",
+    },
+  ],
+  shopTitle: "Butiker",
+  shops: [
+    {
+      name: "Carles Buïgas och Saragossa",
+      time: "omkring 10 minuter",
+      text: "Turistbyrån kallar stråket Zona Est. Där finns kläder, presenter och restauranger, främst på sommaren. Carrer de Saragossa ligger ungefär 0,8 km bort, omkring 10 minuter i vanlig takt. Carles Buïgas börjar närmare. I mitten av oktober kan flera butiker ha stängt eller ha kortare tider.",
+      href: "https://www.google.com/maps/dir/?api=1&origin=Alannia+Salou&destination=Carrer+de+Saragossa+Salou&travelmode=walking",
+      hrefLabel: "Promenad",
+    },
+    {
+      name: "Centrum",
+      time: "omkring 30 minuter",
+      text: "Butikerna kring Carrer de Barcelona och Via Roma är öppna året runt, från småbutiker till kända märken. Gågatorna i gamla stan är Carrer de Ponent och Carrer de València. Kartan ger ungefär 2,6 km, omkring 30 minuter. Det är längre än en kort promenad.",
+      href: "https://www.google.com/maps/dir/?api=1&origin=Alannia+Salou&destination=Via+de+Roma+Salou&travelmode=walking",
+      hrefLabel: "Promenad",
+    },
+    {
+      name: "Parc Central",
+      time: "inte en promenad",
+      text: "Köpcentret ligger i Tarragona, ungefär 10 km bort. Där finns Primark, Zara och H&M, och en biograf. Från 1 oktober är butikerna öppna måndag till lördag 09:00–21:00. Söndag är butikerna stängda. Det finns inget köpcentrum inom 20 minuters promenad från hotellet.",
+      href: "https://www.ccparccentral.com/en/",
+      hrefLabel: "Parc Central",
     },
   ],
   farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
@@ -772,6 +796,8 @@ export const AREA = {
     { label: "Anläggningen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/facilities" },
     { label: "Stränderna", url: "https://alanniaresorts.com/en/resorts/alannia-salou/beaches" },
     { label: "Under vistelsen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/your-stay/during-your-stay" },
+    { label: "Handel i Salou", url: "https://www.visitsalou.eu/ca/descobreix-salou/que-trobaras/comerc" },
+    { label: "Parc Central", url: "https://www.ccparccentral.com/en/" },
   ],
 };
 
