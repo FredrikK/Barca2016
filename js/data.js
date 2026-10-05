@@ -1000,8 +1000,8 @@ function flightStop(flight) {
   };
 }
 
-// Travel rows for the schedule. The sheet prints the flights and no separate
-// Arlanda meeting clock, so the gathering sits before LH 801's departure.
+// Travel rows for the schedule. The sheet prints the flights and no meeting
+// clock, so the Arlanda gathering is two hours before LH 801.
 export function travelStops(day) {
   const flights = FLIGHTS.filter((flight) => {
     if (day === "fri") return flight.date.startsWith("Fre");
@@ -1010,16 +1010,17 @@ export function travelStops(day) {
   }).map(flightStop);
   if (day === "fri") {
     const outbound = flights.find((item) => item.name === "LH 801");
+    const meetAt = clock(minutes(outbound.start) - 120);
     return [
       {
         id: "meet-arn",
         kind: "meet",
-        sort: "09:49",
-        start: "före",
-        end: outbound.start,
+        sort: meetAt,
+        start: meetAt,
+        end: "",
         name: "Samling",
         place: "Arlanda, terminal 5",
-        note: "Träffas inför LH 801. Resebladet anger avgången 09:50 och ingen egen mötestid. LH 801 går från terminal 5.",
+        note: "Resebladet anger ingen egen mötestid. Det här är två timmar före LH 801. Terminal 5.",
         pill: "Möte",
       },
       ...flights,

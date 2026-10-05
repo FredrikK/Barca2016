@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=spanga";
+} from "./data.js?v=meet";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -219,7 +219,7 @@ function viewTrip() {
                 <div class="times small">${esc(flight.dep)} – ${esc(flight.arr)}${flight.arrNote ? ` · ${esc(flight.arrNote)}` : ""}</div>
               </div>
             </div>`).join("")}
-          <p class="tiny" style="margin-top:8px">Tiderna står som på resebladet. De är lokal tid på varje flygplats.</p>
+          <p class="tiny" style="margin-top:8px">Tiderna står som på resebladet. De är lokal tid på varje flygplats. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}. Resebladet har ingen egen mötestid, så det är två timmar före LH 801.</p>
         </div>
       </div>
 

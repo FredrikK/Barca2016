@@ -220,8 +220,8 @@ if (travelStops("sat").length || travelStops("sun").length) throw new Error("a m
 const friNames = friTravel.map((item) => item.name).join(",");
 if (friNames !== "Samling,LH 801,LH 1130,Flygbuss") throw new Error(`Friday travel drifted: ${friNames}`);
 const meet = friTravel[0];
-if (meet.start !== "före" || meet.end !== "09:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
-if (!meet.note.includes("ingen egen mötestid")) throw new Error("meeting invented a clock time");
+if (meet.start !== "07:50" || meet.end !== "" || meet.sort !== "07:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
+if (!meet.note.includes("ingen egen mötestid") || !meet.note.includes("två timmar")) throw new Error("meeting no longer says it is two hours before the flight");
 if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
 if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
 if (friTravel[3].start !== "15:30" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40")) {
