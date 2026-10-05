@@ -3,6 +3,7 @@ import {
   CHAINS,
   AGE_CHECK,
   AIRPORT_BUS,
+  AREA,
   FLIGHTS,
   HOTEL,
   LEAGUES,
@@ -27,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=pitch";
+} from "./data.js?v=area";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -41,14 +42,14 @@ const ICONS = {
   trip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l8-9 8 9"/><path d="M8 15v4h8v-4"/></svg>`,
   schedule: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>`,
   rank: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19V10M12 19V5M19 19v-7"/></svg>`,
-  teams: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><path d="M4.8 18c.5-2 2-3.2 3.2-3.2S10.7 16 11.2 18M12.8 18c.5-2 2-3.2 3.2-3.2S19.2 16 19.7 18"/></svg>`,
+  area: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
 };
 
 const TAB_LABELS = {
   trip: "Resa",
   schedule: "Schema",
   rank: "Ranking",
-  teams: "Lag",
+  area: "Området",
 };
 
 function esc(value) {
@@ -85,7 +86,8 @@ function render() {
     trip: viewTrip,
     schedule: viewSchedule,
     rank: viewRank,
-    teams: viewTeams,
+    teams: viewRank,
+    area: viewArea,
     team: () => viewTeam(arg),
     match: () => viewMatch(arg),
     method: viewMethod,
@@ -97,11 +99,11 @@ function render() {
 }
 
 function pageMap(page) {
-  if (page === "team") return "teams";
+  if (page === "team" || page === "teams") return "rank";
   if (page === "match") return "schedule";
   if (page === "method") return "rank";
   if (page === "snacks") return "";
-  return ["trip", "schedule", "rank", "teams"].includes(page) ? page : "trip";
+  return ["trip", "schedule", "rank", "area"].includes(page) ? page : "trip";
 }
 
 function bind() {
@@ -528,7 +530,7 @@ function viewRank() {
         <div>
           <p class="eyebrow">Prognos · inte tabellen</p>
           <h1>Ranking</h1>
-          <p class="sub">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i.</p>
+          <p class="sub">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i. Tryck på ett lag för trupp och matcher. Identiteten är kollad mot grupplistan. Spelare nämns bara när en sida nämner dem.</p>
         </div>
       </header>
       <div class="stack">
@@ -552,7 +554,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna leder på matcher mot äldre motstånd. Spånga F11-U Gul är tvåa. Gavà är trea: en partnerklubb till Villarreal, licensierad i en cadetgrupp i Segona Divisió med 15 lag, och ännu utan resultat. Kilcullen vann en U16-flickserie i Kildare med fem lag, och cupen. Castle Villa blev tvåa. De har redan delat två seriematcher, 2–0 och 5–3. Den serien har inte kopplats till en svensk eller katalansk motståndare. St Patricks spelar inte i den Kildare-serien. Deras bästa klubbträff är St Patrick’s i Graiguecullen, Carlow. Varje trupplista nedan är turneringstruppen.
+          Järna leder på matcher mot äldre motstånd. Spånga F11-U Gul är tvåa. Gavà är trea: en partnerklubb till Villarreal, licensierad i en cadetgrupp i Segona Divisió med 15 lag, och ännu utan resultat. Kilcullen vann en U16-flickserie i Kildare med fem lag, och cupen. Castle Villa blev tvåa. De har redan delat två seriematcher, 2–0 och 5–3. Den serien har inte kopplats till en svensk eller katalansk motståndare. St Patricks spelar inte i den Kildare-serien. Deras bästa klubbträff är St Patrick’s i Graiguecullen, Carlow. Varje trupplista på lagets sida är turneringstruppen.
         </div>
       </div>
       <div class="section">
@@ -602,26 +604,47 @@ function viewMethod() {
     </section>`;
 }
 
-function viewTeams() {
+function placeCard(place) {
+  return `
+    <article class="card pad">
+      <div class="section-head">
+        <h3>${esc(place.name)}</h3>
+        ${place.time ? `<span class="pill ink">${esc(place.time)}</span>` : ""}
+      </div>
+      <p class="small" style="margin-top:8px">${esc(place.text)}</p>
+      ${place.href ? `<p class="small" style="margin-top:8px"><a href="${esc(place.href)}" target="_blank" rel="noopener">${esc(place.hrefLabel)}</a></p>` : ""}
+    </article>`;
+}
+
+function viewArea() {
   return `
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Sex klubbar · tre länder</p>
-          <h1>Lag</h1>
-          <p class="sub">Identiteten är kollad mot grupplistan och öppna klubbuppgifter. Spelare nämns bara när en sida nämner dem.</p>
+          <p class="eyebrow">${esc(AREA.audience)}</p>
+          <h1>${esc(AREA.title)}</h1>
+          <p class="sub">${esc(AREA.lead)}</p>
         </div>
       </header>
-      <div class="stack">
-        ${rankedTeams().map((team) => `
-          <button class="team-row" data-go="#team/${team.id}">
-            <div class="mark" style="background:${esc(team.colors[0])}">${esc(team.short.slice(0, 2).toUpperCase())}</div>
-            <div class="grow">
-              <b>${esc(team.name)}</b>${team.yours ? ' <span class="pill">Ni</span>' : ""}
-              <div class="tiny">${flag(team.flag)} ${esc(team.place)}</div>
-            </div>
-            <div class="index" style="font-size:18px">${team.rank}</div>
-          </button>`).join("")}
+      <div class="section">
+        <div class="section-head"><h2>${esc(AREA.hotelTitle)}</h2></div>
+        <div class="stack">${AREA.hotel.map(placeCard).join("")}</div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>${esc(AREA.walkTitle)}</h2></div>
+        <div class="stack">${AREA.nearby.map(placeCard).join("")}</div>
+      </div>
+      <div class="section">
+        <div class="callout">${esc(AREA.farther)}</div>
+      </div>
+      <div class="section">
+        <div class="card pad">
+          <p class="small">${esc(AREA.limits)}</p>
+          <p class="small" style="margin-top:8px">${esc(AREA.free)}</p>
+        </div>
+      </div>
+      <div class="section">
+        <p class="tiny">${AREA.sources.map((source) => `<a href="${esc(source.url)}">${esc(source.label)}</a>`).join(" · ")}</p>
       </div>
     </section>`;
 }
@@ -642,7 +665,7 @@ function viewTeam(id) {
   const games = MATCHES.filter((match) => match.home === id || match.away === id);
   return `
     <section class="view">
-      <button class="back" data-go="#teams">Alla lag</button>
+      <button class="back" data-go="#rank">Tillbaka till rankingen</button>
       <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
       <h1>${esc(team.name)}</h1>
       <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
@@ -806,7 +829,7 @@ function sideCard(team) {
     </button>`;
 }
 
-tabs.innerHTML = ["trip", "schedule", "rank", "teams"].map((id) => {
+tabs.innerHTML = ["trip", "schedule", "rank", "area"].map((id) => {
   return `<button type="button" data-tab="${id}" data-go="#${id}">${ICONS[id]}<span>${TAB_LABELS[id]}</span></button>`;
 }).join("");
 

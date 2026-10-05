@@ -722,6 +722,65 @@ export const HOTEL = {
   photoCredit: "Bilderna kommer från hotellets officiella sida.",
 };
 
+// Fun for 15-year-olds at Alannia Salou and within about a 20-minute walk.
+// Capellans time is the hotel's own. Other times are map distance at about 5 km/h.
+export const AREA = {
+  audience: "För 15-åriga tjejer",
+  title: "Området",
+  lead: "Saker ni kan göra på hotellet, och sådant som ligger inom ungefär 20 minuters promenad.",
+  hotelTitle: "På hotellet",
+  walkTitle: "Inom 20 minuters promenad",
+  hotel: [
+    {
+      name: "Poolen och rutschkanorna",
+      text: "Poolen är till för alla åldrar, så ni får bada. Det finns också en barnpool och en vattenpark i samma område, 1000 m². Rutschkanan kräver minst 1 meter. Hotellet skriver att poolerna är öppna från 13 mars och anger inga klockslag. Kolla anslaget den dagen. Poolhandduk ingår inte. Solsängar går inte att reservera.",
+    },
+    {
+      name: "Kvällens program",
+      text: "Underhållningsteamet har dans i poolen, temafester, kvällsshower, spel på scenen, trolleri, musikaler, workshops och familjespel. Hotellet skriver att det finns för barn, tonåringar och vuxna. Listan för veckan läggs upp på måndagen och kan ändras om hotellet inte är fullt. Veckan 5–11 oktober 2026 hade inga poster. Er vecka börjar måndag 12 oktober.",
+      href: "https://as.alanniaresorts.com/en/events/",
+      hrefLabel: "Veckans program",
+    },
+    {
+      name: "Multisportplanen",
+      text: "Fotboll och basket på planen inne på hotellet. På sommaren ordnar de tävlingar. Oktober är inte den säsongen, men planen finns kvar.",
+    },
+    {
+      name: "Junior club",
+      text: "Hotellet har en junior club. Sidan anger ingen ålder, så fråga i receptionen om ni får vara med. Miniclubben är för yngre barn, från 4 år.",
+    },
+    {
+      name: "Trädgården",
+      text: "Hotellet är byggt som en trädgård med gångar mellan husen. Det är ett ställe att gå runt på utan att lämna området.",
+    },
+  ],
+  nearby: [
+    {
+      name: "Platja dels Capellans",
+      time: "10 minuter",
+      text: "Hotellet skriver att stranden ligger 10 minuters promenad bort. Blå flagg, ungefär 200 meter lång, klippor och tallar, och ett område för vattensport. Gå direkt, eller ta Camí de Ronda längs kusten. Fyren ligger längre bort än 20 minuter, så vänd innan den om ni bara har en kort stund.",
+      href: "https://www.google.com/maps/dir/?api=1&origin=Alannia+Salou&destination=Platja+dels+Capellans+Salou&travelmode=walking",
+      hrefLabel: "Promenad",
+    },
+    {
+      name: "Passeig Jaume I och Platja de Llevant",
+      time: "omkring 17 minuter",
+      text: "Strandpromenaden och den långa stadsstranden. Hotellet nämner Jaume I-promenaden som en promenad från området. Kartan ger ungefär 1,4 km, omkring 17 minuter i vanlig takt. Llevant är en av de centrala stränderna, ungefär 1200 meter, med service och vattensport.",
+      href: "https://www.google.com/maps/dir/?api=1&origin=Alannia+Salou&destination=Passeig+Jaume+I+Salou&travelmode=walking",
+      hrefLabel: "Promenad",
+    },
+  ],
+  farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
+  limits: "Spa och gym kräver 16 år. Alkohol är från 18, också i poolbaren.",
+  free: "Ledig tid: fredag efter att ni kommit till hotellet, lördag efter ungefär 14:10 och söndag efter ungefär 14:00. Måndag checkar ni ut senast 11:00 och bussen går 15:00.",
+  sources: [
+    { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
+    { label: "Anläggningen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/facilities" },
+    { label: "Stränderna", url: "https://alanniaresorts.com/en/resorts/alannia-salou/beaches" },
+    { label: "Under vistelsen", url: "https://alanniaresorts.com/en/resorts/alannia-salou/your-stay/during-your-stay" },
+  ],
+};
+
 // Driving estimates, not printed shuttle times.
 // Airport fast: OpenStreetMap route, Terminal 1 to the hotel, about 97 km.
 // Airport slow: a transfer quote for this hotel, 1 hour 40 minutes.
