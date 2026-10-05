@@ -583,6 +583,18 @@ export const MEALS = [
   { id: "mon-breakfast", day: "mon", date: "Mån 19 okt", start: "07:00", end: "10:00", name: "Frukost", place: "Hotellbuffé", note: "Checka ut rummen senast 11:00. Helpensionen slutar med den här frukosten." },
 ];
 
+// Friday office hours from the 17–18 October programme. Saturday opens 75 minutes
+// before the day's first match for teams that land too late on Friday.
+export const AGE_CHECK = {
+  day: "fri",
+  date: "Fre 16 okt",
+  start: "11:00",
+  end: "18:00",
+  name: "Ålderskontroll",
+  place: "Futbol Salou",
+  note: "Varje spelare är med och visar pass eller id-kort. Ett foto i telefonen räcker. Armbandet bärs till söndag. Högst två tränare. LH 1130 landar 15:30, så ni använder slutet av fönstret. Hinner bussen inte före 18:00 görs kontrollen lördag före första matchen. Lördagens kontroll öppnar 75 minuter före dagens första match.",
+};
+
 export const FLIGHTS = [
   { date: "Fre 16 okt", no: "LH 801", from: "Stockholm", to: "Frankfurt", dep: "09:50", arr: "12:00" },
   { date: "Fre 16 okt", no: "LH 1130", from: "Frankfurt", to: "Barcelona", dep: "13:25", arr: "15:30" },

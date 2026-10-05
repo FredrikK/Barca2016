@@ -179,6 +179,7 @@ h3 { font-size: 16px; font-weight: 700; }
 }
 .match.mine { border-color: #d7c398; background: linear-gradient(180deg, #fffaf0, #fffdf9); }
 .match.meal { cursor: default; background: var(--green-soft); border-color: #c5ddd2; }
+.match.check { cursor: default; background: #f4f7f8; border-color: #d5dee6; }
 .match.prep { cursor: default; background: #fffaf0; border-color: #e6d7b8; }
 .match.snack { cursor: default; background: #f8f3e8; border-color: #e4d3b0; }
 .weather { background: #eef3f8; border-color: #c9d6e4; margin-bottom: 12px; }

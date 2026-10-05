@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -207,6 +207,11 @@ if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes
 }
 if (MEALS.length !== 8) throw new Error("expected 8 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Middag")) throw new Error("Friday should list dinner only");
+if (AGE_CHECK.day !== "fri" || AGE_CHECK.start !== "11:00" || AGE_CHECK.end !== "18:00") throw new Error("Friday age check drifted");
+if (AGE_CHECK.place !== "Futbol Salou") throw new Error("age check place drifted");
+if (!AGE_CHECK.note.includes("foto") || !AGE_CHECK.note.includes("lördag") || !AGE_CHECK.note.includes("15:30")) {
+  throw new Error("age check note drifted");
+}
 if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Frukost")) throw new Error("Monday should list breakfast only");
 
 if (AIRPORT_BUS.company || AIRPORT_BUS.routeNumber) throw new Error("airport bus company was not published");
