@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, WEATHER, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
@@ -220,6 +221,11 @@ if (JSON.stringify(AIRPORT_BUS).includes("679")) throw new Error("unverified arr
 if (JSON.stringify(AIRPORT_BUS).toLowerCase().includes("plana")) throw new Error("unnamed coach company was guessed");
 
 if (HOTEL.name !== "Alannia Salou" || !HOTEL.address.includes("Pompeu Fabra 37")) throw new Error("hotel address drifted");
+if (!HOTEL.url.startsWith("https://alanniaresorts.com/")) throw new Error("hotel link drifted");
+if (HOTEL.photos.length !== 3) throw new Error("hotel photos drifted");
+for (const photo of HOTEL.photos) {
+  if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
+}
 if (AIRPORT_BUS.arrival.hotelFrom !== "17:40" || AIRPORT_BUS.arrival.hotelTo !== "18:10") throw new Error("Friday hotel window drifted");
 if (AIRPORT_BUS.departure.airportFrom !== "16:10" || AIRPORT_BUS.departure.airportTo !== "16:40") throw new Error("Monday airport window drifted");
 const first = pitchPlan("09:50");

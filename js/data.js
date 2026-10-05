@@ -619,6 +619,25 @@ export const AIRPORT_BUS = {
 export const HOTEL = {
   name: "Alannia Salou",
   address: "Avinguda de Pompeu Fabra 37, 43840 Salou",
+  stars: "★★★★",
+  url: "https://alanniaresorts.com/en/resorts/alannia-salou/",
+  phone: "+34 965 48 49 45",
+  phoneHours: "10:00–20:00",
+  email: "reservas@alannia.com",
+  map: "https://www.google.com/maps/search/?api=1&query=Alannia+Salou+Avinguda+de+Pompeu+Fabra+37+43840+Salou",
+  facts: [
+    "Fyrstjärnigt resort med 346 temarum. Utomhusytorna är bilfria, med parkering under jord.",
+    "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
+    "Poolområdet är 1 000 m² och har rutschkanor. Minsta längd för rutschkanan är 1 meter. Poolhandduk ingår inte.",
+    "Det finns en multisportplan för fotboll och basket.",
+    "Hotellet anger ungefär 10 minuter till PortAventura och 5–10 minuter till stranden Capellans.",
+  ],
+  photos: [
+    { src: "assets/hotel/pool.jpg", alt: "Pool och gröna rutschkanor framför det vita hotellet", caption: "Pool och rutschkanor" },
+    { src: "assets/hotel/buffet.jpg", alt: "Buffédisk i hotellets restaurang", caption: "Buffén" },
+    { src: "assets/hotel/room.jpg", alt: "Hotellrum med två sängar och balkong mot palmerna", caption: "Ett rum" },
+  ],
+  photoCredit: "Bilderna kommer från hotellets officiella sida.",
 };
 
 // Driving estimates, not printed shuttle times.
