@@ -22,7 +22,7 @@ import {
   snackStops,
   teamById,
   usableMeal,
-} from "./data.js?v=sv";
+} from "./data.js?v=hotel";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -169,6 +169,8 @@ function viewTrip() {
         <div class="stat"><b>Grupp om sex</b><span>Irland, Sverige, Katalonien</span></div>
       </div>
 
+      ${hotelCard()}
+
       <div class="section">
         <div class="section-head"><h2>Väder</h2><button class="text-btn" data-go="#schedule">Till schemat</button></div>
         <div class="card pad">
@@ -251,6 +253,31 @@ function viewTrip() {
         </div>
       </div>
     </section>`;
+}
+
+function hotelCard() {
+  return `
+    <div class="section">
+      <div class="section-head">
+        <h2>Hotellet</h2>
+        <a class="text-btn" href="${esc(HOTEL.url)}" target="_blank" rel="noopener">Hotellets sida</a>
+      </div>
+      <div class="card pad">
+        <div class="hotel-photos">
+          ${HOTEL.photos.map((photo) => `
+            <figure>
+              <img src="${esc(photo.src)}" alt="${esc(photo.alt)}">
+              <figcaption>${esc(photo.caption)}</figcaption>
+            </figure>`).join("")}
+        </div>
+        <p class="small"><b>${esc(HOTEL.name)}</b> ${esc(HOTEL.stars)}</p>
+        <p class="small">${esc(HOTEL.address)}</p>
+        <ul class="list">${HOTEL.facts.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+        <p class="small" style="margin-top:10px"><a href="tel:${esc(HOTEL.phone.replaceAll(" ", ""))}">${esc(HOTEL.phone)}</a> · ${esc(HOTEL.phoneHours)} · <a href="mailto:${esc(HOTEL.email)}">${esc(HOTEL.email)}</a></p>
+        <p class="small" style="margin-top:6px"><a href="${esc(HOTEL.map)}" target="_blank" rel="noopener">Karta</a></p>
+        <p class="tiny" style="margin-top:8px">${esc(HOTEL.photoCredit)}</p>
+      </div>
+    </div>`;
 }
 
 function earlierMine(match) {
