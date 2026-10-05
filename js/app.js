@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=snacklink";
+} from "./data.js?v=noage";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -288,7 +288,6 @@ function hotelCard() {
             </figure>`).join("")}
         </div>
         <p class="small"><b>${esc(HOTEL.name)}</b> ${esc(HOTEL.stars)}</p>
-        <p class="small">${esc(HOTEL.audience)}</p>
         <p class="small">${esc(HOTEL.address)}</p>
         <ul class="list">${HOTEL.facts.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
         <p class="small" style="margin-top:10px"><a href="tel:${esc(HOTEL.phone.replaceAll(" ", ""))}">${esc(HOTEL.phone)}</a> · ${esc(HOTEL.phoneHours)} · <a href="mailto:${esc(HOTEL.email)}">${esc(HOTEL.email)}</a></p>
@@ -606,7 +605,6 @@ function viewArea() {
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">${esc(AREA.audience)}</p>
           <h1>${esc(AREA.title)}</h1>
           <p class="sub">${esc(AREA.lead)}</p>
         </div>
@@ -757,7 +755,6 @@ function viewSnacks() {
   return `
     <section class="view">
       <button class="back" data-go="#schedule">Tillbaka till schemat</button>
-      <p class="eyebrow">${esc(SNACK_PAGE.audience)}</p>
       <h1>${esc(SNACK_PAGE.title)}</h1>
       <p class="sub">${esc(SNACK_PAGE.lead)}</p>
       ${blocks.map(([title, items]) => `

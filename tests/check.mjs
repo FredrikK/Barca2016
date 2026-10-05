@@ -250,10 +250,9 @@ if (HOTEL.photos.length !== 3) throw new Error("hotel photos drifted");
 const poolFact = HOTEL.facts.find((item) => item.includes("Poolerna är öppna"));
 if (!poolFact || !poolFact.includes("13 mars") || !poolFact.includes("klockslag")) throw new Error("pool season drifted");
 if (/\d{1,2}:\d{2}/.test(poolFact)) throw new Error("pool fact invented a daily clock time");
-if (HOTEL.audience !== "För 15-åriga tjejer") throw new Error("hotel audience drifted");
-if (!HOTEL.facts.some((item) => item.includes("15-åringar får bada"))) throw new Error("pool is not aimed at 15-year-olds");
+if (!HOTEL.facts.some((item) => item.includes("alla åldrar"))) throw new Error("pool access drifted");
 const ageLimit = HOTEL.facts.find((item) => item.includes("16 år"));
-if (!ageLimit || !ageLimit.includes("15-åring kommer inte in") || !ageLimit.includes("10:30")) throw new Error("spa age rule drifted");
+if (!ageLimit || !ageLimit.includes("10:30")) throw new Error("spa age rule drifted");
 for (const photo of HOTEL.photos) {
   if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
 }
@@ -305,10 +304,9 @@ for (const match of [...MATCHES, ...PLAYOFFS]) {
 }
 if (fieldSurface("1").label !== "Konstgräs" || fieldSurface("10").label !== "Konstgräs") throw new Error("field 1 or 10 is not artificial");
 if (fieldSurface("2").label !== "Naturgräs" || fieldSurface("4").label !== "Naturgräs") throw new Error("fields 2 and 4 are not natural");
-if (SNACK_PAGE.audience !== "För 15-åriga tjejer") throw new Error("snack page audience drifted");
 const snackText = JSON.stringify(SNACK_PAGE).toLowerCase();
-if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.includes("energidryck") || !snackText.includes("15-åring")) {
-  throw new Error("snack page lost the 15-year-old guidance");
+if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.includes("energidryck")) {
+  throw new Error("snack page lost the food guidance");
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
 if (!appSource.includes('["trip", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
@@ -316,7 +314,6 @@ if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
 if (!appSource.includes('data-go="#rank">Tillbaka till motståndarna')) throw new Error("a team page no longer returns to the opponents page");
-if (AREA.audience !== "För 15-åriga tjejer") throw new Error("area audience drifted");
 const areaText = JSON.stringify(AREA);
 if (!areaText.includes("10 minuter") || !areaText.includes("Capellans") || !areaText.includes("17 minuter")) throw new Error("walk times drifted");
 if (!areaText.includes("16 år") || !areaText.includes("PortAventura") || !areaText.includes("flera kilometer")) throw new Error("area limits drifted");
@@ -330,8 +327,10 @@ if (!areaText.includes("Parc Central") || !areaText.includes("Primark") || !area
 if (!areaText.includes("inget köpcentrum inom 20 minuters promenad")) throw new Error("a mall was placed inside the short walk");
 if (!areaText.includes("2,6 km") || !areaText.includes("året runt")) throw new Error("the year-round centre shops drifted");
 if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some((item) => item.text.includes("tonåringar"))) {
-  throw new Error("hotel fun for 15-year-olds drifted");
+  throw new Error("hotel programme drifted");
 }
+const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA }) + appSource;
+if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the schedule no longer asks you to open the snack page");
 if (appSource.includes("${snack.note") || appSource.includes("Mellanmål mellan matcherna packas")) throw new Error("snack advice is still written on the schedule");
