@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, teamById, usableMeal } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, RIDES, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, snackStops, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -166,6 +166,26 @@ const sunPrep = morningPrep("sun");
 if (!satPrep || satPrep.start !== "08:20" || satPrep.end !== "08:35") throw new Error("Saturday packing window drifted");
 if (!sunPrep || sunPrep.start !== "07:30" || sunPrep.end !== "07:45") throw new Error("Sunday packing window drifted");
 if (morningPrep("fri") || morningPrep("mon")) throw new Error("a rest morning invented a packing window");
+function expectSnack(day, index, start, end, kick) {
+  const snack = snackStops(day)[index];
+  if (!snack || snack.start !== start || snack.end !== end || !snack.note.includes(kick)) {
+    throw new Error(`${day} snack ${index} drifted: ${JSON.stringify(snack)}`);
+  }
+  if (!snack.note.includes("banana") || !snack.note.toLowerCase().includes("water")) {
+    throw new Error(`${day} snack ${index} is missing food or drink`);
+  }
+}
+const satSnacks = snackStops("sat");
+const sunSnacks = snackStops("sun");
+if (satSnacks.length !== 2 || sunSnacks.length !== 2) throw new Error("match day should have two snacks");
+expectSnack("sat", 0, "10:35", "11:15", "11:30");
+expectSnack("sat", 1, "12:15", "12:55", "13:10");
+expectSnack("sun", 0, "09:45", "10:45", "11:00");
+expectSnack("sun", 1, "11:45", "12:45", "13:00");
+if (snackStops("fri").length || snackStops("mon").length) throw new Error("a rest day invented a snack");
+if (satSnacks[0].start <= "09:50" || satSnacks[1].start <= "11:30" || sunSnacks[0].start <= "09:00" || sunSnacks[1].start <= "11:00") {
+  throw new Error("a snack sorts inside the game before it");
+}
 const satBreakfast = usableMeal(MEALS.find((meal) => meal.id === "sat-breakfast"))[0];
 if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes("change")) {
   throw new Error("breakfast no longer names the bus or the packing time");
