@@ -620,6 +620,7 @@ export const RIDES = {
   earlyMin: 60,
   playMin: 40,
   luggageMin: 60,
+  packMin: 15,
 };
 
 function minutes(time) {
@@ -690,6 +691,9 @@ function clipNote(meal, start, end) {
   if (clippedStart && clippedEnd) {
     return `Buffet is ${meal.start}–${meal.end}. This slice is the gap between games.`;
   }
+  if (clippedEnd && meal.name === "Breakfast") {
+    return `Buffet stays open until ${meal.end}. The bus leaves at ${clock(to + RIDES.packMin)}.`;
+  }
   if (clippedEnd) {
     return `Buffet stays open until ${meal.end}. The bus leaves at ${end}.`;
   }
@@ -703,8 +707,9 @@ function clipNote(meal, start, end) {
 export function usableMeal(meal) {
   let segments = [[minutes(meal.start), minutes(meal.end)]];
   for (const block of awayBlocks(meal.day)) {
-    const awayStart = minutes(block.start);
+    let awayStart = minutes(block.start);
     const awayEnd = minutes(block.end);
+    if (meal.name === "Breakfast") awayStart -= RIDES.packMin;
     const next = [];
     for (const [from, to] of segments) {
       if (awayEnd <= from || awayStart >= to) {
@@ -738,6 +743,26 @@ export function usableMeal(meal) {
       note: clipNote(meal, start, end),
     };
   });
+}
+
+// Fifteen minutes at the hotel after breakfast, before the morning bus.
+export function morningPrep(day) {
+  const blocks = awayBlocks(day);
+  const breakfast = MEALS.find((meal) => meal.day === day && meal.name === "Breakfast");
+  if (!blocks.length || !breakfast) return null;
+  const bus = minutes(blocks[0].start);
+  const from = bus - RIDES.packMin;
+  if (minutes(breakfast.end) <= from || minutes(breakfast.start) >= bus) return null;
+  return {
+    id: `${day}-prep`,
+    day,
+    date: breakfast.date,
+    start: clock(from),
+    end: clock(bus),
+    name: "Change and collect",
+    place: HOTEL.name,
+    note: "Fifteen minutes before the bus. Change clothes and collect your things.",
+  };
 }
 
 const land = minutes(AIRPORT_BUS.arrival.land);

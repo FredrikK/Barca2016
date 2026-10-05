@@ -1,4 +1,4 @@
-import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, awayBlocks, canReturnBetween, indexOf, pitchPlan, teamById, usableMeal } from "../js/data.js";
+import { AIRPORT_BUS, HOTEL, MATCHES, MEALS, TEAMS, awayBlocks, canReturnBetween, indexOf, morningPrep, pitchPlan, teamById, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -145,10 +145,10 @@ function expectUsable(day, name, start, end) {
   }
 }
 expectUsable("fri", "Dinner", "19:00", "21:30");
-expectUsable("sat", "Breakfast", "07:00", "08:35");
+expectUsable("sat", "Breakfast", "07:00", "08:20");
 expectUsable("sat", "Lunch", "14:05", "14:30");
 expectUsable("sat", "Dinner", "19:00", "21:30");
-expectUsable("sun", "Breakfast", "07:00", "07:45");
+expectUsable("sun", "Breakfast", "07:00", "07:30");
 expectUsable("sun", "Lunch", "13:55", "14:30");
 expectUsable("sun", "Dinner", "19:00", "21:30");
 expectUsable("mon", "Breakfast", "07:00", "10:00");
@@ -161,6 +161,15 @@ const sunAway = awayBlocks("sun");
 if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:05") throw new Error("Saturday away block drifted");
 if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "13:55") throw new Error("Sunday away block drifted");
 if (awayBlocks("fri").length || awayBlocks("mon").length) throw new Error("a rest day invented an away block");
+const satPrep = morningPrep("sat");
+const sunPrep = morningPrep("sun");
+if (!satPrep || satPrep.start !== "08:20" || satPrep.end !== "08:35") throw new Error("Saturday packing window drifted");
+if (!sunPrep || sunPrep.start !== "07:30" || sunPrep.end !== "07:45") throw new Error("Sunday packing window drifted");
+if (morningPrep("fri") || morningPrep("mon")) throw new Error("a rest morning invented a packing window");
+const satBreakfast = usableMeal(MEALS.find((meal) => meal.id === "sat-breakfast"))[0];
+if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes("change")) {
+  throw new Error("breakfast no longer names the bus or the packing time");
+}
 if (MEALS.length !== 8) throw new Error("expected 8 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Dinner")) throw new Error("Friday should list dinner only");
 if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Breakfast")) throw new Error("Monday should list breakfast only");
