@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=area";
+} from "./data.js?v=spanga";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -169,6 +169,7 @@ function viewTrip() {
           <h1>${esc(META.title)}</h1>
           <p class="sub">${esc(META.age)} · Salou · ${esc(META.dates)}</p>
         </div>
+        <img class="crest" src="assets/spanga-crest.png" alt="Spånga IS Fotboll">
       </header>
       <div class="hero">
         <div class="kicker">Spånga IS F11-U Gul · första avspark</div>
