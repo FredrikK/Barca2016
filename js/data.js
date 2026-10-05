@@ -553,6 +553,19 @@ export const PLAYOFFS = [
   { id: "p3", day: "sun", date: "Sun 18 Oct", time: "13:00", field: "1", label: "5th place", pairing: "5th vs 6th" },
 ];
 
+// Clock times from the 17–18 October programme page. Meals are the hotel buffet.
+// Friday has dinner only. Monday has breakfast only. No Monday lunch is printed.
+export const MEALS = [
+  { id: "fri-dinner", day: "fri", date: "Fri 16 Oct", start: "19:00", end: "21:30", name: "Dinner", place: "Hotel buffet", note: "Full board starts with this dinner." },
+  { id: "sat-breakfast", day: "sat", date: "Sat 17 Oct", start: "07:00", end: "10:00", name: "Breakfast", place: "Hotel buffet", note: "The 09:50 kick-offs are inside this window." },
+  { id: "sat-lunch", day: "sat", date: "Sat 17 Oct", start: "13:00", end: "14:30", name: "Lunch", place: "Hotel buffet", note: "The 13:10 kick-offs are inside this window." },
+  { id: "sat-dinner", day: "sat", date: "Sat 17 Oct", start: "19:00", end: "21:30", name: "Dinner", place: "Hotel buffet" },
+  { id: "sun-breakfast", day: "sun", date: "Sun 18 Oct", start: "07:00", end: "10:00", name: "Breakfast", place: "Hotel buffet", note: "The 09:00 kick-offs are inside this window." },
+  { id: "sun-lunch", day: "sun", date: "Sun 18 Oct", start: "13:00", end: "14:30", name: "Lunch", place: "Hotel buffet", note: "The 13:00 placement matches are inside this window." },
+  { id: "sun-dinner", day: "sun", date: "Sun 18 Oct", start: "19:00", end: "21:30", name: "Dinner", place: "Hotel buffet" },
+  { id: "mon-breakfast", day: "mon", date: "Mon 19 Oct", start: "07:00", end: "10:00", name: "Breakfast", place: "Hotel buffet", note: "Check out of rooms by 11:00. Full board ends with this breakfast." },
+];
+
 export const FLIGHTS = [
   { date: "Fri 16 Oct", no: "LH 801", from: "Stockholm", to: "Frankfurt", dep: "09:50", arr: "12:00" },
   { date: "Fri 16 Oct", no: "LH 1130", from: "Frankfurt", to: "Barcelona", dep: "13:25", arr: "15:30" },
@@ -562,7 +575,7 @@ export const FLIGHTS = [
 
 export const STAY = [
   "Three nights in a 3–4 star hotel in Salou.",
-  "Full board from dinner on 16 October through breakfast on 19 October. Water is included with lunch and dinner.",
+  "Full board from dinner on 16 October (19:00–21:30) through breakfast on 19 October (07:00–10:00). Lunch on Saturday and Sunday is 13:00–14:30. Water is included with lunch and dinner.",
   "Sheets are included. Bring an extra towel for the pool or the beach.",
   "The final travel document is sent about one week before departure. The hotel’s name is not on the sheet.",
   "Matches are at Futbol Salou, on the Salou–Cambrils road. The organiser runs the transfers between hotel and fields.",
