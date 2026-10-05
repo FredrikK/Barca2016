@@ -329,6 +329,11 @@ if (!areaText.includes("2,6 km") || !areaText.includes("året runt")) throw new 
 if (!AREA.hotel.some((item) => item.name.includes("Poolen")) || !AREA.hotel.some((item) => item.text.includes("tonåringar"))) {
   throw new Error("hotel programme drifted");
 }
+if (!areaText.includes("Addams Family") || !areaText.includes("Kahoot Night") || !areaText.includes("all-events")) {
+  throw new Error("hotel events drifted");
+}
+if (areaText.includes("inga poster")) throw new Error("the empty events week is still on the page");
+if (!areaText.includes("krockar med matcherna") || !areaText.includes("15:00")) throw new Error("events ignore the match days or the Monday bus");
 const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA }) + appSource;
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
