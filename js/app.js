@@ -1,6 +1,7 @@
 import {
   ASSUMPTIONS,
   CHAINS,
+  AIRPORT_BUS,
   FLIGHTS,
   LEAGUES,
   MATCHES,
@@ -13,7 +14,7 @@ import {
   WEIGHTS,
   rankedTeams,
   teamById,
-} from "./data.js?v=meals";
+} from "./data.js?v=bus";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -151,6 +152,39 @@ function viewTrip() {
               </div>
             </div>`).join("")}
           <p class="tiny" style="margin-top:8px">Times are printed as on the travel sheet. They are local times at each airport.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>Airport bus</h2></div>
+        <div class="card pad">
+          <p class="small">The organiser’s shuttle. No coach company and no bus number are published, on the tournament pages or on the travel sheet.</p>
+          <div class="flight">
+            <div>
+              <b>Fri 16</b>
+              <div class="tiny">To Salou</div>
+            </div>
+            <div>
+              <div class="route">${esc(AIRPORT_BUS.arrival.airport)} arrivals</div>
+              <div class="times small">${esc(AIRPORT_BUS.arrival.flight)} lands ${esc(AIRPORT_BUS.arrival.land)}</div>
+              <p class="tiny" style="margin-top:6px">${esc(AIRPORT_BUS.arrival.meet)}</p>
+              <p class="tiny" style="margin-top:6px">At Reus and Girona the bus waits in the parking area with the team name. This flight is Barcelona, so that is not the meeting point.</p>
+            </div>
+          </div>
+          <div class="flight">
+            <div>
+              <b>Mon 19</b>
+              <div class="tiny">To the airport</div>
+            </div>
+            <div>
+              <div class="route">Hotel departure ${esc(AIRPORT_BUS.departure.hotelLeave)}</div>
+              <div class="times small">Check out by ${esc(AIRPORT_BUS.departure.checkout)} · ${esc(AIRPORT_BUS.departure.flight)} at ${esc(AIRPORT_BUS.departure.flightTime)}</div>
+              <p class="tiny" style="margin-top:6px">The bus leaves the hotel ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} is ${esc(AIRPORT_BUS.departure.flightTime)}, which makes ${esc(AIRPORT_BUS.departure.hotelLeave)}. The public team page does not print its own clock time.</p>
+            </div>
+          </div>
+          <p class="tiny" style="margin-top:8px">The bus goes to the age check at Futbol Salou, then to the hotel. Friday’s age check is open until 18:00. A group that lands too late does the check on Saturday before the first match.</p>
+          <p class="tiny" style="margin-top:8px">Fewer than ${esc(AIRPORT_BUS.minOnFlight)} people on the same flight means the organiser does not arrange this airport bus. The roster has 17 players, and the travel sheet does not say how many people are booked on these flights. Parents and supporters booked through the organiser ride the same shuttle. Anyone on a different flight arranges their own transfer. The Saturday and Sunday buses between the hotel and the fields are still arranged.</p>
+          <p class="tiny" style="margin-top:8px">Tournament office: <a href="mailto:${esc(AIRPORT_BUS.officeEmail)}">${esc(AIRPORT_BUS.officeEmail)}</a> · ${esc(AIRPORT_BUS.officePhone)}. Sources: <a href="${esc(META.officialFaq)}">FAQ</a> · <a href="${esc(META.officialTerms)}">legal terms</a>.</p>
         </div>
       </div>
 
