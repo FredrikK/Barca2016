@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=events";
+} from "./data.js?v=jarna";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -679,6 +679,7 @@ function viewTeam(id) {
         <div class="card pad" style="margin-top:10px">
           <span class="pill ink">${esc(team.style.status)}</span>
           <p class="small" style="margin-top:8px"><b>Startformation:</b> ${esc(team.style.formation)}. ${esc(team.style.summary)}</p>
+          ${team.lineup ? lineupPitch(team.lineup) : ""}
           <ul class="list">${team.style.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
           ${team.id === "gava" ? gavaPitch() : ""}
         </div>
@@ -734,6 +735,14 @@ function tableHtml(table) {
         ${table.rows.map((row) => `<tr class="${row[1].includes("Spånga") ? "you" : ""}">${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}
       </tbody>
     </table>`;
+}
+
+function lineupPitch(lineup) {
+  return `
+    <div class="pitch xi" aria-label="4-3-3, en visad uppställning">
+      ${lineup.rows.map((row) => `<div class="xi-row">${row.map((player) => `<span class="dot">${esc(player.name)}<br>${esc(player.number)}</span>`).join("")}</div>`).join("")}
+    </div>
+    <p class="tiny" style="margin-top:8px">${esc(lineup.note)}</p>`;
 }
 
 function gavaPitch() {
