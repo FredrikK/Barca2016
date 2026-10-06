@@ -67,6 +67,17 @@ if (!jarna.lineup.note.includes("inte en bekräftad startelva")) throw new Error
 if (!jarna.style.summary.includes("Freja G.") || !jarna.style.summary.includes("avbytare")) {
   throw new Error("the drawn 4-3-3 was treated as the written eleven");
 }
+if (!jarna.league.includes("16–10") || !jarna.league.includes("10–21") || !jarna.league.includes("4:a")) {
+  throw new Error("Järna league tables missing");
+}
+if (!jarna.tables || jarna.tables.length !== 2) throw new Error("Järna needs both autumn tables");
+for (const table of jarna.tables) {
+  const row = table.rows.find((item) => item[1] === "Järna SK");
+  if (!row || row[0] !== "4") throw new Error(`Järna is not 4th in ${table.title}`);
+}
+if (jarna.tables[0].rows[3][3] !== "11" || jarna.tables[1].rows[3][3] !== "9") {
+  throw new Error("Järna table points drifted");
+}
 
 const expectedRosters = {
   jarna: 17,
