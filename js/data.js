@@ -1258,3 +1258,32 @@ export function teamById(id) {
 export function rankedTeams() {
   return [...TEAMS].sort((a, b) => a.rank - b.rank);
 }
+
+function channelLinear(hex, index) {
+  const value = parseInt(hex.slice(1), 16);
+  const channel = [(value >> 16) & 255, (value >> 8) & 255, value & 255][index] / 255;
+  return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+}
+
+function luminance(hex) {
+  return 0.2126 * channelLinear(hex, 0) + 0.7152 * channelLinear(hex, 1) + 0.0722 * channelLinear(hex, 2);
+}
+
+function mixWhite(hex, amount) {
+  const value = parseInt(hex.slice(1), 16);
+  const mixed = [(value >> 16) & 255, (value >> 8) & 255, value & 255].map((channel) =>
+    Math.round(channel + (255 - channel) * amount)
+      .toString(16)
+      .padStart(2, "0"),
+  );
+  return `#${mixed.join("")}`;
+}
+
+// Text uses the darker kit colour. Marks use the other colour when it is still visible on white.
+export function teamTheme(colors) {
+  const [primary, secondary] = colors;
+  const dark = (hex) => luminance(hex) <= 0.18;
+  const ink = dark(primary) ? primary : dark(secondary) ? secondary : "#111111";
+  const accent = luminance(secondary) < 0.75 && secondary.toLowerCase() !== ink.toLowerCase() ? secondary : primary;
+  return { ink, accent, soft: mixWhite(ink, 0.9) };
+}
