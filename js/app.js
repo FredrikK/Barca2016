@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=hosten";
+} from "./data.js?v=tabell";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -710,7 +710,7 @@ function viewTeam(id) {
             ${team.results.map((result) => `<tr><td>${esc(result.date)}<div class="tiny">${esc(result.comp)}</div></td><td>${esc(result.score)}${result.implied ? ' <span class="pill">Härlett</span>' : ""}<div class="tiny">${esc(result.note)}</div></td></tr>`).join("")}
           </tbody></table>` : `<p class="empty">Inget resultat i åldersklassen var publicerat.</p>`}
           ${team.contextResults ? `<p class="tiny" style="margin-top:10px">${team.contextResults.map((result) => `${esc(result.score)}. ${esc(result.note)}`).join(" ")}</p>` : ""}
-          ${team.table ? tableHtml(team.table) : ""}
+          ${(team.tables || (team.table ? [team.table] : [])).map((table) => tableHtml(table, team.short)).join("")}
         </div>
       </div>
       <div class="section">
@@ -726,13 +726,13 @@ function viewTeam(id) {
     </section>`;
 }
 
-function tableHtml(table) {
+function tableHtml(table, mark) {
   return `
     <p class="small" style="margin-top:12px"><b>${esc(table.title)}</b></p>
     <table class="score-table">
       <thead><tr><th>#</th><th>Lag</th><th>M</th><th>Poäng</th><th>MS</th></tr></thead>
       <tbody>
-        ${table.rows.map((row) => `<tr class="${row[1].includes("Spånga") ? "you" : ""}">${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}
+        ${table.rows.map((row) => `<tr class="${mark && row[1].includes(mark) ? "you" : ""}">${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}
       </tbody>
     </table>`;
 }

@@ -147,7 +147,7 @@ export const TEAMS = [
     identity:
       "Järna SK:s äldsta flicklag. I februari 2025 beskrev Länstidningen Södertälje truppen som mest födda 2010–2011, med två spelare födda 2009, en född 2012 och en född 2013. Den mixen ryms i cupregeln som tillåter fyra spelare ett år äldre.",
     league:
-      "Höstens matchblad visar två serier, och inget blad har en tabell. Södermanland, Flickor grön 4 höst 2026, och Värmland, regional serie: grupp 1 i augusti och grupp B under hösten. Nivån tas från de matcherna, inte från en tabellplacering.",
+      "Två tabeller lästa 6 oktober 2026. Södermanland, Flickor grön 4 höst: Järna är 4:a av 9, 7 matcher, 11 poäng, 16–10 och tre vinster. Värmland, regional grupp B hösten: Järna är 4:a av 9, 6 matcher, 9 poäng, 10–21 och tre vinster. Oavgjorda och förluster syns inte på utskriften. Augustimatchen mot Gamla Upsala hör till regional grupp 1, inte till hösttabellen. Serierna är inte färdigspelade. Seriepoängen stannar i mitten: fjärde plats i båda, med plusmål i den ena och 10–21 i den andra.",
     style: {
       status: "Möjlig elva från hösten",
       formation: "4-3-3",
@@ -245,7 +245,37 @@ export const TEAMS = [
       { date: "30 sep 2026", comp: "Värmland, regional grupp B", score: "Järna SK 3–2 Skogstorps GOIF", note: "Rebecka K. 70', assist Sofia V. Ingen ritad lineup. Tre av elva namn före avbytare står inte på Salou-truppen." },
       { date: "4 okt 2026", comp: "Värmland, regional grupp B", score: "Linköping FC 9–2 Järna SK", note: "Sofia V. 37', assist Fanny F. Ritta C. 40', assist Sofia V. Skriven elva och en ritad 4-3-3 som inte har samma namn." },
     ],
-    recordLine: "Barcelona 2024: 10:a. 1 vinst, 1 oavgjord, 3 förluster, 4–9. Gothia 2025 grupp: 2:a, 2 vinster, 1 förlust, 15–6, sedan ut 0–4.",
+    recordLine: "Barcelona 2024: 10:a. 1 vinst, 1 oavgjord, 3 förluster, 4–9. Gothia 2025 grupp: 2:a, 2 vinster, 1 förlust, 15–6, sedan ut 0–4. Höst 2026: 4:a i Södermanland, 11 poäng och 16–10. 4:a i Värmland grupp B, 9 poäng och 10–21.",
+    tables: [
+      {
+        title: "Södermanland, Flickor grön 4 höst 2026, läst 6 oktober",
+        rows: [
+          ["1", "IK Sturehov", "7", "19", "+23"],
+          ["2", "Triangelns IK", "7", "17", "+15"],
+          ["3", "Örebro SK FK", "6", "12", "+9"],
+          ["4", "Järna SK", "7", "11", "+6"],
+          ["5", "Trosa-Vagnhärad SK", "6", "5", "−2"],
+          ["6", "Lillån FK", "6", "5", "−7"],
+          ["7", "Skogstorps GOIF", "6", "5", "−17"],
+          ["8", "Arboga Södra IF", "6", "3", "−9"],
+          ["9", "Nyköpings BIS", "5", "1", "−18"],
+        ],
+      },
+      {
+        title: "Värmland, regional grupp B hösten 2026, läst 6 oktober",
+        rows: [
+          ["1", "Karlslunds IF FK", "6", "16", "+14"],
+          ["2", "Stångebro United", "5", "13", "+22"],
+          ["3", "Örebro SK FK", "5", "10", "+9"],
+          ["4", "Järna SK", "6", "9", "−11"],
+          ["5", "Linköping FC", "6", "8", "+5"],
+          ["6", "IK Brage", "6", "6", "+2"],
+          ["7", "Skogstorps GOIF", "6", "5", "−11"],
+          ["8", "Skiljebo SK", "5", "4", "−10"],
+          ["9", "Slätta SK", "7", "2", "−20"],
+        ],
+      },
+    ],
     sources: [
       { label: "Turneringstrupp", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12782/jarna-sk" },
       { label: "Barcelona 2024, lagsida", url: "https://www.footballcupbarcelona.com/en/results/2024-OCT-1/G10/team/11058" },
@@ -262,6 +292,8 @@ export const TEAMS = [
       { label: "Arboga 3–0, 20 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2198813" },
       { label: "Skogstorp 3–2, 30 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214246" },
       { label: "Linköping 9–2, 4 okt 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214257" },
+      { label: "Södermanland, grön 4, tabell", url: "https://minfotboll.svenskfotboll.se/#/leaguesite/79685/table" },
+      { label: "Värmland, grupp B hösten, tabell", url: "https://minfotboll.svenskfotboll.se/#/leaguesite/80879/table" },
     ],
   },
   {
@@ -1194,7 +1226,7 @@ export const CHAINS = [
 export const LEAGUES = [
   {
     country: "Sverige",
-    body: "Flickor i ungdomsålder spelar distriktsserier under Svenska Fotbollförbundet. Stockholms serie för födda 2010 är uppdelad i numrerade grupper. 2A ligger över 3A. Södermanland är ett mindre distrikt. En regional F15–16-serie erbjöds 2026. Att Järna anmälde sig dit är inte bekräftat. Svensk 11 mot 11 i den här åldern är en veckoserie med publicerade tabeller när en klubbsida speglar dem. Den volymen är skälet till att ett Stockholm 2A-lag inte rankas som okänt, även när de kända resultaten är svaga.",
+    body: "Flickor i ungdomsålder spelar distriktsserier under Svenska Fotbollförbundet. Stockholms serie för födda 2010 är uppdelad i numrerade grupper. 2A ligger över 3A. Järna spelar hösten 2026 i två serier. Den 6 oktober var de 4:a av 9 i Södermanland, Flickor grön 4, med 11 poäng och 16–10, och 4:a av 9 i Värmland, regional grupp B, med 9 poäng och 10–21. Serierna var inte färdigspelade. Svensk 11 mot 11 i den här åldern är en veckoserie. Den volymen är skälet till att ett Stockholm 2A-lag inte rankas som okänt, även när de kända resultaten är svaga.",
   },
   {
     country: "Irland",
