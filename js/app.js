@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=latt";
+} from "./data.js?v=vof";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -727,10 +727,11 @@ function viewTeam(id) {
 }
 
 function tableHtml(table, mark) {
+  const head = table.head || ["#", "Lag", "M", "Poäng", "MS"];
   return `
     <p class="small" style="margin-top:12px"><b>${esc(table.title)}</b></p>
-    <table class="score-table">
-      <thead><tr><th>#</th><th>Lag</th><th>M</th><th>Poäng</th><th>MS</th></tr></thead>
+    <table class="score-table${table.head ? " full" : ""}">
+      <thead><tr>${head.map((cell) => `<th>${esc(cell)}</th>`).join("")}</tr></thead>
       <tbody>
         ${table.rows.map((row) => `<tr class="${mark && row[1].includes(mark) ? "you" : ""}">${row.map((cell) => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("")}
       </tbody>

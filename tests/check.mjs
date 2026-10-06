@@ -75,9 +75,13 @@ for (const table of jarna.tables) {
   const row = table.rows.find((item) => item[1] === "Järna SK");
   if (!row || row[0] !== "4") throw new Error(`Järna is not 4th in ${table.title}`);
 }
-if (jarna.tables[0].rows[3][3] !== "11" || jarna.tables[1].rows[3][3] !== "9") {
-  throw new Error("Järna table points drifted");
+if (jarna.tables[0].rows[3].join() !== "4,Järna SK,7,3,2,2,11,16–10") {
+  throw new Error("Södermanland row drifted");
 }
+if (jarna.tables[1].rows[3].join() !== "4,Järna SK,6,3,0,3,9,10–21") {
+  throw new Error("Värmland row drifted");
+}
+if (jarna.league.includes("syns inte")) throw new Error("draws and losses still described as missing");
 
 const expectedRosters = {
   jarna: 17,
