@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=jarna";
+} from "./data.js?v=hosten";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -738,11 +738,21 @@ function tableHtml(table) {
 }
 
 function lineupPitch(lineup) {
+  const written = lineup.written
+    ? `
+    <p class="small" style="margin-top:12px"><b>${esc(lineup.written.title)}</b></p>
+    <div class="xi-list">
+      ${lineup.written.players.map((player) => `<span class="dot">${esc(player.name)}<br>${esc(player.number)}${player.tag ? `<br><span class="tiny">${esc(player.tag)}</span>` : ""}</span>`).join("")}
+    </div>
+    <p class="tiny" style="margin-top:8px">${esc(lineup.written.note)}</p>`
+    : "";
   return `
-    <div class="pitch xi" aria-label="4-3-3, en visad uppställning">
+    ${lineup.label ? `<p class="small" style="margin-top:12px"><b>${esc(lineup.label)}</b></p>` : ""}
+    <div class="pitch xi" aria-label="${esc(lineup.label || "uppställning")}">
       ${lineup.rows.map((row) => `<div class="xi-row">${row.map((player) => `<span class="dot">${esc(player.name)}<br>${esc(player.number)}</span>`).join("")}</div>`).join("")}
     </div>
-    <p class="tiny" style="margin-top:8px">${esc(lineup.note)}</p>`;
+    <p class="tiny" style="margin-top:8px">${esc(lineup.note)}</p>
+    ${written}`;
 }
 
 function gavaPitch() {
