@@ -58,6 +58,10 @@ if (!jarna.players.some((player) => player.name === "Sofia V." && player.number 
   throw new Error("Vall missing from the 2026 roster");
 }
 if (jarna.players.length !== 17) throw new Error("Järna roster length");
+if (jarna.style.formation !== "4-3-3") throw new Error("Järna formation drifted");
+const jarnaXi = jarna.lineup.rows.flat().map((player) => player.number).sort((a, b) => Number(a) - Number(b));
+if (jarnaXi.join() !== "1,3,4,6,7,10,12,19,21,22,23") throw new Error("Järna lineup drifted");
+if (!jarna.lineup.note.includes("inte en bekräftad startelva")) throw new Error("the shown lineup was treated as the Salou eleven");
 
 const expectedRosters = {
   jarna: 17,

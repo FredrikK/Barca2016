@@ -2,7 +2,7 @@
  * Public-data dossier for Football Cup Barcelona, Girls 2010, Group A.
  * Scores and names below are copied from pages that were opened.
  * Implied scores are marked implied: true and are not printed line scores.
- * Nothing here is a confirmed 2026 starting lineup.
+ * Järna's 4-3-3 is one shown lineup. It is not a confirmed Salou starting eleven.
  */
 
 export const WEIGHTS = {
@@ -148,19 +148,42 @@ export const TEAMS = [
     league:
       "Ingen Södermanlandstabell för 2025 eller 2026 för det här laget hittades. Södermanlands FF bjöd in klubbar till en regional F15–16-serie (födda 2011 och 2010) för 2026. Den inbjudan bevisar inte att Järna anmälde sig. Nivån tas från matcher, inte från en inhemsk tabell.",
     style: {
-      status: "Härlett från resultat",
-      formation: "Inte publicerad",
+      status: "En visad uppställning",
+      formation: "4-3-3",
       summary:
-        "Ingen formation eller matchrapport beskriver hur de ställer upp. Resultaten säger att de är farliga när matchen öppnar sig, och att de tappar klart mot välorganiserade nordiska lag.",
+        "En visad uppställning är 4-3-3. Den namnger inte match eller datum. Resultaten säger fortfarande att de är farliga när matchen öppnar sig, och att de tappar klart mot välorganiserade nordiska lag.",
       points: [
+        "I den uppställningen står Molly H. i mål. Ebba B., Alexis A., Josefine M. och Anna A. är backlinjen. Emma G., Julia K. och Cecilia J. är mittfältet. Sofia V., Fanny F. och Rebecka K. står främst.",
         "På Gothia 2025 gjorde de 15 mål på tre gruppmatcher, bland annat 7–0 och 5–1.",
         "Mot Frösö IF delades målen: Sofia V. (3' och 35'), Josefine M. (12'), Valentina S. (14') och Freja G. (20'). Sofia V. är 10, Josefine M. är 12 och Freja G. är 8 på 2026 års trupp. Valentina S. står inte på den här listan.",
         "De förlorade ändå matcherna som betydde något mot struktur: Stabæk 4–0, Stureby 0–4, Sjöstaden 3–5, Täby 0–1, Phénix de Québec 0–1.",
-        "Sofia V. gjorde alla fyra av Järnas mål i den här cupen 2024. Hon är nummer 10 på 2026 års trupp. Inga positioner är tryckta.",
+        "Sofia V. gjorde alla fyra av Järnas mål i den här cupen 2024. Hon är nummer 10 på 2026 års trupp. I den visade uppställningen står hon längst fram till vänster.",
+      ],
+    },
+    lineup: {
+      note: "En visad uppställning. Motståndare och datum syns inte. Tröjnumren stämmer med turneringstruppen 2026. Det är inte en bekräftad startelva för Salou.",
+      rows: [
+        [
+          { name: "Sofia V.", number: "10" },
+          { name: "Fanny F.", number: "7" },
+          { name: "Rebecka K.", number: "19" },
+        ],
+        [
+          { name: "Emma G.", number: "21" },
+          { name: "Julia K.", number: "22" },
+          { name: "Cecilia J.", number: "23" },
+        ],
+        [
+          { name: "Ebba B.", number: "3" },
+          { name: "Alexis A.", number: "6" },
+          { name: "Josefine M.", number: "12" },
+          { name: "Anna A.", number: "4" },
+        ],
+        [{ name: "Molly H.", number: "1" }],
       ],
     },
     approach:
-      "Behandla de första 10 minuterna som matchen. Matcherna här är bara 40 minuter. Järnas bästa öppna matcher blev stora när de gjorde mål tidigt. Ett kompakt block och inget tidigt omställningsmål är mönstret som faktiskt har slagit dem. Om matchen stretchar har de flera avslutare.",
+      "Behandla de första 10 minuterna som matchen. Matcherna här är bara 40 minuter. Järnas bästa öppna matcher blev stora när de gjorde mål tidigt. Ett kompakt block och inget tidigt omställningsmål är mönstret som faktiskt har slagit dem. Om matchen stretchar har de flera avslutare. Den visade 4-3-3:an har tre främst, med Sofia V. till vänster. Det är en match, inte ett löfte om lördagens elva.",
     players: [
       { name: "Molly H.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
       { name: "Ebba B.", number: "3", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
@@ -180,7 +203,7 @@ export const TEAMS = [
       { name: "Cecilia J.", number: "23", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
       { name: "Imra H.", number: "27", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Länstidningen citerade henne om insamlingen till resan 2024. Hennes nummer på den truppen var 26." },
     ],
-    playersNote: "Nummer och namn är kopierade från turneringens lagsida 2026. Inga positioner är tryckta. Nummer 2, 11, 13, 16, 17, 18 och 20 är lediga.",
+    playersNote: "Nummer och namn är kopierade från turneringens lagsida 2026. Turneringssidan trycker inga positioner. Uppställningen ovan är en visad 4-3-3, inte en bekräftad startelva för Salou. Nummer 2, 11, 13, 16, 17, 18 och 20 är lediga.",
     staff: "Tränare Are Vang. Assisterande tränare Lars Fredrik Nicklas Larsson. Båda titlarna står på turneringssidan.",
     results: [
       { date: "19 okt 2024", comp: "Den här cupen, grupp", score: "Stabæk JF 4–0 Järna SK", note: "Tryckt på lagsidan." },
