@@ -26,9 +26,10 @@ import {
   rankedTeams,
   snackStops,
   teamById,
+  teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vof";
+} from "./data.js?v=theme";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -94,8 +95,25 @@ function render() {
     snacks: viewSnacks,
   };
   app.innerHTML = (views[page] || viewTrip)();
+  paintTheme(page === "team" ? teamById(arg) : null);
   window.scrollTo(0, 0);
   bind();
+}
+
+function paintTheme(team) {
+  const root = document.documentElement;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (!team) {
+    for (const name of ["--green", "--green-soft", "--gold", "--gold-soft"]) root.style.removeProperty(name);
+    themeColor?.setAttribute("content", "#003671");
+    return;
+  }
+  const theme = teamTheme(team.colors);
+  root.style.setProperty("--green", theme.ink);
+  root.style.setProperty("--green-soft", theme.soft);
+  root.style.setProperty("--gold", theme.accent);
+  root.style.setProperty("--gold-soft", theme.soft);
+  themeColor?.setAttribute("content", theme.ink);
 }
 
 function pageMap(page) {
@@ -651,10 +669,11 @@ function viewTeam(id) {
   if (!team) return `<section class="view"><p>Laget finns inte.</p></section>`;
   const games = MATCHES.filter((match) => match.home === id || match.away === id);
   return `
-    <section class="view">
+    <section class="view team-theme">
       <button class="back" data-go="#rank">Tillbaka till motståndarna</button>
       <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
       <h1>${esc(team.name)}</h1>
+      <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
       <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
       <div class="section" style="margin-top:14px">
         <div class="callout ${team.rank <= 2 ? "green" : ""}">${esc(team.recordLine)}</div>

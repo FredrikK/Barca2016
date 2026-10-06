@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, AREA, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, AREA, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -82,6 +82,29 @@ if (jarna.tables[1].rows[3].join() !== "4,Järna SK,6,3,0,3,9,10–21") {
   throw new Error("Värmland row drifted");
 }
 if (jarna.league.includes("syns inte")) throw new Error("draws and losses still described as missing");
+
+function contrastOnWhite(hex) {
+  const value = parseInt(hex.slice(1), 16);
+  const linear = [(value >> 16) & 255, (value >> 8) & 255, value & 255].map((channel) => {
+    const c = channel / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  return 1.05 / (luminance + 0.05);
+}
+for (const team of TEAMS) {
+  const theme = teamTheme(team.colors);
+  if (contrastOnWhite(theme.ink) < 4.5) throw new Error(`${team.id} theme ink is too light`);
+  if (![team.colors[0].toLowerCase(), team.colors[1].toLowerCase()].includes(theme.accent.toLowerCase())) {
+    throw new Error(`${team.id} accent left the kit`);
+  }
+}
+if (teamTheme(["#c9842a", "#1a2332"]).ink.toLowerCase() !== "#1a2332") {
+  throw new Error("Kilcullen gold was used as text");
+}
+if (teamTheme(["#8c1d40", "#f2c14e"]).accent.toLowerCase() !== "#f2c14e") {
+  throw new Error("Gavà gold accent missing");
+}
 
 const expectedRosters = {
   jarna: 17,
