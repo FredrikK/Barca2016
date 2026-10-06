@@ -28,7 +28,7 @@ import {
   teamById,
   travelStops,
   usableMeal,
-} from "./data.js?v=tabell";
+} from "./data.js?v=latt";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -691,8 +691,8 @@ function viewTeam(id) {
           ${team.players.length ? team.players.map((player) => `
             <div class="player">
               <div class="who"><span>${esc(player.name)}</span><span class="num">${esc(player.number)}</span></div>
-              <div class="tiny" style="margin-top:2px">${esc(player.role)}</div>
-              <p class="small" style="margin-top:4px">${esc(player.why)}</p>
+              ${player.role ? `<div class="tiny" style="margin-top:2px">${esc(player.role)}</div>` : ""}
+              ${player.why ? `<p class="small" style="margin-top:4px">${esc(player.why)}</p>` : ""}
             </div>`).join("") : `<p class="empty">${esc(team.playersNote)}</p>`}
           ${team.players.length ? `<p class="tiny" style="margin-top:8px">${esc(team.playersNote || "")}</p>` : ""}
           <p class="small" style="margin-top:10px"><b>Ledare.</b> ${esc(team.staff)}</p>
@@ -707,7 +707,7 @@ function viewTeam(id) {
         <h2>Matcher vi kunde belägga</h2>
         <div class="card pad" style="margin-top:10px">
           ${team.results.length ? `<table class="score-table"><thead><tr><th>När</th><th>Resultat</th></tr></thead><tbody>
-            ${team.results.map((result) => `<tr><td>${esc(result.date)}<div class="tiny">${esc(result.comp)}</div></td><td>${esc(result.score)}${result.implied ? ' <span class="pill">Härlett</span>' : ""}<div class="tiny">${esc(result.note)}</div></td></tr>`).join("")}
+            ${team.results.map((result) => `<tr><td>${esc(result.date)}<div class="tiny">${esc(result.comp)}</div></td><td>${esc(result.score)}${result.implied ? ' <span class="pill">Härlett</span>' : ""}${result.note ? `<div class="tiny">${esc(result.note)}</div>` : ""}</td></tr>`).join("")}
           </tbody></table>` : `<p class="empty">Inget resultat i åldersklassen var publicerat.</p>`}
           ${team.contextResults ? `<p class="tiny" style="margin-top:10px">${team.contextResults.map((result) => `${esc(result.score)}. ${esc(result.note)}`).join(" ")}</p>` : ""}
           ${(team.tables || (team.table ? [team.table] : [])).map((table) => tableHtml(table, team.short)).join("")}
