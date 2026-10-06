@@ -147,7 +147,7 @@ export const TEAMS = [
     identity:
       "Järna SK:s äldsta flicklag. I februari 2025 beskrev Länstidningen Södertälje truppen som mest födda 2010–2011, med två spelare födda 2009, en född 2012 och en född 2013. Den mixen ryms i cupregeln som tillåter fyra spelare ett år äldre.",
     league:
-      "Läst 6 oktober 2026. 4:a av 9 i båda, serierna inte färdigspelade. Södermanland: 7 matcher, 11 poäng, 16–10. Värmland grupp B: 6 matcher, 9 poäng, 10–21. Oavgjorda och förluster syns inte på utskriften.",
+      "Läst 6 oktober 2026. 4:a av 9 i båda, serierna inte färdigspelade. Södermanland: 7 matcher, 3 vinster, 2 oavgjorda, 2 förluster, 11 poäng, 16–10. Värmland grupp B: 6 matcher, 3 vinster, 0 oavgjorda, 3 förluster, 9 poäng, 10–21.",
     style: {
       status: "Möjlig elva från hösten",
       formation: "4-3-3",
@@ -240,34 +240,36 @@ export const TEAMS = [
       { date: "30 sep 2026", comp: "Värmland, regional grupp B", score: "Järna SK 3–2 Skogstorps GOIF", note: "" },
       { date: "4 okt 2026", comp: "Värmland, regional grupp B", score: "Linköping FC 9–2 Järna SK", note: "Elvan och 4-3-3-bilden." },
     ],
-    recordLine: "Barcelona 2024: 10:a. 1 vinst, 1 oavgjord, 3 förluster, 4–9. Gothia 2025 grupp: 2:a, 2 vinster, 1 förlust, 15–6, sedan ut 0–4. Höst 2026: 4:a i Södermanland, 11 poäng och 16–10. 4:a i Värmland grupp B, 9 poäng och 10–21.",
+    recordLine: "Barcelona 2024: 10:a. 1 vinst, 1 oavgjord, 3 förluster, 4–9. Gothia 2025 grupp: 2:a, 2 vinster, 1 förlust, 15–6, sedan ut 0–4. Höst 2026: 4:a i Södermanland, 3–2–2, 16–10. 4:a i Värmland grupp B, 3–0–3, 10–21.",
     tables: [
       {
         title: "Södermanland, Flickor grön 4 höst 2026, läst 6 oktober",
+        head: ["#", "Lag", "M", "V", "O", "F", "P", "Mål"],
         rows: [
-          ["1", "IK Sturehov", "7", "19", "+23"],
-          ["2", "Triangelns IK", "7", "17", "+15"],
-          ["3", "Örebro SK FK", "6", "12", "+9"],
-          ["4", "Järna SK", "7", "11", "+6"],
-          ["5", "Trosa-Vagnhärad SK", "6", "5", "−2"],
-          ["6", "Lillån FK", "6", "5", "−7"],
-          ["7", "Skogstorps GOIF", "6", "5", "−17"],
-          ["8", "Arboga Södra IF", "6", "3", "−9"],
-          ["9", "Nyköpings BIS", "5", "1", "−18"],
+          ["1", "IK Sturehov", "7", "6", "1", "0", "19", "26–3"],
+          ["2", "Triangelns IK", "7", "5", "2", "0", "17", "23–8"],
+          ["3", "Örebro SK FK", "6", "4", "0", "2", "12", "16–7"],
+          ["4", "Järna SK", "7", "3", "2", "2", "11", "16–10"],
+          ["5", "Trosa-Vagnhärad SK", "6", "1", "2", "3", "5", "9–11"],
+          ["6", "Lillån FK", "6", "1", "2", "3", "5", "4–11"],
+          ["7", "Skogstorps GOIF", "6", "1", "2", "3", "5", "6–23"],
+          ["8", "Arboga Södra IF", "6", "1", "0", "5", "3", "6–15"],
+          ["9", "Nyköpings BIS", "5", "0", "1", "4", "1", "1–19"],
         ],
       },
       {
         title: "Värmland, regional grupp B hösten 2026, läst 6 oktober",
+        head: ["#", "Lag", "M", "V", "O", "F", "P", "Mål"],
         rows: [
-          ["1", "Karlslunds IF FK", "6", "16", "+14"],
-          ["2", "Stångebro United", "5", "13", "+22"],
-          ["3", "Örebro SK FK", "5", "10", "+9"],
-          ["4", "Järna SK", "6", "9", "−11"],
-          ["5", "Linköping FC", "6", "8", "+5"],
-          ["6", "IK Brage", "6", "6", "+2"],
-          ["7", "Skogstorps GOIF", "6", "5", "−11"],
-          ["8", "Skiljebo SK", "5", "4", "−10"],
-          ["9", "Slätta SK", "7", "2", "−20"],
+          ["1", "Karlslunds IF FK", "6", "5", "1", "0", "16", "22–8"],
+          ["2", "Stångebro United BK", "5", "4", "1", "0", "13", "29–7"],
+          ["3", "Örebro SK FK", "5", "3", "1", "1", "10", "18–9"],
+          ["4", "Järna SK", "6", "3", "0", "3", "9", "10–21"],
+          ["5", "Linköping FC", "6", "2", "2", "2", "8", "23–18"],
+          ["6", "IK Brage", "6", "2", "0", "4", "6", "14–12"],
+          ["7", "Skogstorps GOIF", "6", "1", "2", "3", "5", "7–18"],
+          ["8", "Skiljebo SK", "5", "1", "1", "3", "4", "4–14"],
+          ["9", "Slätta SK", "7", "0", "2", "5", "2", "8–28"],
         ],
       },
     ],
@@ -1221,7 +1223,7 @@ export const CHAINS = [
 export const LEAGUES = [
   {
     country: "Sverige",
-    body: "Flickor i ungdomsålder spelar distriktsserier under Svenska Fotbollförbundet. Stockholms serie för födda 2010 är uppdelad i numrerade grupper. 2A ligger över 3A. Järna spelar hösten 2026 i två serier. Den 6 oktober var de 4:a av 9 i Södermanland, Flickor grön 4, med 11 poäng och 16–10, och 4:a av 9 i Värmland, regional grupp B, med 9 poäng och 10–21. Serierna var inte färdigspelade. Svensk 11 mot 11 i den här åldern är en veckoserie. Den volymen är skälet till att ett Stockholm 2A-lag inte rankas som okänt, även när de kända resultaten är svaga.",
+    body: "Flickor i ungdomsålder spelar distriktsserier under Svenska Fotbollförbundet. Stockholms serie för födda 2010 är uppdelad i numrerade grupper. 2A ligger över 3A. Järna spelar hösten 2026 i två serier. Den 6 oktober var de 4:a av 9 i Södermanland, Flickor grön 4, med 3 vinster, 2 oavgjorda, 2 förluster, 11 poäng och 16–10, och 4:a av 9 i Värmland, regional grupp B, med 3 vinster, 3 förluster, 9 poäng och 10–21. Serierna var inte färdigspelade. Svensk 11 mot 11 i den här åldern är en veckoserie. Den volymen är skälet till att ett Stockholm 2A-lag inte rankas som okänt, även när de kända resultaten är svaga.",
   },
   {
     country: "Irland",

@@ -385,6 +385,11 @@ h3 { font-size: 16px; font-weight: 700; }
 .score-table th { text-align: left; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; padding: 4px 4px 8px 0; }
 .score-table td { padding: 6px 4px 6px 0; border-top: 1px solid var(--line); vertical-align: top; }
 .score-table tr.you td { font-weight: 750; }
+.score-table.full { font-size: 12px; }
+.score-table.full th,
+.score-table.full td { padding: 5px 2px 5px 0; }
+.score-table.full th:nth-child(n + 3),
+.score-table.full td:nth-child(n + 3) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .components { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 13px; margin-top: 8px; }
 .components span:nth-child(even) { font-variant-numeric: tabular-nums; font-weight: 750; }
