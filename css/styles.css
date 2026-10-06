@@ -497,6 +497,19 @@ h3 { font-size: 16px; font-weight: 700; }
   line-height: 1.15;
   font-size: 10px;
 }
+.xi-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.xi-list .dot {
+  position: static;
+  transform: none;
+  line-height: 1.15;
+  font-size: 11px;
+  text-align: center;
+}
 
 .empty {
   padding: 8px 0 0;

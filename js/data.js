@@ -2,7 +2,8 @@
  * Public-data dossier for Football Cup Barcelona, Girls 2010, Group A.
  * Scores and names below are copied from pages that were opened.
  * Implied scores are marked implied: true and are not printed line scores.
- * Järna's 4-3-3 is one shown lineup. It is not a confirmed Salou starting eleven.
+ * Järna's drawn 4-3-3 is the Linköping graphic on 4 Oct 2026.
+ * The written eleven that day is a different set of names. Neither is a confirmed Salou XI.
  */
 
 export const WEIGHTS = {
@@ -146,22 +147,25 @@ export const TEAMS = [
     identity:
       "Järna SK:s äldsta flicklag. I februari 2025 beskrev Länstidningen Södertälje truppen som mest födda 2010–2011, med två spelare födda 2009, en född 2012 och en född 2013. Den mixen ryms i cupregeln som tillåter fyra spelare ett år äldre.",
     league:
-      "Ingen Södermanlandstabell för 2025 eller 2026 för det här laget hittades. Södermanlands FF bjöd in klubbar till en regional F15–16-serie (födda 2011 och 2010) för 2026. Den inbjudan bevisar inte att Järna anmälde sig. Nivån tas från matcher, inte från en inhemsk tabell.",
+      "Höstens matchblad visar två serier, och inget blad har en tabell. Södermanland, Flickor grön 4 höst 2026, och Värmland, regional serie: grupp 1 i augusti och grupp B under hösten. Nivån tas från de matcherna, inte från en tabellplacering.",
     style: {
-      status: "En visad uppställning",
+      status: "Möjlig elva från hösten",
       formation: "4-3-3",
       summary:
-        "En visad uppställning är 4-3-3. Den namnger inte match eller datum. Resultaten säger fortfarande att de är farliga när matchen öppnar sig, och att de tappar klart mot välorganiserade nordiska lag.",
+        "Den enda ritade formen efter sommaren är en 4-3-3 mot Linköping, söndag 4 oktober. Den skrivna elvan samma dag är en annan. Freja G. och Ritta C. står i elvan. Julia K. och Cecilia J. står på bilden och är avbytare i matchtruppen. Det är inte en bekräftad startelva för Salou.",
       points: [
-        "I den uppställningen står Molly H. i mål. Ebba B., Alexis A., Josefine M. och Anna A. är backlinjen. Emma G., Julia K. och Cecilia J. är mittfältet. Sofia V., Fanny F. och Rebecka K. står främst.",
-        "På Gothia 2025 gjorde de 15 mål på tre gruppmatcher, bland annat 7–0 och 5–1.",
-        "Mot Frösö IF delades målen: Sofia V. (3' och 35'), Josefine M. (12'), Valentina S. (14') och Freja G. (20'). Sofia V. är 10, Josefine M. är 12 och Freja G. är 8 på 2026 års trupp. Valentina S. står inte på den här listan.",
-        "De förlorade ändå matcherna som betydde något mot struktur: Stabæk 4–0, Stureby 0–4, Sjöstaden 3–5, Täby 0–1, Phénix de Québec 0–1.",
-        "Sofia V. gjorde alla fyra av Järnas mål i den här cupen 2024. Hon är nummer 10 på 2026 års trupp. I den visade uppställningen står hon längst fram till vänster.",
+        "Skriven elva 4 oktober, borta mot Linköping, 9–2: Molly H. i mål, Ebba B., Anna A., Alexis A. som kapten på bladet, Fanny F., Freja G., Ritta C., Sofia V., Josefine M., Rebecka K. och Emma G. Numren är samma som på Salou-truppen. Avbytare på bladet: en Imra med nummer 5, Julia K. och Cecilia J.",
+        "Onsdag 30 september, hemma mot Skogstorp, 3–2, fanns ingen ritad lineup. Före avbytare står Molly H., Ebba B., Alexis A., Fanny F., Ritta C., Sofia V., Emma G., Rebecka K. och tre spelare som inte finns på Salou-truppen. Anna A., Freja G. och Josefine M. saknas. Julia K. och Cecilia J. är avbytare den dagen också.",
+        "Nyckelspelare på höstens blad, med Salou-nummer: Sofia V. 10 gör och förbereder mål. Fanny F. 7 och Freja G. 8 gör mål och assists. Ritta C. 9 gör två mål i Värmland. Rebecka K. 19 sätter 3–2 mot Skogstorp. Pavlina G. 15 gör mål mot Arboga, med nummer 11 på det bladet, och står inte i de två sena elvorna.",
+        "Julia K. gör 2–0 i DM mot Nyköping 19 augusti. Cecilia J. gör 2–0 borta mot IK Brage 6 september och assisterar Anna A. mot Arboga. Båda är avbytare 30 september och 4 oktober, men båda står på 4-3-3-bilden.",
+        "Anna A. gör 1–0 mot Arboga och assisterar Freja G. mot Gamla Upsala. Emma G. assisterar DM-öppningen. Alexis A. är kapten 4 oktober. Josefine M. står i den skrivna elvan den dagen.",
+        "DM-öppningen mot Nyköping görs av en annan Imra, nummer 7 på bladet. Imra H. är 27 på Salou-truppen. Bladen säger inte att det är samma spelare. Flera Södermanlandsmatcher har en yngre trupp. De namnen räknas inte in i Salou-elvan.",
+        "På Gothia 2025 gjorde de 15 mål på tre gruppmatcher, bland annat 7–0 och 5–1. Mot Frösö IF: Sofia V. 3' och 35', Josefine M. 12', Valentina S. 14' och Freja G. 20'. Valentina S. står inte på 2026 års trupp. De tappade ändå mot struktur: Stabæk 4–0, Stureby 0–4, Sjöstaden 3–5, Täby 0–1, Phénix de Québec 0–1. Mot Linköping i höst blev det 9–2.",
       ],
     },
     lineup: {
-      note: "En visad uppställning. Motståndare och datum syns inte. Tröjnumren stämmer med turneringstruppen 2026. Det är inte en bekräftad startelva för Salou.",
+      label: "Ritad 4-3-3 mot Linköping, 4 oktober",
+      note: "Bilden på matchbladet mot Linköping. Julia K. och Cecilia J. står på bilden och är avbytare i den skrivna truppen. Freja G. och Ritta C. står i elvan och syns inte här. Det är inte en bekräftad startelva för Salou.",
       rows: [
         [
           { name: "Sofia V.", number: "10" },
@@ -181,29 +185,46 @@ export const TEAMS = [
         ],
         [{ name: "Molly H.", number: "1" }],
       ],
+      written: {
+        title: "Skriven elva samma match",
+        note: "Namnen före avbytare mot Linköping. Alla elva står på Salou-truppen med samma nummer. En Imra är avbytare med nummer 5. Imra H. är 27 i Salou, och bladet säger inte att det är samma spelare.",
+        players: [
+          { name: "Molly H.", number: "1", tag: "Målvakt" },
+          { name: "Ebba B.", number: "3" },
+          { name: "Anna A.", number: "4" },
+          { name: "Alexis A.", number: "6", tag: "Kapten" },
+          { name: "Fanny F.", number: "7" },
+          { name: "Freja G.", number: "8" },
+          { name: "Ritta C.", number: "9" },
+          { name: "Sofia V.", number: "10" },
+          { name: "Josefine M.", number: "12" },
+          { name: "Rebecka K.", number: "19" },
+          { name: "Emma G.", number: "21" },
+        ],
+      },
     },
     approach:
-      "Behandla de första 10 minuterna som matchen. Matcherna här är bara 40 minuter. Järnas bästa öppna matcher blev stora när de gjorde mål tidigt. Ett kompakt block och inget tidigt omställningsmål är mönstret som faktiskt har slagit dem. Om matchen stretchar har de flera avslutare. Den visade 4-3-3:an har tre främst, med Sofia V. till vänster. Det är en match, inte ett löfte om lördagens elva.",
+      "Lördagens match är 40 minuter, och Järna är sista motståndaren den dagen, 13:10. Den senaste skrivna elvan är från 4 oktober. Sofia V., Fanny F., Freja G., Ritta C. och Rebecka K. är avslutarna på de höstblad som gäller Salou-truppen. Den ritade 4-3-3:an ska inte läsas som lördagens lag: två av de ritade mittfältarna var avbytare den dagen. Ett tidigt mål har öppnat deras matcher. Mot Linköping, 9–2, räckte inte det.",
     players: [
-      { name: "Molly H.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Ebba B.", number: "3", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Anna A.", number: "4", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Tränarna 2024 inkluderade Kjell Magnus Auregård. Den här sidan säger inte att de är släkt." },
-      { name: "Patricia O.", number: "5", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Alexis A.", number: "6", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Fanny F.", number: "7", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Freja G.", number: "8", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Hon gjorde 4–1 mot Frösö IF på Gothia 2025 (20'). Hon stod inte på 2024 års trupp." },
-      { name: "Ritta C.", number: "9", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Nummer 9 är inte en publicerad position." },
-      { name: "Sofia V.", number: "10", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. 2024 års trupp märkte henne med fyra mål, och Järna gjorde fyra i den cupen. Hon gjorde mål i 3' och 35' mot Frösö IF på Gothia 2025." },
-      { name: "Josefine M.", number: "12", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Hon gjorde 2–1 mot Frösö IF på Gothia 2025 (12')." },
-      { name: "Lea V.", number: "14", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Tränaren är Are Vang. Sidan säger inte att de är släkt." },
-      { name: "Pavlina G.", number: "15", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Rebecka K.", number: "19", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Bildtexten i tidningen i februari 2025 nämner henne. Hon stod inte på 2024 års trupp." },
-      { name: "Emma G.", number: "21", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Julia K.", number: "22", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Cecilia J.", number: "23", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
-      { name: "Imra H.", number: "27", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Länstidningen citerade henne om insamlingen till resan 2024. Hennes nummer på den truppen var 26." },
+      { name: "Molly H.", number: "1", role: "Turneringstrupp", why: "Målvakt i de skrivna elvorna mot Skogstorp 30 september och mot Linköping 4 oktober." },
+      { name: "Ebba B.", number: "3", role: "Turneringstrupp", why: "I samma två skrivna elvor, och på den ritade backlinjen mot Linköping." },
+      { name: "Anna A.", number: "4", role: "Turneringstrupp", why: "Mål 8' mot Arboga, assist Cecilia J. Assist till Freja G. mot Gamla Upsala. Gult kort 89' mot Brage. I elvan 4 oktober, inte 30 september. Tränarna 2024 inkluderade Kjell Magnus Auregård. Sidan säger inte att de är släkt." },
+      { name: "Patricia O.", number: "5", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Hon syns inte i de två skrivna höstelvorna." },
+      { name: "Alexis A.", number: "6", role: "Turneringstrupp", why: "Kapten på bladet mot Linköping 4 oktober. Gult kort 72' mot Gamla Upsala. I elvorna 30 september och 4 oktober." },
+      { name: "Fanny F.", number: "7", role: "Turneringstrupp", why: "Mål 33' mot Skiljebo, assist Freja G., och mål 84' mot Gamla Upsala. Assist till Ritta C. mot Skiljebo och till Sofia V. mot Linköping. Längst fram på den ritade 4-3-3:an." },
+      { name: "Freja G.", number: "8", role: "Turneringstrupp", why: "Mål 90' mot Gamla Upsala, assist Anna A., och mål 80' mot Nyköping med nummer 15 på det bladet. Assist till Fanny F. mot Skiljebo och till Pavlina G. mot Arboga. I den skrivna elvan 4 oktober. Syns inte på 4-3-3-bilden. Gothia 2025: 4–1 mot Frösö IF, 20'." },
+      { name: "Ritta C.", number: "9", role: "Turneringstrupp", why: "Mål 34' mot Skiljebo, assist Fanny F., och mål 40' mot Linköping, assist Sofia V. I de skrivna elvorna 30 september och 4 oktober. Nummer 9 är inte en publicerad position." },
+      { name: "Sofia V.", number: "10", role: "Turneringstrupp", why: "Mål 37' mot Linköping, assist Fanny F., och mål 87' mot Arboga med nummer 21 på det bladet. Assist till Rebecka K. mot Skogstorp och till Ritta C. mot Linköping. 2024 års trupp märkte henne med fyra mål. Gothia 2025: 3' och 35' mot Frösö IF." },
+      { name: "Josefine M.", number: "12", role: "Turneringstrupp", why: "I den skrivna elvan 4 oktober och på den ritade backlinjen. Gult kort 62' mot Brage. Inte med 30 september. Gothia 2025: 2–1 mot Frösö IF, 12'." },
+      { name: "Lea V.", number: "14", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Hon syns inte i de två skrivna höstelvorna. Tränaren är Are Vang. Sidan säger inte att de är släkt." },
+      { name: "Pavlina G.", number: "15", role: "Turneringstrupp", why: "Mål 23' mot Arboga, med nummer 11 på det bladet, assist Freja G. Hon står inte i elvorna 30 september eller 4 oktober." },
+      { name: "Rebecka K.", number: "19", role: "Turneringstrupp", why: "Satte 3–2 mot Skogstorp, 70', assist Sofia V. Längst fram på den ritade 4-3-3:an. I elvorna 30 september och 4 oktober. Bildtexten i februari 2025 nämner henne. Hon stod inte på 2024 års trupp." },
+      { name: "Emma G.", number: "21", role: "Turneringstrupp", why: "Assist till DM-öppningen mot Nyköping, 23'. I elvorna 30 september och 4 oktober, och på den ritade bilden." },
+      { name: "Julia K.", number: "22", role: "Turneringstrupp", why: "Mål 42' i DM mot Nyköping. På 4-3-3-bilden mot Linköping, men avbytare i matchtruppen den dagen och 30 september." },
+      { name: "Cecilia J.", number: "23", role: "Turneringstrupp", why: "Mål 44' borta mot IK Brage. Assist till Anna A. mot Arboga. På 4-3-3-bilden mot Linköping, men avbytare i matchtruppen den dagen och 30 september." },
+      { name: "Imra H.", number: "27", role: "Turneringstrupp", why: "Länstidningen citerade henne om insamlingen till resan 2024. Numret då var 26. DM-målet 23' mot Nyköping gjordes av en annan Imra, nummer 7 på bladet. Mot Linköping är en Imra avbytare med nummer 5. Inget blad säger att det är den här spelaren." },
     ],
-    playersNote: "Nummer och namn är kopierade från turneringens lagsida 2026. Turneringssidan trycker inga positioner. Uppställningen ovan är en visad 4-3-3, inte en bekräftad startelva för Salou. Nummer 2, 11, 13, 16, 17, 18 och 20 är lediga.",
+    playersNote: "Nummer och namn i listan är från turneringens lagsida 2026. Höstens blad använder ibland andra nummer, och det står vid spelaren. Den ritade 4-3-3:an och den skrivna elvan är från 4 oktober, inte en bekräftad startelva för Salou. Nummer 2, 11, 13, 16, 17, 18 och 20 är lediga på Salou-truppen.",
     staff: "Tränare Are Vang. Assisterande tränare Lars Fredrik Nicklas Larsson. Båda titlarna står på turneringssidan.",
     results: [
       { date: "19 okt 2024", comp: "Den här cupen, grupp", score: "Stabæk JF 4–0 Järna SK", note: "Tryckt på lagsidan." },
@@ -215,6 +236,14 @@ export const TEAMS = [
       { date: "15 jul 2025", comp: "Gothia Girls 15", score: "Järna SK 5–1 Frösö IF", note: "Sofia V. 3', 35'; Josefine M. 12'; Valentina S. 14'; Freja G. 20'." },
       { date: "16 jul 2025", comp: "Gothia Girls 15", score: "Järna SK 3–5 Sjöstaden DFF", note: "Sjöstaden vann gruppen." },
       { date: "17 jul 2025", comp: "Gothia, 1/64", score: "Järna SK 0–4 Stureby FF", note: "Playoff A. Stureby är en Stockholmsklubb." },
+      { date: "8 aug 2026", comp: "Värmland, regional grupp 1", score: "Gamla Upsala SK 1–4 Järna SK", note: "Freja G. 90', assist Anna A. Fanny F. 84'. 44' gjordes av en spelare som inte står på Salou-truppen. Ingen lineup." },
+      { date: "19 aug 2026", comp: "Södermanland, DM-slutspel", score: "Järna SK 2–1 Nyköpings BIS", note: "Julia K. 42'. Öppningsmålet 23' av en annan Imra, assist Emma G. Ingen lineup." },
+      { date: "30 aug 2026", comp: "Södermanland, grön 4", score: "Nyköpings BIS 0–8 Järna SK", note: "Ett av målen: Freja G. 80', med nummer 15 på bladet. Salou-numret är 8. Ingen lineup." },
+      { date: "6 sep 2026", comp: "Värmland, regional grupp B", score: "IK Brage 0–2 Järna SK", note: "Cecilia J. 44', då stod det 0–2. Gult kort till Anna A. 89' och Josefine M. 62'. Ingen lineup." },
+      { date: "9 sep 2026", comp: "Värmland, regional grupp B", score: "Järna SK 2–1 Skiljebo SK", note: "Fanny F. 33', assist Freja G. Ritta C. 34', assist Fanny F. Skiljebo satte en straff 78'. Ingen lineup." },
+      { date: "20 sep 2026", comp: "Södermanland, grön 4", score: "Järna SK 3–0 Arboga Södra IF", note: "Anna A. 8', assist Cecilia J. Pavlina G. 23', nummer 11 på bladet, assist Freja G. Sofia V. 87', nummer 21 på bladet. Ingen lineup." },
+      { date: "30 sep 2026", comp: "Värmland, regional grupp B", score: "Järna SK 3–2 Skogstorps GOIF", note: "Rebecka K. 70', assist Sofia V. Ingen ritad lineup. Tre av elva namn före avbytare står inte på Salou-truppen." },
+      { date: "4 okt 2026", comp: "Värmland, regional grupp B", score: "Linköping FC 9–2 Järna SK", note: "Sofia V. 37', assist Fanny F. Ritta C. 40', assist Sofia V. Skriven elva och en ritad 4-3-3 som inte har samma namn." },
     ],
     recordLine: "Barcelona 2024: 10:a. 1 vinst, 1 oavgjord, 3 förluster, 4–9. Gothia 2025 grupp: 2:a, 2 vinster, 1 förlust, 15–6, sedan ut 0–4.",
     sources: [
@@ -225,6 +254,14 @@ export const TEAMS = [
       { label: "Gothia 2025, matcher", url: "https://results.cupmanager.net/661795,2025,sv,wrap=false/team/66312311/matches" },
       { label: "Frösö IF, mållogg", url: "https://results.gothiacup.se/2025/matches/66846830" },
       { label: "Länstidningen, 28 feb 2025", url: "https://www.lt.se/sport/salde-klader-och-kakor-for-att-fa-spela-cup-i-barcelona/" },
+      { label: "Gamla Upsala 1–4, 8 aug 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/1989485" },
+      { label: "Nyköping 2–1, DM 19 aug 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2157801" },
+      { label: "Nyköping 0–8, 30 aug 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2198827" },
+      { label: "Brage 0–2, 6 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214269" },
+      { label: "Skiljebo 2–1, 9 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214251" },
+      { label: "Arboga 3–0, 20 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2198813" },
+      { label: "Skogstorp 3–2, 30 sep 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214246" },
+      { label: "Linköping 9–2, 4 okt 2026", url: "https://minfotboll.svenskfotboll.se/#/magazinegameview/2214257" },
     ],
   },
   {
