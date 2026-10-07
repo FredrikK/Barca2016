@@ -171,6 +171,9 @@ if (pats.results.length !== 0) throw new Error("St Patricks still has no publish
 if (!pats.league.includes("7 oktober") || !pats.league.includes("inte den här truppen")) {
   throw new Error("St Patricks recheck missing");
 }
+if (!pats.league.includes("Midlands") || !pats.league.includes("Wicklow")) {
+  throw new Error("neighbouring girls leagues missing");
+}
 if (pats.league.includes("1–4") || pats.recordLine.includes("1–4")) {
   throw new Error("boys U16 score must stay off the girls page");
 }
