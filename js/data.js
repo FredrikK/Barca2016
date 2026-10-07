@@ -648,12 +648,12 @@ export const TEAMS = [
     identity:
       "Ciara C. är nummer 7 på truppen. Den 28 januari 2026 kallade Carlow Nationalist henne 15, alltså född 2010, rätt ålder för den här cupen. Hennes racingbiografi säger att hon spelar fotboll för St Pats i Carlow. St Patrick’s Boys AFC spelar på The Meadows, Sleaty Street, Graiguecullen. Deras pojklag 2011 spelade samma cup i oktober 2025 under namnet St Patrick’s Boys. Flickanmälan tar bort Boys och säger FC. St Patrick’s Athletic i Dublin är en annan klubb, och dess damungdomslag är äldre än den här truppen.",
     league:
-      "Läst 7 oktober 2026. Ingen flickserie för den här truppen. Carlow U16-flickor har startat utan dem: St Anne’s slog Ballymurphy 4–2 den 19 september, Hanover Harps och Killeshin har inte spelat. U15-flickor är oförändrad: Killeshin, Parkville, Hanover, Vale Wanderers och New Oak. De spelar inte i KDUL U16 Girls. St Patrick’s AFC spelar i pojkserien U16 division 2 i samma distrikt. Det är inte den här truppen, så de resultaten används inte.",
+      "Läst 7 oktober 2026. Ingen öppen flickserie för den här truppen. Carlow U16-flickor har startat utan dem: St Anne’s slog Ballymurphy 4–2 den 19 september, Hanover Harps och Killeshin har inte spelat. U15-flickor är Killeshin, Parkville, Hanover, Vale Wanderers och New Oak. I Kildare står de inte i U16 Girls, U15 Girls, Girls Championship eller Girls Youths. I Midlands, alltså Laois, Offaly och Westmeath, står de inte i U16- eller U15-flickor. Wicklows U16-flickor är Coolboy, Arklow, Wicklow Town och Roundwood. En publicerad omgång i Wexfords U16-flickor namnger andra klubbar. Kilkennys öppna U16-flicksida gav ingen laglista. I Carlows anmälan till den nationella U16-cupen är det St Fiacc’s som är med, en annan klubb. St Patrick’s AFC i pojkserien U16 division 2 är inte den här truppen, så de resultaten används inte.",
     style: {
       status: "Okänt",
       formation: "Inte publicerad",
       summary:
-        "Truppen ger tröjnummer och inget mer. Ingen form, inget serieresultat, ingen målskytt. En ny koll 7 oktober gav samma bild. Spånga öppnar cupen mot dem, så de första tio minuterna är fortfarande scouten.",
+        "Truppen ger tröjnummer och inget mer. Ingen form, inget serieresultat, ingen målskytt. Grannlänen gav heller ingen serie. Spånga öppnar cupen mot dem, så de första tio minuterna är fortfarande scouten.",
       points: [
         "Sjutton namn står på listan. Nummer 17 används inte. Niamh O. är 18.",
         "Lördag 09:50, plan 1, är Spångas första avspark. En kort cup straffar en långsam start även när namnen är kända.",
@@ -694,6 +694,10 @@ export const TEAMS = [
       { label: "Carlow U16 flickor, läst 7 oktober, de står inte med", url: "https://soccerleagues.comortais.com/competition.aspx?id=14227&oid=1016" },
       { label: "Carlow U15 flickor, de står inte med", url: "https://soccerleagues.comortais.com/competition.aspx?id=14228&oid=1016" },
       { label: "Carlow U16 pojkar division 2, inte den här truppen", url: "https://soccerleagues.comortais.com/competition.aspx?id=14203&oid=1016" },
+      { label: "Kildare U16 flickor, de står inte med", url: "https://soccerleagues.comortais.com/competition.aspx?id=13331&oid=1012" },
+      { label: "Midlands U16 flickor, de står inte med", url: "https://soccerleagues.comortais.com/competition.aspx?id=13747&oid=1052" },
+      { label: "Wicklow U16 flickor", url: "https://wdsl.ie/league/219656" },
+      { label: "Carlow, nationella U16-cupen för flickor", url: "https://soccerleagues.comortais.com/competition.aspx?id=14307&oid=1016" },
     ],
   },
 ];
@@ -1229,7 +1233,7 @@ export const LEAGUES = [
   },
   {
     country: "Irland",
-    body: "Kilcullen och Castle Villa spelar båda KDUL U16 Girls, en Kildare-serie med fem lag som avgjordes 2026. Kilcullen vann den på 19 poäng och vann cupen med 7–0. Castle Villa blev tvåa på 17. De två sista, Maynooth och Derry Rovers, släppte in 31 och 27. Det är en riktig serie, och den är liten. Den räknas inte som samma nivå som en Stockholmsserie förrän en gemensam motståndare säger det. St Patricks spelar inte i den här serien. Carlows egen U16-flickserie hade den 7 oktober startat utan dem.",
+    body: "Kilcullen och Castle Villa spelar båda KDUL U16 Girls, en Kildare-serie med fem lag som avgjordes 2026. Kilcullen vann den på 19 poäng och vann cupen med 7–0. Castle Villa blev tvåa på 17. De två sista, Maynooth och Derry Rovers, släppte in 31 och 27. Det är en riktig serie, och den är liten. Den räknas inte som samma nivå som en Stockholmsserie förrän en gemensam motståndare säger det. St Patricks spelar inte i den här serien, och inte i Kildares övriga flickserier, Midlands, Wicklow eller Carlow. Carlows egen U16-flickserie hade den 7 oktober startat utan dem.",
   },
   {
     country: "Spanien",
@@ -1248,7 +1252,7 @@ export const METHOD = [
 export const ASSUMPTIONS = [
   "Spångas anmälan är F11-U Gul, bekräftad på klubbsidan som F2011U 1-truppen i F2011-2A. De är födda 2011, alltså ett år yngre än Flickor 2010. Modellen använder den säsongen och behandlar dem inte som ett F10-lag. Personerna på Spångas sida är turneringstruppen, samma regel som för de andra fem lagen.",
   "Kilcullen på KDUL U16 Girls-sidan, lag 160768, är Cambrils-laget. Cupfinalen 23 augusti 2026 mot Maynooth är finalen som Diary namngav, och resultatet är 7–0. Castle Villa i den serien spelar på Mullarney Park, alltså Castledermot-klubben.",
-  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 7 oktober 2026 var cuptruppen oförändrad och ospelad. St Patrick’s AFC i Carlows pojkserie U16 division 2 är inte den här truppen.",
+  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 7 oktober 2026 var cuptruppen oförändrad och ospelad. De står inte i flickserierna i Carlow, Kildare, Midlands eller Wicklow. St Patrick’s AFC i Carlows pojkserie U16 division 2 är inte den här truppen.",
   "Par utan Spånga lästes från den officiella gruppsidan, som stoppar en vanlig nedladdning. Alla fem grupprader för Spånga stämmer med klubbens reseblad på datum, tid, plan och motståndare. De andra tio matcherna är resten av samma rutnät.",
   "Hotellnamn, rumsfördelning och söndagens slutspelsmotståndare beror på dokument som inte fanns i pdf:en.",
 ];
