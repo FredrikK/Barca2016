@@ -29,7 +29,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=theme";
+} from "./data.js?v=stpats";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");

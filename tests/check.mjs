@@ -167,6 +167,13 @@ if (!pats.players.some((player) => player.name === "Ciara C." && player.number =
   throw new Error("St Patricks roster missing Cahoon");
 }
 if (pats.players.length !== 17) throw new Error("St Patricks roster length");
+if (pats.results.length !== 0) throw new Error("St Patricks still has no published girls result");
+if (!pats.league.includes("7 oktober") || !pats.league.includes("inte den här truppen")) {
+  throw new Error("St Patricks recheck missing");
+}
+if (pats.league.includes("1–4") || pats.recordLine.includes("1–4")) {
+  throw new Error("boys U16 score must stay off the girls page");
+}
 const publicName = /^(?:\p{L}+(?:-\p{L}+)*)(?: \p{Lu}\.)+$/u;
 for (const team of TEAMS) {
   for (const player of team.players) {
