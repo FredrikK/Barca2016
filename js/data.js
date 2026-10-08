@@ -764,6 +764,17 @@ export const FLIGHTS = [
   { date: "Mån 19 okt", no: "LH 810", from: "Frankfurt", to: "Stockholm", dep: "22:15", arr: "00:20", arrNote: "Framme tisdag 20 okt" },
 ];
 
+// The cup asks for the airport's estimated departure times three days before the trip and the evening before.
+// Those boards are not the sheet. The clocks above stay the sheet until a board for 16 or 19 October says otherwise.
+export const FLIGHT_CHECK = {
+  text: "Gå för säkerhets skull in och kolla flygplatsens beräknade avgångstider tre dagar innan resan, tisdag 13 oktober, och kvällen innan, torsdag 15 oktober, så att inga tidtabellsändringar har skett. Gör samma koll kvällen innan hemresan, söndag 18 oktober. En ändrad avgång från Barcelona flyttar också bussen. Tiderna här är resebladets.",
+  boards: [
+    { label: "Arlanda", url: "https://www.swedavia.se/arlanda/avgangar/" },
+    { label: "Frankfurt", url: "https://www.frankfurt-airport.com/de/fluege-und-airlines/abfluege.html?flighttype=departures&q=" },
+    { label: "Barcelona", url: "https://www.aena.es/es/infovuelos.html" },
+  ],
+};
+
 // The organiser's shuttle. No coach company or route number is printed.
 // The cup says the home bus is planned from the flight times and leaves the hotel about 4 hours before departure.
 // hotelLeave is that rule on LH 1135 (19:00), so the card says 15:00. The cup writes "ca", so the page says cirka.
