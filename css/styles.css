@@ -62,6 +62,21 @@ a { color: var(--green); }
   object-fit: contain;
   flex: 0 0 auto;
 }
+.team-logo {
+  object-fit: contain;
+  flex: 0 0 auto;
+  display: block;
+}
+.team-logo.mini { width: 22px; height: 22px; }
+.team-logo.rank { width: 32px; height: 32px; }
+.team-logo.row { width: 42px; height: 42px; }
+.team-logo.hero { width: 72px; height: 72px; }
+.team-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.team-head h1 { font-size: 30px; }
 .eyebrow {
   margin: 0 0 2px;
   font-size: 12px;
@@ -259,7 +274,7 @@ h3 { font-size: 16px; font-weight: 700; }
   font-weight: 800;
   color: var(--green);
 }
-.rank-card .name { font-weight: 750; }
+.rank-card .name { font-weight: 750; display: flex; align-items: center; gap: 8px; }
 .rank-card .meta { color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
 .index {
   font-size: 22px;

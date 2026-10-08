@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="98" fill="#161616"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <defs>
+    <path id="stpats-arc" d="M38,108 A62,62 0 0 1 162,108"/>
+  </defs>
+  <text fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="1.2">
+    <textPath href="#stpats-arc" startOffset="50%" text-anchor="middle">ST. PATRICKS</textPath>
+  </text>
+  <g fill="#2f9b45" transform="translate(100 118)">
+    <ellipse cx="0" cy="-28" rx="13" ry="16"/>
+    <ellipse cx="-18" cy="-8" rx="16" ry="13" transform="rotate(-28 -18 -8)"/>
+    <ellipse cx="18" cy="-8" rx="16" ry="13" transform="rotate(28 18 -8)"/>
+    <path d="M-1.5,-8 C-1.5,10 6,22 14,34 L7,36 C1,22 -1.5,10 -1.5,-8 Z"/>
+  </g>
+  <text x="100" y="164" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="0.6">BOYS A.F.C.</text>
+  <text x="100" y="178" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="8" font-weight="700" letter-spacing="1.4">1975</text>
+</svg>
