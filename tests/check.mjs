@@ -290,6 +290,9 @@ if (friTravel[3].start !== "15:30" || !friTravel[3].note.includes("ankomsthallen
 const monNames = monTravel.map((item) => item.name).join(",");
 if (monNames !== "Flygbuss,LH 1135,LH 810") throw new Error(`Monday travel drifted: ${monNames}`);
 if (monTravel[0].start !== "15:00" || !monTravel[0].note.includes("16:10")) throw new Error("Monday bus drifted");
+if (!monTravel[0].note.includes("cirka 15:00") || !monTravel[0].note.includes("flygtiderna")) throw new Error("Monday bus no longer follows the cup's about-four-hours rule");
+if (!AIRPORT_BUS.departure.rule.includes("cirka 4 timmar") || !AIRPORT_BUS.departure.rule.includes("flygtiderna")) throw new Error("home bus rule drifted");
+if (AIRPORT_BUS.departure.rule.includes("Barcelona-flyg")) throw new Error("home bus still uses the old Barcelona wording");
 if (monTravel[2].start !== "22:15" || monTravel[2].end !== "00:20" || !monTravel[2].note.includes("tisdag")) throw new Error("return flight drifted");
 if (JSON.stringify(friTravel.concat(monTravel)).toLowerCase().includes("plana")) throw new Error("travel row guessed a coach company");
 
