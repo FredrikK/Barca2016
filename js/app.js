@@ -29,7 +29,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=logo";
+} from "./data.js?v=hembuss";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -269,8 +269,8 @@ function viewTrip() {
             </div>
             <div>
               <div class="route">Flygplats ungefär ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}</div>
-              <div class="times small">Lämna hotellet ${esc(AIRPORT_BUS.departure.hotelLeave)} · checka ut senast ${esc(AIRPORT_BUS.departure.checkout)} · ${esc(AIRPORT_BUS.departure.flight)} kl ${esc(AIRPORT_BUS.departure.flightTime)}</div>
-              <p class="tiny" style="margin-top:6px">Bussen lämnar hotellet ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} går ${esc(AIRPORT_BUS.departure.flightTime)}, vilket ger ${esc(AIRPORT_BUS.departure.hotelLeave)}. Samma körning lägger gruppen på flygplatsen ungefär ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}.</p>
+              <div class="times small">Lämna hotellet cirka ${esc(AIRPORT_BUS.departure.hotelLeave)} · checka ut senast ${esc(AIRPORT_BUS.departure.checkout)} · ${esc(AIRPORT_BUS.departure.flight)} kl ${esc(AIRPORT_BUS.departure.flightTime)}</div>
+              <p class="tiny" style="margin-top:6px">Hemresans buss är ${esc(AIRPORT_BUS.departure.rule)}. ${esc(AIRPORT_BUS.departure.flight)} går ${esc(AIRPORT_BUS.departure.flightTime)}, så det blir cirka ${esc(AIRPORT_BUS.departure.hotelLeave)}. Samma körning lägger gruppen på flygplatsen ungefär ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}.</p>
             </div>
           </div>
           <p class="tiny" style="margin-top:8px">Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet. Fredagens kontroll är öppen ${esc(AGE_CHECK.start)}–${esc(AGE_CHECK.end)}. På den långsammare körningen är fönstret redan stängt, och kontrollen flyttas till lördag före första matchen.</p>

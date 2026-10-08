@@ -116,7 +116,7 @@ export const WEATHER = {
         { time: "13:00", hour: "13:00", temp: 20, summary: "Mulet", rain: 11, mm: 0, wind: 4 },
       ],
     },
-    mon: { summary: "Tätt duggregn", high: 16, low: 12, rain: 19, wind: 18, advice: "Duggregnet ligger på morgonen. Vid bussen 15:00 är det omkring 16°, växlande molnighet och uppehåll." },
+    mon: { summary: "Tätt duggregn", high: 16, low: 12, rain: 19, wind: 18, advice: "Duggregnet ligger på morgonen. Vid bussen, cirka 15:00, är det omkring 16°, växlande molnighet och uppehåll." },
   },
 };
 
@@ -765,7 +765,8 @@ export const FLIGHTS = [
 ];
 
 // The organiser's shuttle. No coach company or route number is printed.
-// hotelLeave is the published 4-hour rule applied to LH 1135, not a time on the team page.
+// The cup says the home bus is planned from the flight times and leaves the hotel about 4 hours before departure.
+// hotelLeave is that rule on LH 1135 (19:00), so the card says 15:00. The cup writes "ca", so the page says cirka.
 export const AIRPORT_BUS = {
   company: "",
   routeNumber: "",
@@ -783,7 +784,7 @@ export const AIRPORT_BUS = {
     flightTime: "19:00",
     hotelLeave: "15:00",
     checkout: "11:00",
-    rule: "4 timmar före ett Barcelona-flyg",
+    rule: "planerad utifrån flygtiderna och avgår från boendet cirka 4 timmar innan flyget går",
   },
   minOnFlight: 20,
   officePhone: "+34 932 808 062",
@@ -851,7 +852,7 @@ export const AREA = {
     {
       name: "Måndag före bussen",
       time: "11:30",
-      text: "Utcheckning senast 11:00. Bussen går 15:00. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
+      text: "Utcheckning senast 11:00. Bussen hem går cirka 15:00, ungefär 4 timmar före flyget. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
     },
     {
       name: "Multisportplanen",
@@ -908,7 +909,7 @@ export const AREA = {
   ],
   farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
   limits: "Spa och gym kräver 16 år. Alkohol är från 18, också i poolbaren.",
-  free: "Ledig tid: fredag efter att ni kommit till hotellet, lördag efter ungefär 14:10 och söndag efter ungefär 14:00. Måndag checkar ni ut senast 11:00 och bussen går 15:00.",
+  free: "Ledig tid: fredag efter att ni kommit till hotellet, lördag efter ungefär 14:10 och söndag efter ungefär 14:00. Måndag checkar ni ut senast 11:00 och bussen hem går cirka 15:00.",
   sources: [
     { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
     { label: "Alla evenemang", url: "https://as.alanniaresorts.com/all-events/" },
@@ -1186,7 +1187,7 @@ export function travelStops(day) {
         end: "",
         name: "Flygbuss",
         place: `${HOTEL.name} → Barcelona El Prat`,
-        note: `Bussen lämnar hotellet ${AIRPORT_BUS.departure.hotelLeave}. Regeln är ${AIRPORT_BUS.departure.rule}. LH 1135 går ${AIRPORT_BUS.departure.flightTime}. Flygplatsen ungefär ${AIRPORT_BUS.departure.airportFrom}–${AIRPORT_BUS.departure.airportTo}. Checka ut senast ${AIRPORT_BUS.departure.checkout}. Inget bussbolag är publicerat.`,
+        note: `Hemresans buss är ${AIRPORT_BUS.departure.rule}. LH 1135 går ${AIRPORT_BUS.departure.flightTime}, så det blir cirka ${AIRPORT_BUS.departure.hotelLeave}. Flygplatsen ungefär ${AIRPORT_BUS.departure.airportFrom}–${AIRPORT_BUS.departure.airportTo}. Checka ut senast ${AIRPORT_BUS.departure.checkout}. Inget bussbolag är publicerat.`,
         pill: "Buss",
       },
       ...flights,
