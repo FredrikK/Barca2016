@@ -30,7 +30,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=kollat";
+} from "./data.js?v=datum";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
