@@ -767,6 +767,7 @@ export const FLIGHTS = [
 // The cup asks for the airport's estimated departure times three days before the trip and the evening before.
 // Those boards are not the sheet. The clocks above stay the sheet until a board for 16 or 19 October says otherwise.
 export const FLIGHT_CHECK = {
+  result: "Kollat 8 oktober 2026. Flygplatsens tavla har ännu ingen beräknad tid för 16 eller 19 oktober. Tidtabellen som gäller till 24 oktober har samma klockslag som resebladet: LH 801 09:50–12:00, LH 1130 13:25–15:30, LH 1135 19:00–21:10 och LH 810 22:15–00:20. Inget är ändrat här.",
   text: "Gå för säkerhets skull in och kolla flygplatsens beräknade avgångstider tre dagar innan resan, tisdag 13 oktober, och kvällen innan, torsdag 15 oktober, så att inga tidtabellsändringar har skett. Gör samma koll kvällen innan hemresan, söndag 18 oktober. En ändrad avgång från Barcelona flyttar också bussen. Tiderna här är resebladets.",
   boards: [
     { label: "Arlanda", url: "https://www.swedavia.se/arlanda/avgangar/" },

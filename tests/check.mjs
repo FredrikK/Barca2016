@@ -304,6 +304,9 @@ if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTi
 if (!FLIGHT_CHECK.text.includes("tre dagar") || !FLIGHT_CHECK.text.includes("13 oktober") || !FLIGHT_CHECK.text.includes("kvällen innan") || !FLIGHT_CHECK.text.includes("15 oktober") || !FLIGHT_CHECK.text.includes("18 oktober")) {
   throw new Error("flight board reminder drifted");
 }
+if (!FLIGHT_CHECK.result.includes("8 oktober 2026") || !FLIGHT_CHECK.result.includes("samma klockslag") || !FLIGHT_CHECK.result.includes("09:50–12:00") || !FLIGHT_CHECK.result.includes("22:15–00:20")) {
+  throw new Error("flight check result drifted");
+}
 if (!FLIGHT_CHECK.boards.some((board) => board.url === "https://www.swedavia.se/arlanda/avgangar/")) throw new Error("Arlanda board missing");
 if (FLIGHTS.find((flight) => flight.no === "LH 801").dep !== "09:50" || FLIGHTS.find((flight) => flight.no === "LH 1130").dep !== "13:25") {
   throw new Error("sheet departure times changed without a board for the travel date");

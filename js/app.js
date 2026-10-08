@@ -30,7 +30,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=avganger";
+} from "./data.js?v=kollat";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -243,7 +243,8 @@ function viewTrip() {
               </div>
             </div>`).join("")}
           <p class="tiny" style="margin-top:8px">Tiderna står som på resebladet. De är lokal tid på varje flygplats. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}. Resebladet har ingen egen mötestid, så det är två timmar före LH 801.</p>
-          <p class="small" style="margin-top:10px">${esc(FLIGHT_CHECK.text)}</p>
+          <p class="small" style="margin-top:10px">${esc(FLIGHT_CHECK.result)}</p>
+          <p class="small" style="margin-top:8px">${esc(FLIGHT_CHECK.text)}</p>
           <p class="tiny" style="margin-top:6px">${FLIGHT_CHECK.boards.map((board) => `<a href="${esc(board.url)}" target="_blank" rel="noopener">${esc(board.label)}</a>`).join(" · ")}</p>
         </div>
       </div>
@@ -512,7 +513,7 @@ function viewSchedule() {
         <button class="chip ${state.filter === "all" ? "on" : ""}" data-filter="all">Hela gruppen</button>
       </div>
       ${weatherCard(state.day)}
-      ${state.day === "fri" || state.day === "mon" ? `<div class="card pad small" style="margin-bottom:12px">${esc(FLIGHT_CHECK.text)}</div>` : ""}
+      ${state.day === "fri" || state.day === "mon" ? `<div class="card pad small" style="margin-bottom:12px"><p>${esc(FLIGHT_CHECK.result)}</p><p style="margin-top:8px">${esc(FLIGHT_CHECK.text)}</p></div>` : ""}
       ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
       <div class="stack">
         ${items.length ? items.map((item) => {
