@@ -59,6 +59,48 @@ export const SNACK_PAGE = {
   when: "Korten i schemat visar luckan, från det att matchen är slut till en kvart före nästa avspark. Packa påsen på frukosten.",
 };
 
+// The team's suggested packing list, rewritten to "ni". It is a suggestion, not a published kit rule.
+export const PACK = {
+  title: "Packlista",
+  lead: "Ett förslag. Ha det här på er på flyget. Resten ska ner i den incheckade väskan.",
+  groups: [
+    {
+      title: "På flyget",
+      items: [
+        "Ha på er Spånga-hoodien och cup-t-shirten när ni reser.",
+        "Ha jeans eller långbyxor på er. Det kan vara kallt på flyget.",
+        "Ha gympadojorna på er när ni åker.",
+        "Spångaryggsäck eller en annan ryggsäck som handbagage. Packa gärna badkläderna i handbagaget.",
+        "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
+        "Pass, eller ett giltigt id-kort för flygresa.",
+      ],
+    },
+    {
+      title: "I incheckad väska",
+      items: [
+        "Matchställ i blått och rött: matchtröja, shorts och strumpor. Ta gärna med flera shorts och strumpor om ni har. Det är många matcher.",
+        "Fotbollsskor och benskydd. Gärna flera par om ni har.",
+        "Träningsoverall och en extra träningströja.",
+        "En tom vattenflaska.",
+        "Underkläder och strumpor, minst tre ombyten. Ta med flera träningstoppar. Det är flera matcher, och ni vill kunna byta inför söndagen.",
+        "Vardagskläder om ni vill: byxor, jeans eller shorts, en t-shirt och en tjocktröja till kvällarna.",
+        "Sovkläder eller pyjamas.",
+        "Badkläder, om ni vill bada i poolen.",
+        "Regnjacka, Spånga om ni har. Kläder efter väder: solglasögon, keps, jacka och paraply.",
+        "Tofflor.",
+        "Necessär och eventuella mediciner. Ta med schampo, tandborste, tandkräm och hårborste.",
+        "Telefon och laddare.",
+        "Mellisbars till båda cupdagarna.",
+        "Fickpengar till resan, och pengar till middag på resan hem.",
+      ],
+    },
+  ],
+  notes: [
+    "Ta inte med något ni inte får ha med på en flygresa.",
+    "Märk kläderna. Mycket är likadant.",
+  ],
+};
+
 export const META = {
   title: "Grupp A",
   competition: "Football Cup Barcelona",
