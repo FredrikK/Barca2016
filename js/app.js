@@ -29,7 +29,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=grannar";
+} from "./data.js?v=logo";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -63,6 +63,10 @@ function esc(value) {
 
 function flag(code) {
   return `<i class="flag ${esc(code)}" aria-hidden="true"></i>`;
+}
+
+function crest(team, size) {
+  return `<img class="team-logo ${size}" src="${esc(team.logo)}" alt="">`;
 }
 
 function go(hash) {
@@ -340,8 +344,8 @@ function matchButton(match) {
           <div class="field">${esc(fieldSurface(match.field).label)}</div>
         </div>
         <div class="teams-mini">
-          <div class="vs-row">${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
-          <div class="vs-row">${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+          <div class="vs-row">${crest(home, "mini")}${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+          <div class="vs-row">${crest(away, "mini")}${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">Ni</span>' : ""}</div>
           ${note ? `<p class="tiny meal-note">${esc(note)}</p>` : ""}
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
@@ -543,7 +547,7 @@ function viewRank() {
             <button class="rank-card" data-go="#team/${team.id}">
               <div class="rank-no">${team.rank}</div>
               <div>
-                <div class="name">${flag(team.flag)} ${esc(team.name)}${team.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+                <div class="name">${crest(team, "rank")}${flag(team.flag)} ${esc(team.name)}${team.yours ? ' <span class="pill">Ni</span>' : ""}</div>
                 <div class="meta">${esc(team.place)} · tillförlitlighet ${esc(team.confidenceLabel)}</div>
                 <div class="bar" aria-hidden="true">
                   <i style="left:${left}%; width:${right - left}%"></i>
@@ -671,10 +675,15 @@ function viewTeam(id) {
   return `
     <section class="view team-theme">
       <button class="back" data-go="#rank">Tillbaka till motståndarna</button>
-      <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
-      <h1>${esc(team.name)}</h1>
-      <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
-      <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
+      <div class="team-head">
+        ${crest(team, "hero")}
+        <div>
+          <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
+          <h1>${esc(team.name)}</h1>
+          <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
+          <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
+        </div>
+      </div>
       <div class="section" style="margin-top:14px">
         <div class="callout ${team.rank <= 2 ? "green" : ""}">${esc(team.recordLine)}</div>
       </div>
@@ -846,7 +855,7 @@ function placeWord(n) {
 function sideCard(team) {
   return `
     <button class="team-row" data-go="#team/${team.id}">
-      <div class="mark" style="background:${esc(team.colors[0])}">${esc(team.short.slice(0, 2).toUpperCase())}</div>
+      ${crest(team, "row")}
       <div class="grow">
         <b>${esc(team.name)}</b>${team.yours ? ' <span class="pill">Ni</span>' : ""}
         <div class="tiny">Prognos ${placeWord(team.rank)} · ${team.index.toFixed(1)}</div>

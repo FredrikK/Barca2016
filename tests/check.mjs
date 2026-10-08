@@ -8,6 +8,9 @@ const ranks = TEAMS.map((team) => team.rank).sort((a, b) => a - b);
 if (ranks.join() !== "1,2,3,4,5,6") throw new Error("ranks must be 1 through 6");
 
 for (const team of TEAMS) {
+  if (!team.logo || !fs.existsSync(new URL(`../${team.logo}`, import.meta.url))) {
+    throw new Error(`${team.id} logo missing`);
+  }
   const computed = indexOf(team.components);
   if (computed !== team.index) {
     throw new Error(`${team.id} index ${team.index} != computed ${computed}`);
