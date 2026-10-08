@@ -71,6 +71,7 @@ export const PACK = {
         "Ha jeans eller långbyxor på er. Det kan vara kallt på flyget.",
         "Ha gympadojorna på er när ni åker.",
         "Spångaryggsäck eller en annan ryggsäck som handbagage. Packa gärna badkläderna i handbagaget.",
+        "Ta med en liten handväska med blixtlås. Det är mycket ficktjuvar i Barcelona.",
         "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
         "Pass, eller ett giltigt id-kort för flygresa.",
       ],

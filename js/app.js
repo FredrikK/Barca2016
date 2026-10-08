@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=pack";
+} from "./data.js?v=vaska";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -219,7 +219,7 @@ function viewTrip() {
             <h2>Packlista</h2>
             <span class="pill">Förslag</span>
           </div>
-          <p class="small">Ha Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er när ni reser. Matchstället och resten ska ner i den incheckade väskan.</p>
+          <p class="small">Ha Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er när ni reser. Ta med en liten handväska med blixtlås. Matchstället och resten ska ner i den incheckade väskan.</p>
           <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
         </button>
       </div>
