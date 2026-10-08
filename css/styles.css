@@ -181,6 +181,14 @@ h3 { font-size: 16px; font-weight: 700; }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+button.card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
 .pad { padding: 14px; }
 .stack { display: flex; flex-direction: column; gap: 10px; }
 
@@ -464,7 +472,7 @@ h3 { font-size: 16px; font-weight: 700; }
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--line);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   z-index: 5;
 }
 .tabbar button {
@@ -476,10 +484,12 @@ h3 { font-size: 16px; font-weight: 700; }
   align-items: center;
   justify-content: center;
   gap: 2px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--ink-soft);
   min-height: 52px;
+  line-height: 1.1;
+  padding: 0 1px;
 }
 .tabbar button.on { color: var(--green); }
 .tabbar svg { width: 22px; height: 22px; }

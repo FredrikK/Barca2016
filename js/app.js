@@ -12,6 +12,7 @@ import {
   MEALS,
   META,
   METHOD,
+  PACK,
   PLAYOFFS,
   SNACK_PAGE,
   STAY,
@@ -30,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=datum";
+} from "./data.js?v=pack";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -42,6 +43,7 @@ const state = {
 
 const ICONS = {
   trip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l8-9 8 9"/><path d="M8 15v4h8v-4"/></svg>`,
+  packlista: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6.5l1.2 1.2L7.5 5.2M4 12.5l1.2 1.2L7.5 11.2M4 18.5l1.2 1.2L7.5 17.2"/></svg>`,
   schedule: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>`,
   rank: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19V10M12 19V5M19 19v-7"/></svg>`,
   area: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
@@ -49,6 +51,7 @@ const ICONS = {
 
 const TAB_LABELS = {
   trip: "Resa",
+  packlista: "Packlista",
   schedule: "Schema",
   rank: "Motståndare",
   area: "Området",
@@ -90,6 +93,7 @@ function render() {
   });
   const views = {
     trip: viewTrip,
+    packlista: viewPack,
     schedule: viewSchedule,
     rank: viewRank,
     teams: viewRank,
@@ -126,7 +130,7 @@ function pageMap(page) {
   if (page === "match") return "schedule";
   if (page === "method") return "rank";
   if (page === "snacks") return "";
-  return ["trip", "schedule", "rank", "area"].includes(page) ? page : "trip";
+  return ["trip", "packlista", "schedule", "rank", "area"].includes(page) ? page : "trip";
 }
 
 function bind() {
@@ -207,6 +211,17 @@ function viewTrip() {
       <div class="grid-2">
         <div class="stat"><b>Futbol Salou</b><span>${esc(META.address)}</span></div>
         <div class="stat"><b>Grupp om sex</b><span>Irland, Sverige, Katalonien</span></div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="card pad" data-go="#packlista">
+          <div class="section-head">
+            <h2>Packlista</h2>
+            <span class="pill">Förslag</span>
+          </div>
+          <p class="small">Ha Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er när ni reser. Matchstället och resten ska ner i den incheckade väskan.</p>
+          <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
+        </button>
       </div>
 
       ${hotelCard()}
@@ -799,6 +814,26 @@ function gavaPitch() {
     </div>`;
 }
 
+function viewPack() {
+  return `
+    <section class="view">
+      <p class="eyebrow">Förslag från laget</p>
+      <h1>${esc(PACK.title)}</h1>
+      <p class="sub">${esc(PACK.lead)}</p>
+      ${PACK.groups.map((group) => `
+        <div class="section">
+          <h2>${esc(group.title)}</h2>
+          <div class="card pad" style="margin-top:10px"><ul class="list">${group.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+        </div>`).join("")}
+      <div class="section">
+        <div class="callout">
+          <p><b>Obs.</b> ${esc(PACK.notes[0])}</p>
+          <p style="margin-top:8px">${esc(PACK.notes[1])}</p>
+        </div>
+      </div>
+    </section>`;
+}
+
 function viewSnacks() {
   const blocks = [
     [SNACK_PAGE.packTitle, SNACK_PAGE.pack],
@@ -868,7 +903,7 @@ function sideCard(team) {
     </button>`;
 }
 
-tabs.innerHTML = ["trip", "schedule", "rank", "area"].map((id) => {
+tabs.innerHTML = ["trip", "packlista", "schedule", "rank", "area"].map((id) => {
   return `<button type="button" data-tab="${id}" data-go="#${id}">${ICONS[id]}<span>${TAB_LABELS[id]}</span></button>`;
 }).join("");
 

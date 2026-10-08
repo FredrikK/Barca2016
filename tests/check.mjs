@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -385,7 +385,7 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
   throw new Error("snack page lost the food guidance");
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
-if (!appSource.includes('["trip", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
+if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
@@ -410,7 +410,17 @@ if (!areaText.includes("Addams Family") || !areaText.includes("Kahoot Night") ||
 }
 if (areaText.includes("inga poster")) throw new Error("the empty events week is still on the page");
 if (!areaText.includes("krockar med matcherna") || !areaText.includes("15:00")) throw new Error("events ignore the match days or the Monday bus");
-const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA }) + appSource;
+const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
+if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
+const carryOn = PACK.groups[0];
+const checkedBag = PACK.groups[1];
+if (carryOn.title !== "På flyget" || carryOn.items.length !== 6) throw new Error("flight packing list drifted");
+if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14) throw new Error("checked-bag list drifted");
+const packText = JSON.stringify(PACK);
+for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "Arlanda", "id-kort", "Matchställ", "benskydd", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
+  if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
+}
+if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"')) throw new Error("packlista is missing from the guide");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the schedule no longer asks you to open the snack page");
