@@ -237,6 +237,78 @@ button.card {
 .area-map { overflow: hidden; margin-bottom: 12px; }
 .area-map img { width: 100%; height: auto; display: block; }
 .area-map figcaption { padding: 8px 14px 12px; font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+.map-frame { position: relative; }
+.map-frame a { display: block; }
+.map-frame .egg {
+  position: absolute;
+  left: 5.8%;
+  top: 36.6%;
+  width: 11.6%;
+  height: 16.3%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  z-index: 2;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.view.prize {
+  position: relative;
+  min-height: calc(100dvh - var(--tab) - var(--safe-b));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 28%, #fff4d6 0%, transparent 58%),
+    var(--bg);
+}
+.prize-card { position: relative; z-index: 1; animation: prize-pop 0.5s cubic-bezier(.2, 1.35, .4, 1) both; }
+.prize-card h1 { font-size: 44px; }
+.prize-lead { margin-top: 8px; font-size: 22px; font-weight: 800; }
+.prize-card p:last-child { margin-top: 8px; font-size: 18px; line-height: 1.35; font-weight: 650; }
+.lollipop { width: 104px; height: 168px; margin: 0 auto 6px; position: relative; }
+.lollipop span {
+  display: block;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: conic-gradient(from 24deg, #ef8a2a 0 18%, #6b3412 0 36%, #e07020 0 54%, #a34b16 0 72%, #f6b24a 0 100%);
+  box-shadow:
+    inset 0 0 0 8px #f6d7a2,
+    inset 0 -16px 18px rgba(80, 36, 8, 0.28),
+    0 10px 18px rgba(80, 40, 10, 0.18);
+}
+.lollipop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 98px;
+  width: 9px;
+  height: 68px;
+  margin-left: -4.5px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #efe6d8, #f7f3ea 42%, #d5cbbd);
+}
+.confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.confetti i {
+  position: absolute;
+  top: -16px;
+  border-radius: 2px;
+  animation: confetti-fall linear infinite;
+}
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -12vh, 0) rotate(0deg); }
+  100% { transform: translate3d(16px, 110vh, 0) rotate(420deg); }
+}
+@keyframes prize-pop {
+  from { transform: scale(0.72); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
 .match .meal-note { margin: 6px 0 0; }
 .match time { font-weight: 800; font-size: 14px; display: block; }
 .match .field { color: var(--ink-soft); font-size: 12px; }
@@ -572,4 +644,6 @@ button.card {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .confetti { display: none; }
+  .prize-card { animation: none; }
 }

@@ -417,6 +417,11 @@ if (!AREA.map || AREA.map.src !== "assets/hotel/omrade.jpg" || !AREA.map.caption
   throw new Error("the hotel grounds map is missing");
 }
 if (!appSource.includes("AREA.map")) throw new Error("the area page no longer shows the hotel map");
+if (!appSource.includes('class="egg" data-egg') || !appSource.includes("vinst: viewPrize") || !appSource.includes("dumleklubba") || !appSource.includes("Grattis!")) {
+  throw new Error("the hidden prize is missing");
+}
+if (appSource.includes('data-tab="vinst"') || appSource.includes('data-go="#vinst"')) throw new Error("the prize is linked in the visible navigation");
+if ((appSource.match(/dumleklubba/g) || []).length !== 1) throw new Error("the prize text appears more than once");
 const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
 if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
 const carryOn = PACK.groups[0];
