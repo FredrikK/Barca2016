@@ -3,6 +3,7 @@ import {
   CHAINS,
   AGE_CHECK,
   AIRPORT_BUS,
+  ARLANDA_CARS,
   AREA,
   FLIGHT_CHECK,
   FLIGHTS,
@@ -31,7 +32,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=bild";
+} from "./data.js?v=bilar";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -252,6 +253,11 @@ function viewTrip() {
       </div>
 
       <div class="section">
+        <div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2><span class="pill ink">Fre 16</span></div>
+        ${carsCard()}
+      </div>
+
+      <div class="section">
         <div class="section-head"><h2>Flyg</h2></div>
         <div class="card pad">
           ${FLIGHTS.map((flight) => `
@@ -378,6 +384,23 @@ function matchButton(match) {
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
       </button>
     </article>`;
+}
+
+function carsCard() {
+  const meet = travelStops("fri").find((item) => item.name === "Samling");
+  return `
+    <div class="card pad cars" style="margin-bottom:12px">
+      <p class="small">${esc(ARLANDA_CARS.lead)}</p>
+      <p class="tiny" style="margin-top:6px">Samling på ${esc(meet.place)} kl ${esc(meet.start)}.</p>
+      ${ARLANDA_CARS.cars.map((car) => `
+        <div class="flight">
+          <div>
+            <b>${esc(car.car)}</b>
+            <div class="tiny">${esc(car.driver)}</div>
+          </div>
+          <div class="route">${car.people.map((person) => esc(person)).join(", ")}</div>
+        </div>`).join("")}
+    </div>`;
 }
 
 function travelCard(item) {
@@ -535,6 +558,7 @@ function viewSchedule() {
         <button class="chip ${state.filter === "mine" ? "on" : ""}" data-filter="mine">Bara Spånga</button>
         <button class="chip ${state.filter === "all" ? "on" : ""}" data-filter="all">Hela gruppen</button>
       </div>
+      ${state.day === "fri" ? `<div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2></div>${carsCard()}` : ""}
       ${weatherCard(state.day)}
       ${state.day === "fri" || state.day === "mon" ? `<div class="card pad small" style="margin-bottom:12px"><p>${esc(FLIGHT_CHECK.result)}</p><p style="margin-top:8px">${esc(FLIGHT_CHECK.text)}</p></div>` : ""}
       ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
