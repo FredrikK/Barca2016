@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=karta";
+} from "./data.js?v=vader";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
