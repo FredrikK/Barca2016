@@ -32,7 +32,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vikt";
+} from "./data.js?v=pdf";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -902,6 +902,7 @@ function viewPack() {
           <p style="margin-top:8px">${esc(PACK.notes[1])}</p>
         </div>
         <p class="tiny" style="margin-top:8px">${esc(PACK.weights.note)} <a href="${esc(PACK.weights.source)}">${esc(PACK.weights.sourceLabel)}</a>.</p>
+        <a class="pdf-link" href="assets/packlista.pdf" download>Ladda ner packlistan som pdf</a>
       </div>
     </section>`;
 }

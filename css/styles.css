@@ -397,6 +397,17 @@ button.card {
 .muted { color: var(--ink-soft); }
 .small { font-size: 13px; line-height: 1.45; }
 .tiny { font-size: 12px; line-height: 1.4; color: var(--ink-soft); }
+a.pdf-link {
+  display: block;
+  margin-top: 14px;
+  background: var(--green);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 750;
+  text-align: center;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
 
 .flag {
   width: 18px;
