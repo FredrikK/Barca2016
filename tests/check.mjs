@@ -424,6 +424,7 @@ for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handvä
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
 if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport")) throw new Error("packlista is missing from the guide");
+if (appSource.includes("Förslag från laget")) throw new Error("the packing page still says it is a team suggestion");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the schedule no longer asks you to open the snack page");
