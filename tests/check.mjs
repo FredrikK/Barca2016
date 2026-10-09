@@ -288,9 +288,9 @@ const expectedCars = [
   "Bil 2 Louise: Clara, Ellen, Fredrik, Alma",
   "Bil 3 Sara: Ellie, Isabelle, Blanca",
   "Bil 4 Åsa: Smilla, Mackan, Olivia",
-  "Bil 5 Fredrik: Lova, Felicia J, Johan, Elvira",
-  "Bil 6 Daniel: Lollo, Felicia O, Sara",
-  "Bil 7 Helena: Stina, Thomas",
+  "Bil 5 Fredrik: Lova, Felicia J",
+  "Bil 6 Daniel: Lollo, Felicia O, Elvira, Johan",
+  "Bil 7 Helena: Stina, Thomas, Sara",
 ].join(" | ");
 if (carSheet !== expectedCars) throw new Error(`Friday cars drifted: ${carSheet}`);
 if (/Gustafsson|Drougge|efternamn/.test(JSON.stringify(ARLANDA_CARS))) throw new Error("the car list grew surnames");
