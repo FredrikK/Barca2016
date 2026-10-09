@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vaskin";
+} from "./data.js?v=foto";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");

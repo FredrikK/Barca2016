@@ -422,8 +422,11 @@ if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length 
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
 if (carryOn.title !== "På flyget" || carryOn.items.length !== 6 || !carryOn.items.includes("Telefon och laddare.") || carryOn.items.some((item) => item.includes("handväska"))) throw new Error("flight packing list drifted");
-if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.text.includes("viktigaste") || !PACK.passport.text.includes("inte i den incheckade väskan") || !PACK.passport.text.includes("inte när ni ska med planet")) {
+if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.text.includes("viktigaste") || !PACK.passport.text.includes("inte i den incheckade väskan")) {
   throw new Error("the passport is no longer called out");
+}
+if (PACK.passport.text.includes("foto i telefonen") || PACK.passport.text.includes("inte när ni ska med planet")) {
+  throw new Error("the phone-photo sentence is still on the packing page");
 }
 if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14 || checkedBag.items.includes("Telefon och laddare.")) throw new Error("checked-bag list drifted");
 const handbag = checkedBag.items.find((item) => item.includes("handväska"));
