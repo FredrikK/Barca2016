@@ -441,6 +441,9 @@ if (!appSource.includes('src="assets/prize/dumleklubba.jpg"') || !fs.existsSync(
 }
 const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
 if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
+if (!PACK.weights || !PACK.weights.cabin.includes("8 kg") || !PACK.weights.cabin.includes("55 × 40 × 23 cm") || PACK.weights.checked !== "Högst 23 kg." || !PACK.weights.note.includes("32 kg") || !PACK.weights.note.includes("Lufthansa")) {
+  throw new Error("the luggage weights drifted");
+}
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
 if (carryOn.title !== "På flyget" || carryOn.items.length !== 6 || !carryOn.items.includes("Telefon och laddare.") || carryOn.items.some((item) => item.includes("handväska"))) throw new Error("flight packing list drifted");
@@ -457,7 +460,7 @@ const packText = JSON.stringify(PACK);
 for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handväska med blixtlås", "ficktjuvar", "Arlanda", "id-kort", "Matchställ", "benskydd", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
-if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport")) throw new Error("packlista is missing from the guide");
+if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights")) throw new Error("packlista is missing from the guide");
 if (appSource.includes("Förslag från laget")) throw new Error("the packing page still says it is a team suggestion");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
