@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vaska";
+} from "./data.js?v=pass";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -219,7 +219,7 @@ function viewTrip() {
             <h2>Packlista</h2>
             <span class="pill">Förslag</span>
           </div>
-          <p class="small">Ha Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er när ni reser. Ta med en liten handväska med blixtlås. Matchstället och resten ska ner i den incheckade väskan.</p>
+          <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor, gympadojor och en liten handväska med blixtlås på er. Matchstället och resten ska ner i den incheckade väskan.</p>
           <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
         </button>
       </div>
@@ -820,6 +820,11 @@ function viewPack() {
       <p class="eyebrow">Förslag från laget</p>
       <h1>${esc(PACK.title)}</h1>
       <p class="sub">${esc(PACK.lead)}</p>
+      <div class="callout red" style="margin-top:14px">
+        <p class="eyebrow">Viktigast</p>
+        <p><b>${esc(PACK.passport.title)}</b></p>
+        <p style="margin-top:6px">${esc(PACK.passport.text)}</p>
+      </div>
       ${PACK.groups.map((group) => `
         <div class="section">
           <h2>${esc(group.title)}</h2>

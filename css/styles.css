@@ -444,6 +444,7 @@ button.card {
 }
 .callout.green { background: var(--green-soft); }
 .callout.red { background: var(--red-soft); }
+.callout.red .eyebrow { color: var(--red); }
 
 .player {
   padding: 10px 0;
