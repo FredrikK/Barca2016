@@ -885,6 +885,13 @@ export const AREA = {
   title: "Området",
   lead: "Saker ni kan göra på hotellet, promenader inom ungefär 20 minuter, och var butikerna ligger.",
   hotelTitle: "På hotellet",
+  map: {
+    src: "assets/hotel/omrade.jpg",
+    alt: "Karta över Alannia Salou med pool, hus, multisportplan, scen och restaurang",
+    caption: "Karta över hotellområdet, från Alannia Salou.",
+    href: "https://alanniaresorts.com/images/webkit/planos_tarifas/AS_PLANO.pdf",
+    hrefLabel: "Öppna kartan",
+  },
   walkTitle: "Inom 20 minuters promenad",
   hotel: [
     {

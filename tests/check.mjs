@@ -410,6 +410,10 @@ if (!areaText.includes("Addams Family") || !areaText.includes("Kahoot Night") ||
 }
 if (areaText.includes("inga poster")) throw new Error("the empty events week is still on the page");
 if (!areaText.includes("krockar med matcherna") || !areaText.includes("15:00")) throw new Error("events ignore the match days or the Monday bus");
+if (!AREA.map || AREA.map.src !== "assets/hotel/omrade.jpg" || !AREA.map.caption.includes("hotellområdet") || !fs.existsSync(new URL(`../${AREA.map.src}`, import.meta.url))) {
+  throw new Error("the hotel grounds map is missing");
+}
+if (!appSource.includes("AREA.map")) throw new Error("the area page no longer shows the hotel map");
 const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
 if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
 const carryOn = PACK.groups[0];
