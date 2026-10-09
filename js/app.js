@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=foto";
+} from "./data.js?v=agg";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -102,6 +102,7 @@ function render() {
     match: () => viewMatch(arg),
     method: viewMethod,
     snacks: viewSnacks,
+    vinst: viewPrize,
   };
   app.innerHTML = (views[page] || viewTrip)();
   paintTheme(page === "team" ? teamById(arg) : null);
@@ -129,7 +130,7 @@ function pageMap(page) {
   if (page === "team" || page === "teams") return "rank";
   if (page === "match") return "schedule";
   if (page === "method") return "rank";
-  if (page === "snacks") return "";
+  if (page === "snacks" || page === "vinst") return "";
   return ["trip", "packlista", "schedule", "rank", "area"].includes(page) ? page : "trip";
 }
 
@@ -147,6 +148,13 @@ function bind() {
     node.addEventListener("click", () => {
       state.day = node.dataset.day;
       render();
+    });
+  });
+  app.querySelectorAll("[data-egg]").forEach((node) => {
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      go("#vinst");
     });
   });
 }
@@ -654,9 +662,12 @@ function viewArea() {
       <div class="section">
         <div class="section-head"><h2>${esc(AREA.hotelTitle)}</h2></div>
         <figure class="card area-map">
-          <a href="${esc(AREA.map.href)}" target="_blank" rel="noopener">
-            <img src="${esc(AREA.map.src)}" alt="${esc(AREA.map.alt)}">
-          </a>
+          <div class="map-frame">
+            <a href="${esc(AREA.map.href)}" target="_blank" rel="noopener">
+              <img src="${esc(AREA.map.src)}" alt="${esc(AREA.map.alt)}">
+            </a>
+            <button type="button" class="egg" data-egg aria-label="Liten fotbollsplan"></button>
+          </div>
           <figcaption>${esc(AREA.map.caption)} <a href="${esc(AREA.map.href)}" target="_blank" rel="noopener">${esc(AREA.map.hrefLabel)}</a></figcaption>
         </figure>
         <div class="stack">${AREA.hotel.map(placeCard).join("")}</div>
@@ -818,6 +829,28 @@ function gavaPitch() {
       <div class="zone" style="left:64%; top:28%; width:28%">Beslut</div>
       <div class="zone" style="left:12%; bottom:18px; width:76%">Bara vanor från samarbetet. Truppen har nummer och inga positioner.</div>
     </div>`;
+}
+
+function viewPrize() {
+  const colors = ["#003671", "#f2c14e", "#e07a3d", "#ffffff", "#c23b22", "#7dba3a"];
+  const bits = Array.from({ length: 42 }, (_, i) => {
+    const left = (i * 19) % 100;
+    const delay = ((i * 3) % 14) * 0.11;
+    const duration = 2.6 + (i % 6) * 0.28;
+    const width = 7 + (i % 4) * 2;
+    const height = 11 + (i % 3) * 4;
+    return `<i style="left:${left}%;animation-delay:${delay}s;animation-duration:${duration}s;background:${colors[i % colors.length]};width:${width}px;height:${height}px"></i>`;
+  }).join("");
+  return `
+    <section class="view prize">
+      <div class="confetti" aria-hidden="true">${bits}</div>
+      <div class="prize-card">
+        <div class="lollipop" aria-hidden="true"><span></span></div>
+        <h1>Grattis!</h1>
+        <p class="prize-lead">Du vann.</p>
+        <p>Visa den här sidan för Fredrik för att få en dumleklubba.</p>
+      </div>
+    </section>`;
 }
 
 function viewPack() {
