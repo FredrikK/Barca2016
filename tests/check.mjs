@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -281,6 +281,19 @@ const friNames = friTravel.map((item) => item.name).join(",");
 if (friNames !== "Samling,LH 801,LH 1130,Flygbuss") throw new Error(`Friday travel drifted: ${friNames}`);
 const meet = friTravel[0];
 if (meet.start !== "07:50" || meet.end !== "" || meet.sort !== "07:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
+if (!ARLANDA_CARS || ARLANDA_CARS.cars.length !== 7) throw new Error("Friday cars to Arlanda drifted");
+const carSheet = ARLANDA_CARS.cars.map((car) => `${car.car} ${car.driver}: ${car.people.join(", ")}`).join(" | ");
+const expectedCars = [
+  "Bil 1 Kristina: Edessa, Mira, Malin",
+  "Bil 2 Louise: Clara, Ellen, Fredrik, Alma",
+  "Bil 3 Sara: Ellie, Isabelle, Blanca",
+  "Bil 4 Åsa: Smilla, Mackan, Olivia",
+  "Bil 5 Fredrik: Lova, Felicia J, Johan, Elvira",
+  "Bil 6 Daniel: Lollo, Felicia O, Sara",
+  "Bil 7 Helena: Stina, Thomas",
+].join(" | ");
+if (carSheet !== expectedCars) throw new Error(`Friday cars drifted: ${carSheet}`);
+if (/Gustafsson|Drougge|efternamn/.test(JSON.stringify(ARLANDA_CARS))) throw new Error("the car list grew surnames");
 if (!meet.note.includes("ingen egen mötestid") || !meet.note.includes("två timmar")) throw new Error("meeting no longer says it is two hours before the flight");
 if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
 if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
@@ -389,6 +402,7 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
+if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "fri" ? `<div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2></div>${carsCard()}') ) throw new Error("Friday cars are missing from the schedule");
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");

@@ -805,6 +805,21 @@ export const AGE_CHECK = {
   note: "Varje spelare är med och visar pass eller id-kort. Ett foto i telefonen räcker. Armbandet bärs till söndag. Högst två tränare. LH 1130 landar 15:30, så ni använder slutet av fönstret. Hinner bussen inte före 18:00 görs kontrollen lördag före första matchen. Lördagens kontroll öppnar 75 minuter före dagens första match.",
 };
 
+// Friday morning cars to Arlanda, first names as on the team's sheet. No pickup time is printed.
+export const ARLANDA_CARS = {
+  title: "Bil till Arlanda",
+  lead: "Fredag morgon åker ni till Arlanda i de här bilarna. Föraren står under bilnumret. Listan säger inte när bilarna går.",
+  cars: [
+    { car: "Bil 1", driver: "Kristina", people: ["Edessa", "Mira", "Malin"] },
+    { car: "Bil 2", driver: "Louise", people: ["Clara", "Ellen", "Fredrik", "Alma"] },
+    { car: "Bil 3", driver: "Sara", people: ["Ellie", "Isabelle", "Blanca"] },
+    { car: "Bil 4", driver: "Åsa", people: ["Smilla", "Mackan", "Olivia"] },
+    { car: "Bil 5", driver: "Fredrik", people: ["Lova", "Felicia J", "Johan", "Elvira"] },
+    { car: "Bil 6", driver: "Daniel", people: ["Lollo", "Felicia O", "Sara"] },
+    { car: "Bil 7", driver: "Helena", people: ["Stina", "Thomas"] },
+  ],
+};
+
 export const FLIGHTS = [
   { date: "Fre 16 okt", no: "LH 801", from: "Stockholm", to: "Frankfurt", dep: "09:50", arr: "12:00" },
   { date: "Fre 16 okt", no: "LH 1130", from: "Frankfurt", to: "Barcelona", dep: "13:25", arr: "15:30" },
