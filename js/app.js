@@ -32,7 +32,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=bilny";
+} from "./data.js?v=vikt";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -229,6 +229,7 @@ function viewTrip() {
             <span class="pill">Förslag</span>
           </div>
           <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er. Handväskan med blixtlås kan packas i väskan, inte i ryggsäcken. Matchstället och resten ska ner i samma väska.</p>
+          <p class="small" style="margin-top:8px">Handbagage högst 8 kg. Incheckad väska högst 23 kg.</p>
           <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
         </button>
       </div>
@@ -890,13 +891,17 @@ function viewPack() {
       ${PACK.groups.map((group) => `
         <div class="section">
           <h2>${esc(group.title)}</h2>
-          <div class="card pad" style="margin-top:10px"><ul class="list">${group.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+          <div class="card pad" style="margin-top:10px">
+            <p class="small"><b>${esc(group.title === "På flyget" ? PACK.weights.cabin : PACK.weights.checked)}</b></p>
+            <ul class="list">${group.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+          </div>
         </div>`).join("")}
       <div class="section">
         <div class="callout">
           <p><b>Obs.</b> ${esc(PACK.notes[0])}</p>
           <p style="margin-top:8px">${esc(PACK.notes[1])}</p>
         </div>
+        <p class="tiny" style="margin-top:8px">${esc(PACK.weights.note)} <a href="${esc(PACK.weights.source)}">${esc(PACK.weights.sourceLabel)}</a>.</p>
       </div>
     </section>`;
 }

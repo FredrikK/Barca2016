@@ -63,6 +63,13 @@ export const SNACK_PAGE = {
 export const PACK = {
   title: "Packlista",
   lead: "Ett förslag. Ha det här på er på flyget. Resten ska ner i den incheckade väskan.",
+  weights: {
+    cabin: "Högst 8 kg. Ryggsäcken får vara högst 55 × 40 × 23 cm.",
+    checked: "Högst 23 kg.",
+    note: "Lufthansa, kollat 9 oktober 2026. 8 kg och 23 kg är gränserna när handbagage och en incheckad väska ingår. En väska tyngre än 32 kg tar de inte emot.",
+    source: "https://www.lufthansa.com/xx/en/carry-on-baggage",
+    sourceLabel: "Lufthansa",
+  },
   passport: {
     title: "Passet först",
     text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Ha det på er, inte i den incheckade väskan.",
