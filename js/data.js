@@ -814,9 +814,9 @@ export const ARLANDA_CARS = {
     { car: "Bil 2", driver: "Louise", people: ["Clara", "Ellen", "Fredrik", "Alma"] },
     { car: "Bil 3", driver: "Sara", people: ["Ellie", "Isabelle", "Blanca"] },
     { car: "Bil 4", driver: "Åsa", people: ["Smilla", "Mackan", "Olivia"] },
-    { car: "Bil 5", driver: "Fredrik", people: ["Lova", "Felicia J", "Johan", "Elvira"] },
-    { car: "Bil 6", driver: "Daniel", people: ["Lollo", "Felicia O", "Sara"] },
-    { car: "Bil 7", driver: "Helena", people: ["Stina", "Thomas"] },
+    { car: "Bil 5", driver: "Fredrik", people: ["Lova", "Felicia J"] },
+    { car: "Bil 6", driver: "Daniel", people: ["Lollo", "Felicia O", "Elvira", "Johan"] },
+    { car: "Bil 7", driver: "Helena", people: ["Stina", "Thomas", "Sara"] },
   ],
 };
 
