@@ -421,7 +421,10 @@ if (!appSource.includes('class="egg" data-egg') || !appSource.includes("vinst: v
   throw new Error("the hidden prize is missing");
 }
 if (appSource.includes('data-tab="vinst"') || appSource.includes('data-go="#vinst"')) throw new Error("the prize is linked in the visible navigation");
-if ((appSource.match(/dumleklubba/g) || []).length !== 1) throw new Error("the prize text appears more than once");
+if ((appSource.match(/få en dumleklubba/g) || []).length !== 1) throw new Error("the prize text appears more than once");
+if (!appSource.includes('src="assets/prize/dumleklubba.jpg"') || !fs.existsSync(new URL("../assets/prize/dumleklubba.jpg", import.meta.url))) {
+  throw new Error("the dumleklubba picture is missing");
+}
 const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
 if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
 const carryOn = PACK.groups[0];
