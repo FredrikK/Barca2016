@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=agg";
+} from "./data.js?v=bild";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -845,7 +845,7 @@ function viewPrize() {
     <section class="view prize">
       <div class="confetti" aria-hidden="true">${bits}</div>
       <div class="prize-card">
-        <div class="lollipop" aria-hidden="true"><span></span></div>
+        <img class="prize-candy" src="assets/prize/dumleklubba.jpg" alt="En Dumleklubba">
         <h1>Grattis!</h1>
         <p class="prize-lead">Du vann.</p>
         <p>Visa den här sidan för Fredrik för att få en dumleklubba.</p>

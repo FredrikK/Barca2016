@@ -271,28 +271,11 @@ button.card {
 .prize-card h1 { font-size: 44px; }
 .prize-lead { margin-top: 8px; font-size: 22px; font-weight: 800; }
 .prize-card p:last-child { margin-top: 8px; font-size: 18px; line-height: 1.35; font-weight: 650; }
-.lollipop { width: 104px; height: 168px; margin: 0 auto 6px; position: relative; }
-.lollipop span {
+.prize-candy {
   display: block;
-  width: 104px;
-  height: 104px;
-  border-radius: 50%;
-  background: conic-gradient(from 24deg, #ef8a2a 0 18%, #6b3412 0 36%, #e07020 0 54%, #a34b16 0 72%, #f6b24a 0 100%);
-  box-shadow:
-    inset 0 0 0 8px #f6d7a2,
-    inset 0 -16px 18px rgba(80, 36, 8, 0.28),
-    0 10px 18px rgba(80, 40, 10, 0.18);
-}
-.lollipop::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 98px;
-  width: 9px;
-  height: 68px;
-  margin-left: -4.5px;
-  border-radius: 5px;
-  background: linear-gradient(90deg, #efe6d8, #f7f3ea 42%, #d5cbbd);
+  width: min(320px, 100%);
+  height: auto;
+  margin: 0 auto 8px;
 }
 .confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .confetti i {
