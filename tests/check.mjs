@@ -414,13 +414,16 @@ const guideText = JSON.stringify({ HOTEL, SNACK_PAGE, AREA, PACK }) + appSource;
 if (PACK.title !== "Packlista" || PACK.groups.length !== 2 || PACK.notes.length !== 2) throw new Error("packing list shape drifted");
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
-if (carryOn.title !== "På flyget" || carryOn.items.length !== 7) throw new Error("flight packing list drifted");
+if (carryOn.title !== "På flyget" || carryOn.items.length !== 6) throw new Error("flight packing list drifted");
+if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.text.includes("viktigaste") || !PACK.passport.text.includes("inte i den incheckade väskan") || !PACK.passport.text.includes("inte när ni ska med planet")) {
+  throw new Error("the passport is no longer called out");
+}
 if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14) throw new Error("checked-bag list drifted");
 const packText = JSON.stringify(PACK);
 for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handväska med blixtlås", "ficktjuvar", "Arlanda", "id-kort", "Matchställ", "benskydd", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
-if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"')) throw new Error("packlista is missing from the guide");
+if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport")) throw new Error("packlista is missing from the guide");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
 if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the schedule no longer asks you to open the snack page");
