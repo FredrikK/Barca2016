@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
@@ -461,6 +462,15 @@ for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handvä
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
 if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights")) throw new Error("packlista is missing from the guide");
+const packPdf = new URL("../assets/packlista.pdf", import.meta.url);
+if (!fs.existsSync(packPdf) || !appSource.includes('href="assets/packlista.pdf"') || !appSource.includes("Ladda ner packlistan som pdf")) {
+  throw new Error("the packing-list pdf download is missing");
+}
+const packPdfText = execFileSync("python3", ["-c", "import pymupdf,sys; d=pymupdf.open(sys.argv[1]); print('\\n'.join(p.get_text() for p in d)); print('PAGES', d.page_count)", packPdf.pathname], { encoding: "utf8" });
+if (!packPdfText.includes("PAGES 1")) throw new Error("the packing-list pdf is not a single page");
+for (const phrase of ["Passet först", "Högst 8 kg", "55 × 40 × 23 cm", "Högst 23 kg", "32 kg", "Mellisbars", "inte i ryggsäcken", "Märk kläderna", "Telefon och laddare"]) {
+  if (!packPdfText.includes(phrase)) throw new Error(`packing-list pdf lost ${phrase}`);
+}
 if (appSource.includes("Förslag från laget")) throw new Error("the packing page still says it is a team suggestion");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");
 if (appSource.includes('data-tab="snacks"') || !appSource.includes('data-go="#snacks"')) throw new Error("snack page landed in the menu or lost its link");
