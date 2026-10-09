@@ -65,7 +65,7 @@ export const PACK = {
   lead: "Ett förslag. Ha det här på er på flyget. Resten ska ner i den incheckade väskan.",
   passport: {
     title: "Passet först",
-    text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Ha det på er, inte i den incheckade väskan. Ett foto i telefonen räcker på ålderskontrollen, men inte när ni ska med planet.",
+    text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Ha det på er, inte i den incheckade väskan.",
   },
   groups: [
     {
