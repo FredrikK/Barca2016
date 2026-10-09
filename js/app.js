@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vader";
+} from "./data.js?v=vaskin";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -219,7 +219,7 @@ function viewTrip() {
             <h2>Packlista</h2>
             <span class="pill">Förslag</span>
           </div>
-          <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor, gympadojor och en liten handväska med blixtlås på er. Matchstället och resten ska ner i den incheckade väskan.</p>
+          <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er. Handväskan med blixtlås kan packas i väskan, inte i ryggsäcken. Matchstället och resten ska ner i samma väska.</p>
           <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
         </button>
       </div>

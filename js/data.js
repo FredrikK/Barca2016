@@ -65,7 +65,7 @@ export const PACK = {
   lead: "Ett förslag. Ha det här på er på flyget. Resten ska ner i den incheckade väskan.",
   passport: {
     title: "Passet först",
-    text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Lägg det i handväskan med blixtlås, inte i den incheckade väskan. Ett foto i telefonen räcker på ålderskontrollen, men inte när ni ska med planet.",
+    text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Ha det på er, inte i den incheckade väskan. Ett foto i telefonen räcker på ålderskontrollen, men inte när ni ska med planet.",
   },
   groups: [
     {
@@ -75,7 +75,6 @@ export const PACK = {
         "Ha jeans eller långbyxor på er. Det kan vara kallt på flyget.",
         "Ha gympadojorna på er när ni åker.",
         "Spångaryggsäck eller en annan ryggsäck som handbagage. Packa gärna badkläderna i handbagaget.",
-        "Ta med en liten handväska med blixtlås. Det är mycket ficktjuvar i Barcelona.",
         "Telefon och laddare.",
         "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
       ],
@@ -93,6 +92,7 @@ export const PACK = {
         "Badkläder, om ni vill bada i poolen.",
         "Regnjacka, Spånga om ni har. Kläder efter väder: solglasögon, keps, jacka och paraply.",
         "Tofflor.",
+        "En liten handväska med blixtlås. Den kan packas i väskan, inte i ryggsäcken. Det är mycket ficktjuvar i Barcelona.",
         "Necessär och eventuella mediciner. Ta med schampo, tandborste, tandkräm och hårborste.",
         "Mellisbars till båda cupdagarna.",
         "Fickpengar till resan, och pengar till middag på resan hem.",
