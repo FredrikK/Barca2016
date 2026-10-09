@@ -345,10 +345,10 @@ if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || 
 }
 
 const forecast = {
-  fri: [24, 18, 24, 8, "Lätt duggregn"],
-  sat: [26, 17, 20, 12, "Mulet"],
-  sun: [21, 15, 19, 25, "Mulet"],
-  mon: [16, 12, 19, 18, "Tätt duggregn"],
+  fri: [24, 20, 14, 7, "Mulet"],
+  sat: [23, 17, 10, 9, "Mestadels klart"],
+  sun: [24, 16, 20, 10, "Växlande molnighet"],
+  mon: [23, 17, 18, 9, "Lätt duggregn"],
 };
 for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) {
   const weather = WEATHER.days[day];
@@ -356,7 +356,7 @@ for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) 
     throw new Error(`weather ${day} drifted: ${JSON.stringify(weather)}`);
   }
 }
-if (WEATHER.fetched !== "5 oktober 2026" || !WEATHER.note.includes("0 mm")) {
+if (WEATHER.fetched !== "9 oktober 2026" || !WEATHER.note.includes("0 mm") || !WEATHER.note.includes("15:00")) {
   throw new Error("weather source note drifted");
 }
 const satGames = WEATHER.days.sat.games;
@@ -364,8 +364,11 @@ const sunGames = WEATHER.days.sun.games;
 if (satGames.map((game) => game.time).join() !== "09:50,11:30,13:10") throw new Error("Saturday game weather drifted");
 if (sunGames.map((game) => game.time).join() !== "09:00,11:00,13:00") throw new Error("Sunday game weather drifted");
 if (satGames.some((game) => game.mm !== 0) || sunGames.some((game) => game.mm !== 0)) throw new Error("a game hour invented rain");
-if (satGames[0].hour !== "10:00" || satGames[0].temp !== 20 || sunGames[0].temp !== 16 || sunGames[2].wind !== 4) {
+if (satGames[0].hour !== "10:00" || satGames[0].temp !== 19 || sunGames[0].temp !== 17 || sunGames[2].wind !== 8) {
   throw new Error("kickoff forecast drifted");
+}
+if (!WEATHER.days.fri.advice.includes("uppehåll") || !WEATHER.days.mon.advice.includes("lätt duggregn")) {
+  throw new Error("arrival or departure weather drifted");
 }
 if (WEATHER.days.fri.games || WEATHER.days.mon.games) throw new Error("a rest day invented game weather");
 
