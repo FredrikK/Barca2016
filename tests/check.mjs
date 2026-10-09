@@ -1,4 +1,3 @@
-import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
@@ -447,29 +446,23 @@ if (!PACK.weights || !PACK.weights.cabin.includes("8 kg") || !PACK.weights.cabin
 }
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
-if (carryOn.title !== "På flyget" || carryOn.items.length !== 6 || !carryOn.items.includes("Telefon och laddare.") || carryOn.items.some((item) => item.includes("handväska"))) throw new Error("flight packing list drifted");
+if (carryOn.title !== "På flyget" || carryOn.items.length !== 7 || !carryOn.items.includes("Telefon och laddare.") || !carryOn.items.includes("Fotbollsskorna i handbagaget. Gärna flera par om ni har.") || carryOn.items.some((item) => item.includes("handväska") || item.includes("benskydd"))) throw new Error("flight packing list drifted");
 if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.text.includes("viktigaste") || !PACK.passport.text.includes("inte i den incheckade väskan")) {
   throw new Error("the passport is no longer called out");
 }
 if (PACK.passport.text.includes("foto i telefonen") || PACK.passport.text.includes("inte när ni ska med planet")) {
   throw new Error("the phone-photo sentence is still on the packing page");
 }
-if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14 || checkedBag.items.includes("Telefon och laddare.")) throw new Error("checked-bag list drifted");
+if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14 || checkedBag.items.includes("Telefon och laddare.") || checkedBag.items.some((item) => item.includes("Fotbollsskor")) || !checkedBag.items.includes("Benskydd.")) throw new Error("checked-bag list drifted");
 const handbag = checkedBag.items.find((item) => item.includes("handväska"));
 if (!handbag || !handbag.includes("inte i ryggsäcken") || !handbag.includes("ficktjuvar")) throw new Error("the zip bag is no longer in the checked luggage");
 const packText = JSON.stringify(PACK);
-for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handväska med blixtlås", "ficktjuvar", "Arlanda", "id-kort", "Matchställ", "benskydd", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
+for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handväska med blixtlås", "ficktjuvar", "Arlanda", "id-kort", "Matchställ", "Benskydd.", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
-if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights")) throw new Error("packlista is missing from the guide");
-const packPdf = new URL("../assets/packlista.pdf", import.meta.url);
-if (!fs.existsSync(packPdf) || !appSource.includes('href="assets/packlista.pdf"') || !appSource.includes("Ladda ner packlistan som pdf")) {
-  throw new Error("the packing-list pdf download is missing");
-}
-const packPdfText = execFileSync("python3", ["-c", "import pymupdf,sys; d=pymupdf.open(sys.argv[1]); print('\\n'.join(p.get_text() for p in d)); print('PAGES', d.page_count)", packPdf.pathname], { encoding: "utf8" });
-if (!packPdfText.includes("PAGES 1")) throw new Error("the packing-list pdf is not a single page");
-for (const phrase of ["Passet först", "Högst 8 kg", "55 × 40 × 23 cm", "Högst 23 kg", "32 kg", "Mellisbars", "inte i ryggsäcken", "Märk kläderna", "Telefon och laddare"]) {
-  if (!packPdfText.includes(phrase)) throw new Error(`packing-list pdf lost ${phrase}`);
+if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights") || !appSource.includes("Fotbollsskorna ska med i handbagaget")) throw new Error("packlista is missing from the guide");
+if (fs.existsSync(new URL("../assets/packlista.pdf", import.meta.url)) || appSource.includes("packlista.pdf") || appSource.includes("Ladda ner packlistan")) {
+  throw new Error("the packing-list pdf is still on the site");
 }
 if (appSource.includes("Förslag från laget")) throw new Error("the packing page still says it is a team suggestion");
 if (/15-år/.test(guideText)) throw new Error("an age-15 line is still in the guide");

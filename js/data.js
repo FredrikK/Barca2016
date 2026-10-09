@@ -82,6 +82,7 @@ export const PACK = {
         "Ha jeans eller långbyxor på er. Det kan vara kallt på flyget.",
         "Ha gympadojorna på er när ni åker.",
         "Spångaryggsäck eller en annan ryggsäck som handbagage. Packa gärna badkläderna i handbagaget.",
+        "Fotbollsskorna i handbagaget. Gärna flera par om ni har.",
         "Telefon och laddare.",
         "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
       ],
@@ -90,7 +91,7 @@ export const PACK = {
       title: "I incheckad väska",
       items: [
         "Matchställ i blått och rött: matchtröja, shorts och strumpor. Ta gärna med flera shorts och strumpor om ni har. Det är många matcher.",
-        "Fotbollsskor och benskydd. Gärna flera par om ni har.",
+        "Benskydd.",
         "Träningsoverall och en extra träningströja.",
         "En tom vattenflaska.",
         "Underkläder och strumpor, minst tre ombyten. Ta med flera träningstoppar. Det är flera matcher, och ni vill kunna byta inför söndagen.",
