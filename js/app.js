@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=pass";
+} from "./data.js?v=rubrik";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -817,7 +817,6 @@ function gavaPitch() {
 function viewPack() {
   return `
     <section class="view">
-      <p class="eyebrow">Förslag från laget</p>
       <h1>${esc(PACK.title)}</h1>
       <p class="sub">${esc(PACK.lead)}</p>
       <div class="callout red" style="margin-top:14px">
