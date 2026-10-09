@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=rubrik";
+} from "./data.js?v=telefon";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
