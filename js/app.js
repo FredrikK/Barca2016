@@ -31,7 +31,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=telefon";
+} from "./data.js?v=karta";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -653,6 +653,12 @@ function viewArea() {
       </header>
       <div class="section">
         <div class="section-head"><h2>${esc(AREA.hotelTitle)}</h2></div>
+        <figure class="card area-map">
+          <a href="${esc(AREA.map.href)}" target="_blank" rel="noopener">
+            <img src="${esc(AREA.map.src)}" alt="${esc(AREA.map.alt)}">
+          </a>
+          <figcaption>${esc(AREA.map.caption)} <a href="${esc(AREA.map.href)}" target="_blank" rel="noopener">${esc(AREA.map.hrefLabel)}</a></figcaption>
+        </figure>
         <div class="stack">${AREA.hotel.map(placeCard).join("")}</div>
       </div>
       <div class="section">
