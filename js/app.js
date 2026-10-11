@@ -32,7 +32,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=skor";
+} from "./data.js?v=power";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -228,7 +228,7 @@ function viewTrip() {
             <h2>Packlista</h2>
             <span class="pill">Förslag</span>
           </div>
-          <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er. Fotbollsskorna ska med i handbagaget. Handväskan med blixtlås kan packas i väskan, inte i ryggsäcken. Matchstället och resten ska ner i samma väska.</p>
+          <p class="small"><b>Passet först.</b> Varje person ska ha sitt pass, eller ett giltigt id-kort, med sig på flyget. Ha också Spånga-hoodien, cup-t-shirten, långbyxor och gympadojor på er. Fotbollsskorna ska med i handbagaget. Powerbanken ska med i handbagaget, inte i den incheckade väskan. Handväskan med blixtlås kan packas i väskan, inte i ryggsäcken. Matchstället och resten ska ner i samma väska.</p>
           <p class="small" style="margin-top:8px">Handbagage högst 8 kg. Incheckad väska högst 23 kg.</p>
           <p class="tiny" style="margin-top:8px">Öppna hela listan</p>
         </button>
@@ -902,6 +902,7 @@ function viewPack() {
           <p style="margin-top:8px">${esc(PACK.notes[1])}</p>
         </div>
         <p class="tiny" style="margin-top:8px">${esc(PACK.weights.note)} <a href="${esc(PACK.weights.source)}">${esc(PACK.weights.sourceLabel)}</a>.</p>
+        <p class="tiny" style="margin-top:8px">${esc(PACK.powerbank.note)} <a href="${esc(PACK.powerbank.source)}">${esc(PACK.powerbank.sourceLabel)}</a>.</p>
       </div>
     </section>`;
 }

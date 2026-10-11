@@ -70,6 +70,11 @@ export const PACK = {
     source: "https://www.lufthansa.com/xx/en/carry-on-baggage",
     sourceLabel: "Lufthansa",
   },
+  powerbank: {
+    note: "Powerbankreglerna är från Lufthansa, kollat 11 oktober 2026.",
+    source: "https://www.lufthansa.com/de/en/prepare-for-your-trip/baggage/electronic-devices-and-batteries.html",
+    sourceLabel: "Lufthansa",
+  },
   passport: {
     title: "Passet först",
     text: "Varje person ska ha sitt pass, eller ett giltigt id-kort för flygresa, med sig. Det är det viktigaste i packningen. Ha det på er, inte i den incheckade väskan.",
@@ -84,6 +89,7 @@ export const PACK = {
         "Spångaryggsäck eller en annan ryggsäck som handbagage. Packa gärna badkläderna i handbagaget.",
         "Fotbollsskorna i handbagaget. Gärna flera par om ni har.",
         "Telefon och laddare.",
+        "Powerbank i handbagaget. Högst två per person, och högst 100 Wh per styck. Över 100 Wh och upp till 160 Wh behövs tillstånd från Lufthansa. Den får inte ligga i hatthyllan. Ha den under sätet framför, i sätesfickan, på er eller i handbagaget. Ladda eller använd den inte ombord, utom till en godkänd medicinsk apparat. Skydda den mot skador, och så att polerna inte kan kortslutas. En trasig powerbank får inte med.",
         "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
       ],
     },
@@ -104,6 +110,7 @@ export const PACK = {
         "Necessär och eventuella mediciner. Ta med schampo, tandborste, tandkräm och hårborste.",
         "Mellisbars till båda cupdagarna.",
         "Fickpengar till resan, och pengar till middag på resan hem.",
+        "Ingen powerbank. Den får inte ligga i den incheckade väskan.",
       ],
     },
   ],
