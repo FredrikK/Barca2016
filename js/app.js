@@ -26,6 +26,7 @@ import {
   canReturnBetween,
   fieldSurface,
   morningPrep,
+  pitchBus,
   pitchPlan,
   rankedTeams,
   snackStops,
@@ -33,7 +34,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=roda";
+} from "./data.js?v=buss6";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -309,8 +310,8 @@ function viewTrip() {
             </div>
           </div>
           <p class="tiny" style="margin-top:8px">Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet. Fredagens kontroll är öppen ${esc(AGE_CHECK.start)}–${esc(AGE_CHECK.end)}. På den långsammare körningen är fönstret redan stängt, och kontrollen flyttas till lördag före första matchen.</p>
-          <p class="tiny" style="margin-top:8px">${esc(HOTEL.name)} till Futbol Salou är ungefär ${esc(RIDES.pitchKm)} km och 10 minuter med bil. Räkna ${esc(RIDES.pitchMin)} minuter för lagbussen. Det här är kartuppskattningar. Arrangören har inte tryckt klockslag för shutteln.</p>
-          <p class="tiny" style="margin-top:8px">Färre än ${esc(AIRPORT_BUS.minOnFlight)} personer på samma flyg betyder att arrangören inte ordnar den här flygbussen. Truppen har 17 spelare, och resebladet säger inte hur många som är bokade på de här flygen. Föräldrar och supportrar som är bokade via arrangören åker samma transfer. Den som har ett annat flyg ordnar egen transfer. Lördag och söndag går bussarna mellan hotellet och planerna ändå.</p>
+          <p class="tiny" style="margin-top:8px">Buss 6 mellan hotellet och planerna: lördag 08:35 till Futbol Salou och 14:20 tillbaka, söndag 07:45 till Futbol Salou och 14:45 tillbaka. ${esc(HOTEL.name)} till Futbol Salou är ungefär ${esc(RIDES.pitchKm)} km och 10 minuter med bil. Räkna ${esc(RIDES.pitchMin)} minuter för buss 6.</p>
+          <p class="tiny" style="margin-top:8px">Färre än ${esc(AIRPORT_BUS.minOnFlight)} personer på samma flyg betyder att arrangören inte ordnar den här flygbussen. Truppen har 17 spelare, och resebladet säger inte hur många som är bokade på de här flygen. Föräldrar och supportrar som är bokade via arrangören åker samma transfer. Den som har ett annat flyg ordnar egen transfer.</p>
           <p class="tiny" style="margin-top:8px">Cupkontor: <a href="mailto:${esc(AIRPORT_BUS.officeEmail)}">${esc(AIRPORT_BUS.officeEmail)}</a> · ${esc(AIRPORT_BUS.officePhone)}. Källor: <a href="${esc(META.officialFaq)}">FAQ</a> · <a href="${esc(META.officialTerms)}">juridiska villkor</a>.</p>
         </div>
       </div>
@@ -358,9 +359,11 @@ function earlierMine(match) {
   return MATCHES.some((other) => other.mine && other.day === match.day && other.time < match.time);
 }
 
-function rideLine(time, staying) {
+function rideLine(time, staying, day) {
   const plan = pitchPlan(time);
   if (staying) return `Stanna på Futbol Salou. Var på den här planen senast ${plan.arrive}.`;
+  const out = day ? pitchBus(day, "out") : null;
+  if (out && out.time === plan.leave) return `${out.line} går ${out.time} från hotellet. Var på planen senast ${plan.arrive}.`;
   return `Lämna ${HOTEL.name} ${plan.leave}. Var på planen senast ${plan.arrive}.`;
 }
 
@@ -388,7 +391,7 @@ function kitRow(match, size) {
 function matchButton(match) {
   const home = teamById(match.home);
   const away = teamById(match.away);
-  const note = match.mine ? rideLine(match.time, earlierMine(match)) : "";
+  const note = match.mine ? rideLine(match.time, earlierMine(match), match.day) : "";
   const ends = pitchPlan(match.time).ends;
   return `
     <article class="match game ${match.mine ? "mine" : ""}">
@@ -473,7 +476,7 @@ function mealCard(meal) {
         <div class="field">${esc(meal.place)}</div>
         ${meal.note ? `<p class="tiny meal-note">${esc(meal.note)}</p>` : ""}
       </div>
-      <span class="pill green">${label}</span>
+      <span class="pill ${meal.missed ? "red" : "green"}">${label}</span>
     </div>`;
 }
 
@@ -531,16 +534,35 @@ function playoffCard(game) {
     </article>`;
 }
 
+function busCard(bus) {
+  const toPitches = bus.to === "Futbol Salou";
+  return `
+    <div class="match travel">
+      <div>
+        <time>${esc(bus.time)}</time>
+      </div>
+      <div>
+        <div class="teams-mini">${esc(bus.line)}</div>
+        <div class="field">${esc(bus.from)} → ${esc(bus.to)}</div>
+        <p class="tiny meal-note">${toPitches ? "Till planerna." : `Till hotellet. Körningen tar ungefär ${esc(RIDES.pitchMin)} minuter.`}</p>
+      </div>
+      <span class="pill ink">Buss</span>
+    </div>`;
+}
+
 function dayRideNote(day) {
   const mine = MATCHES.filter((match) => match.mine && match.day === day).sort((a, b) => a.time.localeCompare(b.time));
   if (!mine.length) return "";
-  const last = day === "sun" ? "13:00" : mine[mine.length - 1].time;
-  const back = pitchPlan(last).back;
   const hops = mine.slice(0, -1).every((match, index) => !canReturnBetween(match.time, mine[index + 1].time));
   const nextAfterGroups = day === "sun" ? "13:00" : null;
   const noReturnToPlayoff = nextAfterGroups ? !canReturnBetween(mine[mine.length - 1].time, nextAfterGroups) : true;
   if (!hops || !noReturnToPlayoff) return "";
-  return `Ingen tid att åka tillbaka till ${HOTEL.name} mellan de här matcherna. En match är 40 minuter plus 5 minuters paus, och nästa kräver att ni är på planen en timme före. Klicka på mellanmålet i listan. Efter matchen ${last} kan ni vara tillbaka ungefär ${back}. Lunchkortet är den del av 13:00–14:30 som ni hinner om matchen inte drar ut på tiden.`;
+  const out = pitchBus(day, "out");
+  const back = pitchBus(day, "back");
+  if (out && back) {
+    return `Ingen tid att åka tillbaka till ${HOTEL.name} mellan de här matcherna. ${out.line} går ${out.time} till planerna och ${back.time} tillbaka. Hotellunchen 13:00–14:30 är över när ni är tillbaka.`;
+  }
+  return "";
 }
 
 function viewSchedule() {
@@ -551,8 +573,10 @@ function viewSchedule() {
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
   const checks = AGE_CHECK.day === state.day ? [AGE_CHECK] : [];
   const travel = travelStops(state.day);
-  const kindRank = { travel: 0, check: 1, meal: 2, prep: 3, match: 4, snack: 5, playoff: 6 };
+  const buses = pitchBus(state.day);
+  const kindRank = { travel: 0, check: 1, meal: 2, prep: 3, bus: 4, match: 5, snack: 6, playoff: 7 };
   const items = [
+    ...buses.map((bus) => ({ sort: bus.time, kind: "bus", bus })),
     ...travel.map((item) => ({ sort: item.sort, kind: "travel", item })),
     ...checks.map((check) => ({ sort: check.start, kind: "check", check })),
     ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
@@ -589,6 +613,7 @@ function viewSchedule() {
       ${dayRideNote(state.day) ? `<div class="card pad small" style="margin-bottom:12px">${esc(dayRideNote(state.day))}</div>` : ""}
       <div class="stack">
         ${items.length ? items.map((item) => {
+          if (item.kind === "bus") return busCard(item.bus);
           if (item.kind === "travel") return travelCard(item.item);
           if (item.kind === "check") return checkCard(item.check);
           if (item.kind === "meal") return mealCard(item.meal);
@@ -600,7 +625,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
+        <p class="tiny">Måltider: <a href="${esc(META.officialRules)}">programmet 17–18 oktober</a>. Buffén är frukost 07:00–10:00, lunch 13:00–14:30, middag 19:00–21:30. Korten visar den del Spånga kan äta när bussen till planen är borträknad. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Hotellunchen de dagarna är över när ni är tillbaka. På matchmorgnar slutar frukosten 15 minuter före bussen, så det finns tid att byta om och samla ihop saker. Fredag är bara middag. Måndag är bara frukost, sedan utcheckning senast 11:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
     </section>`;
 }
