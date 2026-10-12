@@ -447,6 +447,10 @@ if (!PACK.weights || !PACK.weights.cabin.includes("8 kg") || !PACK.weights.cabin
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
 if (carryOn.title !== "På flyget" || carryOn.items.length !== 8 || !carryOn.items.includes("Telefon och laddare.") || !carryOn.items.includes("Fotbollsskorna i handbagaget. Gärna flera par om ni har.") || carryOn.items.some((item) => item.includes("handväska") || item.includes("benskydd"))) throw new Error("flight packing list drifted");
+const frankfurtLunch = carryOn.items.find((item) => item.includes("macka från Arlanda"));
+if (!frankfurtLunch || !frankfurtLunch.includes("I Frankfurt kan ni också köpa lunch, om LH 801 är i tid.") || !frankfurtLunch.includes("flera restauranger i terminal 1") || !frankfurtLunch.includes("12:00–13:25") || !frankfurtLunch.includes("gaten för LH 1130")) {
+  throw new Error("the Frankfurt lunch line drifted");
+}
 const powerbank = carryOn.items.find((item) => item.startsWith("Powerbank i handbagaget"));
 if (!powerbank || !powerbank.includes("två per person") || !powerbank.includes("100 Wh") || !powerbank.includes("160 Wh") || !powerbank.includes("hatthyllan") || !powerbank.includes("inte ombord") || !powerbank.includes("trasig")) {
   throw new Error("the cabin power-bank rule drifted");

@@ -90,7 +90,7 @@ export const PACK = {
         "Fotbollsskorna i handbagaget. Gärna flera par om ni har.",
         "Telefon och laddare.",
         "Powerbank i handbagaget. Högst två per person, och högst 100 Wh per styck. Över 100 Wh och upp till 160 Wh behövs tillstånd från Lufthansa. Den får inte ligga i hatthyllan. Ha den under sätet framför, i sätesfickan, på er eller i handbagaget. Ladda eller använd den inte ombord, utom till en godkänd medicinsk apparat. Skydda den mot skador, och så att polerna inte kan kortslutas. En trasig powerbank får inte med.",
-        "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda.",
+        "Lite fickpengar, om ni vill köpa något att ha med på planet. Lunch ingår inte. Köp med en dricka och en macka från Arlanda. I Frankfurt kan ni också köpa lunch, om LH 801 är i tid. Det finns flera restauranger i terminal 1, till exempel mackor, pasta och hämtmat. Mellanlandningen är bara 12:00–13:25, så ta med maten och gå till gaten för LH 1130.",
       ],
     },
     {
