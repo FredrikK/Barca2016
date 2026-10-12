@@ -143,43 +143,44 @@ export const META = {
   researched: "4 oktober 2026",
 };
 
-// Open-Meteo, 9 October 2026, Alannia Salou 41.0732°N 1.1548°E, Europe/Madrid.
+// Open-Meteo, 12 October 2026, Alannia Salou 41.0732°N 1.1548°E, Europe/Madrid.
 // Whole degrees and km/h are rounded. Game rows use the nearest full hour.
+// The day summary is the weather the team meets, not the day's worst code.
 export const WEATHER = {
-  fetched: "9 oktober 2026",
+  fetched: "12 oktober 2026",
   source: "https://open-meteo.com/",
   sourceLabel: "Open-Meteo",
   place: "Salou",
-  note: "Matchtimmarna lördag och söndag har 0 mm. Måndagens lätta duggregn börjar omkring 15:00.",
+  note: "Matchtimmarna lördag och söndag har 0 mm. Fredagens dimma och måndagens täta duggregn börjar omkring 21:00.",
   days: {
-    fri: { summary: "Mulet", high: 24, low: 20, rain: 14, wind: 7, advice: "När bussen kan vara framme runt 18 är det mulet, omkring 23° och uppehåll." },
+    fri: { summary: "Klart", high: 25, low: 16, rain: 22, wind: 9, advice: "När bussen kan vara framme runt 18 är det klart, omkring 24° och uppehåll. Dimma först omkring 21." },
     sat: {
-      summary: "Mestadels klart",
-      high: 23,
-      low: 17,
-      rain: 10,
-      wind: 9,
-      advice: "Under matcherna är det klart eller mestadels klart, 19–22° och 0 mm. Lätt duggregn först på kvällen.",
+      summary: "Mulet",
+      high: 24,
+      low: 18,
+      rain: 30,
+      wind: 19,
+      advice: "Under matcherna är det mulet, 21–23° och 0 mm. Vinden är 7–9 km/h då och ökar framåt kvällen.",
       games: [
-        { time: "09:50", hour: "10:00", temp: 19, summary: "Mestadels klart", rain: 7, mm: 0, wind: 2 },
-        { time: "11:30", hour: "12:00", temp: 21, summary: "Klart", rain: 7, mm: 0, wind: 6 },
-        { time: "13:10", hour: "13:00", temp: 22, summary: "Klart", rain: 8, mm: 0, wind: 8 },
+        { time: "09:50", hour: "10:00", temp: 21, summary: "Mulet", rain: 21, mm: 0, wind: 7 },
+        { time: "11:30", hour: "12:00", temp: 22, summary: "Mulet", rain: 25, mm: 0, wind: 8 },
+        { time: "13:10", hour: "13:00", temp: 23, summary: "Mulet", rain: 27, mm: 0, wind: 9 },
       ],
     },
     sun: {
-      summary: "Växlande molnighet",
-      high: 24,
+      summary: "Mulet",
+      high: 22,
       low: 16,
-      rain: 20,
-      wind: 10,
-      advice: "17° och mulet vid 09:00, 23° och klart vid 13:00. 0 mm under matcherna.",
+      rain: 29,
+      wind: 19,
+      advice: "16° och mulet vid 09:00, 21° och mulet vid 13:00. 0 mm under matcherna. Vinden mojnar under matcherna, från 14 km/h till 7.",
       games: [
-        { time: "09:00", hour: "09:00", temp: 17, summary: "Mulet", rain: 4, mm: 0, wind: 7 },
-        { time: "11:00", hour: "11:00", temp: 20, summary: "Mestadels klart", rain: 5, mm: 0, wind: 5 },
-        { time: "13:00", hour: "13:00", temp: 23, summary: "Klart", rain: 7, mm: 0, wind: 8 },
+        { time: "09:00", hour: "09:00", temp: 16, summary: "Mulet", rain: 21, mm: 0, wind: 14 },
+        { time: "11:00", hour: "11:00", temp: 18, summary: "Mulet", rain: 19, mm: 0, wind: 13 },
+        { time: "13:00", hour: "13:00", temp: 21, summary: "Mulet", rain: 18, mm: 0, wind: 7 },
       ],
     },
-    mon: { summary: "Lätt duggregn", high: 23, low: 17, rain: 18, wind: 9, advice: "Förmiddagen är klar. Vid bussen, cirka 15:00, är det lätt duggregn och omkring 23°." },
+    mon: { summary: "Klart", high: 22, low: 18, rain: 27, wind: 16, advice: "Vid bussen, cirka 15:00, är det klart, omkring 21° och uppehåll. Tätt duggregn först på kvällen, omkring 21:00." },
   },
 };
 
