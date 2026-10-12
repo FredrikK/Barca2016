@@ -394,7 +394,7 @@ for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) 
     throw new Error(`weather ${day} drifted: ${JSON.stringify(weather)}`);
   }
 }
-if (WEATHER.fetched !== "12 oktober 2026" || !WEATHER.note.includes("0 mm") || !WEATHER.note.includes("21:00")) {
+if (WEATHER.fetched !== "12 oktober 2026" || !WEATHER.note.includes("21:00") || /\bmm\b/.test(WEATHER.note)) {
   throw new Error("weather source note drifted");
 }
 const satGames = WEATHER.days.sat.games;
@@ -429,11 +429,8 @@ const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf
 if (appSource.includes("regn ${forecast.rain}") || appSource.includes("regn ${game.rain}") || appSource.includes("Regnrisk")) {
   throw new Error("rain percent is still in the weather details");
 }
-if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) || /\bmm\b/.test(WEATHER.days.sun.advice)) {
-  throw new Error("millimetres are still in the schedule weather");
-}
-if (!appSource.includes('replace("Matchtimmarna lördag och söndag har 0 mm. "')) {
-  throw new Error("the schedule weather card still prints the millimetre note");
+if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) || /\bmm\b/.test(WEATHER.days.sun.advice) || appSource.includes("0 mm")) {
+  throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
 if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");

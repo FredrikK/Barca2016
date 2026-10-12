@@ -144,7 +144,7 @@ export const WEATHER = {
   source: "https://open-meteo.com/",
   sourceLabel: "Open-Meteo",
   place: "Salou",
-  note: "Matchtimmarna lördag och söndag har 0 mm. Fredagens dimma och måndagens täta duggregn börjar omkring 21:00.",
+  note: "Fredagens dimma och måndagens täta duggregn börjar omkring 21:00.",
   days: {
     fri: { summary: "Klart", high: 25, low: 16, rain: 22, wind: 9, advice: "När bussen kan vara framme runt 18 är det klart, omkring 24° och uppehåll. Dimma först omkring 21." },
     sat: {
