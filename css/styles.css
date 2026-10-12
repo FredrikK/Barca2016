@@ -479,6 +479,12 @@ button.card {
   box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.08);
 }
 .kit span { flex: 1; }
+.kit-row { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; }
+.kit-row .shirt { width: 30px; height: 26px; flex: none; margin-top: 1px; display: block; }
+.kit-row.page .shirt { width: 48px; height: 42px; }
+.kit-copy { min-width: 0; }
+.kit-copy b { display: block; font-size: 13px; line-height: 1.25; }
+.kit-copy .meal-note { margin-top: 2px; }
 
 .score-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
 .score-table th { text-align: left; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; padding: 4px 4px 8px 0; }

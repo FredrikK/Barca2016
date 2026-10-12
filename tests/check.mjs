@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -482,6 +482,28 @@ if (!appSource.includes("Klicka för mer om mellanmålet")) throw new Error("the
 if (appSource.includes("${snack.note") || appSource.includes("Mellanmål mellan matcherna packas")) throw new Error("snack advice is still written on the schedule");
 if (!appSource.includes("till ${esc(ends)}") || !appSource.includes("Plan ${esc(match.field)}")) throw new Error("a game card lost the end time or the field");
 if (appSource.includes("pitch-link") || appSource.includes("futbol-salou-map")) throw new Error("the field image is still on the game card");
+
+const mineKits = MATCHES.filter((match) => match.mine).map((match) => `${match.id}:${match.kit}`).join();
+if (mineKits !== "m1:home,m6:home,m7:away,m11:away,m13:away") throw new Error(`spanga kits drifted: ${mineKits}`);
+if (MATCHES.some((match) => !match.mine && match.kit)) throw new Error("a match without Spånga has a kit");
+for (const match of MATCHES.filter((item) => item.mine)) {
+  if (!match.kitLine || !match.kitNote) throw new Error(`${match.id} is missing the kit text`);
+}
+const kitById = Object.fromEntries(MATCHES.filter((match) => match.mine).map((match) => [match.id, match]));
+if (!kitById.m1.kitNote.includes("inte publicerad") || !kitById.m1.kitNote.includes("blåvita")) throw new Error("St Patricks kit note drifted");
+if (!kitById.m6.kitNote.includes("helblå") || !kitById.m6.kitNote.includes("Ha det röda med")) throw new Error("Castle Villa kit note drifted");
+if (!kitById.m7.kitNote.includes("inte publicerad") || kitById.m7.kitNote.includes("Järna är röd")) throw new Error("Järna kit note invented a shirt");
+if (!kitById.m11.kitNote.includes("svart och vitt") || !kitById.m11.kitNote.includes("inte publicerad")) throw new Error("Kilcullen kit note drifted");
+if (!kitById.m13.kitNote.includes("vertikala ränder") || !kitById.m13.kitNote.includes("grönt och blått") || /gul/i.test(kitById.m13.kitNote)) throw new Error("Gavà kit note drifted");
+if (!KIT.rule.includes("tvåa") || !KIT.checked.includes("12 oktober 2026") || !KIT.playoff.includes("blåvita") || !KIT.playoff.includes("röda")) {
+  throw new Error("kit rule drifted");
+}
+if (!appSource.includes("function shirt") || !appSource.includes("KIT.playoff") || !appSource.includes("kitNote") || !appSource.includes("Blåvitt hemmaställ") && !appSource.includes("KIT.homeName")) {
+  throw new Error("the match cards no longer draw the kit");
+}
+if (!appSource.includes("Ni står först på programmet") || !appSource.includes("Ni står tvåa på programmet")) {
+  throw new Error("the match page no longer says which kit follows the programme order");
+}
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {

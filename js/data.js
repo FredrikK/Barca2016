@@ -772,20 +772,56 @@ export const TEAMS = [
   },
 ];
 
+// Spånga wear blue-white at home and red away. Programme order is not a printed home/away:
+// the team listed second changes if the referee says the kits are too similar (cup page, 12 October 2026).
+// Opponent shirts are only stated where a club source names them. Unpublished shirts stay unpublished.
+export const KIT = {
+  homeName: "Blåvitt hemmaställ",
+  awayName: "Rött bortaställ",
+  rule: "Om domaren tycker att ställen är för lika ska laget som står tvåa på programmet byta tröja eller ta väst.",
+  checked: "Cupregeln är läst 12 oktober 2026.",
+  source: "https://www.footballcupbarcelona.com/en/tournament/17-18-october-2026",
+  sourceLabel: "Football Cup Barcelona",
+  playoff: "Stället väljs när motståndaren och programordningen är klara. Ta med både det blåvita och det röda.",
+};
+
 export const MATCHES = [
-  { id: "m1", day: "sat", date: "Lör 17 okt", time: "09:50", field: "1", home: "spanga", away: "stpatricks", mine: true },
+  {
+    id: "m1", day: "sat", date: "Lör 17 okt", time: "09:50", field: "1", home: "spanga", away: "stpatricks", mine: true, kit: "home",
+    kitLine: "Deras matchtröja är inte publicerad. Ni behåller det blåvita.",
+    kitNote: "St Patricks matchtröja är inte publicerad. Klubbshopen visar rödvita strumpor, inte tröjan. Ni står först och behåller det blåvita. Om domaren tycker att ställen är för lika är det de som byter.",
+  },
   { id: "m2", day: "sat", date: "Lör 17 okt", time: "09:50", field: "3", home: "gava", away: "castlevilla" },
   { id: "m3", day: "sat", date: "Lör 17 okt", time: "09:50", field: "4", home: "jarna", away: "kilcullen" },
   { id: "m4", day: "sat", date: "Lör 17 okt", time: "11:30", field: "3", home: "stpatricks", away: "jarna" },
   { id: "m5", day: "sat", date: "Lör 17 okt", time: "11:30", field: "5", home: "gava", away: "kilcullen" },
-  { id: "m6", day: "sat", date: "Lör 17 okt", time: "11:30", field: "10", home: "spanga", away: "castlevilla", mine: true },
-  { id: "m7", day: "sat", date: "Lör 17 okt", time: "13:10", field: "1", home: "jarna", away: "spanga", mine: true },
+  {
+    id: "m6", day: "sat", date: "Lör 17 okt", time: "11:30", field: "10", home: "spanga", away: "castlevilla", mine: true, kit: "home",
+    kitLine: "De är blå eller blåvita och står tvåa. Ha det röda med.",
+    kitNote: "Castle Villa beskrivs som helblå med vita kanter, eller blå med vita ränder. Det kan krocka med ert blåvita. Ni står först och behåller hemmastället. De står tvåa och ska byta om domaren tycker att ställen är för lika. Ha det röda med ifall domaren ber er byta.",
+    kitSource: { label: "Castle Villa AFC", url: "https://en.wikipedia.org/wiki/Castle_Villa_A.F.C." },
+  },
+  {
+    id: "m7", day: "sat", date: "Lör 17 okt", time: "13:10", field: "1", home: "jarna", away: "spanga", mine: true, kit: "away",
+    kitLine: "Deras matchtröja är inte publicerad. Rött fungerar om de inte är röda.",
+    kitNote: "Järnas matchtröja är inte publicerad. Rött bortaställ fungerar om de inte spelar i rött. Om de är röda tar ni det blåvita.",
+  },
   { id: "m8", day: "sat", date: "Lör 17 okt", time: "13:10", field: "5", home: "castlevilla", away: "kilcullen" },
   { id: "m9", day: "sat", date: "Lör 17 okt", time: "13:10", field: "10", home: "stpatricks", away: "gava" },
   { id: "m10", day: "sun", date: "Sön 18 okt", time: "09:00", field: "1", home: "castlevilla", away: "stpatricks" },
-  { id: "m11", day: "sun", date: "Sön 18 okt", time: "09:00", field: "3", home: "kilcullen", away: "spanga", mine: true },
+  {
+    id: "m11", day: "sun", date: "Sön 18 okt", time: "09:00", field: "3", home: "kilcullen", away: "spanga", mine: true, kit: "away",
+    kitLine: "Svartvitt är klubbfärgen. Rött fungerar mot det.",
+    kitNote: "Kilcullen har svart och vitt som klubbfärg. Supportrar ombads bära det till seniorernas damlag 2013, och klubbshopen har svartvita strumpor. Matchtröjan för de här flickorna 2026 är inte publicerad. Rött fungerar mot svartvitt. Om de kommer i rött tar ni det blåvita.",
+    kitSource: { label: "Kilcullen Diary, 2013", url: "https://kilcullenbridge.blogspot.com/2013/09/make-satruday-black-and-white-day-in.html" },
+  },
   { id: "m12", day: "sun", date: "Sön 18 okt", time: "09:00", field: "4", home: "gava", away: "jarna" },
-  { id: "m13", day: "sun", date: "Sön 18 okt", time: "11:00", field: "1", home: "gava", away: "spanga", mine: true },
+  {
+    id: "m13", day: "sun", date: "Sön 18 okt", time: "11:00", field: "1", home: "gava", away: "spanga", mine: true, kit: "away",
+    kitLine: "Hemstället har ränder, märkt grönt och blått. Rött fungerar.",
+    kitNote: "Escola de Futbol Gavà skrev i juni 2026 att hemstället 26/27 har vertikala ränder. Inlägget är märkt grönt och blått. Målvaktsställen är ett grönt och ett rött. Randernas exakta färg står inte i texten. Ert röda krockar inte med grönt och blått. Om utespelarna kommer i rött tar ni det blåvita.",
+    kitSource: { label: "Escola de Futbol Gavà, juni 2026", url: "https://es.linkedin.com/posts/escoladefutbolgava_escoladefutbolgav%C3%A0-futbolbase-novaequipaci%C3%B3-activity-7475603112548921344-T58_" },
+  },
   { id: "m14", day: "sun", date: "Sön 18 okt", time: "11:00", field: "3", home: "jarna", away: "castlevilla" },
   { id: "m15", day: "sun", date: "Sön 18 okt", time: "11:00", field: "4", home: "kilcullen", away: "stpatricks" },
 ];
