@@ -290,7 +290,7 @@ const friTravel = travelStops("fri");
 const monTravel = travelStops("mon");
 if (travelStops("sat").length || travelStops("sun").length) throw new Error("a match day invented a flight");
 const friNames = friTravel.map((item) => item.name).join(",");
-if (friNames !== "Samling,LH 801,LH 1130,Flygbuss") throw new Error(`Friday travel drifted: ${friNames}`);
+if (friNames !== "Samling,LH 801,LH 1130,Buss A36") throw new Error(`Friday travel drifted: ${friNames}`);
 const meet = friTravel[0];
 if (meet.start !== "07:50" || meet.end !== "" || meet.sort !== "07:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
 if (!ARLANDA_CARS || ARLANDA_CARS.cars.length !== 7) throw new Error("Friday cars to Arlanda drifted");
@@ -309,19 +309,22 @@ if (/Gustafsson|Drougge|efternamn/.test(JSON.stringify(ARLANDA_CARS))) throw new
 if (!meet.note.includes("ingen egen mötestid") || !meet.note.includes("två timmar")) throw new Error("meeting no longer says it is two hours before the flight");
 if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
 if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
-if (friTravel[3].start !== "15:30" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40")) {
+if (friTravel[3].start !== "15:30" || friTravel[3].name !== "Buss A36" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40") || !friTravel[3].note.includes("23 personer")) {
   throw new Error("Friday bus drifted");
 }
 const monNames = monTravel.map((item) => item.name).join(",");
-if (monNames !== "Flygbuss,LH 1135,LH 810") throw new Error(`Monday travel drifted: ${monNames}`);
-if (monTravel[0].start !== "15:00" || !monTravel[0].note.includes("16:10")) throw new Error("Monday bus drifted");
-if (!monTravel[0].note.includes("cirka 15:00") || !monTravel[0].note.includes("flygtiderna")) throw new Error("Monday bus no longer follows the cup's about-four-hours rule");
+if (monNames !== "Buss D20,LH 1135,LH 810") throw new Error(`Monday travel drifted: ${monNames}`);
+if (monTravel[0].start !== "15:00" || !monTravel[0].note.includes("16:10") || !monTravel[0].note.includes("23 personer") || monTravel[0].name !== "Buss D20") throw new Error("Monday bus drifted");
+if (monTravel[0].note.includes("cirka 15:00")) throw new Error("Monday bus is still approximate");
 if (!AIRPORT_BUS.departure.rule.includes("cirka 4 timmar") || !AIRPORT_BUS.departure.rule.includes("flygtiderna")) throw new Error("home bus rule drifted");
 if (AIRPORT_BUS.departure.rule.includes("Barcelona-flyg")) throw new Error("home bus still uses the old Barcelona wording");
 if (monTravel[2].start !== "22:15" || monTravel[2].end !== "00:20" || !monTravel[2].note.includes("tisdag")) throw new Error("return flight drifted");
 if (JSON.stringify(friTravel.concat(monTravel)).toLowerCase().includes("plana")) throw new Error("travel row guessed a coach company");
 
 if (AIRPORT_BUS.company || AIRPORT_BUS.routeNumber) throw new Error("airport bus company was not published");
+if (AIRPORT_BUS.arrival.bus !== "Buss A36" || AIRPORT_BUS.arrival.pax !== 23 || AIRPORT_BUS.departure.bus !== "Buss D20" || AIRPORT_BUS.departure.pax !== 23) {
+  throw new Error("airport bus codes drifted");
+}
 if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15:30") throw new Error("arrival bus flight drifted");
 if (AIRPORT_BUS.arrival.airport !== "Barcelona El Prat") throw new Error("arrival airport drifted");
 if (!AIRPORT_BUS.arrival.meet.includes("ankomsthallen")) throw new Error("Barcelona meeting point missing");
@@ -517,8 +520,11 @@ if (!appSource.includes("function shirt") || !appSource.includes("KIT.playoff") 
 if (!appSource.includes("Ni står först på programmet") || !appSource.includes("Ni står tvåa på programmet") || !appSource.includes("Det röda krockar, så ni tar det blåvita.")) {
   throw new Error("the match page no longer says which kit follows the programme order");
 }
-if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln")) {
+if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln") || appSource.includes("inget linjenummer")) {
   throw new Error("the official pitch buses are missing from the schedule");
+}
+if (!appSource.includes("AIRPORT_BUS.arrival.bus") || !appSource.includes("AIRPORT_BUS.departure.bus") || !appSource.includes("AIRPORT_BUS.arrival.pax")) {
+  throw new Error("the airport buses lost their codes");
 }
 if (!AREA.free.includes("14:20") || !AREA.free.includes("14:45") || AREA.free.includes("14:10")) throw new Error("free time still uses the old return");
 if (!JSON.stringify(STAY).includes("Buss 6")) throw new Error("the stay list lost bus 6");
