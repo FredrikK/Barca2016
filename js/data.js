@@ -981,12 +981,12 @@ export const AREA = {
     {
       name: "Lördag efter matcherna",
       time: "16:00",
-      text: "Ni är tillbaka ungefär 14:10. Feria Game vid poolen är 16:00–17:00, spel för alla. Bowling vid poolen är 17:00–18:00, märkt för vuxna och tonåringar. Alannia Fun, dans vid poolen, är 18:00–18:30. Minidisco är 20:30–21:15. Showen Jaque Mate är 21:30–22:30 på scenen. Förmiddagens Zumba och pingpong krockar med matcherna.",
+      text: "Buss 6 från planerna går 14:20. Med ungefär 15 minuters körning är ni tillbaka omkring 14:35. Feria Game vid poolen är 16:00–17:00, spel för alla. Bowling vid poolen är 17:00–18:00, märkt för vuxna och tonåringar. Alannia Fun, dans vid poolen, är 18:00–18:30. Minidisco är 20:30–21:15. Showen Jaque Mate är 21:30–22:30 på scenen. Förmiddagens Zumba och pingpong krockar med matcherna.",
     },
     {
       name: "Söndag efter matcherna",
       time: "16:00",
-      text: "Ni är tillbaka ungefär 14:00. Bingo Musical på scenen är 16:00–17:00. Dart vid poolen är 17:00–18:00. Alannia Fun är 18:00–18:30. Minidisco är 20:30–21:15. Kahoot Night är 21:30–22:30 på scenen. Hotellet skriver att det gäller att vara snabb, och att mobilen behöver batteri. PS5-turneringen 10:45–12:30 krockar med matcherna.",
+      text: "Buss 6 från planerna går 14:45. Med ungefär 15 minuters körning är ni tillbaka omkring 15:00. Bingo Musical på scenen är 16:00–17:00. Dart vid poolen är 17:00–18:00. Alannia Fun är 18:00–18:30. Minidisco är 20:30–21:15. Kahoot Night är 21:30–22:30 på scenen. Hotellet skriver att det gäller att vara snabb, och att mobilen behöver batteri. PS5-turneringen 10:45–12:30 krockar med matcherna.",
     },
     {
       name: "Måndag före bussen",
@@ -1048,7 +1048,7 @@ export const AREA = {
   ],
   farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
   limits: "Spa och gym kräver 16 år. Alkohol är från 18, också i poolbaren.",
-  free: "Ledig tid: fredag efter att ni kommit till hotellet, lördag efter ungefär 14:10 och söndag efter ungefär 14:00. Måndag checkar ni ut senast 11:00 och bussen hem går cirka 15:00.",
+  free: "Ledig tid: fredag efter att ni kommit till hotellet. Lördag går buss 6 från planerna 14:20, söndag 14:45. Måndag checkar ni ut senast 11:00 och bussen hem går cirka 15:00.",
   sources: [
     { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
     { label: "Alla evenemang", url: "https://as.alanniaresorts.com/all-events/" },
@@ -1059,6 +1059,15 @@ export const AREA = {
     { label: "Parc Central", url: "https://www.ccparccentral.com/en/" },
   ],
 };
+
+// Official Bus 6, departures between the hotel and the pitches.
+// The 15-minute pitch ride below is still an allowance, not a printed arrival.
+export const PITCH_BUSES = [
+  { day: "sat", date: "Lör 17 okt", time: "08:35", line: "Buss 6", from: "Alannia Salou", to: "Futbol Salou" },
+  { day: "sat", date: "Lör 17 okt", time: "14:20", line: "Buss 6", from: "Futbol Salou", to: "Alannia Salou" },
+  { day: "sun", date: "Sön 18 okt", time: "07:45", line: "Buss 6", from: "Alannia Salou", to: "Futbol Salou" },
+  { day: "sun", date: "Sön 18 okt", time: "14:45", line: "Buss 6", from: "Futbol Salou", to: "Alannia Salou" },
+];
 
 // Driving estimates, not printed shuttle times.
 // Airport fast: OpenStreetMap route, Terminal 1 to the hotel, about 97 km.
@@ -1121,9 +1130,24 @@ function spangaKicks(day) {
 
 // Time the team is away from the hotel: leave for the first game through
 // getting back from the last, with no gap when a return is impossible.
+export function pitchBus(day, direction) {
+  const rows = PITCH_BUSES.filter((bus) => bus.day === day);
+  if (!direction) return rows;
+  return rows.find((bus) => (direction === "out" ? bus.to === "Futbol Salou" : bus.from === "Futbol Salou")) || null;
+}
+
+export function hotelBack(day) {
+  const back = pitchBus(day, "back");
+  if (!back) return "";
+  return clock(minutes(back.time) + RIDES.pitchMin);
+}
+
 export function awayBlocks(day) {
   const kicks = spangaKicks(day);
   if (!kicks.length) return [];
+  const out = pitchBus(day, "out");
+  const back = pitchBus(day, "back");
+  if (out && back) return [{ start: out.time, end: hotelBack(day) }];
   const blocks = [];
   let from = minutes(pitchPlan(kicks[0]).leave);
   let to = minutes(pitchPlan(kicks[0]).back);
@@ -1181,12 +1205,16 @@ export function usableMeal(meal) {
     segments = next.filter(([from, to]) => to - from >= 1);
   }
   if (!segments.length) {
+    const back = pitchBus(meal.day, "back");
+    const note = back && meal.name === "Lunch"
+      ? `Buffén är öppen ${meal.start}–${meal.end}. ${back.line} från planerna går ${back.time}, så lunchen är över när ni är tillbaka.`
+      : `Buffén är öppen ${meal.start}–${meal.end}. Laget är på Futbol Salou hela tiden.`;
     return [{
       ...meal,
       missed: true,
       officialStart: meal.start,
       officialEnd: meal.end,
-      note: `Buffén är öppen ${meal.start}–${meal.end}. Laget är på Futbol Salou hela tiden.`,
+      note,
     }];
   }
   return segments.map(([from, to]) => {
@@ -1340,7 +1368,7 @@ export const STAY = [
   "Helpension från middag 16 oktober (19:00–21:30) till frukost 19 oktober (07:00–10:00). Lunch lördag och söndag är 13:00–14:30. Vatten ingår till lunch och middag.",
   "Lakan ingår. Ta med en extra handduk till poolen eller stranden.",
   "Det slutliga resedokumentet skickas ungefär en vecka före avresa.",
-  "Matcherna spelas på Futbol Salou, vid vägen Salou–Cambrils. Arrangören kör transfern mellan hotell och planer.",
+  "Matcherna spelas på Futbol Salou, vid vägen Salou–Cambrils. Buss 6 går lördag 08:35 och söndag 07:45 till planerna, och tillbaka 14:20 respektive 14:45.",
   "Pass eller id-kort kontrolleras. Ett foto av dokumentet i telefonen räcker. Tröjnummer ska stämma med laglistan.",
   "Det europeiska sjukförsäkringskortet täcker inte idrottsskador i Spanien. Klubbens egen försäkring är skyddet som gäller.",
 ];

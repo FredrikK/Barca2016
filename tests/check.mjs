@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PLAYOFFS, RIDES, SNACK_PAGE, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, indexOf, morningPrep, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYOFFS, RIDES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -221,20 +221,32 @@ function expectUsable(day, name, start, end) {
 }
 expectUsable("fri", "Middag", "19:00", "21:30");
 expectUsable("sat", "Frukost", "07:00", "08:20");
-expectUsable("sat", "Lunch", "14:10", "14:30");
 expectUsable("sat", "Middag", "19:00", "21:30");
 expectUsable("sun", "Frukost", "07:00", "07:30");
-expectUsable("sun", "Lunch", "14:00", "14:30");
 expectUsable("sun", "Middag", "19:00", "21:30");
 expectUsable("mon", "Frukost", "07:00", "10:00");
 const satLunch = usableMeal(MEALS.find((meal) => meal.id === "sat-lunch"))[0];
 const sunLunch = usableMeal(MEALS.find((meal) => meal.id === "sun-lunch"))[0];
-if (satLunch.start <= "13:10" || sunLunch.start <= "13:00") throw new Error("lunch still sorts inside a game");
-if (!satLunch.note.includes("13:00") || !sunLunch.note.includes("13:00")) throw new Error("clipped lunch hid the buffet open time");
+if (!satLunch.missed || !sunLunch.missed || satLunch.start !== "13:00" || sunLunch.start !== "13:00" || satLunch.end !== "14:30" || sunLunch.end !== "14:30") {
+  throw new Error("hotel lunch should be missed once bus 6 leaves the pitches");
+}
+if (!satLunch.note.includes("14:20") || !sunLunch.note.includes("14:45") || !satLunch.note.includes("13:00") || !sunLunch.note.includes("13:00")) {
+  throw new Error("missed lunch hid the bus or the buffet hours");
+}
 const satAway = awayBlocks("sat");
 const sunAway = awayBlocks("sun");
-if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:10") throw new Error("Saturday away block drifted");
-if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "14:00") throw new Error("Sunday away block drifted");
+if (satAway.length !== 1 || satAway[0].start !== "08:35" || satAway[0].end !== "14:35") throw new Error("Saturday away block drifted");
+if (sunAway.length !== 1 || sunAway[0].start !== "07:45" || sunAway[0].end !== "15:00") throw new Error("Sunday away block drifted");
+if (hotelBack("sat") !== "14:35" || hotelBack("sun") !== "15:00") throw new Error("hotel return drifted from bus 6");
+const busSheet = PITCH_BUSES.map((bus) => `${bus.day} ${bus.time} ${bus.line} ${bus.from} → ${bus.to}`).join(" | ");
+const expectedBuses = [
+  "sat 08:35 Buss 6 Alannia Salou → Futbol Salou",
+  "sat 14:20 Buss 6 Futbol Salou → Alannia Salou",
+  "sun 07:45 Buss 6 Alannia Salou → Futbol Salou",
+  "sun 14:45 Buss 6 Futbol Salou → Alannia Salou",
+].join(" | ");
+if (busSheet !== expectedBuses) throw new Error(`pitch buses drifted: ${busSheet}`);
+if (pitchBus("sat").length !== 2 || pitchBus("fri").length) throw new Error("pitch buses landed on the wrong day");
 if (awayBlocks("fri").length || awayBlocks("mon").length) throw new Error("a rest day invented an away block");
 const satPrep = morningPrep("sat");
 const sunPrep = morningPrep("sun");
@@ -505,6 +517,11 @@ if (!appSource.includes("function shirt") || !appSource.includes("KIT.playoff") 
 if (!appSource.includes("Ni står först på programmet") || !appSource.includes("Ni står tvåa på programmet") || !appSource.includes("Det röda krockar, så ni tar det blåvita.")) {
   throw new Error("the match page no longer says which kit follows the programme order");
 }
+if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln")) {
+  throw new Error("the official pitch buses are missing from the schedule");
+}
+if (!AREA.free.includes("14:20") || !AREA.free.includes("14:45") || AREA.free.includes("14:10")) throw new Error("free time still uses the old return");
+if (!JSON.stringify(STAY).includes("Buss 6")) throw new Error("the stay list lost bus 6");
 
 const phone = JSON.stringify({ TEAMS, MATCHES, MEALS });
 if (/\b08\d{6,}\b/.test(phone) || /\+353/.test(phone)) {
