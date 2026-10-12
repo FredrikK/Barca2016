@@ -507,24 +507,14 @@ if (appSource.includes("pitch-link") || appSource.includes("futbol-salou-map")) 
 const mineKits = MATCHES.filter((match) => match.mine).map((match) => `${match.id}:${match.kit}`).join();
 if (mineKits !== "m1:home,m6:home,m7:home,m11:away,m13:away") throw new Error(`spanga kits drifted: ${mineKits}`);
 if (MATCHES.some((match) => !match.mine && match.kit)) throw new Error("a match without Spånga has a kit");
-for (const match of MATCHES.filter((item) => item.mine)) {
-  if (!match.kitLine || !match.kitNote) throw new Error(`${match.id} is missing the kit text`);
-}
-const kitById = Object.fromEntries(MATCHES.filter((match) => match.mine).map((match) => [match.id, match]));
-if (!kitById.m1.kitNote.includes("inte publicerad") || !kitById.m1.kitNote.includes("blåvita")) throw new Error("St Patricks kit note drifted");
-if (!kitById.m6.kitNote.includes("helblå") || !kitById.m6.kitNote.includes("Ha det röda med")) throw new Error("Castle Villa kit note drifted");
-if (!kitById.m7.kitNote.includes("Järna SK är röda") || !kitById.m7.kitNote.includes("blåvita") || kitById.m7.kit !== "home") throw new Error("Järna still sends Spånga out in red");
+if (MATCHES.some((match) => match.kitLine || match.kitNote || match.kitSource)) throw new Error("a match still explains the kit");
 if (jarna.colors[0].toLowerCase() !== "#c8102e" || !jarna.identity.includes("Matchtröjan är röd")) throw new Error("Järna are no longer shown as red");
-if (!kitById.m11.kitNote.includes("svart och vitt") || !kitById.m11.kitNote.includes("inte publicerad")) throw new Error("Kilcullen kit note drifted");
-if (!kitById.m13.kitNote.includes("vertikala ränder") || !kitById.m13.kitNote.includes("grönt och blått") || /gul/i.test(kitById.m13.kitNote)) throw new Error("Gavà kit note drifted");
-if (!KIT.rule.includes("tvåa") || !KIT.checked.includes("12 oktober 2026") || !KIT.playoff.includes("blåvita") || !KIT.playoff.includes("röda")) {
-  throw new Error("kit rule drifted");
-}
-if (!appSource.includes("function shirt") || !appSource.includes("KIT.playoff") || !appSource.includes("kitNote") || !appSource.includes("Blåvitt hemmaställ") && !appSource.includes("KIT.homeName")) {
+if (KIT.homeName !== "Blåvit tröja" || KIT.awayName !== "Röd tröja" || KIT.rule || KIT.playoff) throw new Error("kit labels drifted");
+if (!appSource.includes("function shirt") || !appSource.includes("KIT.homeName") || !appSource.includes("KIT.awayName")) {
   throw new Error("the match cards no longer draw the kit");
 }
-if (!appSource.includes("Ni står först på programmet") || !appSource.includes("Ni står tvåa på programmet") || !appSource.includes("Det röda krockar, så ni tar det blåvita.")) {
-  throw new Error("the match page no longer says which kit follows the programme order");
+if (appSource.includes("kitNote") || appSource.includes("kitLine") || appSource.includes("hemmaställ") || appSource.includes("bortaställ") || appSource.includes("Ni står först") || appSource.includes("Ni står tvåa") || appSource.includes("KIT.playoff") || appSource.includes("KIT.rule")) {
+  throw new Error("the match page still explains home and away");
 }
 if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln") || appSource.includes("inget linjenummer")) {
   throw new Error("the official pitch buses are missing from the schedule");
