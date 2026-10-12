@@ -1408,7 +1408,7 @@ export const RULES = {
     "Begränsad fritid eller särskilda regler för den som inte följer överenskommelserna.",
   ],
   mottoLabel: "Lagets motto för resan",
-  motto: "Vi tar hand om oss själva, varandra och vårt lag. Vi gör vårt bästa på planen och utanför planen.",
+  motto: "Vi tar hand om oss själva, varandra och vårt lag. Vi gör vårt bästa på planen och utanför planen, varje dag.",
 };
 
 export const STAY = [
