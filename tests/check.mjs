@@ -298,7 +298,7 @@ if (travelStops("sat").length || travelStops("sun").length) throw new Error("a m
 const friNames = friTravel.map((item) => item.name).join(",");
 if (friNames !== "Samling,LH 801,LH 1130,Buss A36") throw new Error(`Friday travel drifted: ${friNames}`);
 const meet = friTravel[0];
-if (meet.start !== "07:50" || meet.end !== "" || meet.sort !== "07:50" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
+if (meet.start !== "07:30" || meet.end !== "" || meet.sort !== "07:30" || meet.place !== "Arlanda, terminal 5") throw new Error("Arlanda meeting drifted");
 if (!ARLANDA_CARS || ARLANDA_CARS.cars.length !== 7) throw new Error("Friday cars to Arlanda drifted");
 const carSheet = ARLANDA_CARS.cars.map((car) => `${car.car} ${car.driver}: ${car.people.join(", ")}`).join(" | ");
 const expectedCars = [
@@ -312,7 +312,7 @@ const expectedCars = [
 ].join(" | ");
 if (carSheet !== expectedCars) throw new Error(`Friday cars drifted: ${carSheet}`);
 if (/Gustafsson|Drougge|efternamn/.test(JSON.stringify(ARLANDA_CARS))) throw new Error("the car list grew surnames");
-if (!meet.note.includes("ingen egen mötestid") || !meet.note.includes("två timmar")) throw new Error("meeting no longer says it is two hours before the flight");
+if (!meet.note.includes("09:50") || meet.note.includes("två timmar") || meet.note.includes("ingen egen mötestid")) throw new Error("meeting still uses the two-hour estimate");
 if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
 if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
 if (friTravel[3].start !== "15:30" || friTravel[3].name !== "Buss A36" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40") || !friTravel[3].note.includes("23 personer")) {
@@ -516,6 +516,7 @@ if (!appSource.includes("function shirt") || !appSource.includes("KIT.homeName")
 if (appSource.includes("kitNote") || appSource.includes("kitLine") || appSource.includes("hemmaställ") || appSource.includes("bortaställ") || appSource.includes("Ni står först") || appSource.includes("Ni står tvåa") || appSource.includes("KIT.playoff") || appSource.includes("KIT.rule")) {
   throw new Error("the match page still explains home and away");
 }
+if (appSource.includes("två timmar före") || appSource.includes("ingen egen mötestid")) throw new Error("the trip page still estimates the meeting");
 if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln") || appSource.includes("inget linjenummer")) {
   throw new Error("the official pitch buses are missing from the schedule");
 }
