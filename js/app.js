@@ -538,7 +538,7 @@ function playoffCard(game) {
 
 function ceremonyCard(item) {
   return `
-    <div class="match game">
+    <div class="match">
       <div>
         <time>${esc(item.time)}</time>
       </div>
