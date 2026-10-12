@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYOFFS, RIDES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -424,6 +424,25 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
+if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");
+if (RULES.rules.length !== 10) throw new Error("expected 10 team rules");
+const ruleTitles = RULES.rules.map((rule) => rule.title).join("|");
+const expectedTitles = [
+  "Vi representerar laget hela tiden",
+  "Ingen lämnar hotellet på egen hand",
+  "Vi går alltid minst tre tillsammans",
+  "Vi håller tiderna",
+  "Respektera rumskamraterna",
+  "Lugnt på rummen efter kvällstid",
+  "Mobiltelefoner används med omtanke",
+  "Vi äter tillsammans",
+  "Säkerhet först",
+  "Ta ansvar för laget",
+].join("|");
+if (ruleTitles !== expectedTitles) throw new Error(`team rules drifted: ${ruleTitles}`);
+if (!RULES.lead.includes("rolig och trygg") || !RULES.consequences.some((item) => item.includes("hemresa")) || !RULES.motto.includes("på planen och utanför planen")) {
+  throw new Error("the rules intro, consequences or motto drifted");
+}
 if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "fri" ? `<div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2></div>${carsCard()}') ) throw new Error("Friday cars are missing from the schedule");
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");

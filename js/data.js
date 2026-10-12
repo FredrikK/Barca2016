@@ -1362,6 +1362,63 @@ export function travelStops(day) {
   return [];
 }
 
+export const RULES = {
+  title: "Lagregler",
+  kicker: "Barcelona Cup 2026",
+  lead: "Vi har satt ihop tio regler för att vi ska få en rolig och trygg resa tillsammans.",
+  rules: [
+    {
+      title: "Vi representerar laget hela tiden",
+      text: "När vi bär lagkläder eller rör oss tillsammans representerar vi både laget, föreningen och Sverige. Vi visar respekt för andra lag, domare, hotellpersonal och lokalbefolkningen.",
+    },
+    {
+      title: "Ingen lämnar hotellet på egen hand",
+      text: "Ingen får lämna hotellet eller gruppen utan att en ledare vet om det och har godkänt det.",
+    },
+    {
+      title: "Vi går alltid minst tre tillsammans",
+      text: "Ingen går ensam. Om ni ska någonstans på hotellet eller i närheten gör ni det tillsammans.",
+    },
+    {
+      title: "Vi håller tiderna",
+      text: "Kom i tid till samlingar, måltider, matcher och bussavgångar. Är du sen påverkar det hela laget.",
+    },
+    {
+      title: "Respektera rumskamraterna",
+      text: "Alla hjälps åt att hålla ordning på rummet, visa hänsyn och se till att alla trivs.",
+    },
+    {
+      title: "Lugnt på rummen efter kvällstid",
+      text: "Vid ledarnas bestämda kvällstid ska ni vara på era rum. Därefter är det lugnt och tyst så att alla får sova och återhämta sig.",
+    },
+    {
+      title: "Mobiltelefoner används med omtanke",
+      text: "Mobiler är okej, men inte så att de stör sömn, måltider, lagaktiviteter eller gemenskapen.",
+    },
+    {
+      title: "Vi äter tillsammans",
+      text: "Alla kommer till måltiderna och ser till att få i sig ordentligt med mat och dryck för att orka prestera och må bra.",
+    },
+    {
+      title: "Säkerhet först",
+      text: "Meddela alltid en ledare om något händer, om du känner dig sjuk, orolig eller om det uppstår problem.",
+    },
+    {
+      title: "Ta ansvar för laget",
+      text: "Var en bra lagkamrat. Hjälp varandra, inkludera alla och bidra till en positiv stämning under hela resan.",
+    },
+  ],
+  consequencesTitle: "Konsekvenser om reglerna inte följs",
+  consequences: [
+    "Samtal med ledare.",
+    "Kontakt med vårdnadshavare vid allvarligare eller upprepade överträdelser.",
+    "Begränsad fritid eller särskilda regler för den som inte följer överenskommelserna.",
+    "Vid mycket allvarliga händelser kan vårdnadshavare behöva ordna hemresa.",
+  ],
+  mottoLabel: "Lagets motto för resan",
+  motto: "Vi tar hand om oss själva, varandra och vårt lag. Vi gör vårt bästa på planen och utanför planen.",
+};
+
 export const STAY = [
   "Alannia Salou, Avinguda de Pompeu Fabra 37. Tre nätter. Resebladet namngav inte hotellet.",
   "Helpension: middag 16 oktober 19:00–21:30, sedan frukost 07:00, lunch 15:00 och middag 19:30 lördag och söndag, och frukost 09:00 plus lunch 13:00 måndag 19 oktober. Vatten ingår till lunch och middag.",
