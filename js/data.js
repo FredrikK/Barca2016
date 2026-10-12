@@ -153,7 +153,7 @@ export const WEATHER = {
       low: 18,
       rain: 30,
       wind: 19,
-      advice: "Under matcherna är det mulet, 21–23° och 0 mm. Vinden är 7–9 km/h då och ökar framåt kvällen.",
+      advice: "Under matcherna är det mulet, 21–23°. Vinden är 7–9 km/h då och ökar framåt kvällen.",
       games: [
         { time: "09:50", hour: "10:00", temp: 21, summary: "Mulet", rain: 21, mm: 0, wind: 7 },
         { time: "11:30", hour: "12:00", temp: 22, summary: "Mulet", rain: 25, mm: 0, wind: 8 },
@@ -166,7 +166,7 @@ export const WEATHER = {
       low: 16,
       rain: 29,
       wind: 19,
-      advice: "16° och mulet vid 09:00, 21° och mulet vid 13:00. 0 mm under matcherna. Vinden mojnar under matcherna, från 14 km/h till 7.",
+      advice: "16° och mulet vid 09:00, 21° och mulet vid 13:00. Vinden mojnar under matcherna, från 14 km/h till 7.",
       games: [
         { time: "09:00", hour: "09:00", temp: 16, summary: "Mulet", rain: 21, mm: 0, wind: 14 },
         { time: "11:00", hour: "11:00", temp: 18, summary: "Mulet", rain: 19, mm: 0, wind: 13 },

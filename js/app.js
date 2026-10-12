@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vader";
+} from "./data.js?v=nmm";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -174,6 +174,7 @@ function weatherCard(day) {
   const forecast = WEATHER.days[day];
   if (!forecast) return "";
   const games = forecast.games || [];
+  const dayNote = WEATHER.note.replace("Matchtimmarna lördag och söndag har 0 mm. ", "");
   return `
     <article class="card pad weather">
       <div class="section-head">
@@ -183,11 +184,11 @@ function weatherCard(day) {
       ${games.length ? games.map((game) => `
         <div class="weather-line">
           <b>${esc(game.time)}</b>
-          <span class="small">${game.temp}° · ${esc(game.summary)} · ${game.mm} mm · vind ${game.wind} km/h</span>
+          <span class="small">${game.temp}° · ${esc(game.summary)} · vind ${game.wind} km/h</span>
         </div>
         <p class="tiny">Prognos klockan ${esc(game.hour)}, närmaste hela timme kring avsparken.</p>`).join("") : ""}
       <p class="small" style="margin-top:8px">${esc(forecast.advice)}</p>
-      <p class="small" style="margin-top:6px">Högsta vind ${forecast.wind} km/h. ${esc(WEATHER.note)}</p>
+      <p class="small" style="margin-top:6px">Högsta vind ${forecast.wind} km/h. ${esc(dayNote)}</p>
       <p class="tiny" style="margin-top:6px">Prognos för ${esc(WEATHER.place)} från <a href="${esc(WEATHER.source)}">${esc(WEATHER.sourceLabel)}</a>, hämtad ${esc(WEATHER.fetched)}. Siffrorna är avrundade och kan ändras.</p>
     </article>`;
 }
