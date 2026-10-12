@@ -426,6 +426,9 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
   throw new Error("snack page lost the food guidance");
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
+if (appSource.includes("regn ${forecast.rain}") || appSource.includes("regn ${game.rain}") || appSource.includes("Regnrisk")) {
+  throw new Error("rain percent is still in the weather details");
+}
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
 if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");
 if (RULES.rules.length !== 10) throw new Error("expected 10 team rules");
