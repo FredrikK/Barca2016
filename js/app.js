@@ -17,6 +17,7 @@ import {
   METHOD,
   PACK,
   PLAYOFFS,
+  RULES,
   SNACK_PAGE,
   STAY,
   TEAMS,
@@ -35,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=alder";
+} from "./data.js?v=regler";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -225,6 +226,8 @@ function viewTrip() {
         <div class="stat"><b>Grupp om sex</b><span>Irland, Sverige, Katalonien</span></div>
       </div>
 
+      ${rulesSection()}
+
       <div class="section">
         <button type="button" class="card pad" data-go="#packlista">
           <div class="section-head">
@@ -329,6 +332,37 @@ function viewTrip() {
         </div>
       </div>
     </section>`;
+}
+
+function rulesSection() {
+  return `
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">${esc(RULES.kicker)}</p>
+          <h2>${esc(RULES.title)}</h2>
+        </div>
+      </div>
+      <p class="sub">${esc(RULES.lead)}</p>
+      <div class="card pad" style="margin-top:10px">
+        ${RULES.rules.map((rule, index) => `
+          <article class="rule">
+            <div class="rule-no">${index + 1}</div>
+            <div>
+              <b>${esc(rule.title)}</b>
+              <p class="small">${esc(rule.text)}</p>
+            </div>
+          </article>`).join("")}
+      </div>
+      <div class="card pad" style="margin-top:10px">
+        <h3>${esc(RULES.consequencesTitle)}</h3>
+        <ul class="list">${RULES.consequences.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+      </div>
+      <div class="motto">
+        <p class="eyebrow">${esc(RULES.mottoLabel)}</p>
+        <p>”${esc(RULES.motto)}”</p>
+      </div>
+    </div>`;
 }
 
 function hotelCard() {
