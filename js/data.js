@@ -811,7 +811,7 @@ export const MATCHES = [
   { id: "m10", day: "sun", date: "Sön 18 okt", time: "09:00", field: "1", home: "castlevilla", away: "stpatricks" },
   {
     id: "m11", day: "sun", date: "Sön 18 okt", time: "09:00", field: "3", home: "kilcullen", away: "spanga", mine: true, kit: "away",
-    kitLine: "Svartvitt är klubbfärgen. Rött fungerar mot det.",
+    kitLine: "Klubbfärgen är svart och vit. Matchtröjan 2026 är inte publicerad. Rött fungerar mot svartvitt.",
     kitNote: "Kilcullen har svart och vitt som klubbfärg. Supportrar ombads bära det till seniorernas damlag 2013, och klubbshopen har svartvita strumpor. Matchtröjan för de här flickorna 2026 är inte publicerad. Rött fungerar mot svartvitt. Om de kommer i rött tar ni det blåvita.",
     kitSource: { label: "Kilcullen Diary, 2013", url: "https://kilcullenbridge.blogspot.com/2013/09/make-satruday-black-and-white-day-in.html" },
   },
