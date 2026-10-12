@@ -8,6 +8,7 @@ import {
   FLIGHT_CHECK,
   FLIGHTS,
   HOTEL,
+  KIT,
   LEAGUES,
   MATCHES,
   MEALS,
@@ -32,7 +33,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=lunch";
+} from "./data.js?v=stall";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -363,6 +364,27 @@ function rideLine(time, staying) {
   return `Lämna ${HOTEL.name} ${plan.leave}. Var på planen senast ${plan.arrive}.`;
 }
 
+function shirt(kind) {
+  const body = "M6.2 9.2 12.4 4.2 16.2 8.4 18 6.2 19.8 8.4 23.6 4.2 29.8 9.2 27.2 14.2 23.4 11.6 23.4 28.2 12.6 28.2 12.6 11.6 8.8 14.2Z";
+  if (kind === "away") {
+    return `<svg class="shirt" viewBox="0 0 36 32" aria-hidden="true"><path fill="#c8102e" stroke="#6e0c18" stroke-width="1.4" stroke-linejoin="round" d="${body}"/></svg>`;
+  }
+  return `<svg class="shirt" viewBox="0 0 36 32" aria-hidden="true"><path fill="#003671" stroke="#00264f" stroke-width="1.4" stroke-linejoin="round" d="${body}"/><path fill="#ffffff" d="M15.2 9.2 18 6.4 20.8 9.2 20.8 27.2 15.2 27.2Z"/></svg>`;
+}
+
+function kitRow(match, size) {
+  const name = match.kit === "home" ? KIT.homeName : KIT.awayName;
+  const line = size === "page" ? match.kitNote : match.kitLine;
+  return `
+    <div class="kit-row ${size}">
+      ${shirt(match.kit)}
+      <div class="kit-copy">
+        <b>${esc(name)}</b>
+        <p class="tiny meal-note">${esc(line)}</p>
+      </div>
+    </div>`;
+}
+
 function matchButton(match) {
   const home = teamById(match.home);
   const away = teamById(match.away);
@@ -380,6 +402,7 @@ function matchButton(match) {
         <div class="teams-mini">
           <div class="vs-row">${crest(home, "mini")}${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
           <div class="vs-row">${crest(away, "mini")}${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+          ${match.kit ? kitRow(match, "card") : ""}
           ${note ? `<p class="tiny meal-note">${esc(note)}</p>` : ""}
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
@@ -500,6 +523,7 @@ function playoffCard(game) {
         <div class="teams-mini">
           <div class="vs-row">${esc(game.label)}</div>
           <div class="vs-row">${esc(game.pairing)}</div>
+          <p class="tiny meal-note">${esc(KIT.playoff)}</p>
           <p class="tiny meal-note">${esc(rideLine(game.time, true))}</p>
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
@@ -947,9 +971,21 @@ function viewMatch(id) {
       <p class="tiny" style="margin-top:8px">${esc(VENUE.studs)}</p>
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
-        <div class="tiny" style="text-align:center">står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta.</div>
+        <div class="tiny" style="text-align:center">${yours
+          ? (home.yours
+            ? "Ni står först på programmet, så det blåvita hemmastället."
+            : "Ni står tvåa på programmet, så det röda bortastället.")
+          : "står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta."}</div>
         ${sideCard(away)}
       </div>
+      ${match.kit ? `
+        <div class="section">
+          <div class="card pad kit-card">
+            ${kitRow(match, "page")}
+            <p class="tiny" style="margin-top:8px">${esc(KIT.rule)} ${esc(KIT.checked)} <a href="${esc(KIT.source)}">${esc(KIT.sourceLabel)}</a>.</p>
+            ${match.kitSource ? `<p class="tiny" style="margin-top:4px"><a href="${esc(match.kitSource.url)}">${esc(match.kitSource.label)}</a>.</p>` : ""}
+          </div>
+        </div>` : ""}
       ${yours && opponent ? `
         <div class="section">
           <h2>Läsning inför matchen</h2>
