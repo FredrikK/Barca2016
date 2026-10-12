@@ -32,7 +32,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=power";
+} from "./data.js?v=vader12";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
