@@ -832,17 +832,28 @@ export const PLAYOFFS = [
   { id: "p3", day: "sun", date: "Sön 18 okt", time: "13:00", field: "1", label: "Match om plats 5", pairing: "5:e mot 6:e" },
 ];
 
-// Clock times from the 17–18 October programme page. Meals are the hotel buffet.
-// Friday has dinner only. Monday has breakfast only. No Monday lunch is printed.
+// Sunday 14:00, still at the pitches, before bus 6 leaves at 14:45.
+export const CEREMONY = {
+  day: "sun",
+  date: "Sön 18 okt",
+  time: "14:00",
+  name: "Prisutdelning",
+  place: "Futbol Salou",
+  note: "Alla lag i Flickor 2010. Alla spelare och tränare får medalj.",
+};
+
+// Official team programme. Friday dinner stays the earlier hotel window; this sheet does not list Friday.
+// Saturday, Sunday and Monday meals are start times only. No end is printed, so none is invented.
 export const MEALS = [
   { id: "fri-dinner", day: "fri", date: "Fre 16 okt", start: "19:00", end: "21:30", name: "Middag", place: "Hotellbuffé", note: "Helpensionen börjar med den här middagen." },
-  { id: "sat-breakfast", day: "sat", date: "Lör 17 okt", start: "07:00", end: "10:00", name: "Frukost", place: "Hotellbuffé", note: "Avsparkarna 09:50 ligger i det här fönstret." },
-  { id: "sat-lunch", day: "sat", date: "Lör 17 okt", start: "13:00", end: "14:30", name: "Lunch", place: "Hotellbuffé", note: "Avsparkarna 13:10 ligger i det här fönstret." },
-  { id: "sat-dinner", day: "sat", date: "Lör 17 okt", start: "19:00", end: "21:30", name: "Middag", place: "Hotellbuffé" },
-  { id: "sun-breakfast", day: "sun", date: "Sön 18 okt", start: "07:00", end: "10:00", name: "Frukost", place: "Hotellbuffé", note: "Avsparkarna 09:00 ligger i det här fönstret." },
-  { id: "sun-lunch", day: "sun", date: "Sön 18 okt", start: "13:00", end: "14:30", name: "Lunch", place: "Hotellbuffé", note: "Placeringsmatcherna 13:00 ligger i det här fönstret." },
-  { id: "sun-dinner", day: "sun", date: "Sön 18 okt", start: "19:00", end: "21:30", name: "Middag", place: "Hotellbuffé" },
-  { id: "mon-breakfast", day: "mon", date: "Mån 19 okt", start: "07:00", end: "10:00", name: "Frukost", place: "Hotellbuffé", note: "Checka ut rummen senast 11:00. Helpensionen slutar med den här frukosten." },
+  { id: "sat-breakfast", day: "sat", date: "Lör 17 okt", start: "07:00", end: "", name: "Frukost", place: "Hotellbuffé", note: "Buss 6 går 08:35." },
+  { id: "sat-lunch", day: "sat", date: "Lör 17 okt", start: "15:00", end: "", name: "Lunch", place: "Hotellbuffé", note: "Efter buss 6 kl 14:20." },
+  { id: "sat-dinner", day: "sat", date: "Lör 17 okt", start: "19:30", end: "", name: "Middag", place: "Hotellbuffé" },
+  { id: "sun-breakfast", day: "sun", date: "Sön 18 okt", start: "07:00", end: "", name: "Frukost", place: "Hotellbuffé", note: "Buss 6 går 07:45." },
+  { id: "sun-lunch", day: "sun", date: "Sön 18 okt", start: "15:00", end: "", name: "Lunch", place: "Hotellbuffé", note: "Efter buss 6 kl 14:45." },
+  { id: "sun-dinner", day: "sun", date: "Sön 18 okt", start: "19:30", end: "", name: "Middag", place: "Hotellbuffé" },
+  { id: "mon-breakfast", day: "mon", date: "Mån 19 okt", start: "09:00", end: "", name: "Frukost", place: "Hotellbuffé", note: "Utcheckning senast 11:00." },
+  { id: "mon-lunch", day: "mon", date: "Mån 19 okt", start: "13:00", end: "", name: "Lunch", place: "Hotellbuffé", note: "Buss D20 går 15:00." },
 ];
 
 // Friday office hours from the 17–18 October programme. Saturday opens 75 minutes
@@ -985,17 +996,17 @@ export const AREA = {
     {
       name: "Lördag efter matcherna",
       time: "16:00",
-      text: "Buss 6 från planerna går 14:20. Med ungefär 15 minuters körning är ni tillbaka omkring 14:35. Feria Game vid poolen är 16:00–17:00, spel för alla. Bowling vid poolen är 17:00–18:00, märkt för vuxna och tonåringar. Alannia Fun, dans vid poolen, är 18:00–18:30. Minidisco är 20:30–21:15. Showen Jaque Mate är 21:30–22:30 på scenen. Förmiddagens Zumba och pingpong krockar med matcherna.",
+      text: "Buss 6 från planerna går 14:20. Med ungefär 15 minuters körning är ni tillbaka omkring 14:35. Lunchen är 15:00. Feria Game vid poolen är 16:00–17:00, spel för alla. Bowling vid poolen är 17:00–18:00, märkt för vuxna och tonåringar. Alannia Fun, dans vid poolen, är 18:00–18:30. Minidisco är 20:30–21:15. Showen Jaque Mate är 21:30–22:30 på scenen. Förmiddagens Zumba och pingpong krockar med matcherna.",
     },
     {
       name: "Söndag efter matcherna",
       time: "16:00",
-      text: "Buss 6 från planerna går 14:45. Med ungefär 15 minuters körning är ni tillbaka omkring 15:00. Bingo Musical på scenen är 16:00–17:00. Dart vid poolen är 17:00–18:00. Alannia Fun är 18:00–18:30. Minidisco är 20:30–21:15. Kahoot Night är 21:30–22:30 på scenen. Hotellet skriver att det gäller att vara snabb, och att mobilen behöver batteri. PS5-turneringen 10:45–12:30 krockar med matcherna.",
+      text: "Prisutdelningen är 14:00 på Futbol Salou. Buss 6 från planerna går 14:45. Med ungefär 15 minuters körning är ni tillbaka omkring 15:00. Lunchen är 15:00. Bingo Musical på scenen är 16:00–17:00. Dart vid poolen är 17:00–18:00. Alannia Fun är 18:00–18:30. Minidisco är 20:30–21:15. Kahoot Night är 21:30–22:30 på scenen. Hotellet skriver att det gäller att vara snabb, och att mobilen behöver batteri. PS5-turneringen 10:45–12:30 krockar med matcherna.",
     },
     {
       name: "Måndag före bussen",
       time: "11:30",
-      text: "Utcheckning senast 11:00. Buss D20 går 15:00 till flygplatsen. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
+      text: "Frukost är 09:00. Utcheckning senast 11:00. Lunchen är 13:00. Buss D20 går 15:00 till flygplatsen. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
     },
     {
       name: "Multisportplanen",
@@ -1052,7 +1063,7 @@ export const AREA = {
   ],
   farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
   limits: "Spa och gym kräver 16 år. Alkohol är från 18, också i poolbaren.",
-  free: "Ledig tid: fredag efter att ni kommit till hotellet. Lördag går buss 6 från planerna 14:20, söndag 14:45. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00.",
+  free: "Ledig tid: fredag efter att ni kommit till hotellet. Lördag går buss 6 från planerna 14:20 och lunchen är 15:00. Söndag går bussen 14:45, efter prisutdelningen 14:00, och lunchen är 15:00. Måndag är lunchen 13:00. Ni checkar ut senast 11:00 och buss D20 går 15:00.",
   sources: [
     { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
     { label: "Alla evenemang", url: "https://as.alanniaresorts.com/all-events/" },
@@ -1190,15 +1201,21 @@ function clipNote(meal, start, end) {
   return meal.note || "";
 }
 
-// Official buffet hours stay on the meal. The schedule uses the part Spånga can eat.
+// A printed start with no end stays a point. A window is clipped around the time away from the hotel.
 export function usableMeal(meal) {
-  let segments = [[minutes(meal.start), minutes(meal.end)]];
+  const point = !meal.end;
+  let segments = [[minutes(meal.start), point ? minutes(meal.start) : minutes(meal.end)]];
   for (const block of awayBlocks(meal.day)) {
     let awayStart = minutes(block.start);
     const awayEnd = minutes(block.end);
-    if (meal.name === "Frukost") awayStart -= RIDES.packMin;
+    if (!point && meal.name === "Frukost") awayStart -= RIDES.packMin;
     const next = [];
     for (const [from, to] of segments) {
+      if (point) {
+        if (from >= awayStart && from < awayEnd) continue;
+        next.push([from, to]);
+        continue;
+      }
       if (awayEnd <= from || awayStart >= to) {
         next.push([from, to]);
         continue;
@@ -1206,13 +1223,13 @@ export function usableMeal(meal) {
       if (from < awayStart) next.push([from, Math.min(to, awayStart)]);
       if (awayEnd < to) next.push([Math.max(from, awayEnd), to]);
     }
-    segments = next.filter(([from, to]) => to - from >= 1);
+    segments = next.filter(([from, to]) => point || to - from >= 1);
   }
   if (!segments.length) {
     const back = pitchBus(meal.day, "back");
-    const note = back && meal.name === "Lunch"
-      ? `Buffén är öppen ${meal.start}–${meal.end}. ${back.line} från planerna går ${back.time}, så lunchen är över när ni är tillbaka.`
-      : `Buffén är öppen ${meal.start}–${meal.end}. Laget är på Futbol Salou hela tiden.`;
+    const note = back
+      ? `${back.line} från planerna går ${back.time}. Den här tiden ligger medan laget är på Futbol Salou.`
+      : "Laget är på Futbol Salou hela tiden.";
     return [{
       ...meal,
       missed: true,
@@ -1223,7 +1240,7 @@ export function usableMeal(meal) {
   }
   return segments.map(([from, to]) => {
     const start = clock(from);
-    const end = clock(to);
+    const end = point ? "" : clock(to);
     return {
       ...meal,
       start,
@@ -1231,19 +1248,19 @@ export function usableMeal(meal) {
       officialStart: meal.start,
       officialEnd: meal.end,
       missed: false,
-      note: clipNote(meal, start, end),
+      note: point ? (meal.note || "") : clipNote(meal, start, end),
     };
   });
 }
 
-// Fifteen minutes at the hotel after breakfast, before the morning bus.
+// Fifteen minutes at the hotel before the morning bus. The programme prints a breakfast start, not an end.
 export function morningPrep(day) {
-  const blocks = awayBlocks(day);
+  const out = pitchBus(day, "out");
   const breakfast = MEALS.find((meal) => meal.day === day && meal.name === "Frukost");
-  if (!blocks.length || !breakfast) return null;
-  const bus = minutes(blocks[0].start);
+  if (!out || !breakfast) return null;
+  const bus = minutes(out.time);
+  if (minutes(breakfast.start) >= bus) return null;
   const from = bus - RIDES.packMin;
-  if (minutes(breakfast.end) <= from || minutes(breakfast.start) >= bus) return null;
   return {
     id: `${day}-prep`,
     day,
@@ -1369,7 +1386,7 @@ export function travelStops(day) {
 
 export const STAY = [
   "Alannia Salou, Avinguda de Pompeu Fabra 37. Tre nätter. Resebladet namngav inte hotellet.",
-  "Helpension från middag 16 oktober (19:00–21:30) till frukost 19 oktober (07:00–10:00). Lunch lördag och söndag är 13:00–14:30. Vatten ingår till lunch och middag.",
+  "Helpension: middag 16 oktober 19:00–21:30, sedan frukost 07:00, lunch 15:00 och middag 19:30 lördag och söndag, och frukost 09:00 plus lunch 13:00 måndag 19 oktober. Vatten ingår till lunch och middag.",
   "Lakan ingår. Ta med en extra handduk till poolen eller stranden.",
   "Det slutliga resedokumentet skickas ungefär en vecka före avresa.",
   "Matcherna spelas på Futbol Salou, vid vägen Salou–Cambrils. Buss 6 går lördag 08:35 och söndag 07:45 till planerna, och tillbaka 14:20 respektive 14:45.",
