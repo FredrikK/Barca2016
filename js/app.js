@@ -35,7 +35,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=program";
+} from "./data.js?v=troja";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -378,13 +378,11 @@ function shirt(kind) {
 
 function kitRow(match, size) {
   const name = match.kit === "home" ? KIT.homeName : KIT.awayName;
-  const line = size === "page" ? match.kitNote : match.kitLine;
   return `
     <div class="kit-row ${size}">
       ${shirt(match.kit)}
       <div class="kit-copy">
         <b>${esc(name)}</b>
-        <p class="tiny meal-note">${esc(line)}</p>
       </div>
     </div>`;
 }
@@ -528,7 +526,6 @@ function playoffCard(game) {
         <div class="teams-mini">
           <div class="vs-row">${esc(game.label)}</div>
           <div class="vs-row">${esc(game.pairing)}</div>
-          <p class="tiny meal-note">${esc(KIT.playoff)}</p>
           <p class="tiny meal-note">${esc(rideLine(game.time, true))}</p>
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
@@ -1009,13 +1006,6 @@ function viewSnacks() {
     </section>`;
 }
 
-function kitOrderLine(match, home) {
-  if (!match.mine) return "står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta.";
-  if (home.yours) return "Ni står först på programmet, så det blåvita hemmastället.";
-  if (match.kit === "home") return "Ni står tvåa på programmet. Det röda krockar, så ni tar det blåvita.";
-  return "Ni står tvåa på programmet, så det röda bortastället.";
-}
-
 function viewMatch(id) {
   const match = MATCHES.find((item) => item.id === id);
   if (!match) return `<section class="view"><p>Matchen finns inte.</p></section>`;
@@ -1034,15 +1024,12 @@ function viewMatch(id) {
       <p class="tiny" style="margin-top:8px">${esc(VENUE.studs)}</p>
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
-        <div class="tiny" style="text-align:center">${kitOrderLine(match, home)}</div>
         ${sideCard(away)}
       </div>
       ${match.kit ? `
         <div class="section">
           <div class="card pad kit-card">
             ${kitRow(match, "page")}
-            <p class="tiny" style="margin-top:8px">${esc(KIT.rule)} ${esc(KIT.checked)} <a href="${esc(KIT.source)}">${esc(KIT.sourceLabel)}</a>.</p>
-            ${match.kitSource ? `<p class="tiny" style="margin-top:4px"><a href="${esc(match.kitSource.url)}">${esc(match.kitSource.label)}</a>.</p>` : ""}
           </div>
         </div>` : ""}
       ${yours && opponent ? `
