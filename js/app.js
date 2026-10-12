@@ -35,7 +35,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=samling";
+} from "./data.js?v=alder";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -292,7 +292,7 @@ function viewTrip() {
               <div class="tiny">${esc(AIRPORT_BUS.arrival.date)} · ${esc(AIRPORT_BUS.arrival.pax)} personer</div>
             </div>
             <div>
-              <div class="route">Turneringsbuss till hotellet</div>
+              <div class="route">Först ålderskontrollen, sedan hotellet</div>
               <div class="times small">${esc(AIRPORT_BUS.arrival.flight)} landar ${esc(AIRPORT_BUS.arrival.land)} · hotell ungefär ${esc(AIRPORT_BUS.arrival.hotelFrom)}–${esc(AIRPORT_BUS.arrival.hotelTo)}</div>
               <p class="tiny" style="margin-top:6px">${esc(AIRPORT_BUS.arrival.meet)}</p>
               <p class="tiny" style="margin-top:6px">Körningen är ungefär ${esc(RIDES.airportKm)} km. Fri väg tar ungefär 1 timme och 10 minuter. En transferoffert för det här hotellet säger 1 timme och 40 minuter. Hotellfönstret räknar med bagage och den körningen. Middag är 19:00–21:30.</p>
@@ -310,7 +310,7 @@ function viewTrip() {
               <p class="tiny" style="margin-top:6px">Flygplatsen ungefär ${esc(AIRPORT_BUS.departure.airportFrom)}–${esc(AIRPORT_BUS.departure.airportTo)}. ${esc(AIRPORT_BUS.departure.flight)} går ${esc(AIRPORT_BUS.departure.flightTime)}.</p>
             </div>
           </div>
-          <p class="tiny" style="margin-top:8px">Ålderskontrollen på Futbol Salou är öppen ${esc(AGE_CHECK.start)}–${esc(AGE_CHECK.end)}. Hinner ni inte före ${esc(AGE_CHECK.end)} görs den lördag före första matchen.</p>
+          <p class="tiny" style="margin-top:8px">Buss A36 åker först till ålderskontrollen på Futbol Salou, sedan till hotellet. Kontoret stänger 18:00. Hinner ni inte före 18:00 görs den lördag före första matchen.</p>
           <p class="tiny" style="margin-top:8px">Buss 6 mellan hotellet och planerna: lördag 08:35 till Futbol Salou och 14:20 tillbaka, söndag 07:45 till Futbol Salou och 14:45 tillbaka. ${esc(HOTEL.name)} till Futbol Salou är ungefär ${esc(RIDES.pitchKm)} km och 10 minuter med bil. Räkna ${esc(RIDES.pitchMin)} minuter för buss 6.</p>
           <p class="tiny" style="margin-top:8px">Färre än ${esc(AIRPORT_BUS.minOnFlight)} personer på samma flyg betyder att arrangören inte ordnar den här flygbussen. Listan har ${esc(AIRPORT_BUS.arrival.pax)} personer på ${esc(AIRPORT_BUS.arrival.bus)} och ${esc(AIRPORT_BUS.departure.pax)} personer på ${esc(AIRPORT_BUS.departure.bus)}. Föräldrar och supportrar som är bokade via arrangören åker samma transfer. Den som har ett annat flyg ordnar egen transfer.</p>
           <p class="tiny" style="margin-top:8px">Cupkontor: <a href="mailto:${esc(AIRPORT_BUS.officeEmail)}">${esc(AIRPORT_BUS.officeEmail)}</a> · ${esc(AIRPORT_BUS.officePhone)}. Källor: <a href="${esc(META.officialFaq)}">FAQ</a> · <a href="${esc(META.officialTerms)}">juridiska villkor</a>.</p>
@@ -447,11 +447,12 @@ function travelCard(item) {
 }
 
 function checkCard(check) {
+  const until = check.end ? `<div class="field">till ${esc(check.end)}</div>` : `<div class="field">bussen</div>`;
   return `
     <div class="match check">
       <div>
-        <time>${esc(check.start)}</time>
-        <div class="field">till ${esc(check.end)}</div>
+        <time>${check.start ? esc(check.start) : "Efter"}</time>
+        ${until}
       </div>
       <div>
         <div class="teams-mini">${esc(check.name)}</div>
@@ -604,7 +605,7 @@ function viewSchedule() {
     ...buses.map((bus) => ({ sort: bus.time, kind: "bus", bus })),
     ...travel.map((item) => ({ sort: item.sort, kind: "travel", item })),
     ...checkout.map((item) => ({ sort: item.sort, kind: "travel", item })),
-    ...checks.map((check) => ({ sort: check.start, kind: "check", check })),
+    ...checks.map((check) => ({ sort: check.sort || check.start, kind: "check", check })),
     ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
     ...(prep ? [{ sort: prep.start, kind: "prep", prep }] : []),
     ...games.map((match) => ({ sort: match.time, kind: "match", match })),

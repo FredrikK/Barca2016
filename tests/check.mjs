@@ -281,11 +281,12 @@ if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes
 }
 if (MEALS.length !== 9) throw new Error("expected 9 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Middag")) throw new Error("Friday should list dinner only");
-if (AGE_CHECK.day !== "fri" || AGE_CHECK.start !== "11:00" || AGE_CHECK.end !== "18:00") throw new Error("Friday age check drifted");
+if (AGE_CHECK.day !== "fri" || AGE_CHECK.sort !== "15:31" || AGE_CHECK.start !== "" || AGE_CHECK.end !== "") throw new Error("Friday age check drifted");
 if (AGE_CHECK.place !== "Futbol Salou") throw new Error("age check place drifted");
-if (!AGE_CHECK.note.includes("foto") || !AGE_CHECK.note.includes("lördag") || !AGE_CHECK.note.includes("15:30")) {
+if (!AGE_CHECK.note.includes("foto") || !AGE_CHECK.note.includes("lördag") || !AGE_CHECK.note.includes("15:30") || !AGE_CHECK.note.includes("före hotellet")) {
   throw new Error("age check note drifted");
 }
+if (AGE_CHECK.sort <= "15:30") throw new Error("age check still sorts before the airport bus");
 const monMeals = MEALS.filter((meal) => meal.day === "mon").map((meal) => meal.name).join(",");
 if (monMeals !== "Frukost,Lunch") throw new Error(`Monday meals drifted: ${monMeals}`);
 if (CEREMONY.day !== "sun" || CEREMONY.time !== "14:00" || CEREMONY.place !== "Futbol Salou" || !CEREMONY.note.includes("Flickor 2010") || !CEREMONY.note.includes("medalj")) {
@@ -315,7 +316,7 @@ if (/Gustafsson|Drougge|efternamn/.test(JSON.stringify(ARLANDA_CARS))) throw new
 if (!meet.note.includes("09:50") || meet.note.includes("två timmar") || meet.note.includes("ingen egen mötestid")) throw new Error("meeting still uses the two-hour estimate");
 if (friTravel[1].start !== "09:50" || friTravel[1].end !== "12:00" || friTravel[1].place !== "Arlanda → Frankfurt") throw new Error("LH 801 drifted");
 if (friTravel[2].start !== "13:25" || friTravel[2].end !== "15:30") throw new Error("LH 1130 drifted");
-if (friTravel[3].start !== "15:30" || friTravel[3].name !== "Buss A36" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40") || !friTravel[3].note.includes("23 personer")) {
+if (friTravel[3].start !== "15:30" || friTravel[3].name !== "Buss A36" || !friTravel[3].note.includes("ankomsthallen") || !friTravel[3].note.includes("17:40") || !friTravel[3].note.includes("23 personer") || !friTravel[3].note.includes("först till ålderskontrollen") || !friTravel[3].place.includes("Futbol Salou")) {
   throw new Error("Friday bus drifted");
 }
 const monNames = monTravel.map((item) => item.name).join(",");
