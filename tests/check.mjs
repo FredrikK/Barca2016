@@ -424,6 +424,9 @@ if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.
   throw new Error("snack page lost the food guidance");
 }
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
+if (!appSource.includes("<h2>Er nästa match</h2>") || appSource.includes("Nästa på ert kort") || appSource.includes("ditt kort")) {
+  throw new Error("the next-match heading drifted");
+}
 if (appSource.includes("regn ${forecast.rain}") || appSource.includes("regn ${game.rain}") || appSource.includes("Regnrisk")) {
   throw new Error("rain percent is still in the weather details");
 }
