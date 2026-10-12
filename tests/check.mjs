@@ -429,6 +429,12 @@ const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf
 if (appSource.includes("regn ${forecast.rain}") || appSource.includes("regn ${game.rain}") || appSource.includes("Regnrisk")) {
   throw new Error("rain percent is still in the weather details");
 }
+if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) || /\bmm\b/.test(WEATHER.days.sun.advice)) {
+  throw new Error("millimetres are still in the schedule weather");
+}
+if (!appSource.includes('replace("Matchtimmarna lördag och söndag har 0 mm. "')) {
+  throw new Error("the schedule weather card still prints the millimetre note");
+}
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
 if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");
 if (RULES.rules.length !== 10) throw new Error("expected 10 team rules");
