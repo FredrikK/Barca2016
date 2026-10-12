@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=motto";
+} from "./data.js?v=nasta";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -255,7 +255,7 @@ function viewTrip() {
       </div>
 
       <div class="section">
-        <div class="section-head"><h2>Nästa på ert kort</h2><button class="text-btn" data-go="#schedule">Hela schemat</button></div>
+        <div class="section-head"><h2>Er nästa match</h2><button class="text-btn" data-go="#schedule">Hela schemat</button></div>
         ${matchButton(next)}
       </div>
 
