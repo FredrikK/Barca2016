@@ -447,7 +447,7 @@ const expectedTitles = [
   "Ta ansvar för laget",
 ].join("|");
 if (ruleTitles !== expectedTitles) throw new Error(`team rules drifted: ${ruleTitles}`);
-if (!RULES.lead.includes("rolig och trygg") || RULES.consequences.length !== 3 || RULES.consequences.some((item) => item.includes("hemresa")) || !RULES.motto.includes("på planen och utanför planen")) {
+if (!RULES.lead.includes("rolig och trygg") || RULES.consequences.length !== 3 || RULES.consequences.some((item) => item.includes("hemresa")) || RULES.motto !== "Vi tar hand om oss själva, varandra och vårt lag. Vi gör vårt bästa på planen och utanför planen, varje dag.") {
   throw new Error("the rules intro, consequences or motto drifted");
 }
 if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "fri" ? `<div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2></div>${carsCard()}') ) throw new Error("Friday cars are missing from the schedule");

@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=handduk";
+} from "./data.js?v=motto";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
