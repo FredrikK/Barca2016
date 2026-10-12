@@ -836,16 +836,17 @@ export const MEALS = [
   { id: "mon-lunch", day: "mon", date: "Mån 19 okt", start: "13:00", end: "", name: "Lunch", place: "Hotellbuffé", note: "Buss D20 går 15:00." },
 ];
 
-// Friday office hours from the 17–18 October programme. Saturday opens 75 minutes
-// before the day's first match for teams that land too late on Friday.
+// The desk is open 11:00–18:00, but this group is not there then.
+// Bus A36 stops at the age check after the flight, before the hotel.
 export const AGE_CHECK = {
   day: "fri",
   date: "Fre 16 okt",
-  start: "11:00",
-  end: "18:00",
+  sort: "15:31",
+  start: "",
+  end: "",
   name: "Ålderskontroll",
   place: "Futbol Salou",
-  note: "Varje spelare är med och visar pass eller id-kort. Ett foto i telefonen räcker. Armbandet bärs till söndag. Högst två tränare. LH 1130 landar 15:30, så ni använder slutet av fönstret. Hinner bussen inte före 18:00 görs kontrollen lördag före första matchen. Lördagens kontroll öppnar 75 minuter före dagens första match.",
+  note: "Buss A36 stannar här före hotellet. Varje spelare är med och visar pass eller id-kort. Ett foto i telefonen räcker. Armbandet bärs till söndag. Högst två tränare. Kontoret stänger 18:00. Hinner ni inte före 18:00 görs kontrollen lördag före första matchen. LH 1130 landar 15:30.",
 };
 
 // Friday morning cars to Arlanda, first names as on the team's sheet. No pickup time is printed.
@@ -971,7 +972,7 @@ export const AREA = {
     {
       name: "Fredag kväll",
       time: "20:30",
-      text: "Ni är på hotellet ungefär 17:40–18:10. Alannia Fun, dans vid poolen, är 18:00–18:30, så den kan redan ha börjat. Minidisco på scenen är 20:30–21:15, för hela familjen. Showen Addams Family är 21:30–22:30 på scenen. Middagen är 19:00–21:30, så showen börjar under buffén.",
+      text: "Buss A36 stannar först på ålderskontrollen. Ni är på hotellet ungefär 17:40–18:10. Alannia Fun, dans vid poolen, är 18:00–18:30, så den kan redan ha börjat. Minidisco på scenen är 20:30–21:15, för hela familjen. Showen Addams Family är 21:30–22:30 på scenen. Middagen är 19:00–21:30, så showen börjar under buffén.",
     },
     {
       name: "Lördag efter matcherna",
@@ -1336,8 +1337,8 @@ export function travelStops(day) {
         start: AIRPORT_BUS.arrival.land,
         end: "",
         name: AIRPORT_BUS.arrival.bus,
-        place: "Barcelona El Prat → Alannia Salou",
-        note: `${AIRPORT_BUS.arrival.meet} Turneringsbuss till hotellet, ${AIRPORT_BUS.arrival.pax} personer. Hotellet ungefär ${AIRPORT_BUS.arrival.hotelFrom}–${AIRPORT_BUS.arrival.hotelTo}, räknat från landning, bagage och körning.`,
+        place: "Barcelona El Prat → Futbol Salou → Alannia Salou",
+        note: `${AIRPORT_BUS.arrival.meet} ${AIRPORT_BUS.arrival.bus}, ${AIRPORT_BUS.arrival.pax} personer. Bussen åker först till ålderskontrollen på Futbol Salou, sedan till hotellet. Hotellet ungefär ${AIRPORT_BUS.arrival.hotelFrom}–${AIRPORT_BUS.arrival.hotelTo}, räknat från landning, bagage och körning.`,
         pill: "Buss",
       },
     ];
