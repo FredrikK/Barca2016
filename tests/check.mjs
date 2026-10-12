@@ -490,14 +490,10 @@ if (!PACK.weights || !PACK.weights.cabin.includes("8 kg") || !PACK.weights.cabin
 }
 const carryOn = PACK.groups[0];
 const checkedBag = PACK.groups[1];
-if (carryOn.title !== "På flyget" || carryOn.items.length !== 8 || !carryOn.items.includes("Telefon och laddare.") || !carryOn.items.includes("Fotbollsskorna i handbagaget. Gärna flera par om ni har.") || carryOn.items.some((item) => item.includes("handväska") || item.includes("benskydd"))) throw new Error("flight packing list drifted");
+if (carryOn.title !== "På flyget" || carryOn.items.length !== 7 || !carryOn.items.includes("Telefon och laddare.") || !carryOn.items.includes("Fotbollsskorna i handbagaget. Gärna flera par om ni har.") || carryOn.items.some((item) => item.includes("handväska") || item.includes("benskydd") || /powerbank/i.test(item))) throw new Error("flight packing list drifted");
 const frankfurtLunch = carryOn.items.find((item) => item.includes("macka från Arlanda"));
 if (!frankfurtLunch || !frankfurtLunch.includes("I Frankfurt kan ni också köpa lunch, om LH 801 är i tid.") || !frankfurtLunch.includes("flera restauranger i terminal 1") || !frankfurtLunch.includes("12:00–13:25") || !frankfurtLunch.includes("gaten för LH 1130")) {
   throw new Error("the Frankfurt lunch line drifted");
-}
-const powerbank = carryOn.items.find((item) => item.startsWith("Powerbank i handbagaget"));
-if (!powerbank || !powerbank.includes("två per person") || !powerbank.includes("100 Wh") || !powerbank.includes("160 Wh") || !powerbank.includes("hatthyllan") || !powerbank.includes("inte ombord") || !powerbank.includes("trasig")) {
-  throw new Error("the cabin power-bank rule drifted");
 }
 if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.text.includes("viktigaste") || !PACK.passport.text.includes("inte i den incheckade väskan")) {
   throw new Error("the passport is no longer called out");
@@ -505,17 +501,15 @@ if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.
 if (PACK.passport.text.includes("foto i telefonen") || PACK.passport.text.includes("inte när ni ska med planet")) {
   throw new Error("the phone-photo sentence is still on the packing page");
 }
-if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 15 || checkedBag.items.includes("Telefon och laddare.") || checkedBag.items.some((item) => item.includes("Fotbollsskor")) || !checkedBag.items.includes("Benskydd.") || !checkedBag.items.includes("Ingen powerbank. Den får inte ligga i den incheckade väskan.")) throw new Error("checked-bag list drifted");
+if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14 || checkedBag.items.includes("Telefon och laddare.") || checkedBag.items.some((item) => item.includes("Fotbollsskor") || /powerbank/i.test(item)) || !checkedBag.items.includes("Benskydd.")) throw new Error("checked-bag list drifted");
 const handbag = checkedBag.items.find((item) => item.includes("handväska"));
 if (!handbag || !handbag.includes("inte i ryggsäcken") || !handbag.includes("ficktjuvar")) throw new Error("the zip bag is no longer in the checked luggage");
 const packText = JSON.stringify(PACK);
 for (const phrase of ["Spånga-hoodien", "cup-t-shirten", "gympadojor", "handväska med blixtlås", "ficktjuvar", "Arlanda", "id-kort", "Matchställ", "Benskydd.", "vattenflaska", "Mellisbars", "middag på resan hem", "flygresa", "Märk kläderna"]) {
   if (!packText.includes(phrase)) throw new Error(`packing list lost ${phrase}`);
 }
-if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights") || !appSource.includes("PACK.powerbank") || !appSource.includes("Fotbollsskorna ska med i handbagaget") || !appSource.includes("Powerbanken ska med i handbagaget, inte i den incheckade väskan.")) throw new Error("packlista is missing from the guide");
-if (!PACK.powerbank || !PACK.powerbank.note.includes("11 oktober 2026") || !PACK.powerbank.note.includes("Lufthansa") || !PACK.powerbank.source.includes("electronic-devices-and-batteries")) {
-  throw new Error("the power-bank source drifted");
-}
+if (!appSource.includes('packlista: "Packlista"') || !appSource.includes('data-go="#packlista"') || !appSource.includes("PACK.passport") || !appSource.includes("PACK.weights") || !appSource.includes("Fotbollsskorna ska med i handbagaget") || !appSource.includes("Handväskan med blixtlås kan packas i väskan")) throw new Error("packlista is missing from the guide");
+if (/powerbank/i.test(packText) || /powerbank/i.test(appSource) || PACK.powerbank) throw new Error("the power-bank text is still on the packing list");
 if (fs.existsSync(new URL("../assets/packlista.pdf", import.meta.url)) || appSource.includes("packlista.pdf") || appSource.includes("Ladda ner packlistan")) {
   throw new Error("the packing-list pdf is still on the site");
 }
