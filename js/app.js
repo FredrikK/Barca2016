@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=hem";
+} from "./data.js?v=handduk";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -223,7 +223,7 @@ function viewTrip() {
       </div>
       <div class="grid-2">
         <div class="stat"><b>Futbol Salou</b><span>${esc(META.address)}</span></div>
-        <div class="stat"><b>Grupp om sex</b><span>Irland, Sverige, Katalonien</span></div>
+        <div class="stat"><b>Grupp om 6 lag</b><span>Irland, Sverige, Katalonien</span></div>
       </div>
 
       ${rulesSection()}

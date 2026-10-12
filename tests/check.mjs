@@ -358,12 +358,10 @@ if (JSON.stringify(AIRPORT_BUS).toLowerCase().includes("plana")) throw new Error
 if (HOTEL.name !== "Alannia Salou" || !HOTEL.address.includes("Pompeu Fabra 37")) throw new Error("hotel address drifted");
 if (!HOTEL.url.startsWith("https://alanniaresorts.com/")) throw new Error("hotel link drifted");
 if (HOTEL.photos.length !== 3) throw new Error("hotel photos drifted");
-const poolFact = HOTEL.facts.find((item) => item.includes("Poolerna är öppna"));
-if (!poolFact || !poolFact.includes("13 mars") || !poolFact.includes("klockslag")) throw new Error("pool season drifted");
-if (/\d{1,2}:\d{2}/.test(poolFact)) throw new Error("pool fact invented a daily clock time");
+if (HOTEL.facts.some((item) => item.includes("13 mars") || item.includes("1 meter"))) throw new Error("pool season or height rule is still on the hotel card");
 if (!HOTEL.facts.some((item) => item.includes("alla åldrar"))) throw new Error("pool access drifted");
 const ageLimit = HOTEL.facts.find((item) => item.includes("16 år"));
-if (!ageLimit || !ageLimit.includes("10:30")) throw new Error("spa age rule drifted");
+if (!ageLimit || ageLimit.includes("10:30") || ageLimit.includes("euro") || ageLimit.includes("08:00")) throw new Error("spa price or hours are still on the hotel card");
 for (const photo of HOTEL.photos) {
   if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
 }
@@ -449,11 +447,12 @@ const expectedTitles = [
   "Ta ansvar för laget",
 ].join("|");
 if (ruleTitles !== expectedTitles) throw new Error(`team rules drifted: ${ruleTitles}`);
-if (!RULES.lead.includes("rolig och trygg") || !RULES.consequences.some((item) => item.includes("hemresa")) || !RULES.motto.includes("på planen och utanför planen")) {
+if (!RULES.lead.includes("rolig och trygg") || RULES.consequences.length !== 3 || RULES.consequences.some((item) => item.includes("hemresa")) || !RULES.motto.includes("på planen och utanför planen")) {
   throw new Error("the rules intro, consequences or motto drifted");
 }
 if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "fri" ? `<div class="section-head"><h2>${esc(ARLANDA_CARS.title)}</h2></div>${carsCard()}') ) throw new Error("Friday cars are missing from the schedule");
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
+if (!appSource.includes("Grupp om 6 lag") || appSource.includes("Grupp om sex")) throw new Error("the group label drifted");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
 if (!appSource.includes('data-go="#rank">Tillbaka till motståndarna')) throw new Error("a team page no longer returns to the opponents page");
@@ -507,7 +506,7 @@ if (!PACK.passport || PACK.passport.title !== "Passet först" || !PACK.passport.
 if (PACK.passport.text.includes("foto i telefonen") || PACK.passport.text.includes("inte när ni ska med planet")) {
   throw new Error("the phone-photo sentence is still on the packing page");
 }
-if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 14 || checkedBag.items.includes("Telefon och laddare.") || checkedBag.items.some((item) => item.includes("Fotbollsskor") || /powerbank/i.test(item)) || !checkedBag.items.includes("Benskydd.")) throw new Error("checked-bag list drifted");
+if (checkedBag.title !== "I incheckad väska" || checkedBag.items.length !== 15 || checkedBag.items.includes("Telefon och laddare.") || checkedBag.items.some((item) => item.includes("Fotbollsskor") || /powerbank/i.test(item)) || !checkedBag.items.includes("Benskydd.") || !checkedBag.items.includes("Pool- eller strandhandduk.")) throw new Error("checked-bag list drifted");
 const handbag = checkedBag.items.find((item) => item.includes("handväska"));
 if (!handbag || !handbag.includes("inte i ryggsäcken") || !handbag.includes("ficktjuvar")) throw new Error("the zip bag is no longer in the checked luggage");
 const packText = JSON.stringify(PACK);

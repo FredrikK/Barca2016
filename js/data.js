@@ -98,6 +98,7 @@ export const PACK = {
         "Vardagskläder om ni vill: byxor, jeans eller shorts, en t-shirt och en tjocktröja till kvällarna.",
         "Sovkläder eller pyjamas.",
         "Badkläder, om ni vill bada i poolen.",
+        "Pool- eller strandhandduk.",
         "Regnjacka, Spånga om ni har. Kläder efter väder: solglasögon, keps, jacka och paraply.",
         "Tofflor.",
         "En liten handväska med blixtlås. Den kan packas i väskan, inte i ryggsäcken. Det är mycket ficktjuvar i Barcelona.",
@@ -922,9 +923,8 @@ export const HOTEL = {
   email: "reservas@alannia.com",
   map: "https://www.google.com/maps/search/?api=1&query=Alannia+Salou+Avinguda+de+Pompeu+Fabra+37+43840+Salou",
   facts: [
-    "Poolen är till för alla åldrar. Rutschkanan kräver minst 1 meter. Poolhandduk ingår inte.",
-    "Poolerna är öppna från 13 mars. Hotellet anger inget slutdatum och inga klockslag per dag.",
-    "Spa och gym är från 16 år. Spa kostar 10 euro per person och timme, 10:30–14:00 och 15:00–20:00. Gymmet är gratis 08:00–22:00.",
+    "Poolen är till för alla åldrar. Poolhandduk ingår inte.",
+    "Spa och gym är från 16 år.",
     "Miniclubben är till för de yngre barnen.",
     "Det finns en multisportplan för fotboll och basket.",
     "Bufférestaurangen Cós Blanc serverar frukost, lunch och middag.",
@@ -954,7 +954,7 @@ export const AREA = {
   hotel: [
     {
       name: "Poolen och rutschkanorna",
-      text: "Poolen är till för alla åldrar, så ni får bada. Det finns också en barnpool och en vattenpark i samma område, 1000 m². Rutschkanan kräver minst 1 meter. Hotellet skriver att poolerna är öppna från 13 mars och anger inga klockslag. Kolla anslaget den dagen. Poolhandduk ingår inte. Solsängar går inte att reservera.",
+      text: "Poolen är till för alla åldrar, så ni får bada. Det finns också en barnpool och en vattenpark i samma område, 1000 m². Poolhandduk ingår inte. Solsängar går inte att reservera.",
     },
     {
       name: "Hotellets program",
@@ -1406,7 +1406,6 @@ export const RULES = {
     "Samtal med ledare.",
     "Kontakt med vårdnadshavare vid allvarligare eller upprepade överträdelser.",
     "Begränsad fritid eller särskilda regler för den som inte följer överenskommelserna.",
-    "Vid mycket allvarliga händelser kan vårdnadshavare behöva ordna hemresa.",
   ],
   mottoLabel: "Lagets motto för resan",
   motto: "Vi tar hand om oss själva, varandra och vårt lag. Vi gör vårt bästa på planen och utanför planen.",
