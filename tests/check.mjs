@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYOFFS, RIDES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYOFFS, RIDES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -202,13 +202,14 @@ function expectMeal(day, name, start, end) {
   }
 }
 expectMeal("fri", "Middag", "19:00", "21:30");
-expectMeal("sat", "Frukost", "07:00", "10:00");
-expectMeal("sat", "Lunch", "13:00", "14:30");
-expectMeal("sat", "Middag", "19:00", "21:30");
-expectMeal("sun", "Frukost", "07:00", "10:00");
-expectMeal("sun", "Lunch", "13:00", "14:30");
-expectMeal("sun", "Middag", "19:00", "21:30");
-expectMeal("mon", "Frukost", "07:00", "10:00");
+expectMeal("sat", "Frukost", "07:00", "");
+expectMeal("sat", "Lunch", "15:00", "");
+expectMeal("sat", "Middag", "19:30", "");
+expectMeal("sun", "Frukost", "07:00", "");
+expectMeal("sun", "Lunch", "15:00", "");
+expectMeal("sun", "Middag", "19:30", "");
+expectMeal("mon", "Frukost", "09:00", "");
+expectMeal("mon", "Lunch", "13:00", "");
 function expectUsable(day, name, start, end) {
   const meal = MEALS.find((item) => item.day === day && item.name === name);
   const windows = usableMeal(meal);
@@ -220,18 +221,19 @@ function expectUsable(day, name, start, end) {
   }
 }
 expectUsable("fri", "Middag", "19:00", "21:30");
-expectUsable("sat", "Frukost", "07:00", "08:20");
-expectUsable("sat", "Middag", "19:00", "21:30");
-expectUsable("sun", "Frukost", "07:00", "07:30");
-expectUsable("sun", "Middag", "19:00", "21:30");
-expectUsable("mon", "Frukost", "07:00", "10:00");
+expectUsable("sat", "Frukost", "07:00", "");
+expectUsable("sat", "Lunch", "15:00", "");
+expectUsable("sat", "Middag", "19:30", "");
+expectUsable("sun", "Frukost", "07:00", "");
+expectUsable("sun", "Lunch", "15:00", "");
+expectUsable("sun", "Middag", "19:30", "");
+expectUsable("mon", "Frukost", "09:00", "");
+expectUsable("mon", "Lunch", "13:00", "");
 const satLunch = usableMeal(MEALS.find((meal) => meal.id === "sat-lunch"))[0];
 const sunLunch = usableMeal(MEALS.find((meal) => meal.id === "sun-lunch"))[0];
-if (!satLunch.missed || !sunLunch.missed || satLunch.start !== "13:00" || sunLunch.start !== "13:00" || satLunch.end !== "14:30" || sunLunch.end !== "14:30") {
-  throw new Error("hotel lunch should be missed once bus 6 leaves the pitches");
-}
-if (!satLunch.note.includes("14:20") || !sunLunch.note.includes("14:45") || !satLunch.note.includes("13:00") || !sunLunch.note.includes("13:00")) {
-  throw new Error("missed lunch hid the bus or the buffet hours");
+if (satLunch.missed || sunLunch.missed) throw new Error("programme lunch at 15:00 was marked missed");
+if (!satLunch.note.includes("14:20") || !sunLunch.note.includes("14:45")) {
+  throw new Error("lunch hid the bus home");
 }
 const satAway = awayBlocks("sat");
 const sunAway = awayBlocks("sun");
@@ -277,14 +279,18 @@ const satBreakfast = usableMeal(MEALS.find((meal) => meal.id === "sat-breakfast"
 if (!satBreakfast.note.includes("08:35") || !sunPrep.note.toLowerCase().includes("byt")) {
   throw new Error("breakfast no longer names the bus or the packing time");
 }
-if (MEALS.length !== 8) throw new Error("expected 8 meals");
+if (MEALS.length !== 9) throw new Error("expected 9 meals");
 if (MEALS.some((meal) => meal.day === "fri" && meal.name !== "Middag")) throw new Error("Friday should list dinner only");
 if (AGE_CHECK.day !== "fri" || AGE_CHECK.start !== "11:00" || AGE_CHECK.end !== "18:00") throw new Error("Friday age check drifted");
 if (AGE_CHECK.place !== "Futbol Salou") throw new Error("age check place drifted");
 if (!AGE_CHECK.note.includes("foto") || !AGE_CHECK.note.includes("lördag") || !AGE_CHECK.note.includes("15:30")) {
   throw new Error("age check note drifted");
 }
-if (MEALS.some((meal) => meal.day === "mon" && meal.name !== "Frukost")) throw new Error("Monday should list breakfast only");
+const monMeals = MEALS.filter((meal) => meal.day === "mon").map((meal) => meal.name).join(",");
+if (monMeals !== "Frukost,Lunch") throw new Error(`Monday meals drifted: ${monMeals}`);
+if (CEREMONY.day !== "sun" || CEREMONY.time !== "14:00" || CEREMONY.place !== "Futbol Salou" || !CEREMONY.note.includes("Flickor 2010") || !CEREMONY.note.includes("medalj")) {
+  throw new Error("trophy presentation drifted");
+}
 
 const friTravel = travelStops("fri");
 const monTravel = travelStops("mon");
@@ -522,6 +528,13 @@ if (!appSource.includes("Ni står först på programmet") || !appSource.includes
 }
 if (!appSource.includes("pitchBus") || !appSource.includes("Buss 6 går") || appSource.includes("inte tryckt klockslag för shutteln") || appSource.includes("inget linjenummer")) {
   throw new Error("the official pitch buses are missing from the schedule");
+}
+if (!appSource.includes("CEREMONY") || !appSource.includes("Prisutdelningen är 14:00") || appSource.includes("13:00–14:30") || appSource.includes("bara frukost") || appSource.includes("07:00–10:00")) {
+  throw new Error("the schedule still uses the old meal windows");
+}
+const stayText = JSON.stringify(STAY);
+if (!stayText.includes("19:30") || !stayText.includes("frukost 09:00") || stayText.includes("13:00–14:30") || stayText.includes("07:00–10:00")) {
+  throw new Error("stay still uses the old meal windows");
 }
 if (!appSource.includes("AIRPORT_BUS.arrival.bus") || !appSource.includes("AIRPORT_BUS.departure.bus") || !appSource.includes("AIRPORT_BUS.arrival.pax")) {
   throw new Error("the airport buses lost their codes");
