@@ -180,7 +180,7 @@ export const WEATHER = {
         { time: "13:00", hour: "13:00", temp: 21, summary: "Mulet", rain: 18, mm: 0, wind: 7 },
       ],
     },
-    mon: { summary: "Klart", high: 22, low: 18, rain: 27, wind: 16, advice: "Vid bussen, cirka 15:00, är det klart, omkring 21° och uppehåll. Tätt duggregn först på kvällen, omkring 21:00." },
+    mon: { summary: "Klart", high: 22, low: 18, rain: 27, wind: 16, advice: "Vid bussen, 15:00, är det klart, omkring 21° och uppehåll. Tätt duggregn först på kvällen, omkring 21:00." },
   },
 };
 
@@ -896,9 +896,9 @@ export const FLIGHT_CHECK = {
   ],
 };
 
-// The organiser's shuttle. No coach company or route number is printed.
-// The cup says the home bus is planned from the flight times and leaves the hotel about 4 hours before departure.
-// hotelLeave is that rule on LH 1135 (19:00), so the card says 15:00. The cup writes "ca", so the page says cirka.
+// Official airport buses from the tournament list. A36 and D20 are the bus codes, not a coach company.
+// Friday has no separate departure clock: the bus leaves after LH 1130 lands at 15:30 and the group has gathered.
+// Monday 15:00 is the printed hotel departure. The hotel and airport windows below are still ride estimates.
 export const AIRPORT_BUS = {
   company: "",
   routeNumber: "",
@@ -907,7 +907,9 @@ export const AIRPORT_BUS = {
     flight: "LH 1130",
     airport: "Barcelona El Prat",
     land: "15:30",
-    meet: "Hämta bagaget, gå ut till ankomsthallen och samla hela gruppen. Cupens representant möter gruppen där och tar er till bussen.",
+    bus: "Buss A36",
+    pax: 23,
+    meet: "Hämta bagaget, gå ut till ankomsthallen och samla hela gruppen. Cupens personal möter gruppen där.",
   },
   departure: {
     date: "Mån 19 okt",
@@ -916,6 +918,8 @@ export const AIRPORT_BUS = {
     flightTime: "19:00",
     hotelLeave: "15:00",
     checkout: "11:00",
+    bus: "Buss D20",
+    pax: 23,
     rule: "planerad utifrån flygtiderna och avgår från boendet cirka 4 timmar innan flyget går",
   },
   minOnFlight: 20,
@@ -991,7 +995,7 @@ export const AREA = {
     {
       name: "Måndag före bussen",
       time: "11:30",
-      text: "Utcheckning senast 11:00. Bussen hem går cirka 15:00, ungefär 4 timmar före flyget. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
+      text: "Utcheckning senast 11:00. Buss D20 går 15:00 till flygplatsen. Pingpong på scenen är 11:30–12:30. Alannia Game vid poolen är 12:30–13:00. Där tävlar barn och vuxna var för sig. Kvällens minidisco är efter att bussen har gått.",
     },
     {
       name: "Multisportplanen",
@@ -1048,7 +1052,7 @@ export const AREA = {
   ],
   farther: "Fyren, Cala Crancs och hamnen är längre än 20 minuter till fots. PortAventura är flera kilometer bort. Hotellets tid dit är inte en promenad.",
   limits: "Spa och gym kräver 16 år. Alkohol är från 18, också i poolbaren.",
-  free: "Ledig tid: fredag efter att ni kommit till hotellet. Lördag går buss 6 från planerna 14:20, söndag 14:45. Måndag checkar ni ut senast 11:00 och bussen hem går cirka 15:00.",
+  free: "Ledig tid: fredag efter att ni kommit till hotellet. Lördag går buss 6 från planerna 14:20, söndag 14:45. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00.",
   sources: [
     { label: "Underhållning", url: "https://alanniaresorts.com/en/resorts/alannia-salou/entertainment" },
     { label: "Alla evenemang", url: "https://as.alanniaresorts.com/all-events/" },
@@ -1337,9 +1341,9 @@ export function travelStops(day) {
         sort: AIRPORT_BUS.arrival.land,
         start: AIRPORT_BUS.arrival.land,
         end: "",
-        name: "Flygbuss",
-        place: "Ankomsthallen, Barcelona",
-        note: `${AIRPORT_BUS.arrival.meet} Bussen går till ålderskontrollen på Futbol Salou och sedan till hotellet, ungefär ${AIRPORT_BUS.arrival.hotelFrom}–${AIRPORT_BUS.arrival.hotelTo}. Inget bussbolag och inget linjenummer är publicerat.`,
+        name: AIRPORT_BUS.arrival.bus,
+        place: "Barcelona El Prat → Alannia Salou",
+        note: `${AIRPORT_BUS.arrival.meet} Turneringsbuss till hotellet, ${AIRPORT_BUS.arrival.pax} personer. Hotellet ungefär ${AIRPORT_BUS.arrival.hotelFrom}–${AIRPORT_BUS.arrival.hotelTo}, räknat från landning, bagage och körning.`,
         pill: "Buss",
       },
     ];
@@ -1352,9 +1356,9 @@ export function travelStops(day) {
         sort: AIRPORT_BUS.departure.hotelLeave,
         start: AIRPORT_BUS.departure.hotelLeave,
         end: "",
-        name: "Flygbuss",
+        name: AIRPORT_BUS.departure.bus,
         place: `${HOTEL.name} → Barcelona El Prat`,
-        note: `Hemresans buss är ${AIRPORT_BUS.departure.rule}. LH 1135 går ${AIRPORT_BUS.departure.flightTime}, så det blir cirka ${AIRPORT_BUS.departure.hotelLeave}. Flygplatsen ungefär ${AIRPORT_BUS.departure.airportFrom}–${AIRPORT_BUS.departure.airportTo}. Checka ut senast ${AIRPORT_BUS.departure.checkout}. Inget bussbolag är publicerat.`,
+        note: `${AIRPORT_BUS.departure.bus}, ${AIRPORT_BUS.departure.pax} personer, från hotellet ${AIRPORT_BUS.departure.hotelLeave}. ${AIRPORT_BUS.departure.flight} går ${AIRPORT_BUS.departure.flightTime}. Flygplatsen ungefär ${AIRPORT_BUS.departure.airportFrom}–${AIRPORT_BUS.departure.airportTo}. Checka ut senast ${AIRPORT_BUS.departure.checkout}.`,
         pill: "Buss",
       },
       ...flights,
