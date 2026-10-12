@@ -199,7 +199,7 @@ export const TEAMS = [
     country: "Sverige",
     flag: "se",
     place: "Järna, Södermanland",
-    colors: ["#1f6b45", "#f4efe6"],
+    colors: ["#c8102e", "#8e1220"],
     logo: "assets/crests/jarna.png",
     rank: 1,
     components: jarnaComponents,
@@ -210,7 +210,7 @@ export const TEAMS = [
     verified:
       "Klubben på grupplistan är Järna SK från Järna. Samma flickgrupp spelade den här cupen i oktober 2024 (anmälda som G10) och Gothia Cup Girls 15 i juli 2025.",
     identity:
-      "Järna SK:s äldsta flicklag. I februari 2025 beskrev Länstidningen Södertälje truppen som mest födda 2010–2011, med två spelare födda 2009, en född 2012 och en född 2013. Den mixen ryms i cupregeln som tillåter fyra spelare ett år äldre.",
+      "Järna SK:s äldsta flicklag. Matchtröjan är röd. I februari 2025 beskrev Länstidningen Södertälje truppen som mest födda 2010–2011, med två spelare födda 2009, en född 2012 och en född 2013. Den mixen ryms i cupregeln som tillåter fyra spelare ett år äldre.",
     league:
       "Läst 6 oktober 2026. 4:a av 9 i båda, serierna inte färdigspelade. Södermanland: 7 matcher, 3 vinster, 2 oavgjorda, 2 förluster, 11 poäng, 16–10. Värmland grupp B: 6 matcher, 3 vinster, 0 oavgjorda, 3 förluster, 9 poäng, 10–21.",
     style: {
@@ -802,9 +802,9 @@ export const MATCHES = [
     kitSource: { label: "Castle Villa AFC", url: "https://en.wikipedia.org/wiki/Castle_Villa_A.F.C." },
   },
   {
-    id: "m7", day: "sat", date: "Lör 17 okt", time: "13:10", field: "1", home: "jarna", away: "spanga", mine: true, kit: "away",
-    kitLine: "Deras matchtröja är inte publicerad. Rött fungerar om de inte är röda.",
-    kitNote: "Järnas matchtröja är inte publicerad. Rött bortaställ fungerar om de inte spelar i rött. Om de är röda tar ni det blåvita.",
+    id: "m7", day: "sat", date: "Lör 17 okt", time: "13:10", field: "1", home: "jarna", away: "spanga", mine: true, kit: "home",
+    kitLine: "Järna är röda. Det röda krockar, så ni tar det blåvita.",
+    kitNote: "Järna SK är röda. Det röda bortastället krockar med dem. Ni står tvåa på programmet och tar det blåvita hemmastället.",
   },
   { id: "m8", day: "sat", date: "Lör 17 okt", time: "13:10", field: "5", home: "castlevilla", away: "kilcullen" },
   { id: "m9", day: "sat", date: "Lör 17 okt", time: "13:10", field: "10", home: "stpatricks", away: "gava" },

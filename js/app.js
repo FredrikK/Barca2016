@@ -33,7 +33,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=stall";
+} from "./data.js?v=roda";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -953,6 +953,13 @@ function viewSnacks() {
     </section>`;
 }
 
+function kitOrderLine(match, home) {
+  if (!match.mine) return "står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta.";
+  if (home.yours) return "Ni står först på programmet, så det blåvita hemmastället.";
+  if (match.kit === "home") return "Ni står tvåa på programmet. Det röda krockar, så ni tar det blåvita.";
+  return "Ni står tvåa på programmet, så det röda bortastället.";
+}
+
 function viewMatch(id) {
   const match = MATCHES.find((item) => item.id === id);
   if (!match) return `<section class="view"><p>Matchen finns inte.</p></section>`;
@@ -971,11 +978,7 @@ function viewMatch(id) {
       <p class="tiny" style="margin-top:8px">${esc(VENUE.studs)}</p>
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
-        <div class="tiny" style="text-align:center">${yours
-          ? (home.yours
-            ? "Ni står först på programmet, så det blåvita hemmastället."
-            : "Ni står tvåa på programmet, så det röda bortastället.")
-          : "står först på det officiella kortet, sedan tvåa. Sidan markerar inte hemma och borta."}</div>
+        <div class="tiny" style="text-align:center">${kitOrderLine(match, home)}</div>
         ${sideCard(away)}
       </div>
       ${match.kit ? `
