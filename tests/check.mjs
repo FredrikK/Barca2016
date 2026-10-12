@@ -367,6 +367,9 @@ if (!ageLimit || !ageLimit.includes("10:30")) throw new Error("spa age rule drif
 for (const photo of HOTEL.photos) {
   if (!fs.existsSync(photo.src)) throw new Error(`hotel photo missing: ${photo.src}`);
 }
+if (HOTEL.photos.some((photo) => photo.src.includes("buffet"))) throw new Error("restaurant photo is still on the hotel card");
+const pitchPhoto = HOTEL.photos.find((photo) => photo.src.endsWith("plan.jpg"));
+if (!pitchPhoto || pitchPhoto.caption !== "Fotbollsplanen") throw new Error("hotel pitch photo missing");
 if (AIRPORT_BUS.arrival.hotelFrom !== "17:40" || AIRPORT_BUS.arrival.hotelTo !== "18:10") throw new Error("Friday hotel window drifted");
 if (AIRPORT_BUS.departure.airportFrom !== "16:10" || AIRPORT_BUS.departure.airportTo !== "16:40") throw new Error("Monday airport window drifted");
 const first = pitchPlan("09:50");

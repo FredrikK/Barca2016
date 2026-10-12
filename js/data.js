@@ -938,7 +938,7 @@ export const HOTEL = {
   ],
   photos: [
     { src: "assets/hotel/pool.jpg", alt: "Pool och gröna rutschkanor framför det vita hotellet", caption: "Pool och rutschkanor" },
-    { src: "assets/hotel/buffet.jpg", alt: "Buffédisk i hotellets restaurang", caption: "Buffén" },
+    { src: "assets/hotel/plan.jpg", alt: "Hotellets konstgräsplan för fotboll, med basketkorg", caption: "Fotbollsplanen" },
     { src: "assets/hotel/room.jpg", alt: "Hotellrum med två sängar och balkong mot palmerna", caption: "Ett rum" },
   ],
   photoCredit: "Bilderna kommer från hotellets officiella sida.",
