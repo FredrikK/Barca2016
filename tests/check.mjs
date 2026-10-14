@@ -381,10 +381,10 @@ if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || 
 }
 
 const forecast = {
-  fri: [25, 16, 22, 9, "Klart"],
-  sat: [24, 18, 30, 19, "Mulet"],
-  sun: [22, 16, 29, 19, "Mulet"],
-  mon: [22, 18, 27, 16, "Klart"],
+  fri: [25, 16, 0, 11, "Klart"],
+  sat: [26, 16, 71, 11, "Mestadels klart"],
+  sun: [19, 14, 75, 16, "Mulet"],
+  mon: [17, 12, 62, 16, "Mulet"],
 };
 for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) {
   const weather = WEATHER.days[day];
@@ -392,18 +392,18 @@ for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) 
     throw new Error(`weather ${day} drifted: ${JSON.stringify(weather)}`);
   }
 }
-if (WEATHER.fetched !== "12 oktober 2026" || !WEATHER.note.includes("21:00") || /\bmm\b/.test(WEATHER.note)) {
+if (WEATHER.fetched !== "14 oktober 2026" || !WEATHER.note.includes("23:00") || !WEATHER.note.includes("18:00") || !WEATHER.note.includes("13:00") || /\bmm\b/.test(WEATHER.note) || WEATHER.note.includes("%")) {
   throw new Error("weather source note drifted");
 }
 const satGames = WEATHER.days.sat.games;
 const sunGames = WEATHER.days.sun.games;
 if (satGames.map((game) => game.time).join() !== "09:50,11:30,13:10") throw new Error("Saturday game weather drifted");
 if (sunGames.map((game) => game.time).join() !== "09:00,11:00,13:00") throw new Error("Sunday game weather drifted");
-if (satGames.some((game) => game.mm !== 0) || sunGames.some((game) => game.mm !== 0)) throw new Error("a game hour invented rain");
-if (satGames[0].hour !== "10:00" || satGames[0].temp !== 21 || satGames[0].summary !== "Mulet" || sunGames[0].temp !== 16 || sunGames[0].wind !== 14 || sunGames[2].wind !== 7 || sunGames[2].temp !== 21) {
+if (satGames.some((game) => game.mm !== 0) || sunGames[0].mm !== 0 || sunGames[1].mm !== 0 || sunGames[2].mm !== 1.4) throw new Error("a game hour invented rain");
+if (satGames[0].hour !== "10:00" || satGames[0].temp !== 21 || satGames[0].summary !== "Mestadels klart" || sunGames[0].temp !== 16 || sunGames[0].wind !== 12 || sunGames[2].wind !== 7 || sunGames[2].temp !== 14 || sunGames[2].summary !== "Regn") {
   throw new Error("kickoff forecast drifted");
 }
-if (!WEATHER.days.fri.advice.includes("uppehåll") || !WEATHER.days.fri.advice.includes("Dimma") || !WEATHER.days.mon.advice.includes("uppehåll") || !WEATHER.days.mon.advice.includes("Tätt duggregn") || WEATHER.days.mon.advice.includes("lätt duggregn")) {
+if (!WEATHER.days.fri.advice.includes("uppehåll") || !WEATHER.days.fri.advice.includes("Dimma") || !WEATHER.days.fri.advice.includes("23:00") || !WEATHER.days.mon.advice.includes("uppehåll") || !WEATHER.days.mon.advice.includes("15:00") || !WEATHER.days.mon.advice.includes("förmiddagen") || WEATHER.days.mon.advice.includes("duggregn") || WEATHER.days.mon.advice.includes("%") || WEATHER.days.sat.advice.includes("%") || WEATHER.days.sun.advice.includes("%")) {
   throw new Error("arrival or departure weather drifted");
 }
 if (WEATHER.days.fri.games || WEATHER.days.mon.games) throw new Error("a rest day invented game weather");
