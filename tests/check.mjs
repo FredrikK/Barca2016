@@ -140,6 +140,9 @@ if (spangaText.includes("Vendela") || spangaText.includes("Michelle Rojas") || s
 if (!teamById("castlevilla").players.some((player) => player.name === "Abbie L." && player.number === "11")) {
   throw new Error("Castle Villa roster missing Landon");
 }
+if (teamById("castlevilla").logo !== "assets/crests/castlevilla.png") {
+  throw new Error("Castle Villa logo should be the club crest");
+}
 if (!teamById("gava").staff.includes("Ania Torres Torres")) throw new Error("Gavà coach missing");
 if (!teamById("gava").players.some((player) => player.name === "Noa M. S.")) {
   throw new Error("Gavà roster spelling");
