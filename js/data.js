@@ -612,7 +612,7 @@ export const TEAMS = [
     flag: "ie",
     place: "Castledermot, grevskapet Kildare",
     colors: ["#1d4e89", "#f4efe6"],
-    logo: "assets/crests/castlevilla.svg",
+    logo: "assets/crests/castlevilla.png",
     rank: 5,
     components: villaComponents,
     index: indexOf(villaComponents),
