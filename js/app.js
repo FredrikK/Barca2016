@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vader14";
+} from "./data.js?v=iglag";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -856,6 +856,7 @@ function viewTeam(id) {
           <h1>${esc(team.name)}</h1>
           <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
           <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
+          ${team.instagram ? `<p class="team-ig"><a href="${esc(team.instagram.url)}" target="_blank" rel="noopener">Instagram ${esc(team.instagram.handle)}</a></p>` : ""}
         </div>
       </div>
       <div class="section" style="margin-top:14px">

@@ -77,6 +77,8 @@ a { color: var(--green); }
   gap: 12px;
 }
 .team-head h1 { font-size: 30px; }
+.team-ig { margin-top: 8px; font-size: 15px; font-weight: 700; }
+.team-ig a { text-decoration: none; }
 .eyebrow {
   margin: 0 0 2px;
   font-size: 12px;
