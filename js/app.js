@@ -36,7 +36,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=iglag";
+} from "./data.js?v=social";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -842,6 +842,26 @@ function componentRows(team) {
   return `<div class="components">${rows.map(([label, value, weight]) => `<span>${esc(label)} <span class="tiny">${weight}</span></span><span>${value}</span>`).join("")}</div>`;
 }
 
+function instagramIcon() {
+  return `<svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="ig" x1="4" y1="30" x2="30" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#feda75"/><stop offset=".25" stop-color="#fa7e1e"/><stop offset=".5" stop-color="#d62976"/><stop offset=".75" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#ig)"/><rect x="8" y="8" width="16" height="16" rx="5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16" cy="16" r="3.6" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="21.4" cy="10.6" r="1.1" fill="#fff"/></svg>`;
+}
+
+function facebookIcon() {
+  return `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0866FF"/><path fill="#fff" d="M17.7 25v-7.1h2.4l.4-2.8h-2.8V13.4c0-.8.2-1.4 1.4-1.4h1.5v-2.5c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.1H12.4v2.8h2.6V25h2.7z"/></svg>`;
+}
+
+function socialLink(kind, url, label) {
+  const icon = kind === "instagram" ? instagramIcon() : facebookIcon();
+  return `<a class="social-link ${kind}" href="${esc(url)}" target="_blank" rel="noopener" aria-label="${esc(label)}">${icon}</a>`;
+}
+
+function teamSocial(team) {
+  const links = [];
+  if (team.instagram) links.push(socialLink("instagram", team.instagram.url, `Instagram ${team.instagram.handle}`));
+  if (team.facebook) links.push(socialLink("facebook", team.facebook.url, "Facebook"));
+  return links.length ? `<p class="team-social">${links.join("")}</p>` : "";
+}
+
 function viewTeam(id) {
   const team = teamById(id);
   if (!team) return `<section class="view"><p>Laget finns inte.</p></section>`;
@@ -856,7 +876,7 @@ function viewTeam(id) {
           <h1>${esc(team.name)}</h1>
           <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
           <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
-          ${team.instagram ? `<p class="team-ig"><a href="${esc(team.instagram.url)}" target="_blank" rel="noopener">Instagram ${esc(team.instagram.handle)}</a></p>` : ""}
+          ${teamSocial(team)}
         </div>
       </div>
       <div class="section" style="margin-top:14px">
