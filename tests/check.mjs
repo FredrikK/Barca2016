@@ -426,7 +426,22 @@ const snackText = JSON.stringify(SNACK_PAGE).toLowerCase();
 if (!snackText.includes("banan") || !snackText.includes("vatten") || !snackText.includes("energidryck")) {
   throw new Error("snack page lost the food guidance");
 }
+const instagramAccounts = {
+  jarna: ["@jskfungdom", "https://www.instagram.com/jskfungdom/"],
+  gava: ["@efgava", "https://www.instagram.com/efgava/"],
+  kilcullen: ["@kilcullenafc", "https://www.instagram.com/kilcullenafc/"],
+  spanga: ["@spanga_f2011u_gul", "https://www.instagram.com/spanga_f2011u_gul"],
+  castlevilla: ["@castle_villa_afc", "https://www.instagram.com/castle_villa_afc/"],
+};
+for (const [id, [handle, url]] of Object.entries(instagramAccounts)) {
+  const account = teamById(id).instagram;
+  if (!account || account.handle !== handle || account.url !== url) throw new Error(`${id} instagram missing`);
+}
+if (teamById("stpatricks").instagram) throw new Error("St Patricks has no published Instagram");
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
+if (!appSource.includes("team.instagram") || !appSource.includes("Instagram ${esc(team.instagram.handle)}")) {
+  throw new Error("team pages do not show Instagram");
+}
 if (!appSource.includes("<h2>Er nästa match</h2>") || appSource.includes("Nästa på ert kort") || appSource.includes("ditt kort")) {
   throw new Error("the next-match heading drifted");
 }
