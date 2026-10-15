@@ -77,8 +77,9 @@ a { color: var(--green); }
   gap: 12px;
 }
 .team-head h1 { font-size: 30px; }
-.team-ig { margin-top: 8px; font-size: 15px; font-weight: 700; }
-.team-ig a { text-decoration: none; }
+.team-social { display: flex; gap: 8px; margin-top: 10px; }
+.social-link { display: block; width: 32px; height: 32px; line-height: 0; }
+.social-link svg { display: block; width: 32px; height: 32px; }
 .eyebrow {
   margin: 0 0 2px;
   font-size: 12px;

@@ -438,9 +438,24 @@ for (const [id, [handle, url]] of Object.entries(instagramAccounts)) {
   if (!account || account.handle !== handle || account.url !== url) throw new Error(`${id} instagram missing`);
 }
 if (teamById("stpatricks").instagram) throw new Error("St Patricks has no published Instagram");
+const facebookAccounts = {
+  jarna: "https://www.facebook.com/jarnask/",
+  gava: "https://www.facebook.com/efgava/",
+  kilcullen: "https://www.facebook.com/131886103548159",
+  castlevilla: "https://www.facebook.com/CastleVilla.AFC/",
+};
+for (const [id, url] of Object.entries(facebookAccounts)) {
+  const account = teamById(id).facebook;
+  if (!account || account.url !== url) throw new Error(`${id} facebook missing`);
+}
+if (teamById("spanga").facebook) throw new Error("Spånga has no published Facebook");
+if (teamById("stpatricks").facebook) throw new Error("St Patricks has no published Facebook");
 const appSource = fs.readFileSync(new URL("../js/app.js", import.meta.url), "utf8");
-if (!appSource.includes("team.instagram") || !appSource.includes("Instagram ${esc(team.instagram.handle)}")) {
-  throw new Error("team pages do not show Instagram");
+if (!appSource.includes("instagramIcon") || !appSource.includes("facebookIcon") || !appSource.includes("teamSocial(team)")) {
+  throw new Error("team pages do not show social logos");
+}
+if (appSource.includes(">Instagram ${esc(team.instagram.handle)}<")) {
+  throw new Error("the Instagram word is still the link text");
 }
 if (!appSource.includes("<h2>Er nästa match</h2>") || appSource.includes("Nästa på ert kort") || appSource.includes("ditt kort")) {
   throw new Error("the next-match heading drifted");
