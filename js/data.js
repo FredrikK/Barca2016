@@ -818,6 +818,16 @@ export const PLAYOFFS = [
   { id: "p3", day: "sun", date: "Sön 18 okt", time: "13:00", field: "1", label: "Match om plats 5", pairing: "5:e mot 6:e" },
 ];
 
+// Saturday player meeting at the hotel, after breakfast and before the 08:20 change.
+export const PLAYER_MEET = {
+  day: "sat",
+  date: "Lör 17 okt",
+  start: "07:40",
+  end: "08:00",
+  name: "Spelarmöte",
+  place: "Alannia Salou",
+};
+
 // Sunday 14:00, still at the pitches, before bus 6 leaves at 14:45.
 export const CEREMONY = {
   day: "sun",

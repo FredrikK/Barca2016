@@ -16,6 +16,7 @@ import {
   META,
   METHOD,
   PACK,
+  PLAYER_MEET,
   PLAYOFFS,
   RULES,
   SNACK_PAGE,
@@ -36,7 +37,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=vader16";
+} from "./data.js?v=mote";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -568,6 +569,21 @@ function playoffCard(game) {
     </article>`;
 }
 
+function meetCard(item) {
+  return `
+    <div class="match prep">
+      <div>
+        <time>${esc(item.start)}</time>
+        <div class="field">till ${esc(item.end)}</div>
+      </div>
+      <div>
+        <div class="teams-mini">${esc(item.name)}</div>
+        <div class="field">${esc(item.place)}</div>
+      </div>
+      <span class="pill ink">Möte</span>
+    </div>`;
+}
+
 function ceremonyCard(item) {
   return `
     <div class="match">
@@ -622,6 +638,7 @@ function viewSchedule() {
   const snacks = snackStops(state.day);
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
   const ceremony = state.day === "sun" ? [CEREMONY] : [];
+  const meetings = PLAYER_MEET.day === state.day ? [PLAYER_MEET] : [];
   const checks = AGE_CHECK.day === state.day ? [AGE_CHECK] : [];
   const travel = travelStops(state.day);
   const checkout = state.day === "mon" ? [{
@@ -634,13 +651,14 @@ function viewSchedule() {
     pill: "Hotell",
   }] : [];
   const buses = pitchBus(state.day);
-  const kindRank = { travel: 0, check: 1, meal: 2, prep: 3, bus: 4, match: 5, snack: 6, playoff: 7, ceremony: 8 };
+  const kindRank = { travel: 0, check: 1, meal: 2, meet: 3, prep: 4, bus: 5, match: 6, snack: 7, playoff: 8, ceremony: 9 };
   const items = [
     ...buses.map((bus) => ({ sort: bus.time, kind: "bus", bus })),
     ...travel.map((item) => ({ sort: item.sort, kind: "travel", item })),
     ...checkout.map((item) => ({ sort: item.sort, kind: "travel", item })),
     ...checks.map((check) => ({ sort: check.sort || check.start, kind: "check", check })),
     ...meals.map((meal) => ({ sort: meal.start, kind: "meal", meal })),
+    ...meetings.map((item) => ({ sort: item.start, kind: "meet", item })),
     ...(prep ? [{ sort: prep.start, kind: "prep", prep }] : []),
     ...games.map((match) => ({ sort: match.time, kind: "match", match })),
     ...snacks.map((snack) => ({ sort: snack.start, kind: "snack", snack })),
@@ -679,6 +697,7 @@ function viewSchedule() {
           if (item.kind === "travel") return travelCard(item.item);
           if (item.kind === "check") return checkCard(item.check);
           if (item.kind === "meal") return mealCard(item.meal);
+          if (item.kind === "meet") return meetCard(item.item);
           if (item.kind === "prep") return prepCard(item.prep);
           if (item.kind === "snack") return snackCard(item.snack);
           if (item.kind === "match") return matchButton(item.match);
@@ -688,7 +707,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Måltider från lagets program. Lördag och söndag är frukost 07:00, lunch 15:00 och middag 19:30. Måndag är frukost 09:00 och lunch 13:00. Fredag är middag 19:00–21:30. Programmet anger inget slut på lördag, söndag och måndag. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Söndag 14:00 är prisutdelning för alla lag i Flickor 2010. Alla spelare och tränare får medalj. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00. Femton minuter före morgonbussen byter ni om och samlar ihop saker. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
+        <p class="tiny">Måltider från lagets program. Lördag och söndag är frukost 07:00, lunch 15:00 och middag 19:30. Måndag är frukost 09:00 och lunch 13:00. Fredag är middag 19:00–21:30. Programmet anger inget slut på lördag, söndag och måndag. Lördag 07:40–08:00 är spelarmöte på hotellet. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Söndag 14:00 är prisutdelning för alla lag i Flickor 2010. Alla spelare och tränare får medalj. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00. Femton minuter före morgonbussen byter ni om och samlar ihop saker. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
     </section>`;
 }
