@@ -384,10 +384,10 @@ if (canReturnBetween("09:50", "11:30") || canReturnBetween("11:30", "13:10") || 
 }
 
 const forecast = {
-  fri: [25, 16, 0, 11, "Klart"],
-  sat: [26, 16, 71, 11, "Mestadels klart"],
-  sun: [19, 14, 75, 16, "Mulet"],
-  mon: [17, 12, 62, 16, "Mulet"],
+  fri: [24, 17, 0, 10, "Växlande molnighet"],
+  sat: [26, 16, 75, 13, "Mestadels klart"],
+  sun: [19, 16, 91, 9, "Regn"],
+  mon: [16, 14, 86, 6, "Regn"],
 };
 for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) {
   const weather = WEATHER.days[day];
@@ -395,18 +395,18 @@ for (const [day, [high, low, rain, wind, summary]] of Object.entries(forecast)) 
     throw new Error(`weather ${day} drifted: ${JSON.stringify(weather)}`);
   }
 }
-if (WEATHER.fetched !== "14 oktober 2026" || !WEATHER.note.includes("23:00") || !WEATHER.note.includes("18:00") || !WEATHER.note.includes("13:00") || /\bmm\b/.test(WEATHER.note) || WEATHER.note.includes("%")) {
+if (WEATHER.fetched !== "16 oktober 2026" || !WEATHER.note.includes("23:00") || !WEATHER.note.includes("09:00") || !WEATHER.note.includes("15:00") || /\bmm\b/.test(WEATHER.note) || WEATHER.note.includes("%")) {
   throw new Error("weather source note drifted");
 }
 const satGames = WEATHER.days.sat.games;
 const sunGames = WEATHER.days.sun.games;
 if (satGames.map((game) => game.time).join() !== "09:50,11:30,13:10") throw new Error("Saturday game weather drifted");
 if (sunGames.map((game) => game.time).join() !== "09:00,11:00,13:00") throw new Error("Sunday game weather drifted");
-if (satGames.some((game) => game.mm !== 0) || sunGames[0].mm !== 0 || sunGames[1].mm !== 0 || sunGames[2].mm !== 1.4) throw new Error("a game hour invented rain");
-if (satGames[0].hour !== "10:00" || satGames[0].temp !== 21 || satGames[0].summary !== "Mestadels klart" || sunGames[0].temp !== 16 || sunGames[0].wind !== 12 || sunGames[2].wind !== 7 || sunGames[2].temp !== 14 || sunGames[2].summary !== "Regn") {
+if (satGames.some((game) => game.mm !== 0) || sunGames[0].mm !== 0.2 || sunGames[1].mm !== 1.8 || sunGames[2].mm !== 3) throw new Error("a game hour invented rain");
+if (satGames[0].hour !== "10:00" || satGames[0].temp !== 19 || satGames[0].summary !== "Mulet" || sunGames[0].temp !== 17 || sunGames[0].wind !== 5 || sunGames[2].wind !== 8 || sunGames[2].temp !== 16 || sunGames[2].summary !== "Regn") {
   throw new Error("kickoff forecast drifted");
 }
-if (!WEATHER.days.fri.advice.includes("uppehåll") || !WEATHER.days.fri.advice.includes("Dimma") || !WEATHER.days.fri.advice.includes("23:00") || !WEATHER.days.mon.advice.includes("uppehåll") || !WEATHER.days.mon.advice.includes("15:00") || !WEATHER.days.mon.advice.includes("förmiddagen") || WEATHER.days.mon.advice.includes("duggregn") || WEATHER.days.mon.advice.includes("%") || WEATHER.days.sat.advice.includes("%") || WEATHER.days.sun.advice.includes("%")) {
+if (!WEATHER.days.fri.advice.includes("uppehåll") || !WEATHER.days.fri.advice.includes("Dimma") || !WEATHER.days.fri.advice.includes("23:00") || !WEATHER.days.mon.advice.includes("lätt regn") || !WEATHER.days.mon.advice.includes("15:00") || !WEATHER.days.mon.advice.includes("förmiddagen") || WEATHER.days.mon.advice.includes("uppehåll") || WEATHER.days.mon.advice.includes("%") || WEATHER.days.sat.advice.includes("%") || WEATHER.days.sun.advice.includes("%")) {
   throw new Error("arrival or departure weather drifted");
 }
 if (WEATHER.days.fri.games || WEATHER.days.mon.games) throw new Error("a rest day invented game weather");
@@ -432,12 +432,15 @@ const instagramAccounts = {
   kilcullen: ["@kilcullenafc", "https://www.instagram.com/kilcullenafc/"],
   spanga: ["@spanga_f2011u_gul", "https://www.instagram.com/spanga_f2011u_gul"],
   castlevilla: ["@castle_villa_afc", "https://www.instagram.com/castle_villa_afc/"],
+  stpatricks: ["@stpatricksafc", "https://www.instagram.com/stpatricksafc/"],
 };
 for (const [id, [handle, url]] of Object.entries(instagramAccounts)) {
   const account = teamById(id).instagram;
   if (!account || account.handle !== handle || account.url !== url) throw new Error(`${id} instagram missing`);
 }
-if (teamById("stpatricks").instagram) throw new Error("St Patricks has no published Instagram");
+if (!teamById("stpatricks").recordLine.includes("16 oktober 2026") || !teamById("stpatricks").league.includes("Killeshin 5–0")) {
+  throw new Error("St Patricks check was not updated");
+}
 const facebookAccounts = {
   jarna: "https://www.facebook.com/jarnask/",
   gava: "https://www.facebook.com/efgava/",

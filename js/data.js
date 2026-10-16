@@ -137,45 +137,45 @@ export const META = {
   researched: "4 oktober 2026",
 };
 
-// Open-Meteo, 14 October 2026, Alannia Salou 41.0732°N 1.1548°E, Europe/Madrid.
+// Open-Meteo, 16 October 2026, Alannia Salou 41.0732°N 1.1548°E, Europe/Madrid.
 // Whole degrees and km/h are rounded. Game rows use the nearest full hour.
 // The day summary is the weather the team meets, not the day's worst code.
 // Rain percent and millimetres stay in the data and are not shown.
 export const WEATHER = {
-  fetched: "14 oktober 2026",
+  fetched: "16 oktober 2026",
   source: "https://open-meteo.com/",
   sourceLabel: "Open-Meteo",
   place: "Salou",
-  note: "Fredagens dimma börjar omkring 23:00. Lördagens åskskurar börjar omkring 18:00. Söndag regnar det vid 13:00-matchen. Måndag regnar det på förmiddagen.",
+  note: "Dimma fredag kväll från omkring 23:00 och lördag morgon fram till 09:00. Lördagens matcher är uppehåll. Söndag regnar det under matcherna. Måndag regnar det under dagen, även vid bussen 15:00.",
   days: {
-    fri: { summary: "Klart", high: 25, low: 16, rain: 0, wind: 11, advice: "När bussen kan vara framme runt 18 är det klart, omkring 24° och uppehåll. Dimma först omkring 23:00." },
+    fri: { summary: "Växlande molnighet", high: 24, low: 17, rain: 0, wind: 10, advice: "Under dagen uppehåll, upp mot 24°. Dimma från omkring 23:00." },
     sat: {
       summary: "Mestadels klart",
       high: 26,
       low: 16,
-      rain: 71,
-      wind: 11,
-      advice: "Under matcherna är det mestadels klart, 21–25°. Vinden är 9–11 km/h. Åskskurar från omkring 18:00.",
+      rain: 75,
+      wind: 13,
+      advice: "Vid 09:50 är det mulet, omkring 19°, och uppehåll. Vid 11:30 och 13:10 mestadels klart, 23–24°. Dimma tidigt på morgonen, borta vid 09:00.",
       games: [
-        { time: "09:50", hour: "10:00", temp: 21, summary: "Mestadels klart", rain: 0, mm: 0, wind: 9 },
-        { time: "11:30", hour: "12:00", temp: 24, summary: "Mestadels klart", rain: 0, mm: 0, wind: 11 },
-        { time: "13:10", hour: "13:00", temp: 25, summary: "Mestadels klart", rain: 1, mm: 0, wind: 11 },
+        { time: "09:50", hour: "10:00", temp: 19, summary: "Mulet", rain: 0, mm: 0, wind: 3 },
+        { time: "11:30", hour: "12:00", temp: 23, summary: "Mestadels klart", rain: 0, mm: 0, wind: 7 },
+        { time: "13:10", hour: "13:00", temp: 24, summary: "Mestadels klart", rain: 0, mm: 0, wind: 9 },
       ],
     },
     sun: {
-      summary: "Mulet",
+      summary: "Regn",
       high: 19,
-      low: 14,
-      rain: 75,
-      wind: 16,
-      advice: "16° och mulet vid 09:00, 15° och mulet vid 11:00. Regn vid 13:00, omkring 14°. Vinden är 12 km/h vid 09:00, 15 vid 11:00 och 7 vid 13:00.",
+      low: 16,
+      rain: 91,
+      wind: 9,
+      advice: "Regnskurar vid 09:00, omkring 17°. Regn vid 11:00 och 13:00, omkring 16°.",
       games: [
-        { time: "09:00", hour: "09:00", temp: 16, summary: "Mulet", rain: 62, mm: 0, wind: 12 },
-        { time: "11:00", hour: "11:00", temp: 15, summary: "Mulet", rain: 62, mm: 0, wind: 15 },
-        { time: "13:00", hour: "13:00", temp: 14, summary: "Regn", rain: 63, mm: 1.4, wind: 7 },
+        { time: "09:00", hour: "09:00", temp: 17, summary: "Regnskurar", rain: 85, mm: 0.2, wind: 5 },
+        { time: "11:00", hour: "11:00", temp: 16, summary: "Regn", rain: 90, mm: 1.8, wind: 7 },
+        { time: "13:00", hour: "13:00", temp: 16, summary: "Regn", rain: 91, mm: 3, wind: 8 },
       ],
     },
-    mon: { summary: "Mulet", high: 17, low: 12, rain: 62, wind: 16, advice: "Regn på förmiddagen. Vid bussen, 15:00, är det mulet, omkring 15° och uppehåll." },
+    mon: { summary: "Regn", high: 16, low: 14, rain: 86, wind: 6, advice: "Regn på förmiddagen. Vid bussen, 15:00, är det mulet och omkring 15°, med lätt regn." },
   },
 };
 
@@ -711,6 +711,7 @@ export const TEAMS = [
     place: "Graiguecullen, grevskapet Carlow — bästa träff",
     colors: ["#1f7a43", "#f4efe6"],
     logo: "assets/crests/stpatricks.svg",
+    instagram: { handle: "@stpatricksafc", url: "https://www.instagram.com/stpatricksafc/" },
     rank: 6,
     components: patsComponents,
     index: indexOf(patsComponents),
@@ -718,11 +719,11 @@ export const TEAMS = [
     confidence: 46,
     confidenceLabel: "Låg på klubben, hög på truppen",
     verified:
-      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 7 oktober 2026. Lagsidan är densamma, och gruppens matcher är fortfarande ospelade.",
+      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 16 oktober 2026. Lagsidan är densamma, cupen har noll matcher, och gruppens matcher är fortfarande ospelade.",
     identity:
       "Ciara C. är nummer 7 på truppen. Den 28 januari 2026 kallade Carlow Nationalist henne 15, alltså född 2010, rätt ålder för den här cupen. Hennes racingbiografi säger att hon spelar fotboll för St Pats i Carlow. St Patrick’s Boys AFC spelar på The Meadows, Sleaty Street, Graiguecullen. Deras pojklag 2011 spelade samma cup i oktober 2025 under namnet St Patrick’s Boys. Flickanmälan tar bort Boys och säger FC. St Patrick’s Athletic i Dublin är en annan klubb, och dess damungdomslag är äldre än den här truppen.",
     league:
-      "Läst 7 oktober 2026. Ingen öppen flickserie för den här truppen. Carlow U16-flickor har startat utan dem: St Anne’s slog Ballymurphy 4–2 den 19 september, Hanover Harps och Killeshin har inte spelat. U15-flickor är Killeshin, Parkville, Hanover, Vale Wanderers och New Oak. I Kildare står de inte i U16 Girls, U15 Girls, Girls Championship eller Girls Youths. I Midlands, alltså Laois, Offaly och Westmeath, står de inte i U16- eller U15-flickor. Wicklows U16-flickor är Coolboy, Arklow, Wicklow Town och Roundwood. En publicerad omgång i Wexfords U16-flickor namnger andra klubbar. Kilkennys öppna U16-flicksida gav ingen laglista. I Carlows anmälan till den nationella U16-cupen är det St Fiacc’s som är med, en annan klubb. St Patrick’s AFC i pojkserien U16 division 2 är inte den här truppen, så de resultaten används inte.",
+      "Kontrollerat igen 16 oktober 2026. Fortfarande ingen öppen flickserie för den här truppen. Carlow U16-flickor, Carlow U15-flickor, Kildare U16-flickor och Midlands U16-flickor listar dem inte. Senaste publicerade U16-flickmatchen i Carlow är Killeshin 5–0 St Anne’s den 8 oktober. Den nationella U16-cupen för flickor har St Fiacc’s, Hanover Harps, Vale Wanderers och Killeshin, inte St Patricks. Den tidigare genomgången 7 oktober står kvar för de serier som inte laddades om: Kildares övriga flickserier, Midlands U15, Wicklow, Wexford och Kilkenny. St Patrick’s AFC i pojkserierna är inte den här truppen, så de resultaten används inte.",
     style: {
       status: "Okänt",
       formation: "Inte publicerad",
@@ -759,9 +760,10 @@ export const TEAMS = [
       "Nummer och namn är kopierade från turneringens lagsida. Inga positioner är tryckta. Nummer 17 är ledigt.",
     staff: "Tränare Garry Doody. Assisterande tränare David O'Rourke. Båda titlarna står på turneringssidan.",
     results: [],
-    recordLine: "Kontrollerat 7 oktober 2026. Truppen på 17 står kvar. Cupen har noll matcher. Ingen flickserie hittades. Rankad sist för att resultatpoängen stannar på neutralt, inte för att truppen är okänd.",
+    recordLine: "Kontrollerat 16 oktober 2026. Truppen på 17 står kvar. Cupen har noll matcher. Ingen flickserie hittades. Rankad sist för att resultatpoängen stannar på neutralt, inte för att truppen är okänd.",
     sources: [
       { label: "Turneringstrupp", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
+      { label: "Instagram", url: "https://www.instagram.com/stpatricksafc/" },
       { label: "Ciara C., 15 i januari 2026", url: "https://www.carlow-nationalist.ie/sport/other-sports/ciara-cahoons-race-to-glory_arid-85559.html" },
       { label: "Spelar fotboll för St Pats i Carlow", url: "https://ciaracahoonracing.co.uk/" },
       { label: "St Patrick's Boys AFC, Graiguecullen", url: "https://www.igp-web.com/Carlow/St_Patricks_AFC.htm" },
@@ -1484,7 +1486,7 @@ export const METHOD = [
 export const ASSUMPTIONS = [
   "Spångas anmälan är F11-U Gul, bekräftad på klubbsidan som F2011U 1-truppen i F2011-2A. De är födda 2011, alltså ett år yngre än Flickor 2010. Modellen använder den säsongen och behandlar dem inte som ett F10-lag. Personerna på Spångas sida är turneringstruppen, samma regel som för de andra fem lagen.",
   "Kilcullen på KDUL U16 Girls-sidan, lag 160768, är Cambrils-laget. Cupfinalen 23 augusti 2026 mot Maynooth är finalen som Diary namngav, och resultatet är 7–0. Castle Villa i den serien spelar på Mullarney Park, alltså Castledermot-klubben.",
-  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 7 oktober 2026 var cuptruppen oförändrad och ospelad. De står inte i flickserierna i Carlow, Kildare, Midlands eller Wicklow. St Patrick’s AFC i Carlows pojkserie U16 division 2 är inte den här truppen.",
+  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 16 oktober 2026 var cuptruppen oförändrad och ospelad. De står inte i de öppna flickserierna i Carlow, Kildare U16 eller Midlands U16. St Patrick’s AFC i Carlows pojkserier är inte den här truppen.",
   "Par utan Spånga lästes från den officiella gruppsidan, som stoppar en vanlig nedladdning. Alla fem grupprader för Spånga stämmer med klubbens reseblad på datum, tid, plan och motståndare. De andra tio matcherna är resten av samma rutnät.",
   "Hotellnamn, rumsfördelning och söndagens slutspelsmotståndare beror på dokument som inte fanns i pdf:en.",
 ];
