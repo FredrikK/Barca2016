@@ -39,7 +39,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r3";
+} from "./data.js?v=r4";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -217,7 +217,7 @@ function viewTrip() {
       <div class="hero">
         <div class="kicker">Spånga IS F11-U Gul · första avspark</div>
         <h2>${clock.started ? "Cupdagen" : `${clock.days} dagar`}</h2>
-        <p>${clock.started ? "Andra omgången är spelad. Spånga vann 3–0 mot Castle Villa." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
+        <p>${clock.started ? "Tredje omgången är spelad. Järna vann 3–0 mot Spånga." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
         <div class="countdown">
           <div class="count"><b>${clock.days}</b><span>dagar</span></div>
           <div class="count"><b>5</b><span>gruppmatcher</span></div>
@@ -330,7 +330,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          Motståndarna är ordnade som en prognos. Den är uppdaterad med de två första omgångarna och är inte den officiella tabellen. Researchen är från ${esc(META.researched)}. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
+          Motståndarna är ordnade som en prognos. Den är uppdaterad med de tre första omgångarna och är inte den officiella tabellen. Researchen är från ${esc(META.researched)}. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">Se motståndarna</button></div>
         </div>
       </div>
@@ -744,7 +744,7 @@ function groupTable() {
           }).join("")}
         </tbody>
       </table>
-      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Gavà står före Castle Villa på målskillnad. Båda har 3 poäng.</p>
+      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Spånga och Castle Villa har 4 poäng. Spånga står före på målskillnad. Kilcullen och St Patricks har 1 poäng. Kilcullen står före på målskillnad.</p>
     </div>`;
 }
 
@@ -754,14 +754,14 @@ function viewRank() {
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Efter andra omgången</p>
+          <p class="eyebrow">Efter tredje omgången</p>
           <h1>Motståndare</h1>
           <p class="sub">Tabellen är den officiella grupplistan. Listan under väger in de resultaten och researchen från före cupen.</p>
         </div>
       </header>
       ${groupTable()}
       <div class="section">
-        <div class="section-head"><h2>Prognos efter två omgångar</h2></div>
+        <div class="section-head"><h2>Prognos efter tre omgångar</h2></div>
         <p class="tiny">Hälften av resultatpoängen är cupformen. Den andra hälften, plus serie, väg och vana vid cupen, är researchen från före avresan. Tryck på ett lag för trupp och matcher.</p>
       </div>
       <div class="stack">
@@ -785,7 +785,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna leder prognosen efter 2–0 och 6–0, utan insläppt mål. Spånga är tvåa efter 1–1 och 3–0. Gavà är trea efter 0–1 mot Castle Villa och 4–0 mot Kilcullen. Castle Villa går förbi Kilcullen: 1–0 mot Gavà och sedan 0–3 mot Spånga. Kilcullen tappar från fyra till fem efter 0–2 och 0–4, utan eget mål. St Patricks är sist efter 1–1 mot Spånga och 0–6 mot Järna. Tre matcher återstår för varje lag.
+          Järna leder prognosen efter 2–0, 6–0 och 3–0, utan insläppt mål. Gavà går upp till tvåa efter 2–1 mot St Patricks. Valentina R. P. gjorde båda. Spånga är trea efter 0–3 mot Järna. Castle Villa är fyra efter 1–1 mot Kilcullen. Kilcullen är femma. Izzy M. gjorde deras första cupmål. St Patricks är sist efter 1–2 mot Gavà. Två matcher återstår för varje lag.
         </div>
       </div>
       <div class="section">
