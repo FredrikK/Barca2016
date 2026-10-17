@@ -9,6 +9,7 @@ import {
   FLIGHT_CHECK,
   FLIGHTS,
   HOTEL,
+  GROUP,
   KIT,
   LEAGUES,
   MATCHES,
@@ -28,6 +29,7 @@ import {
   RIDES,
   canReturnBetween,
   fieldSurface,
+  groupRow,
   morningPrep,
   pitchBus,
   pitchPlan,
@@ -37,7 +39,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=mote";
+} from "./data.js?v=r1";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -195,7 +197,7 @@ function weatherCard(day) {
 
 function viewTrip() {
   const clock = countdown();
-  const next = MATCHES.find((match) => match.mine);
+  const next = MATCHES.find((match) => match.mine && !match.score);
   const dayOrder = [
     ["fri", "Fre 16"],
     ["sat", "Lör 17"],
@@ -215,7 +217,7 @@ function viewTrip() {
       <div class="hero">
         <div class="kicker">Spånga IS F11-U Gul · första avspark</div>
         <h2>${clock.started ? "Cupdagen" : `${clock.days} dagar`}</h2>
-        <p>${clock.started ? "Gruppmatcherna är igång." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
+        <p>${clock.started ? "Första omgången är spelad. Spånga och St Patricks kryssade 1–1." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
         <div class="countdown">
           <div class="count"><b>${clock.days}</b><span>dagar</span></div>
           <div class="count"><b>5</b><span>gruppmatcher</span></div>
@@ -422,11 +424,23 @@ function kitRow(match, size) {
     </div>`;
 }
 
+function scoreText(match) {
+  return `${match.score[0]}–${match.score[1]}`;
+}
+
+function goalLine(match) {
+  if (!match.goals) return "";
+  const home = teamById(match.home);
+  const away = teamById(match.away);
+  return match.goals.map((goal) => `${goal.name}, ${goal.side === "home" ? home.short : away.short}`).join(" · ");
+}
+
 function matchButton(match) {
   const home = teamById(match.home);
   const away = teamById(match.away);
   const note = match.mine ? rideLine(match.time, earlierMine(match), match.day) : "";
   const ends = pitchPlan(match.time).ends;
+  const played = Boolean(match.score);
   return `
     <article class="match game ${match.mine ? "mine" : ""}">
       <button type="button" class="match-hit" data-go="#match/${match.id}">
@@ -439,10 +453,11 @@ function matchButton(match) {
         <div class="teams-mini">
           <div class="vs-row">${crest(home, "mini")}${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
           <div class="vs-row">${crest(away, "mini")}${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+          ${played ? `<p class="tiny meal-note">${esc(goalLine(match))}</p>` : ""}
           ${match.kit ? kitRow(match, "card") : ""}
           ${note ? `<p class="tiny meal-note">${esc(note)}</p>` : ""}
         </div>
-        <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
+        ${played ? `<span class="scoreline">${esc(scoreText(match))}</span>` : `<span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>`}
       </button>
     </article>`;
 }
@@ -712,17 +727,40 @@ function viewSchedule() {
     </section>`;
 }
 
+function groupTable() {
+  const head = ["#", "Lag", "M", "V", "O", "F", "Mål", "P"];
+  return `
+    <div class="card pad" style="margin-top:12px">
+      <table class="score-table full">
+        <thead><tr>${head.map((label) => `<th>${label}</th>`).join("")}</tr></thead>
+        <tbody>
+          ${GROUP.rows.map((row) => {
+            const team = teamById(row.team);
+            const cells = [row.place, team.short, row.p, row.w, row.d, row.l, `${row.gf}–${row.ga}`, row.pts];
+            return `<tr class="${team.yours ? "you" : ""}">${cells.map((cell) => `<td>${esc(String(cell))}</td>`).join("")}</tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Järna står före Castle Villa på målskillnad. Spånga och St Patricks delar plats 3.</p>
+    </div>`;
+}
+
 function viewRank() {
   const teams = rankedTeams();
   return `
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Prognos · inte tabellen</p>
+          <p class="eyebrow">Efter första omgången</p>
           <h1>Motståndare</h1>
-          <p class="sub">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i. Tryck på ett lag för trupp och matcher. Identiteten är kollad mot grupplistan. Spelare nämns bara när en sida nämner dem.</p>
+          <p class="sub">Tabellen är den officiella grupplistan. Listan under är prognosen från före cupen.</p>
         </div>
       </header>
+      ${groupTable()}
+      <div class="section">
+        <div class="section-head"><h2>Prognos före cupen</h2></div>
+        <p class="tiny">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i. Tryck på ett lag för trupp och matcher.</p>
+      </div>
       <div class="stack">
         ${teams.map((team) => {
           const left = team.range[0];
@@ -744,7 +782,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna leder på matcher mot äldre motstånd. Spånga F11-U Gul är tvåa. Gavà är trea: en partnerklubb till Villarreal, licensierad i en cadetgrupp i Segona Divisió med 15 lag, och ännu utan resultat. Kilcullen vann en U16-flickserie i Kildare med fem lag, och cupen. Castle Villa blev tvåa. De har redan delat två seriematcher, 2–0 och 5–3. Den serien har inte kopplats till en svensk eller katalansk motståndare. St Patricks spelar inte i den Kildare-serien. Deras bästa klubbträff är St Patrick’s i Graiguecullen, Carlow. Varje trupplista på lagets sida är turneringstruppen.
+          Järna leder på matcher mot äldre motstånd. Spånga F11-U Gul är tvåa i prognosen. Gavà är trea där: en partnerklubb till Villarreal, licensierad i en cadetgrupp i Segona Divisió med 15 lag, och den 4 oktober utan seriematch. Kilcullen vann en U16-flickserie i Kildare med fem lag, och cupen. Castle Villa blev tvåa. De har redan delat två seriematcher, 2–0 och 5–3. Den serien har inte kopplats till en svensk eller katalansk motståndare. St Patricks spelar inte i den Kildare-serien. Deras bästa klubbträff är St Patrick’s i Graiguecullen, Carlow. Varje trupplista på lagets sida är turneringstruppen.
         </div>
       </div>
       <div class="section">
@@ -891,7 +929,7 @@ function viewTeam(id) {
       <div class="team-head">
         ${crest(team, "hero")}
         <div>
-          <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · plats ${team.rank}</p>
+          <p class="eyebrow">${flag(team.flag)} ${esc(team.country)} · tabell ${placeWord(Number(groupRow(team.id).place))} · prognos ${placeWord(team.rank)}</p>
           <h1>${esc(team.name)}</h1>
           <div class="kit" aria-hidden="true"><span style="background:${esc(team.colors[0])}"></span><span style="background:${esc(team.colors[1])}"></span></div>
           <p class="sub">${esc(team.place)} · index ${team.index.toFixed(1)} · spann ${team.range[0]}–${team.range[1]}</p>
@@ -950,7 +988,7 @@ function viewTeam(id) {
         <div class="card pad" style="margin-top:10px">
           ${team.results.length ? `<table class="score-table"><thead><tr><th>När</th><th>Resultat</th></tr></thead><tbody>
             ${team.results.map((result) => `<tr><td>${esc(result.date)}<div class="tiny">${esc(result.comp)}</div></td><td>${esc(result.score)}${result.implied ? ' <span class="pill">Härlett</span>' : ""}${result.note ? `<div class="tiny">${esc(result.note)}</div>` : ""}</td></tr>`).join("")}
-          </tbody></table>` : `<p class="empty">Inget resultat i åldersklassen var publicerat.</p>`}
+          </tbody></table>` : `<p class="empty">${games.some((match) => match.score) ? "Ingen seriematch i åldersklassen var publicerad före cupen." : "Inget resultat i åldersklassen var publicerat."}</p>`}
           ${team.contextResults ? `<p class="tiny" style="margin-top:10px">${team.contextResults.map((result) => `${esc(result.score)}. ${esc(result.note)}`).join(" ")}</p>` : ""}
           ${(team.tables || (team.table ? [team.table] : [])).map((table) => tableHtml(table, team.short)).join("")}
         </div>
@@ -1096,6 +1134,13 @@ function viewMatch(id) {
       <h1>${esc(match.time)}–${esc(ends)}</h1>
       <p class="sub">2×20 minuter, ${esc(RIDES.breakMin)} minuters paus · Grupp A</p>
       <p class="tiny" style="margin-top:8px">${esc(VENUE.studs)}</p>
+      ${match.score ? `
+        <div class="card pad result-board">
+          <div class="side">${esc(home.short)}</div>
+          <b>${esc(scoreText(match))}</b>
+          <div class="side away">${esc(away.short)}</div>
+          <p class="tiny">${esc(goalLine(match))}</p>
+        </div>` : ""}
       <div class="stack" style="margin-top:14px">
         ${sideCard(home)}
         ${sideCard(away)}
@@ -1106,13 +1151,13 @@ function viewMatch(id) {
             ${kitRow(match, "page")}
           </div>
         </div>` : ""}
-      ${yours && opponent ? `
+      ${match.score ? "" : yours && opponent ? `
         <div class="section">
           <h2>Läsning inför matchen</h2>
           <div class="card pad" style="margin-top:10px"><p class="small">${esc(opponent.approach)}</p></div>
-        </div>` : `
+        </div>` : match.score ? "" : `
         <div class="section">
-          <div class="callout">Den här matchen är det som händer på planen, det som rankingen före cupen saknar. ${esc(home.short)} är prognos ${placeWord(home.rank)}, ${esc(away.short)} ${placeWord(away.rank)}.</div>
+          <div class="callout">${esc(home.short)} är tabell ${placeWord(Number(groupRow(home.id).place))} och prognos ${placeWord(home.rank)}. ${esc(away.short)} är tabell ${placeWord(Number(groupRow(away.id).place))} och prognos ${placeWord(away.rank)}.</div>
         </div>`}
     </section>`;
 }
@@ -1127,7 +1172,7 @@ function sideCard(team) {
       ${crest(team, "row")}
       <div class="grow">
         <b>${esc(team.name)}</b>${team.yours ? ' <span class="pill">Ni</span>' : ""}
-        <div class="tiny">Prognos ${placeWord(team.rank)} · ${team.index.toFixed(1)}</div>
+        <div class="tiny">Tabell ${placeWord(Number(groupRow(team.id).place))} · ${groupRow(team.id).pts} p · prognos ${placeWord(team.rank)}</div>
       </div>
     </button>`;
 }
