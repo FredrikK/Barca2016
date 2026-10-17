@@ -58,6 +58,9 @@ const played = {
   m4: { score: "0,6", goals: "Rebecka K.,Julia K.,Sofia V.", official: "13583" },
   m5: { score: "4,0", goals: "Thais I. V.,Mila L. R.,Valentina R. P.", official: "13585" },
   m6: { score: "3,0", goals: "Ellie Å.,Elvira M.,Felicia O.", official: "13584" },
+  m7: { score: "3,0", goals: "Sofia V.,Julia K.", official: "13586" },
+  m8: { score: "1,1", goals: "Ellen B.,Izzy M.", official: "13588" },
+  m9: { score: "1,2", goals: "Ciara C. (7),Valentina R. P.", official: "13587" },
 };
 for (const [id, expectedScore] of Object.entries(played)) {
   const match = MATCHES.find((item) => item.id === id);
@@ -65,26 +68,28 @@ for (const [id, expectedScore] of Object.entries(played)) {
   if (!match || match.score.join() !== expectedScore.score || names !== expectedScore.goals || !match.official.includes(`/match/${expectedScore.official}/`)) {
     throw new Error(`${id} result drifted`);
   }
-  if (id === "m4" && match.goals[0].n !== 4) throw new Error("Järna hat-trick count drifted");
+  if (id === "m4" && match.goals[0].n !== 4) throw new Error("Järna four-goal count drifted");
   if (id === "m5" && match.goals[0].n !== 2) throw new Error("Gavà brace drifted");
+  if (id === "m7" && match.goals[0].n !== 2) throw new Error("Sofia brace drifted");
+  if (id === "m9" && match.goals[1].n !== 2) throw new Error("Valentina brace drifted");
 }
 const officialIds = {
-  m7: "13586", m8: "13588", m9: "13587", m10: "13591", m11: "13590", m12: "13589", m13: "13594", m14: "13592", m15: "13593",
+  m10: "13591", m11: "13590", m12: "13589", m13: "13594", m14: "13592", m15: "13593",
 };
 for (const [id, officialId] of Object.entries(officialIds)) {
   const match = MATCHES.find((item) => item.id === id);
   if (!match || match.score || !match.official.includes(`/match/${officialId}/`)) throw new Error(`${id} official link drifted`);
 }
-if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row.ga}`).join() !== "1:jarna:6:8-0,2:spanga:4:4-1,3:gava:3:4-1,4:castlevilla:3:1-3,5:stpatricks:1:1-7,6:kilcullen:0:0-6") {
+if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row.ga}`).join() !== "1:jarna:9:11-0,2:gava:6:6-2,3:spanga:4:4-4,4:castlevilla:4:2-4,5:kilcullen:1:1-7,6:stpatricks:1:2-9") {
   throw new Error("group table drifted");
 }
 const matchText = JSON.stringify(MATCHES);
-for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci", "Kucheriavyi", "Mattes", "Orostica", "Åsbrink", "Ibañez", "Lorch", "Romero", "Donnelly"]) {
+for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci", "Kucheriavyi", "Mattes", "Orostica", "Åsbrink", "Ibañez", "Lorch", "Romero", "Donnelly", "Cahoon", "Mahony", "Middleton"]) {
   if (matchText.includes(surname)) throw new Error(`scorer surname printed: ${surname}`);
 }
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,spanga,gava,castlevilla,kilcullen,stpatricks") {
+if (order.join() !== "jarna,gava,spanga,castlevilla,kilcullen,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 const priorResults = { jarna: 74, gava: 50, kilcullen: 70, spanga: 70, castlevilla: 62, stpatricks: 50 };
@@ -196,8 +201,8 @@ if (!teamById("gava").players.some((player) => player.name === "Noa M. S.")) {
 if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
   throw new Error("Gavà division missing");
 }
-if (teamById("gava").rank !== 3 || teamById("spanga").rank !== 2) {
-  throw new Error("Gavà should be third and Spånga second");
+if (teamById("gava").rank !== 2 || teamById("spanga").rank !== 3) {
+  throw new Error("Gavà should be second and Spånga third");
 }
 if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
   throw new Error("Kilcullen shirt numbers should stay 0, as printed");
@@ -542,8 +547,8 @@ if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "f
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes("Grupp om 6 lag") || appSource.includes("Grupp om sex")) throw new Error("the group label drifted");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
-if (!appSource.includes("Efter andra omgången") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("3–0")) {
-  throw new Error("second-round scores are not on the match or table pages");
+if (!appSource.includes("Efter tredje omgången") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("3–0")) {
+  throw new Error("third-round scores are not on the match or table pages");
 }
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
 if (!appSource.includes('data-go="#rank">Tillbaka till motståndarna')) throw new Error("a team page no longer returns to the opponents page");
