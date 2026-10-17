@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -84,8 +84,22 @@ for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci
 }
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
+if (order.join() !== "jarna,spanga,gava,castlevilla,kilcullen,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
+}
+const priorResults = { jarna: 74, gava: 50, kilcullen: 70, spanga: 70, castlevilla: 62, stpatricks: 50 };
+for (const team of TEAMS) {
+  const row = GROUP.rows.find((item) => item.team === team.id);
+  const form = cupForm(row);
+  if (team.components.priorResults !== priorResults[team.id] || team.components.cup !== form) {
+    throw new Error(`${team.id} cup form drifted`);
+  }
+  if (team.components.results !== Math.round((priorResults[team.id] + form) / 2)) {
+    throw new Error(`${team.id} blended result drifted`);
+  }
+}
+if (teamById("castlevilla").rank !== 4 || teamById("kilcullen").rank !== 5) {
+  throw new Error("Castle Villa should pass Kilcullen after two rounds");
 }
 
 const jarna = teamById("jarna");
