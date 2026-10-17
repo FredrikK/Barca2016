@@ -39,7 +39,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r2";
+} from "./data.js?v=r3";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -330,7 +330,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          Motståndarna är ordnade som en prognos från öppna källor, researchad ${esc(META.researched)}. Den är inte den officiella tabellen. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
+          Motståndarna är ordnade som en prognos. Den är uppdaterad med de två första omgångarna och är inte den officiella tabellen. Researchen är från ${esc(META.researched)}. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">Se motståndarna</button></div>
         </div>
       </div>
@@ -756,13 +756,13 @@ function viewRank() {
         <div>
           <p class="eyebrow">Efter andra omgången</p>
           <h1>Motståndare</h1>
-          <p class="sub">Tabellen är den officiella grupplistan. Listan under är prognosen från före cupen.</p>
+          <p class="sub">Tabellen är den officiella grupplistan. Listan under väger in de resultaten och researchen från före cupen.</p>
         </div>
       </header>
       ${groupTable()}
       <div class="section">
-        <div class="section-head"><h2>Prognos före cupen</h2></div>
-        <p class="tiny">Byggd på publicerade matcher, gemensamma motståndare tre steg ut, och den serie varje klubb faktiskt spelar i. Tryck på ett lag för trupp och matcher.</p>
+        <div class="section-head"><h2>Prognos efter två omgångar</h2></div>
+        <p class="tiny">Hälften av resultatpoängen är cupformen. Den andra hälften, plus serie, väg och vana vid cupen, är researchen från före avresan. Tryck på ett lag för trupp och matcher.</p>
       </div>
       <div class="stack">
         ${teams.map((team) => {
@@ -785,14 +785,14 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna leder på matcher mot äldre motstånd. Spånga F11-U Gul är tvåa i prognosen. Gavà är trea där: en partnerklubb till Villarreal, licensierad i en cadetgrupp i Segona Divisió med 15 lag, och den 4 oktober utan seriematch. Kilcullen vann en U16-flickserie i Kildare med fem lag, och cupen. Castle Villa blev tvåa. De har redan delat två seriematcher, 2–0 och 5–3. Den serien har inte kopplats till en svensk eller katalansk motståndare. St Patricks spelar inte i den Kildare-serien. Deras bästa klubbträff är St Patrick’s i Graiguecullen, Carlow. Varje trupplista på lagets sida är turneringstruppen.
+          Järna leder prognosen efter 2–0 och 6–0, utan insläppt mål. Spånga är tvåa efter 1–1 och 3–0. Gavà är trea efter 0–1 mot Castle Villa och 4–0 mot Kilcullen. Castle Villa går förbi Kilcullen: 1–0 mot Gavà och sedan 0–3 mot Spånga. Kilcullen tappar från fyra till fem efter 0–2 och 0–4, utan eget mål. St Patricks är sist efter 1–1 mot Spånga och 0–6 mot Järna. Tre matcher återstår för varje lag.
         </div>
       </div>
       <div class="section">
         <div class="section-head"><h2>Så blir siffran</h2><button class="text-btn" data-go="#method">Hela metoden</button></div>
         <div class="card pad small">
-          Resultat ${Math.round(WEIGHTS.results * 100)} % · serie ${Math.round(WEIGHTS.league * 100)} % · väg ${Math.round(WEIGHTS.pathway * 100)} % · den här cupen ${Math.round(WEIGHTS.tournament * 100)} %.
-          Inga publicerade matcher ger 50, vilket är neutralt. Stapeln visar spannet. Pricken är punktestimatet.
+          Resultat ${Math.round(WEIGHTS.results * 100)} % · serie ${Math.round(WEIGHTS.league * 100)} % · väg ${Math.round(WEIGHTS.pathway * 100)} % · vana vid den här cupen ${Math.round(WEIGHTS.tournament * 100)} %.
+          Resultatpoängen är ett medel av cupformen och poängen från före cupen. Inga publicerade seriematcher ger 50, vilket är neutralt. Stapeln visar spannet. Pricken är punktestimatet.
         </div>
       </div>
       <div class="section">
@@ -897,9 +897,10 @@ function componentRows(team) {
     ["Resultat", team.components.results, "45 %"],
     ["Serie", team.components.league, "25 %"],
     ["Väg", team.components.pathway, "20 %"],
-    ["Den här cupen", team.components.tournament, "10 %"],
+    ["Vana vid cupen", team.components.tournament, "10 %"],
   ];
-  return `<div class="components">${rows.map(([label, value, weight]) => `<span>${esc(label)} <span class="tiny">${weight}</span></span><span>${value}</span>`).join("")}</div>`;
+  return `<div class="components">${rows.map(([label, value, weight]) => `<span>${esc(label)} <span class="tiny">${weight}</span></span><span>${value}</span>`).join("")}</div>
+    <p class="tiny" style="margin-top:8px">Cupform ${team.components.cup}. Före cupen ${team.components.priorResults}. Resultatpoängen är medelvärdet.</p>`;
 }
 
 function instagramIcon() {
