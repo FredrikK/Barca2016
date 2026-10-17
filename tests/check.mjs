@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, SUN_MEET, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -310,7 +310,10 @@ if (!satPrep || satPrep.start !== "08:20" || satPrep.end !== "08:35") throw new 
 if (PLAYER_MEET.day !== "sat" || PLAYER_MEET.start !== "07:40" || PLAYER_MEET.end !== "08:00" || PLAYER_MEET.name !== "Spelarmöte" || PLAYER_MEET.place !== "Alannia Salou") {
   throw new Error("Saturday player meeting drifted");
 }
-if (!sunPrep || sunPrep.start !== "07:30" || sunPrep.end !== "07:45") throw new Error("Sunday packing window drifted");
+if (!sunPrep || sunPrep.start !== "07:20" || sunPrep.end !== "07:40" || !sunPrep.note.includes("rött ställ")) throw new Error("Sunday packing window drifted");
+if (SUN_MEET.day !== "sun" || SUN_MEET.start !== "07:40" || SUN_MEET.place !== "Receptionen" || !SUN_MEET.note.includes("Rött ställ på") || !SUN_MEET.note.includes("Blått ställ i väskan")) {
+  throw new Error("Sunday reception gathering drifted");
+}
 if (morningPrep("fri") || morningPrep("mon")) throw new Error("a rest morning invented a packing window");
 function expectSnack(day, index, start, end, kick) {
   const snack = snackStops(day)[index];
