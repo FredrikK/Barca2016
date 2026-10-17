@@ -719,7 +719,7 @@ export const TEAMS = [
     confidence: 46,
     confidenceLabel: "Låg på klubben, hög på truppen",
     verified:
-      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 16 oktober 2026. Lagsidan är densamma, cupen har noll matcher, och gruppens matcher är fortfarande ospelade.",
+      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 16 oktober 2026 fanns ingen flickserie. Första gruppmatchen, 17 oktober, blev 1–1 mot Spånga.",
     identity:
       "Ciara C. är nummer 7 på truppen. Den 28 januari 2026 kallade Carlow Nationalist henne 15, alltså född 2010, rätt ålder för den här cupen. Hennes racingbiografi säger att hon spelar fotboll för St Pats i Carlow. St Patrick’s Boys AFC spelar på The Meadows, Sleaty Street, Graiguecullen. Deras pojklag 2011 spelade samma cup i oktober 2025 under namnet St Patrick’s Boys. Flickanmälan tar bort Boys och säger FC. St Patrick’s Athletic i Dublin är en annan klubb, och dess damungdomslag är äldre än den här truppen.",
     league:
@@ -760,7 +760,7 @@ export const TEAMS = [
       "Nummer och namn är kopierade från turneringens lagsida. Inga positioner är tryckta. Nummer 17 är ledigt.",
     staff: "Tränare Garry Doody. Assisterande tränare David O'Rourke. Båda titlarna står på turneringssidan.",
     results: [],
-    recordLine: "Kontrollerat 16 oktober 2026. Truppen på 17 står kvar. Cupen har noll matcher. Ingen flickserie hittades. Rankad sist för att resultatpoängen stannar på neutralt, inte för att truppen är okänd.",
+    recordLine: "Kontrollerat 16 oktober 2026. Truppen på 17 står kvar. Ingen flickserie hittades. I cupen kryssade de 1–1 mot Spånga. Prognosen har dem sist för att seriepoängen stannar på neutralt, inte för att truppen är okänd.",
     sources: [
       { label: "Turneringstrupp", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
       { label: "Instagram", url: "https://www.instagram.com/stpatricksafc/" },
@@ -784,12 +784,44 @@ export const KIT = {
   awayName: "Röd tröja",
 };
 
+// First round, 17 October 2026, from the official group page.
+// Goal scorers are initials. The page does not give the minute or the order.
+export const GROUP = {
+  updated: "17 oktober 2026",
+  round: "första omgången",
+  source: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/groups",
+  rows: [
+    { place: "1", team: "jarna", p: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, pts: 3 },
+    { place: "2", team: "castlevilla", p: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, pts: 3 },
+    { place: "3", team: "spanga", p: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, pts: 1 },
+    { place: "3", team: "stpatricks", p: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, pts: 1 },
+    { place: "5", team: "gava", p: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, pts: 0 },
+    { place: "6", team: "kilcullen", p: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, pts: 0 },
+  ],
+};
+
 export const MATCHES = [
   {
     id: "m1", day: "sat", date: "Lör 17 okt", time: "09:50", field: "1", home: "spanga", away: "stpatricks", mine: true, kit: "home",
+    score: [1, 1],
+    goals: [
+      { side: "home", name: "Mira D." },
+      { side: "away", name: "Erin W." },
+    ],
   },
-  { id: "m2", day: "sat", date: "Lör 17 okt", time: "09:50", field: "3", home: "gava", away: "castlevilla" },
-  { id: "m3", day: "sat", date: "Lör 17 okt", time: "09:50", field: "4", home: "jarna", away: "kilcullen" },
+  {
+    id: "m2", day: "sat", date: "Lör 17 okt", time: "09:50", field: "3", home: "gava", away: "castlevilla",
+    score: [0, 1],
+    goals: [{ side: "away", name: "Ellen B." }],
+  },
+  {
+    id: "m3", day: "sat", date: "Lör 17 okt", time: "09:50", field: "4", home: "jarna", away: "kilcullen",
+    score: [2, 0],
+    goals: [
+      { side: "home", name: "Freja G." },
+      { side: "home", name: "Sofia V." },
+    ],
+  },
   { id: "m4", day: "sat", date: "Lör 17 okt", time: "11:30", field: "3", home: "stpatricks", away: "jarna" },
   { id: "m5", day: "sat", date: "Lör 17 okt", time: "11:30", field: "5", home: "gava", away: "kilcullen" },
   {
@@ -1496,7 +1528,7 @@ export const METHOD = [
 export const ASSUMPTIONS = [
   "Spångas anmälan är F11-U Gul, bekräftad på klubbsidan som F2011U 1-truppen i F2011-2A. De är födda 2011, alltså ett år yngre än Flickor 2010. Modellen använder den säsongen och behandlar dem inte som ett F10-lag. Personerna på Spångas sida är turneringstruppen, samma regel som för de andra fem lagen.",
   "Kilcullen på KDUL U16 Girls-sidan, lag 160768, är Cambrils-laget. Cupfinalen 23 augusti 2026 mot Maynooth är finalen som Diary namngav, och resultatet är 7–0. Castle Villa i den serien spelar på Mullarney Park, alltså Castledermot-klubben.",
-  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 16 oktober 2026 var cuptruppen oförändrad och ospelad. De står inte i de öppna flickserierna i Carlow, Kildare U16 eller Midlands U16. St Patrick’s AFC i Carlows pojkserier är inte den här truppen.",
+  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 16 oktober 2026 var cuptruppen oförändrad. Första gruppmatchen blev 1–1 mot Spånga. De står inte i de öppna flickserierna i Carlow, Kildare U16 eller Midlands U16. St Patrick’s AFC i Carlows pojkserier är inte den här truppen.",
   "Par utan Spånga lästes från den officiella gruppsidan, som stoppar en vanlig nedladdning. Alla fem grupprader för Spånga stämmer med klubbens reseblad på datum, tid, plan och motståndare. De andra tio matcherna är resten av samma rutnät.",
   "Hotellnamn, rumsfördelning och söndagens slutspelsmotståndare beror på dokument som inte fanns i pdf:en.",
 ];
@@ -1507,6 +1539,10 @@ export function teamById(id) {
 
 export function rankedTeams() {
   return [...TEAMS].sort((a, b) => a.rank - b.rank);
+}
+
+export function groupRow(id) {
+  return GROUP.rows.find((row) => row.team === id);
 }
 
 function channelLinear(hex, index) {

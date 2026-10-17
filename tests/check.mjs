@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, TEAMS, WEATHER, awayBlocks, canReturnBetween, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -50,6 +50,28 @@ spanga.forEach((match, index) => {
     throw new Error(`Spånga fixture ${index} drifted`);
   }
 });
+
+const roundOne = {
+  m1: { score: "1,1", goals: "Mira D.,Erin W." },
+  m2: { score: "0,1", goals: "Ellen B." },
+  m3: { score: "2,0", goals: "Freja G.,Sofia V." },
+};
+for (const [id, expectedScore] of Object.entries(roundOne)) {
+  const match = MATCHES.find((item) => item.id === id);
+  if (!match || match.score.join() !== expectedScore.score || match.goals.map((goal) => goal.name).join() !== expectedScore.goals) {
+    throw new Error(`${id} result drifted`);
+  }
+}
+if (MATCHES.some((match) => match.id !== "m1" && match.id !== "m2" && match.id !== "m3" && match.score)) {
+  throw new Error("a later match already has a score");
+}
+if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row.ga}`).join() !== "1:jarna:3:2-0,2:castlevilla:3:1-0,3:spanga:1:1-1,3:stpatricks:1:1-1,5:gava:0:0-1,6:kilcullen:0:0-2") {
+  throw new Error("group table drifted");
+}
+const matchText = JSON.stringify(MATCHES);
+for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge"]) {
+  if (matchText.includes(surname)) throw new Error(`scorer surname printed: ${surname}`);
+}
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
 if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
@@ -496,6 +518,9 @@ if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "f
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes("Grupp om 6 lag") || appSource.includes("Grupp om sex")) throw new Error("the group label drifted");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
+if (!appSource.includes("Efter första omgången") || !appSource.includes("scoreline") || !appSource.includes("1–1")) {
+  throw new Error("first-round scores are not on the match or table pages");
+}
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
 if (!appSource.includes('data-go="#rank">Tillbaka till motståndarna')) throw new Error("a team page no longer returns to the opponents page");
 const areaText = JSON.stringify(AREA);
