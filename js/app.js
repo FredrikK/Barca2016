@@ -18,6 +18,7 @@ import {
   METHOD,
   PACK,
   PLAYER_MEET,
+  SUN_MEET,
   PLAYOFFS,
   RULES,
   SNACK_PAGE,
@@ -39,7 +40,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r4";
+} from "./data.js?v=r5";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -535,6 +536,9 @@ function mealCard(meal) {
 }
 
 function prepCard(prep) {
+  const [sh, sm] = prep.start.split(":").map(Number);
+  const [eh, em] = prep.end.split(":").map(Number);
+  const mins = eh * 60 + em - (sh * 60 + sm);
   return `
     <div class="match prep">
       <div>
@@ -546,7 +550,7 @@ function prepCard(prep) {
         <div class="field">${esc(prep.place)}</div>
         ${prep.note ? `<p class="tiny meal-note">${esc(prep.note)}</p>` : ""}
       </div>
-      <span class="pill ink">15 min</span>
+      <span class="pill ink">${mins} min</span>
     </div>`;
 }
 
@@ -592,11 +596,12 @@ function meetCard(item) {
     <div class="match prep">
       <div>
         <time>${esc(item.start)}</time>
-        <div class="field">till ${esc(item.end)}</div>
+        ${item.end ? `<div class="field">till ${esc(item.end)}</div>` : ""}
       </div>
       <div>
         <div class="teams-mini">${esc(item.name)}</div>
         <div class="field">${esc(item.place)}</div>
+        ${item.note ? `<p class="tiny meal-note">${esc(item.note)}</p>` : ""}
       </div>
       <span class="pill ink">Möte</span>
     </div>`;
@@ -656,7 +661,7 @@ function viewSchedule() {
   const snacks = snackStops(state.day);
   const playoffs = state.day === "sun" ? PLAYOFFS : [];
   const ceremony = state.day === "sun" ? [CEREMONY] : [];
-  const meetings = PLAYER_MEET.day === state.day ? [PLAYER_MEET] : [];
+  const meetings = [PLAYER_MEET, SUN_MEET].filter((item) => item.day === state.day);
   const checks = AGE_CHECK.day === state.day ? [AGE_CHECK] : [];
   const travel = travelStops(state.day);
   const checkout = state.day === "mon" ? [{
@@ -725,7 +730,7 @@ function viewSchedule() {
       </div>
       ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
-        <p class="tiny">Måltider från lagets program. Lördag och söndag är frukost 07:00, lunch 15:00 och middag 19:30. Måndag är frukost 09:00 och lunch 13:00. Fredag är middag 19:00–21:30. Programmet anger inget slut på lördag, söndag och måndag. Lördag 07:40–08:00 är spelarmöte på hotellet. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Söndag 14:00 är prisutdelning för alla lag i Flickor 2010. Alla spelare och tränare får medalj. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00. Femton minuter före morgonbussen byter ni om och samlar ihop saker. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
+        <p class="tiny">Måltider från lagets program. Lördag och söndag är frukost 07:00, lunch 15:00 och middag 19:30. Måndag är frukost 09:00 och lunch 13:00. Fredag är middag 19:00–21:30. Programmet anger inget slut på lördag, söndag och måndag. Lördag 07:40–08:00 är spelarmöte på hotellet, och ni byter om 08:20–08:35. Söndag byter ni om 07:20–07:40. 07:40 är samling i receptionen, med rött ställ på och blått ställ i väskan. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Söndag 14:00 är prisutdelning för alla lag i Flickor 2010. Alla spelare och tränare får medalj. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
     </section>`;
 }

@@ -963,6 +963,17 @@ export const PLAYER_MEET = {
   place: "Alannia Salou",
 };
 
+// Sunday gathering in the reception, after the change and before bus 6 at 07:45.
+export const SUN_MEET = {
+  day: "sun",
+  date: "Sön 18 okt",
+  start: "07:40",
+  end: "",
+  name: "Samling",
+  place: "Receptionen",
+  note: "Rött ställ på. Blått ställ i väskan.",
+};
+
 // Sunday 14:00, still at the pitches, before bus 6 leaves at 14:45.
 export const CEREMONY = {
   day: "sun",
@@ -1391,6 +1402,18 @@ export function morningPrep(day) {
   if (!out || !breakfast) return null;
   const bus = minutes(out.time);
   if (minutes(breakfast.start) >= bus) return null;
+  if (day === "sun") {
+    return {
+      id: "sun-prep",
+      day,
+      date: breakfast.date,
+      start: "07:20",
+      end: "07:40",
+      name: "Byt om och packa",
+      place: HOTEL.name,
+      note: "Byt till rött ställ. Lägg det blå stället i väskan.",
+    };
+  }
   const from = bus - RIDES.packMin;
   return {
     id: `${day}-prep`,
