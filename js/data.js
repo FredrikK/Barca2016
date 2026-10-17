@@ -719,7 +719,7 @@ export const TEAMS = [
     confidence: 46,
     confidenceLabel: "Låg på klubben, hög på truppen",
     verified:
-      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 16 oktober 2026 fanns ingen flickserie. Första gruppmatchen, 17 oktober, blev 1–1 mot Spånga.",
+      "Cupen publicerar den här truppen. Sidan är Irland, St Patricks FC, Flickor 2010, med 17 spelare och två tränare. Bästa klubbträffen är St Patrick’s Boys AFC i Graiguecullen, Carlow. Det står inte på själva truppsidan. Kontrollerat 16 oktober 2026 fanns ingen flickserie. I cupen blev det 1–1 mot Spånga och 0–6 mot Järna.",
     identity:
       "Ciara C. är nummer 7 på truppen. Den 28 januari 2026 kallade Carlow Nationalist henne 15, alltså född 2010, rätt ålder för den här cupen. Hennes racingbiografi säger att hon spelar fotboll för St Pats i Carlow. St Patrick’s Boys AFC spelar på The Meadows, Sleaty Street, Graiguecullen. Deras pojklag 2011 spelade samma cup i oktober 2025 under namnet St Patrick’s Boys. Flickanmälan tar bort Boys och säger FC. St Patrick’s Athletic i Dublin är en annan klubb, och dess damungdomslag är äldre än den här truppen.",
     league:
@@ -760,7 +760,7 @@ export const TEAMS = [
       "Nummer och namn är kopierade från turneringens lagsida. Inga positioner är tryckta. Nummer 17 är ledigt.",
     staff: "Tränare Garry Doody. Assisterande tränare David O'Rourke. Båda titlarna står på turneringssidan.",
     results: [],
-    recordLine: "Kontrollerat 16 oktober 2026. Truppen på 17 står kvar. Ingen flickserie hittades. I cupen kryssade de 1–1 mot Spånga. Prognosen har dem sist för att seriepoängen stannar på neutralt, inte för att truppen är okänd.",
+    recordLine: "Kontrollerat 16 oktober 2026. Truppen på 17 står kvar. Ingen flickserie hittades. I cupen kryssade de 1–1 mot Spånga och förlorade 0–6 mot Järna. Prognosen har dem sist för att seriepoängen stannar på neutralt, inte för att truppen är okänd.",
     sources: [
       { label: "Turneringstrupp", url: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/team/12985/st-patricks-fc" },
       { label: "Instagram", url: "https://www.instagram.com/stpatricksafc/" },
@@ -784,25 +784,27 @@ export const KIT = {
   awayName: "Röd tröja",
 };
 
-// First round, 17 October 2026, from the official group page.
-// Goal scorers are initials. The page does not give the minute or the order.
+// Group table after round two, 17 October 2026, from the official group page.
+// Goal scorers are initials. The match pages do not give the minute.
+const OFFICIAL = "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/match";
 export const GROUP = {
   updated: "17 oktober 2026",
-  round: "första omgången",
+  round: "andra omgången",
   source: "https://www.footballcupbarcelona.com/en/schedule/2026-october-1/g2010/groups",
   rows: [
-    { place: "1", team: "jarna", p: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, pts: 3 },
-    { place: "2", team: "castlevilla", p: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, pts: 3 },
-    { place: "3", team: "spanga", p: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, pts: 1 },
-    { place: "3", team: "stpatricks", p: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, pts: 1 },
-    { place: "5", team: "gava", p: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, pts: 0 },
-    { place: "6", team: "kilcullen", p: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, pts: 0 },
+    { place: "1", team: "jarna", p: 2, w: 2, d: 0, l: 0, gf: 8, ga: 0, pts: 6 },
+    { place: "2", team: "spanga", p: 2, w: 1, d: 1, l: 0, gf: 4, ga: 1, pts: 4 },
+    { place: "3", team: "gava", p: 2, w: 1, d: 0, l: 1, gf: 4, ga: 1, pts: 3 },
+    { place: "4", team: "castlevilla", p: 2, w: 1, d: 0, l: 1, gf: 1, ga: 3, pts: 3 },
+    { place: "5", team: "stpatricks", p: 2, w: 0, d: 1, l: 1, gf: 1, ga: 7, pts: 1 },
+    { place: "6", team: "kilcullen", p: 2, w: 0, d: 0, l: 2, gf: 0, ga: 6, pts: 0 },
   ],
 };
 
 export const MATCHES = [
   {
     id: "m1", day: "sat", date: "Lör 17 okt", time: "09:50", field: "1", home: "spanga", away: "stpatricks", mine: true, kit: "home",
+    official: `${OFFICIAL}/13582/sp-nga-is-vs-st-patricks-fc`,
     score: [1, 1],
     goals: [
       { side: "home", name: "Mira D." },
@@ -811,37 +813,85 @@ export const MATCHES = [
   },
   {
     id: "m2", day: "sat", date: "Lör 17 okt", time: "09:50", field: "3", home: "gava", away: "castlevilla",
+    official: `${OFFICIAL}/13581/ef-gava-villarreal-cf-vs-castle-villa-fc`,
     score: [0, 1],
     goals: [{ side: "away", name: "Ellen B." }],
   },
   {
     id: "m3", day: "sat", date: "Lör 17 okt", time: "09:50", field: "4", home: "jarna", away: "kilcullen",
+    official: `${OFFICIAL}/13580/j-rna-sk-vs-kilcullen-afc`,
     score: [2, 0],
     goals: [
       { side: "home", name: "Freja G." },
       { side: "home", name: "Sofia V." },
     ],
   },
-  { id: "m4", day: "sat", date: "Lör 17 okt", time: "11:30", field: "3", home: "stpatricks", away: "jarna" },
-  { id: "m5", day: "sat", date: "Lör 17 okt", time: "11:30", field: "5", home: "gava", away: "kilcullen" },
+  {
+    id: "m4", day: "sat", date: "Lör 17 okt", time: "11:30", field: "3", home: "stpatricks", away: "jarna",
+    official: `${OFFICIAL}/13583/st-patricks-fc-vs-j-rna-sk`,
+    score: [0, 6],
+    goals: [
+      { side: "away", name: "Rebecka K.", n: 4 },
+      { side: "away", name: "Julia K." },
+      { side: "away", name: "Sofia V." },
+    ],
+  },
+  {
+    id: "m5", day: "sat", date: "Lör 17 okt", time: "11:30", field: "5", home: "gava", away: "kilcullen",
+    official: `${OFFICIAL}/13585/ef-gava-villarreal-cf-vs-kilcullen-afc`,
+    score: [4, 0],
+    goals: [
+      { side: "home", name: "Thais I. V.", n: 2 },
+      { side: "home", name: "Mila L. R." },
+      { side: "home", name: "Valentina R. P." },
+    ],
+  },
   {
     id: "m6", day: "sat", date: "Lör 17 okt", time: "11:30", field: "10", home: "spanga", away: "castlevilla", mine: true, kit: "home",
+    official: `${OFFICIAL}/13584/sp-nga-is-vs-castle-villa-fc`,
+    score: [3, 0],
+    goals: [
+      { side: "home", name: "Ellie Å." },
+      { side: "home", name: "Elvira M." },
+      { side: "home", name: "Felicia O." },
+    ],
   },
   {
     id: "m7", day: "sat", date: "Lör 17 okt", time: "13:10", field: "1", home: "jarna", away: "spanga", mine: true, kit: "home",
+    official: `${OFFICIAL}/13586/j-rna-sk-vs-sp-nga-is`,
   },
-  { id: "m8", day: "sat", date: "Lör 17 okt", time: "13:10", field: "5", home: "castlevilla", away: "kilcullen" },
-  { id: "m9", day: "sat", date: "Lör 17 okt", time: "13:10", field: "10", home: "stpatricks", away: "gava" },
-  { id: "m10", day: "sun", date: "Sön 18 okt", time: "09:00", field: "1", home: "castlevilla", away: "stpatricks" },
+  {
+    id: "m8", day: "sat", date: "Lör 17 okt", time: "13:10", field: "5", home: "castlevilla", away: "kilcullen",
+    official: `${OFFICIAL}/13588/castle-villa-fc-vs-kilcullen-afc`,
+  },
+  {
+    id: "m9", day: "sat", date: "Lör 17 okt", time: "13:10", field: "10", home: "stpatricks", away: "gava",
+    official: `${OFFICIAL}/13587/st-patricks-fc-vs-ef-gava-villarreal-cf`,
+  },
+  {
+    id: "m10", day: "sun", date: "Sön 18 okt", time: "09:00", field: "1", home: "castlevilla", away: "stpatricks",
+    official: `${OFFICIAL}/13591/castle-villa-fc-vs-st-patricks-fc`,
+  },
   {
     id: "m11", day: "sun", date: "Sön 18 okt", time: "09:00", field: "3", home: "kilcullen", away: "spanga", mine: true, kit: "away",
+    official: `${OFFICIAL}/13590/kilcullen-afc-vs-sp-nga-is`,
   },
-  { id: "m12", day: "sun", date: "Sön 18 okt", time: "09:00", field: "4", home: "gava", away: "jarna" },
+  {
+    id: "m12", day: "sun", date: "Sön 18 okt", time: "09:00", field: "4", home: "gava", away: "jarna",
+    official: `${OFFICIAL}/13589/ef-gava-villarreal-cf-vs-j-rna-sk`,
+  },
   {
     id: "m13", day: "sun", date: "Sön 18 okt", time: "11:00", field: "1", home: "gava", away: "spanga", mine: true, kit: "away",
+    official: `${OFFICIAL}/13594/ef-gava-villarreal-cf-vs-sp-nga-is`,
   },
-  { id: "m14", day: "sun", date: "Sön 18 okt", time: "11:00", field: "3", home: "jarna", away: "castlevilla" },
-  { id: "m15", day: "sun", date: "Sön 18 okt", time: "11:00", field: "4", home: "kilcullen", away: "stpatricks" },
+  {
+    id: "m14", day: "sun", date: "Sön 18 okt", time: "11:00", field: "3", home: "jarna", away: "castlevilla",
+    official: `${OFFICIAL}/13592/j-rna-sk-vs-castle-villa-fc`,
+  },
+  {
+    id: "m15", day: "sun", date: "Sön 18 okt", time: "11:00", field: "4", home: "kilcullen", away: "stpatricks",
+    official: `${OFFICIAL}/13593/kilcullen-afc-vs-st-patricks-fc`,
+  },
 ];
 
 export const PLAYOFFS = [
@@ -1528,7 +1578,7 @@ export const METHOD = [
 export const ASSUMPTIONS = [
   "Spångas anmälan är F11-U Gul, bekräftad på klubbsidan som F2011U 1-truppen i F2011-2A. De är födda 2011, alltså ett år yngre än Flickor 2010. Modellen använder den säsongen och behandlar dem inte som ett F10-lag. Personerna på Spångas sida är turneringstruppen, samma regel som för de andra fem lagen.",
   "Kilcullen på KDUL U16 Girls-sidan, lag 160768, är Cambrils-laget. Cupfinalen 23 augusti 2026 mot Maynooth är finalen som Diary namngav, och resultatet är 7–0. Castle Villa i den serien spelar på Mullarney Park, alltså Castledermot-klubben.",
-  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 16 oktober 2026 var cuptruppen oförändrad. Första gruppmatchen blev 1–1 mot Spånga. De står inte i de öppna flickserierna i Carlow, Kildare U16 eller Midlands U16. St Patrick’s AFC i Carlows pojkserier är inte den här truppen.",
+  "St Patricks FC har en publicerad trupp på 17. Bästa klubbträffen är St Patrick’s Boys AFC, Graiguecullen, Carlow, eftersom Ciara C. står på truppen och spelar för St Pats i Carlow. Truppsidan själv trycker inte orten. Den 16 oktober 2026 var cuptruppen oförändrad. I cupen blev det 1–1 mot Spånga och 0–6 mot Järna. De står inte i de öppna flickserierna i Carlow, Kildare U16 eller Midlands U16. St Patrick’s AFC i Carlows pojkserier är inte den här truppen.",
   "Par utan Spånga lästes från den officiella gruppsidan, som stoppar en vanlig nedladdning. Alla fem grupprader för Spånga stämmer med klubbens reseblad på datum, tid, plan och motståndare. De andra tio matcherna är resten av samma rutnät.",
   "Hotellnamn, rumsfördelning och söndagens slutspelsmotståndare beror på dokument som inte fanns i pdf:en.",
 ];

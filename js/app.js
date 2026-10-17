@@ -39,7 +39,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r1";
+} from "./data.js?v=r2";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -217,7 +217,7 @@ function viewTrip() {
       <div class="hero">
         <div class="kicker">Spånga IS F11-U Gul · första avspark</div>
         <h2>${clock.started ? "Cupdagen" : `${clock.days} dagar`}</h2>
-        <p>${clock.started ? "Första omgången är spelad. Spånga och St Patricks kryssade 1–1." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
+        <p>${clock.started ? "Andra omgången är spelad. Spånga vann 3–0 mot Castle Villa." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
         <div class="countdown">
           <div class="count"><b>${clock.days}</b><span>dagar</span></div>
           <div class="count"><b>5</b><span>gruppmatcher</span></div>
@@ -432,7 +432,10 @@ function goalLine(match) {
   if (!match.goals) return "";
   const home = teamById(match.home);
   const away = teamById(match.away);
-  return match.goals.map((goal) => `${goal.name}, ${goal.side === "home" ? home.short : away.short}`).join(" · ");
+  return match.goals.map((goal) => {
+    const name = goal.n > 1 ? `${goal.name} ${goal.n}` : goal.name;
+    return `${name}, ${goal.side === "home" ? home.short : away.short}`;
+  }).join(" · ");
 }
 
 function matchButton(match) {
@@ -741,7 +744,7 @@ function groupTable() {
           }).join("")}
         </tbody>
       </table>
-      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Järna står före Castle Villa på målskillnad. Spånga och St Patricks delar plats 3.</p>
+      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Gavà står före Castle Villa på målskillnad. Båda har 3 poäng.</p>
     </div>`;
 }
 
@@ -751,7 +754,7 @@ function viewRank() {
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Efter första omgången</p>
+          <p class="eyebrow">Efter andra omgången</p>
           <h1>Motståndare</h1>
           <p class="sub">Tabellen är den officiella grupplistan. Listan under är prognosen från före cupen.</p>
         </div>
@@ -1159,6 +1162,7 @@ function viewMatch(id) {
         <div class="section">
           <div class="callout">${esc(home.short)} är tabell ${placeWord(Number(groupRow(home.id).place))} och prognos ${placeWord(home.rank)}. ${esc(away.short)} är tabell ${placeWord(Number(groupRow(away.id).place))} och prognos ${placeWord(away.rank)}.</div>
         </div>`}
+      <p class="small" style="margin-top:14px"><a href="${esc(match.official)}" target="_blank" rel="noopener">Officiell matchsida</a></p>
     </section>`;
 }
 
