@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, SUN_MEET, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, SUN_MEET, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupFinish, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, tournamentRow, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -88,19 +88,35 @@ if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row
 if (PLAYOFFS.map((game) => `${game.id}:${game.field}:${game.home}-${game.away}`).join() !== "p1:4:jarna-spanga,p2:8:kilcullen-gava,p3:1:castlevilla-stpatricks") {
   throw new Error("playoff pairings drifted");
 }
-const matchText = JSON.stringify(MATCHES);
+const playoffScores = {
+  p1: { score: "2,0", goals: "Rebecka K.,Sofia V.", official: "13595" },
+  p2: { score: "0,1", goals: "Carlota C. C.", official: "13596" },
+  p3: { score: "2,0", goals: "Grace M.", official: "13597" },
+};
+for (const [id, expectedScore] of Object.entries(playoffScores)) {
+  const game = PLAYOFFS.find((item) => item.id === id);
+  const names = game && game.goals.map((goal) => goal.name).join();
+  if (!game || game.score.join() !== expectedScore.score || names !== expectedScore.goals || !game.official.includes(`/match/${expectedScore.official}/`)) {
+    throw new Error(`${id} result drifted`);
+  }
+  if (id === "p3" && game.goals[0].n !== 2) throw new Error("Grace brace drifted");
+}
+const finishes = { jarna: 1, spanga: 2, gava: 3, kilcullen: 4, castlevilla: 5, stpatricks: 6 };
+for (const [id, place] of Object.entries(finishes)) {
+  if (cupFinish(id) !== place) throw new Error(`${id} finish drifted`);
+}
+const matchText = JSON.stringify(MATCHES) + JSON.stringify(PLAYOFFS);
 for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci", "Kucheriavyi", "Mattes", "Orostica", "Åsbrink", "Ibañez", "Lorch", "Romero", "Donnelly", "Cahoon", "Mahony", "Middleton"]) {
   if (matchText.includes(surname)) throw new Error(`scorer surname printed: ${surname}`);
 }
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
+if (order.join() !== "jarna,gava,spanga,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 const priorResults = { jarna: 74, gava: 50, kilcullen: 70, spanga: 70, castlevilla: 62, stpatricks: 50 };
 for (const team of TEAMS) {
-  const row = GROUP.rows.find((item) => item.team === team.id);
-  const form = cupForm(row);
+  const form = cupForm(tournamentRow(team.id));
   if (team.components.priorResults !== priorResults[team.id] || team.components.cup !== form) {
     throw new Error(`${team.id} cup form drifted`);
   }
@@ -206,8 +222,8 @@ if (!teamById("gava").players.some((player) => player.name === "Noa M. S.")) {
 if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
   throw new Error("Gavà division missing");
 }
-if (teamById("spanga").rank !== 2 || teamById("gava").rank !== 3) {
-  throw new Error("Spånga should be second and Gavà third in the prognosis");
+if (teamById("gava").rank !== 2 || teamById("spanga").rank !== 3) {
+  throw new Error("Gavà should be second and Spånga third in the prognosis");
 }
 if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
   throw new Error("Kilcullen shirt numbers should stay 0, as printed");
@@ -522,7 +538,7 @@ if (!appSource.includes("instagramIcon") || !appSource.includes("facebookIcon") 
 if (appSource.includes(">Instagram ${esc(team.instagram.handle)}<")) {
   throw new Error("the Instagram word is still the link text");
 }
-if (!appSource.includes("<h2>Er nästa match</h2>") || appSource.includes("Nästa på ert kort") || appSource.includes("ditt kort")) {
+if (!appSource.includes('finalGame.score ? "Finalen" : "Er nästa match"') || appSource.includes("Nästa på ert kort") || appSource.includes("ditt kort")) {
   throw new Error("the next-match heading drifted");
 }
 if (appSource.includes("regn ${forecast.rain}") || appSource.includes("regn ${game.rain}") || appSource.includes("Regnrisk")) {
@@ -555,7 +571,7 @@ if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "f
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes("Grupp om 6 lag") || appSource.includes("Grupp om sex")) throw new Error("the group label drifted");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
-if (!appSource.includes("Efter gruppspelet") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("3–0")) {
+if (!appSource.includes("Efter cupen") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("2–0")) {
   throw new Error("third-round scores are not on the match or table pages");
 }
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");

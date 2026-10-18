@@ -39,10 +39,36 @@ const RANGE_WIDTH = {
   stpatricks: 18,
 };
 
+// Placement match counts like one more group game: 3 points for a win.
+// The printed group table stays the five group matches.
+export function tournamentRow(teamId) {
+  const row = GROUP.rows.find((item) => item.team === teamId);
+  const game = PLAYOFFS.find((item) => item.home === teamId || item.away === teamId);
+  if (!game || !game.score) return row;
+  const home = game.home === teamId;
+  const gf = home ? game.score[0] : game.score[1];
+  const ga = home ? game.score[1] : game.score[0];
+  const pts = gf > ga ? 3 : gf === ga ? 1 : 0;
+  return { ...row, p: row.p + 1, gf: row.gf + gf, ga: row.ga + ga, pts: row.pts + pts };
+}
+
+export function cupFinish(teamId) {
+  const places = { p1: [1, 2], p2: [3, 4], p3: [5, 6] };
+  for (const game of PLAYOFFS) {
+    if (!game.score || game.score[0] === game.score[1]) continue;
+    const winner = game.score[0] > game.score[1] ? game.home : game.away;
+    const loser = winner === game.home ? game.away : game.home;
+    const pair = places[game.id];
+    if (!pair) continue;
+    if (teamId === winner) return pair[0];
+    if (teamId === loser) return pair[1];
+  }
+  return null;
+}
+
 export function applyCupResults() {
   for (const team of TEAMS) {
-    const row = GROUP.rows.find((item) => item.team === team.id);
-    const form = cupForm(row);
+    const form = cupForm(tournamentRow(team.id));
     team.components.cup = form;
     team.components.results = Math.round((team.components.priorResults + form) / 2);
     team.index = indexOf(team.components);
@@ -297,7 +323,7 @@ export const TEAMS = [
       },
     },
     approach:
-      "Söndagen blev 3–0 borta mot Gavà. Sofia V. gjorde tre. Sedan 3–1 mot Castle Villa. Fanny F. gjorde två och Anna A. ett. De har 15 poäng och 17–1, och de vann gruppen. Sofia V. har sju mål i cupen. Rebecka K. har fyra. Finalen mot Spånga är 13:00 på plan 4. Den ritade 4-3-3:an är inte den skrivna elvan.",
+      "Söndagen blev 3–0 borta mot Gavà. Sofia V. gjorde tre. Sedan 3–1 mot Castle Villa. Fanny F. gjorde två och Anna A. ett. De har 15 poäng och 17–1, och de vann gruppen. Sofia V. har sju mål i cupen. Rebecka K. har fyra. Finalen mot Spånga slutade 2–0. Rebecka K. och Sofia V. gjorde målen. Den ritade 4-3-3:an är inte den skrivna elvan.",
     players: [
       { name: "Molly H.", number: "1", role: "Målvakt", why: "" },
       { name: "Ebba B.", number: "3", role: "", why: "" },
@@ -427,7 +453,7 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Gavà är trea i prognosen och fyra i tabellen. I gruppen: 0–1 mot Castle Villa, 4–0 mot Kilcullen, 2–1 mot St Patricks, 0–3 mot Järna och 0–1 mot Spånga. Valentina R. P. gjorde båda i 2–1. Sofia V. gjorde tre i 0–3. Mira D. gjorde Spångas mål. De är en partnerklubb till Villarreal i en cadetgrupp i Segona Divisió med 15 lag. Tränarna på turneringssidan är Ania Torres Torres och David Pelay Cortes. Bronsmatchen mot Kilcullen är 13:00 på plan 8.",
+      "Gavà är tvåa i prognosen, fyra i grupptabellen och trea i cupen. I gruppen: 0–1 mot Castle Villa, 4–0 mot Kilcullen, 2–1 mot St Patricks, 0–3 mot Järna och 0–1 mot Spånga. Valentina R. P. gjorde båda i 2–1. Sofia V. gjorde tre i 0–3. Mira D. gjorde Spångas mål. De är en partnerklubb till Villarreal i en cadetgrupp i Segona Divisió med 15 lag. Tränarna på turneringssidan är Ania Torres Torres och David Pelay Cortes. Bronsmatchen mot Kilcullen slutade 1–0. Carlota C. C. gjorde målet. Gavà är trea i cupen.",
     players: [
       { name: "Lluna P. C.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
       { name: "Candela R. R.", number: "2", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
@@ -504,7 +530,7 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Söndag 09:00 blev 1–0 mot Spånga. Ella O. gjorde målet. 11:00 blev 3–0 mot St Patricks. Amelia R. gjorde två och Izzy M. ett. De är trea på 7 poäng, efter Spånga på målskillnad. Dessförinnan i cupen: 0–2 mot Järna, 0–4 mot Gavà och 1–1 mot Castle Villa. Bronsmatchen mot Gavà är 13:00 på plan 8. Hemma är de serie- och cupvinnare i en Kildare-serie med fem lag.",
+      "Söndag 09:00 blev 1–0 mot Spånga. Ella O. gjorde målet. 11:00 blev 3–0 mot St Patricks. Amelia R. gjorde två och Izzy M. ett. De är trea på 7 poäng, efter Spånga på målskillnad. Dessförinnan i cupen: 0–2 mot Järna, 0–4 mot Gavà och 1–1 mot Castle Villa. Bronsmatchen mot Gavà slutade 0–1. Carlota C. C. gjorde målet. Kilcullen är fyra. Hemma är de serie- och cupvinnare i en Kildare-serie med fem lag.",
     players: [
       { name: "Ella-Louise D.", number: "0", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Kortet 19 april listar Ella-Louise D. två gånger i 5–0 mot Maynooth. En utmärkelse i december 2025 utsåg Ella-Louise D. till Spelarnas spelare." },
       { name: "Isabel C.", number: "0", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. En tränare står som Rob Comnolly. Sidan säger inte att de är släkt." },
@@ -595,7 +621,7 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Det här är ert lag, och ni är ett år yngre än klassen. Turneringssidan namnger truppen och tränarna, Thomas Gustafsson och Malin Drougge. I gruppen: 1–1 mot St Patricks, 3–0 mot Castle Villa, 0–3 mot Järna, 0–1 mot Kilcullen och 1–0 mot Gavà. Mira D. gjorde målet mot Gavà. Tabellen har er tvåa på 7 poäng, samma poäng som Kilcullen, före på målskillnad. Finalen mot Järna är 13:00 på plan 4.",
+      "Det här är ert lag, och ni är ett år yngre än klassen. Turneringssidan namnger truppen och tränarna, Thomas Gustafsson och Malin Drougge. I gruppen: 1–1 mot St Patricks, 3–0 mot Castle Villa, 0–3 mot Järna, 0–1 mot Kilcullen och 1–0 mot Gavà. Mira D. gjorde målet mot Gavà. Tabellen har er tvåa på 7 poäng, samma poäng som Kilcullen, före på målskillnad. Finalen mot Järna slutade 0–2. Rebecka K. och Sofia V. gjorde målen. Spånga är tvåa i cupen.",
     players: [
       { name: "Alma K. R.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
       { name: "Ellen W.", number: "2", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
@@ -682,7 +708,7 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Ni vann 3–0 mot dem 11:30, på plan 10. Ellie Å., Elvira M. och Felicia O. gjorde målen. De kryssade 1–1 mot Kilcullen, Ellen B. och Izzy M. Söndag blev 2–2 mot St Patricks, Abbie L. och Ruby S., och 1–3 mot Järna, Grace M. De är femma på 5 poäng. Matchen om plats 5 mot St Patricks är 13:00 på plan 1.",
+      "Ni vann 3–0 mot dem 11:30, på plan 10. Ellie Å., Elvira M. och Felicia O. gjorde målen. De kryssade 1–1 mot Kilcullen, Ellen B. och Izzy M. Söndag blev 2–2 mot St Patricks, Abbie L. och Ruby S., och 1–3 mot Järna, Grace M. De är femma på 5 poäng. Matchen om plats 5 mot St Patricks slutade 2–0. Grace M. gjorde båda. Castle Villa är femma.",
     players: [
       { name: "Lena D.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
       { name: "Amelia C.", number: "2", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
@@ -772,7 +798,7 @@ export const TEAMS = [
       ],
     },
     approach:
-      "Första matchen blev 1–1. Erin W. gjorde deras mål, Mira D. ert. Sedan 0–6 mot Järna, 1–2 mot Gavà, 2–2 mot Castle Villa och 0–3 mot Kilcullen. Ciara C. (7) gjorde målet mot Gavà. Aoibhinn C. och Roisin M. gjorde målen i 2–2. De är sexa på 2 poäng. Matchen om plats 5 mot Castle Villa är 13:00 på plan 1.",
+      "Första matchen blev 1–1. Erin W. gjorde deras mål, Mira D. ert. Sedan 0–6 mot Järna, 1–2 mot Gavà, 2–2 mot Castle Villa och 0–3 mot Kilcullen. Ciara C. (7) gjorde målet mot Gavà. Aoibhinn C. och Roisin M. gjorde målen i 2–2. De är sexa på 2 poäng. Matchen om plats 5 mot Castle Villa slutade 0–2. Grace M. gjorde båda. St Patricks är sexa.",
     players: [
       { name: "Alex K.", number: "1", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010. Ingen position eller seriemål är publicerad." },
       { name: "Caitlin B.", number: "2", role: "Turneringstrupp", why: "Står på sidan för Flickor 2010." },
@@ -836,8 +862,6 @@ export const GROUP = {
     { place: "6", team: "stpatricks", p: 5, w: 0, d: 2, l: 3, gf: 4, ga: 14, pts: 2 },
   ],
 };
-
-applyCupResults();
 
 export const MATCHES = [
   {
@@ -972,10 +996,30 @@ export const MATCHES = [
 ];
 
 export const PLAYOFFS = [
-  { id: "p1", day: "sun", date: "Sön 18 okt", time: "13:00", field: "4", label: "Final", pairing: "Järna mot Spånga", home: "jarna", away: "spanga" },
-  { id: "p2", day: "sun", date: "Sön 18 okt", time: "13:00", field: "8", label: "Bronsmatch", pairing: "Kilcullen mot Gavà", home: "kilcullen", away: "gava" },
-  { id: "p3", day: "sun", date: "Sön 18 okt", time: "13:00", field: "1", label: "Match om plats 5", pairing: "Castle Villa mot St Patricks", home: "castlevilla", away: "stpatricks" },
+  {
+    id: "p1", day: "sun", date: "Sön 18 okt", time: "13:00", field: "4", label: "Final", pairing: "Järna mot Spånga", home: "jarna", away: "spanga",
+    official: `${OFFICIAL}/13595/j-rna-sk-vs-sp-nga-is`,
+    score: [2, 0],
+    goals: [
+      { side: "home", name: "Rebecka K." },
+      { side: "home", name: "Sofia V." },
+    ],
+  },
+  {
+    id: "p2", day: "sun", date: "Sön 18 okt", time: "13:00", field: "8", label: "Bronsmatch", pairing: "Kilcullen mot Gavà", home: "kilcullen", away: "gava",
+    official: `${OFFICIAL}/13596/kilcullen-afc-vs-ef-gava-villarreal-cf`,
+    score: [0, 1],
+    goals: [{ side: "away", name: "Carlota C. C." }],
+  },
+  {
+    id: "p3", day: "sun", date: "Sön 18 okt", time: "13:00", field: "1", label: "Match om plats 5", pairing: "Castle Villa mot St Patricks", home: "castlevilla", away: "stpatricks",
+    official: `${OFFICIAL}/13597/castle-villa-fc-vs-st-patricks-fc`,
+    score: [2, 0],
+    goals: [{ side: "home", name: "Grace M.", n: 2 }],
+  },
 ];
+
+applyCupResults();
 
 // Saturday player meeting at the hotel, after breakfast and before the 08:20 change.
 export const PLAYER_MEET = {
@@ -1669,11 +1713,11 @@ export const LEAGUES = [
 
 export const METHOD = [
   "Varje lag har fyra poäng från 0 till 100. Resultat väger 45 %, serien de faktiskt spelar i väger 25 %, vägen (akademikoppling, landskamper, truppkontinuitet) väger 20 %, och vanan vid den här cupen väger 10 %.",
-  "Efter gruppspelet är resultatpoängen ett medel av två tal. Det ena är resultatpoängen från före cupen. Det andra är cupformen: 70 gånger andelen av de poäng som går att ta, plus 3 per mål i målskillnad, plus 15. Talet kapas till 0–100. Serie, väg och vana vid cupen är oförändrade.",
+  "Efter cupen är resultatpoängen ett medel av två tal. Det ena är resultatpoängen från före cupen. Det andra är cupformen: 70 gånger andelen av de poäng som går att ta, plus 3 per mål i målskillnad, plus 15. Talet kapas till 0–100. Placeringsmatchen räknas som en match till, med tre poäng för vinst. Grupptabellen är de fem gruppmatcherna. Serie, väg och vana vid cupen är oförändrade.",
   "Ett lag utan publicerade matcher får 50 i resultat. Det är neutralt. Det är inte en nolla, och det är inte en belöning. Avsaknad av förlust räknas inte som en hållen nolla.",
   "Gemensamma motståndare söktes tre klubbar djupt: laget, deras motståndare och motståndarnas motståndare. Där kedjan tog slut använder rankingen seriepriorn i stället för en påhittad länk.",
   "Härledda resultat är räkning från officiella totaler. De är märkta och de väger mindre än en tryckt rad. De användes inte för att lägga på extra utöver den officiella vinst-oavgjort-förlust-raden.",
-  "Siffran väger cupformen mot researchen från före cupen. Den är inte en kopia av tabellen. Gruppspelet är färdigt. Slutspelet är kvar.",
+  "Siffran väger hela cupen, gruppspel och placeringsmatch, mot researchen från före cupen. Den är inte en kopia av grupptabellen och inte slutplaceringen. Cupen är färdigspelad.",
 ];
 
 export const ASSUMPTIONS = [
