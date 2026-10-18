@@ -40,7 +40,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r5";
+} from "./data.js?v=r6";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -199,6 +199,7 @@ function weatherCard(day) {
 function viewTrip() {
   const clock = countdown();
   const next = MATCHES.find((match) => match.mine && !match.score);
+  const finalGame = PLAYOFFS.find((game) => game.away === "spanga" || game.home === "spanga");
   const dayOrder = [
     ["fri", "Fre 16"],
     ["sat", "Lör 17"],
@@ -218,7 +219,7 @@ function viewTrip() {
       <div class="hero">
         <div class="kicker">Spånga IS F11-U Gul · första avspark</div>
         <h2>${clock.started ? "Cupdagen" : `${clock.days} dagar`}</h2>
-        <p>${clock.started ? "Tredje omgången är spelad. Järna vann 3–0 mot Spånga." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
+        <p>${clock.started ? "Gruppspelet är färdigt. Spånga är tvåa på 7 poäng. Finalen mot Järna är 13:00, plan 4." : `${clock.hours} timmar till lördag 09:50, plan 1, mot St Patricks.`}</p>
         <div class="countdown">
           <div class="count"><b>${clock.days}</b><span>dagar</span></div>
           <div class="count"><b>5</b><span>gruppmatcher</span></div>
@@ -260,7 +261,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="section-head"><h2>Er nästa match</h2><button class="text-btn" data-go="#schedule">Hela schemat</button></div>
-        ${matchButton(next)}
+        ${next ? matchButton(next) : playoffCard(finalGame)}
       </div>
 
       <div class="section">
@@ -331,7 +332,7 @@ function viewTrip() {
 
       <div class="section">
         <div class="callout">
-          Motståndarna är ordnade som en prognos. Den är uppdaterad med de tre första omgångarna och är inte den officiella tabellen. Researchen är från ${esc(META.researched)}. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
+          Motståndarna är ordnade som en prognos. Den är uppdaterad efter hela gruppspelet och är inte den officiella tabellen. Researchen är från ${esc(META.researched)}. Spånga här är F11-U Gul, 2011-truppen, som spelar ett år upp. Kilcullen vann KDUL U16 Girls och cupen. Castle Villa blev tvåa i den serien. Gavà är licensierade i Segona Divisió Cadet Femení och hade spelat 0 matcher den 4 oktober. Varje lag i gruppen har en publicerad trupp. Bästa klubbträffen för St Patricks är St Patrick’s i Graiguecullen, Carlow.
           <div style="margin-top:8px"><button class="text-btn" data-go="#rank">Se motståndarna</button></div>
         </div>
       </div>
@@ -572,8 +573,11 @@ function snackCard(snack) {
 
 function playoffCard(game) {
   const ends = pitchPlan(game.time).ends;
+  const home = game.home ? teamById(game.home) : null;
+  const away = game.away ? teamById(game.away) : null;
+  const yours = Boolean(home && home.yours) || Boolean(away && away.yours);
   return `
-    <article class="match game">
+    <article class="match game ${yours ? "mine" : ""}">
       <div class="match-hit">
         <div>
           <time>${esc(game.time)}</time>
@@ -583,7 +587,10 @@ function playoffCard(game) {
         </div>
         <div class="teams-mini">
           <div class="vs-row">${esc(game.label)}</div>
-          <div class="vs-row">${esc(game.pairing)}</div>
+          ${home && away ? `
+            <div class="vs-row">${crest(home, "mini")}${flag(home.flag)} ${esc(home.short)}${home.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+            <div class="vs-row">${crest(away, "mini")}${flag(away.flag)} ${esc(away.short)}${away.yours ? ' <span class="pill">Ni</span>' : ""}</div>
+          ` : `<div class="vs-row">${esc(game.pairing)}</div>`}
           <p class="tiny meal-note">${esc(rideLine(game.time, true))}</p>
         </div>
         <span class="tiny">2×20<br><span class="field">${esc(RIDES.breakMin)} min paus</span></span>
@@ -728,7 +735,7 @@ function viewSchedule() {
           return playoffCard(item.game);
         }).join("") : `<div class="card pad small">Inget på den här dagen.</div>`}
       </div>
-      ${state.day === "sun" ? `<p class="tiny">Motståndaren i en placeringsmatch kommer från grupptabellen. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
+      ${state.day === "sun" ? `<p class="tiny">Slutspelet är satt från tabellen. Finalen är Järna mot Spånga, plan 4. Bronsmatchen är Kilcullen mot Gavà, plan 8. Matchen om plats 5 är Castle Villa mot St Patricks, plan 1. Oavgjort går direkt till straffar, fem straffar och sedan sudden death.</p>` : ""}
       <div class="section">
         <p class="tiny">Måltider från lagets program. Lördag och söndag är frukost 07:00, lunch 15:00 och middag 19:30. Måndag är frukost 09:00 och lunch 13:00. Fredag är middag 19:00–21:30. Programmet anger inget slut på lördag, söndag och måndag. Lördag 07:40–08:00 är spelarmöte på hotellet, och ni byter om 08:20–08:35. Söndag byter ni om 07:20–07:40. 07:40 är samling i receptionen, med rött ställ på och blått ställ i väskan. Buss 6 går lördag 08:35 och 14:20, söndag 07:45 och 14:45. Söndag 14:00 är prisutdelning för alla lag i Flickor 2010. Alla spelare och tränare får medalj. Måndag checkar ni ut senast 11:00 och buss D20 går 15:00. Arrangören kan ändra tiderna. Plan 2, 3 och 4 är naturgräs. Övriga planer är konstgräs. ${esc(VENUE.studs)} Matcher: <a href="${esc(META.officialGroups)}">grupplista</a> · <a href="${esc(META.officialPlayoffs)}">slutspel</a> · <a href="${esc(VENUE.source)}">venuesidan</a>. Spångas fem matcher stämmer också med resebladet.</p>
       </div>
@@ -749,7 +756,7 @@ function groupTable() {
           }).join("")}
         </tbody>
       </table>
-      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Spånga och Castle Villa har 4 poäng. Spånga står före på målskillnad. Kilcullen och St Patricks har 1 poäng. Kilcullen står före på målskillnad.</p>
+      <p class="tiny" style="margin-top:8px">Efter ${esc(GROUP.round)}, hämtad ${esc(GROUP.updated)} från <a href="${esc(GROUP.source)}">grupplistan</a>. Spånga och Kilcullen har 7 poäng. Spånga står före på målskillnad.</p>
     </div>`;
 }
 
@@ -759,14 +766,14 @@ function viewRank() {
     <section class="view">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Efter tredje omgången</p>
+          <p class="eyebrow">Efter gruppspelet</p>
           <h1>Motståndare</h1>
           <p class="sub">Tabellen är den officiella grupplistan. Listan under väger in de resultaten och researchen från före cupen.</p>
         </div>
       </header>
       ${groupTable()}
       <div class="section">
-        <div class="section-head"><h2>Prognos efter tre omgångar</h2></div>
+        <div class="section-head"><h2>Prognos efter gruppspelet</h2></div>
         <p class="tiny">Hälften av resultatpoängen är cupformen. Den andra hälften, plus serie, väg och vana vid cupen, är researchen från före avresan. Tryck på ett lag för trupp och matcher.</p>
       </div>
       <div class="stack">
@@ -790,7 +797,7 @@ function viewRank() {
       </div>
       <div class="section">
         <div class="callout green">
-          Järna leder prognosen efter 2–0, 6–0 och 3–0, utan insläppt mål. Gavà går upp till tvåa efter 2–1 mot St Patricks. Valentina R. P. gjorde båda. Spånga är trea efter 0–3 mot Järna. Castle Villa är fyra efter 1–1 mot Kilcullen. Kilcullen är femma. Izzy M. gjorde deras första cupmål. St Patricks är sist efter 1–2 mot Gavà. Två matcher återstår för varje lag.
+          Järna leder prognosen efter fem segrar, 17–1. Spånga är tvåa efter 0–1 mot Kilcullen och 1–0 mot Gavà. Mira D. gjorde målet mot Gavà. Gavà är trea i prognosen och fyra i tabellen, efter 0–3 mot Järna och 0–1 mot Spånga. Kilcullen är fyra i prognosen och trea i tabellen, på samma 7 poäng som Spånga. Ella O. gjorde 1–0. Amelia R. gjorde två och Izzy M. ett i 3–0 mot St Patricks. Castle Villa är femma efter 2–2 mot St Patricks och 1–3 mot Järna. St Patricks är sist. Gruppspelet är färdigt.
         </div>
       </div>
       <div class="section">
