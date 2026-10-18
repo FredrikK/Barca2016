@@ -61,6 +61,12 @@ const played = {
   m7: { score: "3,0", goals: "Sofia V.,Julia K.", official: "13586" },
   m8: { score: "1,1", goals: "Ellen B.,Izzy M.", official: "13588" },
   m9: { score: "1,2", goals: "Ciara C. (7),Valentina R. P.", official: "13587" },
+  m10: { score: "2,2", goals: "Abbie L.,Ruby S.,Aoibhinn C.,Roisin M.", official: "13591" },
+  m11: { score: "1,0", goals: "Ella O.", official: "13590" },
+  m12: { score: "0,3", goals: "Sofia V.", official: "13589" },
+  m13: { score: "0,1", goals: "Mira D.", official: "13594" },
+  m14: { score: "3,1", goals: "Fanny F.,Anna A.,Grace M.", official: "13592" },
+  m15: { score: "3,0", goals: "Amelia R.,Izzy M.", official: "13593" },
 };
 for (const [id, expectedScore] of Object.entries(played)) {
   const match = MATCHES.find((item) => item.id === id);
@@ -72,16 +78,15 @@ for (const [id, expectedScore] of Object.entries(played)) {
   if (id === "m5" && match.goals[0].n !== 2) throw new Error("Gavà brace drifted");
   if (id === "m7" && match.goals[0].n !== 2) throw new Error("Sofia brace drifted");
   if (id === "m9" && match.goals[1].n !== 2) throw new Error("Valentina brace drifted");
+  if (id === "m12" && match.goals[0].n !== 3) throw new Error("Sofia hat-trick drifted");
+  if (id === "m14" && match.goals[0].n !== 2) throw new Error("Fanny brace drifted");
+  if (id === "m15" && match.goals[0].n !== 2) throw new Error("Amelia brace drifted");
 }
-const officialIds = {
-  m10: "13591", m11: "13590", m12: "13589", m13: "13594", m14: "13592", m15: "13593",
-};
-for (const [id, officialId] of Object.entries(officialIds)) {
-  const match = MATCHES.find((item) => item.id === id);
-  if (!match || match.score || !match.official.includes(`/match/${officialId}/`)) throw new Error(`${id} official link drifted`);
-}
-if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row.ga}`).join() !== "1:jarna:9:11-0,2:gava:6:6-2,3:spanga:4:4-4,4:castlevilla:4:2-4,5:kilcullen:1:1-7,6:stpatricks:1:2-9") {
+if (GROUP.rows.map((row) => `${row.place}:${row.team}:${row.pts}:${row.gf}-${row.ga}`).join() !== "1:jarna:15:17-1,2:spanga:7:5-5,3:kilcullen:7:5-7,4:gava:6:6-6,5:castlevilla:5:5-9,6:stpatricks:2:4-14") {
   throw new Error("group table drifted");
+}
+if (PLAYOFFS.map((game) => `${game.id}:${game.field}:${game.home}-${game.away}`).join() !== "p1:4:jarna-spanga,p2:8:kilcullen-gava,p3:1:castlevilla-stpatricks") {
+  throw new Error("playoff pairings drifted");
 }
 const matchText = JSON.stringify(MATCHES);
 for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci", "Kucheriavyi", "Mattes", "Orostica", "Åsbrink", "Ibañez", "Lorch", "Romero", "Donnelly", "Cahoon", "Mahony", "Middleton"]) {
@@ -89,7 +94,7 @@ for (const surname of ["Goddard", "Vall", "Byrne", "Walker", "Drougge", "Kesenci
 }
 
 const order = [...TEAMS].sort((a, b) => b.index - a.index).map((team) => team.id);
-if (order.join() !== "jarna,gava,spanga,castlevilla,kilcullen,stpatricks") {
+if (order.join() !== "jarna,spanga,gava,kilcullen,castlevilla,stpatricks") {
   throw new Error(`unexpected order ${order.join()}`);
 }
 const priorResults = { jarna: 74, gava: 50, kilcullen: 70, spanga: 70, castlevilla: 62, stpatricks: 50 };
@@ -103,8 +108,8 @@ for (const team of TEAMS) {
     throw new Error(`${team.id} blended result drifted`);
   }
 }
-if (teamById("castlevilla").rank !== 4 || teamById("kilcullen").rank !== 5) {
-  throw new Error("Castle Villa should pass Kilcullen after two rounds");
+if (teamById("kilcullen").rank !== 4 || teamById("castlevilla").rank !== 5) {
+  throw new Error("Kilcullen should be fourth and Castle Villa fifth in the prognosis");
 }
 
 const jarna = teamById("jarna");
@@ -201,8 +206,8 @@ if (!teamById("gava").players.some((player) => player.name === "Noa M. S.")) {
 if (!teamById("gava").league.includes("Segona Divisió Femení Cadet")) {
   throw new Error("Gavà division missing");
 }
-if (teamById("gava").rank !== 2 || teamById("spanga").rank !== 3) {
-  throw new Error("Gavà should be second and Spånga third");
+if (teamById("spanga").rank !== 2 || teamById("gava").rank !== 3) {
+  throw new Error("Spånga should be second and Gavà third in the prognosis");
 }
 if (!teamById("kilcullen").players.every((player) => player.number === "0")) {
   throw new Error("Kilcullen shirt numbers should stay 0, as printed");
@@ -550,7 +555,7 @@ if (!appSource.includes("ARLANDA_CARS") || !appSource.includes('state.day === "f
 if (appSource.includes('teams: "Lag"') || appSource.includes('data-tab="teams"')) throw new Error("the team tab is still in the menu");
 if (!appSource.includes("Grupp om 6 lag") || appSource.includes("Grupp om sex")) throw new Error("the group label drifted");
 if (!appSource.includes('rank: "Motståndare"') || !appSource.includes("<h1>Motståndare</h1>")) throw new Error("the opponents page lost its name");
-if (!appSource.includes("Efter tredje omgången") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("3–0")) {
+if (!appSource.includes("Efter gruppspelet") || !appSource.includes("scoreline") || !appSource.includes("Officiell matchsida") || !appSource.includes("3–0")) {
   throw new Error("third-round scores are not on the match or table pages");
 }
 if (appSource.includes('rank: "Ranking"') || appSource.includes("<h1>Ranking</h1>")) throw new Error("the page is still called Ranking");
