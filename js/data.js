@@ -1097,24 +1097,31 @@ export const ARLANDA_CARS = {
 export const FLIGHTS = [
   { date: "Fre 16 okt", no: "LH 801", from: "Stockholm", to: "Frankfurt", dep: "09:50", arr: "12:00" },
   { date: "Fre 16 okt", no: "LH 1130", from: "Frankfurt", to: "Barcelona", dep: "13:25", arr: "15:30" },
-  { date: "Mån 19 okt", no: "LH 1135", from: "Barcelona", to: "Frankfurt", dep: "19:00", arr: "21:10" },
+  {
+    date: "Mån 19 okt",
+    no: "LH 1135",
+    from: "Barcelona",
+    to: "Frankfurt",
+    dep: "20:10",
+    arr: "22:07",
+    sheet: "19:00–21:10",
+    note: "Beräknad tid från Barcelonas tavla 19 oktober 2026. Resebladet har 19:00–21:10.",
+  },
   { date: "Mån 19 okt", no: "LH 810", from: "Frankfurt", to: "Stockholm", dep: "22:15", arr: "00:20", arrNote: "Framme tisdag 20 okt" },
 ];
 
-// The cup asks for the airport's estimated departure times three days before the trip and the evening before.
-// Those boards are not the sheet. The clocks above stay the sheet until a board for 16 or 19 October says otherwise.
-// Checked 8 October 2026 against the travel dates themselves. FlightStats only tracks about three days
-// either side of today, so 16 and 19 October have no estimated time yet. The seasonal rows that cover
-// those dates match the sheet: Friday 16 October is inside LH 801 daily 09:50–12:00 and LH 1130 daily
-// 13:25–15:30 through 24 October. Monday 19 October is inside LH 1135 daily 19:00–21:10 and LH 810
-// Mon–Thu/Sat/Sun 22:15–00:20 through 24 October. This week's other clocks were left off the sheet.
+// Friday clocks stay the sheet. Monday clocks follow a board for 19 October.
+// Checked 19 October 2026 at 16:26 Barcelona time. Barcelona's own LH 1135 page
+// says Delayed, planned departure 20:10, arrival Frankfurt 22:07. The sheet is 19:00–21:10.
+// FlightStats for the same date says the same estimate, delayed 1 h 10 min.
+// LH 810 is still scheduled 22:15–00:20 and on time on the Frankfurt board.
 export const FLIGHT_CHECK = {
-  result: "Kollat 8 oktober 2026 för fredag 16 oktober och måndag 19 oktober. Beräknad avgång för de datumen finns inte än. Tidtabellen för just de dagarna har samma klockslag som resebladet: LH 801 09:50–12:00, LH 1130 13:25–15:30, LH 1135 19:00–21:10 och LH 810 22:15–00:20. Inget är ändrat här.",
-  text: "Gå för säkerhets skull in och kolla flygplatsens beräknade avgångstider tre dagar innan resan, tisdag 13 oktober, och kvällen innan, torsdag 15 oktober, så att inga tidtabellsändringar har skett. Gör samma koll kvällen innan hemresan, söndag 18 oktober. En ändrad avgång från Barcelona flyttar också bussen. Tiderna här är resebladets.",
+  result: "Kollat 19 oktober 2026, klockan 16:26 i Barcelona. LH 1135 är försenat. Barcelonas tavla säger beräknad avgång 20:10 och beräknad ankomst Frankfurt 22:07. Resebladet har 19:00–21:10. LH 810 står kvar på 22:15 och är i tid, framme på Arlanda 00:20 tisdag 20 oktober. Fredagens flyg står kvar som på resebladet: LH 801 09:50–12:00 och LH 1130 13:25–15:30.",
+  text: "LH 1135 beräknas landa 22:07 och LH 810 går 22:15. Mellan de tiderna är det åtta minuter. Buss D20 går fortfarande 15:00 från hotellet. Kolla tavlan på flygplatsen, tiderna kan flytta sig.",
   boards: [
     { label: "Arlanda", url: "https://www.swedavia.se/arlanda/avgangar/" },
     { label: "Frankfurt", url: "https://www.frankfurt-airport.com/de/fluege-und-airlines/abfluege.html?flighttype=departures&q=" },
-    { label: "Barcelona", url: "https://www.aena.es/es/infovuelos.html" },
+    { label: "Barcelona", url: "https://www.aeropuertobarcelona-elprat.com/ingl/flight-departure-LH1135" },
   ],
 };
 
@@ -1137,7 +1144,7 @@ export const AIRPORT_BUS = {
     date: "Mån 19 okt",
     flight: "LH 1135",
     airport: "Barcelona El Prat",
-    flightTime: "19:00",
+    flightTime: "20:10",
     hotelLeave: "15:00",
     checkout: "11:00",
     bus: "Buss D20",
@@ -1534,9 +1541,11 @@ function flightPlace(name) {
 }
 
 function flightStop(flight) {
-  const note = flight.arrNote
-    ? `${flight.arrNote}. Tiderna är lokal tid på varje flygplats, som på resebladet.`
-    : "Tiderna är lokal tid på varje flygplats, som på resebladet.";
+  const note = flight.note
+    ? flight.note
+    : flight.arrNote
+      ? `${flight.arrNote}. Tiderna är lokal tid på varje flygplats, som på resebladet.`
+      : "Tiderna är lokal tid på varje flygplats, som på resebladet.";
   return {
     id: flight.no.replaceAll(" ", "").toLowerCase(),
     kind: "flight",
