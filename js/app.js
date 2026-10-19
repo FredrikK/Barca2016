@@ -41,7 +41,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r7";
+} from "./data.js?v=r8";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -282,9 +282,10 @@ function viewTrip() {
               <div>
                 <div class="route">${esc(flight.from)} → ${esc(flight.to)}</div>
                 <div class="times small">${esc(flight.dep)} – ${esc(flight.arr)}${flight.arrNote ? ` · ${esc(flight.arrNote)}` : ""}</div>
+                ${flight.sheet ? `<div class="tiny">Resebladet har ${esc(flight.sheet)}.</div>` : ""}
               </div>
             </div>`).join("")}
-          <p class="tiny" style="margin-top:8px">Tiderna står som på resebladet. De är lokal tid på varje flygplats. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}.</p>
+          <p class="tiny" style="margin-top:8px">Fredagens tider är resebladets. LH 1135 är Barcelonas beräknade tid. LH 810 står kvar som på resebladet. Tiderna är lokal tid på varje flygplats. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}.</p>
           <p class="small" style="margin-top:10px">${esc(FLIGHT_CHECK.result)}</p>
           <p class="small" style="margin-top:8px">${esc(FLIGHT_CHECK.text)}</p>
           <p class="tiny" style="margin-top:6px">${FLIGHT_CHECK.boards.map((board) => `<a href="${esc(board.url)}" target="_blank" rel="noopener">${esc(board.label)}</a>`).join(" · ")}</p>

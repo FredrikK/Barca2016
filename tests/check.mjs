@@ -406,6 +406,7 @@ if (monTravel[0].start !== "15:00" || !monTravel[0].note.includes("16:10") || !m
 if (monTravel[0].note.includes("cirka 15:00")) throw new Error("Monday bus is still approximate");
 if (!AIRPORT_BUS.departure.rule.includes("cirka 4 timmar") || !AIRPORT_BUS.departure.rule.includes("flygtiderna")) throw new Error("home bus rule drifted");
 if (AIRPORT_BUS.departure.rule.includes("Barcelona-flyg")) throw new Error("home bus still uses the old Barcelona wording");
+if (monTravel[1].name !== "LH 1135" || monTravel[1].start !== "20:10" || monTravel[1].end !== "22:07" || !monTravel[1].note.includes("19:00–21:10")) throw new Error("Barcelona departure drifted");
 if (monTravel[2].start !== "22:15" || monTravel[2].end !== "00:20" || !monTravel[2].note.includes("tisdag")) throw new Error("return flight drifted");
 if (JSON.stringify(friTravel.concat(monTravel)).toLowerCase().includes("plana")) throw new Error("travel row guessed a coach company");
 
@@ -416,15 +417,21 @@ if (AIRPORT_BUS.arrival.bus !== "Buss A36" || AIRPORT_BUS.arrival.pax !== 23 || 
 if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15:30") throw new Error("arrival bus flight drifted");
 if (AIRPORT_BUS.arrival.airport !== "Barcelona El Prat") throw new Error("arrival airport drifted");
 if (!AIRPORT_BUS.arrival.meet.includes("ankomsthallen")) throw new Error("Barcelona meeting point missing");
-if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTime !== "19:00") throw new Error("departure flight drifted");
-if (!FLIGHT_CHECK.text.includes("tre dagar") || !FLIGHT_CHECK.text.includes("13 oktober") || !FLIGHT_CHECK.text.includes("kvällen innan") || !FLIGHT_CHECK.text.includes("15 oktober") || !FLIGHT_CHECK.text.includes("18 oktober")) {
+if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTime !== "20:10") throw new Error("departure flight drifted");
+if (!FLIGHT_CHECK.text.includes("22:07") || !FLIGHT_CHECK.text.includes("22:15") || !FLIGHT_CHECK.text.includes("åtta minuter") || !FLIGHT_CHECK.text.includes("15:00")) {
   throw new Error("flight board reminder drifted");
 }
-if (!FLIGHT_CHECK.result.includes("8 oktober 2026") || !FLIGHT_CHECK.result.includes("samma klockslag") || !FLIGHT_CHECK.result.includes("09:50–12:00") || !FLIGHT_CHECK.result.includes("22:15–00:20")) {
+if (!FLIGHT_CHECK.result.includes("19 oktober 2026") || !FLIGHT_CHECK.result.includes("20:10") || !FLIGHT_CHECK.result.includes("22:07") || !FLIGHT_CHECK.result.includes("09:50–12:00") || !FLIGHT_CHECK.result.includes("22:15")) {
   throw new Error("flight check result drifted");
 }
-if (!FLIGHT_CHECK.result.includes("fredag 16 oktober") || !FLIGHT_CHECK.result.includes("måndag 19 oktober") || !FLIGHT_CHECK.result.includes("Beräknad avgång")) {
+if (!FLIGHT_CHECK.result.includes("19:00–21:10") || !FLIGHT_CHECK.result.includes("beräknad avgång") || !FLIGHT_CHECK.result.includes("i tid")) {
   throw new Error("flight check is no longer tied to the travel dates");
+}
+if (FLIGHTS.find((flight) => flight.no === "LH 1135").dep !== "20:10" || FLIGHTS.find((flight) => flight.no === "LH 1135").arr !== "22:07") {
+  throw new Error("LH 1135 board time drifted");
+}
+if (FLIGHTS.find((flight) => flight.no === "LH 810").dep !== "22:15" || FLIGHTS.find((flight) => flight.no === "LH 810").arr !== "00:20") {
+  throw new Error("LH 810 changed without a board time");
 }
 if (!FLIGHT_CHECK.boards.some((board) => board.url === "https://www.swedavia.se/arlanda/avgangar/")) throw new Error("Arlanda board missing");
 if (FLIGHTS.find((flight) => flight.no === "LH 801").dep !== "09:50" || FLIGHTS.find((flight) => flight.no === "LH 1130").dep !== "13:25") {
