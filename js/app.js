@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r15";
+} from "./data.js?v=r16";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -750,7 +750,7 @@ function viewClaim() {
           <p class="small">Resebolaget hanterar inte ersättningen och får inte skicka in ansökan åt er. Det gör ni själva hos Lufthansa.</p>
           <p class="small" style="margin-top:8px">En person skickar in ansökan. Bokningskoden är ${esc(CLAIM.booking)}. Skriv den i formuläret och på varje fullmakt. Spara referensnumret.</p>
           <p class="small" style="margin-top:8px">Välj missad anslutning. Första flyget är LH 1135 den 19 oktober. Anslutningen är LH 810 samma kväll. Det nya planet är VL 800 den 20 oktober, med landning ${esc(CLAIM.landed)}.</p>
-          <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Varje spelare gör en egen blankett. Skriv ut den, fyll i fälten och låt vårdnadshavaren skriva under. Kryssa i No på Accept any due payments.</p>
+          <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Varje spelare gör en egen blankett. Skriv ut den, fyll i fälten och låt vårdnadshavaren skriva under. Yes är ikryssat på Accept any due payments.</p>
           <p class="small" style="margin-top:8px">Ladda upp blanketterna på feedbacksidan och hänvisa till referensnumret från ansökan.</p>
           <p class="small" style="margin-top:8px">Hotellet är redan betalt av Lufthansa. Det ska inte krävas en gång till. Väskorna kom med, så det finns inget bagagekrav.</p>
           <p class="small" style="margin-top:10px"><a href="${esc(CLAIM.form)}" target="_blank" rel="noopener">Lufthansas ansökan</a></p>

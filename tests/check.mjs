@@ -596,6 +596,9 @@ if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#
   throw new Error("the compensation page is missing");
 }
 if (appSource.includes("Den öppna flygloggen säger inte")) throw new Error("the old delay sentence is still on the page");
+if (appSource.includes("Kryssa i No") || !appSource.includes("Yes är ikryssat på Accept any due payments")) {
+  throw new Error("the payment checkbox instruction drifted");
+}
 if (appSource.includes("Din blankett") || appSource.includes("Lathund") || appSource.includes("function playerForm") || appSource.includes("två personer") || appSource.includes("9 blanketter")) {
   throw new Error("the cheat sheet is still on the compensation page");
 }
