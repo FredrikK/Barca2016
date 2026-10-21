@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r11";
+} from "./data.js?v=r12";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -733,7 +733,7 @@ function viewClaim() {
         <div class="section-head"><h2>Så skickar ni in</h2></div>
         <div class="card pad">
           <p class="small">Resebolaget hanterar inte ersättningen och får inte skicka in ansökan åt er. Det gör ni själva hos Lufthansa.</p>
-          <p class="small" style="margin-top:8px">En person skickar in ansökan. Bokningskoden står på biljetten. Skriv den i formuläret, inte här. Spara referensnumret.</p>
+          <p class="small" style="margin-top:8px">En person skickar in ansökan. Bokningskoden är ${esc(sheet.booking)}. Skriv den i formuläret och på varje fullmakt. Spara referensnumret.</p>
           <p class="small" style="margin-top:8px">Välj missad anslutning. Första flyget är LH 1135 den 19 oktober. Anslutningen är LH 810 samma kväll. Det nya planet är VL 800 den 20 oktober, med landning ${esc(CLAIM.landed)}.</p>
           <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Blanketten rymmer två personer, så det blir flera. Skriv ut, fyll i och skriv under. På blanketten finns en fråga om personen också får ta emot pengarna. Svara ja bara om ni vill det.</p>
           <p class="small" style="margin-top:8px">Ladda upp blanketterna på feedbacksidan och hänvisa till referensnumret från ansökan.</p>
@@ -757,6 +757,10 @@ function viewClaim() {
             <div><div class="times small">${esc(sheet.flightDate)}</div></div>
           </div>
           <div class="flight">
+            <div><b>Booking code</b></div>
+            <div><div class="times small">${esc(sheet.booking)}</div></div>
+          </div>
+          <div class="flight">
             <div><b>IATA number</b></div>
             <div><div class="times small">Lämna tomt</div></div>
           </div>
@@ -772,7 +776,6 @@ function viewClaim() {
         <div class="card pad" style="margin-top:12px">
           <p class="small">Det här ska vara likadant på alla blanketter, och det kan vi inte fylla i åt er.</p>
           <p class="small" style="margin-top:8px"><b>Name of the authorized person</b> och <b>Address of the authorized person</b>. Namn och adress för den som skickar in ansökan.</p>
-          <p class="small" style="margin-top:8px"><b>Booking code</b>. Samma kod på alla blanketter. Den står på biljetten, inte här.</p>
         </div>
         <div class="card pad" style="margin-top:12px">
           <p class="small">Det här fyller varje familj i. Namnet ska stavas som på biljetten. Listan under är förnamn och initial, så ni ser att ingen spelare saknas.</p>

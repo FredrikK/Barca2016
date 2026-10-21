@@ -1184,6 +1184,7 @@ export const CLAIM = {
     perForm: 2,
     flight: "LH 1135",
     flightDate: "19 October 2026",
+    booking: "87ZRTJ",
     payment: "No",
   },
 };
