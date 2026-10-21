@@ -1132,7 +1132,14 @@ export const FLIGHT_CHECK = {
 // scheduled arrival 07:15 UTC = 09:15 local, takeoff 06:49 UTC = 08:49, landing 08:33 UTC = 10:33.
 // Great-circle BCN–ARN is 2,317 km, so the intra-EU band over 1,500 km is 400 euro.
 // Arrival 10:33 is 10 hours 13 minutes after the booked 00:20, so the 50 percent reduction does not apply.
-// The public logs do not say why LH 1135 was late. Extraordinary circumstances stay a question for Lufthansa.
+// Same aircraft D-AINZ on 19 October 2026, FlightRadar24 UTC converted to CEST (UTC+2):
+// LH 803 ARN–FRA: STD 11:10 UTC = 13:10, ATD 11:32 = 13:32, STA 13:20 = 15:20, landed 13:12 UTC = 15:12 (eight minutes early).
+// LH 1134 FRA–BCN: STD 14:10 UTC = 16:10, ATD 15:56 = 17:56, STA 16:15 = 18:15, landed 17:49 UTC = 19:49.
+// The delay started in Frankfurt after that on-time arrival. No open source states a cause code.
+// Frankfurt that afternoon: disruption index 0.6, average delay 5 min, forecast overcast and 0 mm. Not a weather shutdown.
+// Barcelona had a weather warning and many Monday cancellations, including LH 1817 BCN–MUC scheduled 18:40. LH 1135 operated.
+// LH 1135 could not leave at 19:00 because the aircraft landed in Barcelona at 19:49. Takeoff 19:55 UTC = 21:55, landing 21:34 UTC = 23:34.
+// A late aircraft in the airline's own chain is not by itself extraordinary circumstances. The 400 euro is not decided.
 export const CLAIM = {
   title: "Ersättning",
   amount: 400,
@@ -1178,6 +1185,37 @@ export const CLAIM = {
     "Gruppen sov över i Frankfurt. Lufthansa betalade.",
     "Väskorna kom med till Arlanda.",
   ],
+  cause: {
+    title: "Varför det blev sent",
+    lead: "Samma plan, D-AINZ, flög tre sträckor måndag 19 oktober. Tiderna är lokal tid enligt FlightRadar24.",
+    steps: [
+      {
+        no: "LH 803",
+        route: "Stockholm → Frankfurt",
+        sheet: "13:10–15:20",
+        actual: "Landade 15:12, åtta minuter före tidtabell.",
+      },
+      {
+        no: "LH 1134",
+        route: "Frankfurt → Barcelona",
+        sheet: "16:10–18:15",
+        actual: "Lyfte 17:56 och landade i Barcelona 19:49.",
+      },
+      {
+        no: "LH 1135",
+        route: "Barcelona → Frankfurt",
+        sheet: "19:00–21:10",
+        actual: "Planet fanns inte i Barcelona klockan 19:00. Det lyfte 21:55 och landade i Frankfurt 23:34.",
+      },
+    ],
+    notes: [
+      "Förseningen började i Frankfurt. Planet kom dit före tidtabell och lyfte först 17:56, mot tidtabellens 16:10. Ingen öppen källa anger en orsakskod för den väntan.",
+      "Frankfurt hade korta förseningar den eftermiddagen, i snitt fem minuter. Prognosen där var mulet och utan regn.",
+      "I Barcelona fanns en vädervarning från måndag eftermiddag, och flera avgångar ställdes in, bland annat Lufthansa till München 18:40. LH 1135 gick. Vädervarningen förklarar inte att planet saknades klockan 19:00. Det lyfte från Frankfurt 17:56 och landade i Barcelona först 19:49.",
+      "I Barcelona stod planet på marken från 19:49 till 21:55. Ingen öppen källa anger en orsak för den väntan.",
+      "Ett sent plan i bolagets egen kedja räcker inte i sig som skäl att säga nej. Lufthansa behöver visa den ursprungliga orsaken, och att den inte gick att undvika. Svarar de väder kan ni be dem visa vad som höll planet i Frankfurt. Beloppet är inte avgjort.",
+    ],
+  },
   booking: "87ZRTJ",
 };
 

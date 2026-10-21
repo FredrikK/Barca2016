@@ -445,6 +445,20 @@ if (CLAIM.form !== "https://www.lufthansa.com/se/en/fast-compensation" || !CLAIM
 if (CLAIM.booking !== "87ZRTJ" || CLAIM.lathund) {
   throw new Error("booking code drifted");
 }
+if (CLAIM.cause.title !== "Varför det blev sent" || CLAIM.cause.steps.map((step) => step.no).join() !== "LH 803,LH 1134,LH 1135") {
+  throw new Error("delay chain drifted");
+}
+const causeText = `${CLAIM.cause.lead} ${CLAIM.cause.steps.map((step) => `${step.sheet} ${step.actual}`).join(" ")} ${CLAIM.cause.notes.join(" ")}`;
+for (const bit of ["D-AINZ", "15:12", "17:56", "19:49", "21:55", "23:34", "orsakskod", "18:40", "Frankfurt"]) {
+  if (!causeText.includes(bit)) throw new Error(`delay reasoning lost ${bit}`);
+}
+if (!causeText.includes("åtta minuter") || FLIGHT_CHECK.text.includes("åtta minuter") || FLIGHT_CHECK.result.includes("D-AINZ")) {
+  throw new Error("the early arrival leaked into the flight check");
+}
+if (causeText.includes("vädret gjorde") || causeText.includes("på grund av väder") || causeText.includes("orsakades av väder") || causeText.includes("redan beslutat") || causeText.includes("är beviljat")) {
+  throw new Error("the delay text decides the cause or the amount");
+}
+if (!causeText.includes("Beloppet är inte avgjort")) throw new Error("the delay text treats the amount as decided");
 const spangaPlayers = TEAMS.find((team) => team.id === "spanga").players.map((player) => player.name);
 if (spangaPlayers.length !== 17 || spangaPlayers[0] !== "Alma K. R." || spangaPlayers.at(-1) !== "Olivia N.") {
   throw new Error("the player sheet lost a name");
@@ -578,9 +592,10 @@ if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) |
   throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
-if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("en egen blankett") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte") || !appSource.includes("Accept any due payments") || !appSource.includes("CLAIM.booking")) {
+if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("en egen blankett") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte") || !appSource.includes("Accept any due payments") || !appSource.includes("CLAIM.booking") || !appSource.includes("CLAIM.cause")) {
   throw new Error("the compensation page is missing");
 }
+if (appSource.includes("Den öppna flygloggen säger inte")) throw new Error("the old delay sentence is still on the page");
 if (appSource.includes("Din blankett") || appSource.includes("Lathund") || appSource.includes("function playerForm") || appSource.includes("två personer") || appSource.includes("9 blanketter")) {
   throw new Error("the cheat sheet is still on the compensation page");
 }
