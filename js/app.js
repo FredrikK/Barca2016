@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r9";
+} from "./data.js?v=r10";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -729,10 +729,15 @@ function viewClaim() {
       <div class="section">
         <div class="section-head"><h2>Så skickar ni in</h2></div>
         <div class="card pad">
-          <p class="small">En vuxen skickar in kravet för sig och för barnen i samma hushåll. Bokningskoden står på biljetten. Skriv den i formuläret. Den ska inte stå här.</p>
+          <p class="small">Resebolaget hanterar inte ersättningen och får inte skicka in ansökan åt er. Det gör ni själva hos Lufthansa.</p>
+          <p class="small" style="margin-top:8px">En person skickar in ansökan. Bokningskoden står på biljetten. Skriv den i formuläret, inte här. Spara referensnumret.</p>
           <p class="small" style="margin-top:8px">Välj missad anslutning. Första flyget är LH 1135 den 19 oktober. Anslutningen är LH 810 samma kväll. Det nya planet är VL 800 den 20 oktober, med landning ${esc(CLAIM.landed)}.</p>
+          <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Blanketten rymmer två personer, så det blir flera. Skriv ut, fyll i och skriv under. På blanketten finns en fråga om personen också får ta emot pengarna. Svara ja bara om ni vill det.</p>
+          <p class="small" style="margin-top:8px">Ladda upp blanketterna på feedbacksidan och hänvisa till referensnumret från ansökan.</p>
           <p class="small" style="margin-top:8px">Hotellet är redan betalt av Lufthansa. Det ska inte krävas en gång till. Väskorna kom med, så det finns inget bagagekrav.</p>
-          <p class="small" style="margin-top:10px"><a href="${esc(CLAIM.form)}" target="_blank" rel="noopener">Lufthansas formulär</a></p>
+          <p class="small" style="margin-top:10px"><a href="${esc(CLAIM.form)}" target="_blank" rel="noopener">Lufthansas ansökan</a></p>
+          <p class="small" style="margin-top:6px"><a href="${esc(CLAIM.power)}" target="_blank" rel="noopener">Fullmakt, pdf</a></p>
+          <p class="small" style="margin-top:6px"><a href="${esc(CLAIM.feedback)}" target="_blank" rel="noopener">Feedbacksidan</a></p>
           <p class="tiny" style="margin-top:6px"><a href="${esc(CLAIM.rights)}" target="_blank" rel="noopener">EU:s regler för flygpassagerare</a></p>
         </div>
       </div>

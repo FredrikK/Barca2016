@@ -1141,7 +1141,10 @@ export const CLAIM = {
   originalArrival: "00:20",
   landed: "10:33",
   late: "10 timmar och 13 minuter",
-  form: "https://www.lufthansa.com/de/de/kompensation-bei-flugunregelmaessigkeiten",
+  // The agency sent the same form on the India site (/in/en/fast-compensation). This is the Swedish site.
+  form: "https://www.lufthansa.com/se/en/fast-compensation",
+  feedback: "https://www.lufthansa.com/se/en/feedback",
+  power: "https://www.lufthansa.com/content/dam/lh/documents/common/power-of-attorney/lh_power-of-attorney_EN.pdf",
   rights: "https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_sv.htm",
   booked: [
     {

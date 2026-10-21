@@ -439,7 +439,9 @@ if (CLAIM.booked.map((flight) => `${flight.no}:${flight.sheet}`).join() !== "LH 
 if (!CLAIM.facts.some((fact) => fact.includes("Hela gruppen")) || !CLAIM.facts.some((fact) => fact.includes("Lufthansa betalade")) || !CLAIM.facts.some((fact) => fact.includes("Väskorna kom med"))) {
   throw new Error("claim facts drifted");
 }
-if (!CLAIM.form.startsWith("https://www.lufthansa.com/") || !CLAIM.rights.includes("europa.eu")) throw new Error("claim links drifted");
+if (CLAIM.form !== "https://www.lufthansa.com/se/en/fast-compensation" || !CLAIM.feedback.endsWith("/feedback") || !CLAIM.power.endsWith("lh_power-of-attorney_EN.pdf") || !CLAIM.rights.includes("europa.eu")) {
+  throw new Error("claim links drifted");
+}
 if (JSON.stringify(CLAIM).match(/[A-Z0-9]{6}/) && JSON.stringify(CLAIM).includes("bokningskod:")) throw new Error("a booking code was written into the claim");
 if (FLIGHTS.find((flight) => flight.no === "LH 1135").dep !== "20:10" || FLIGHTS.find((flight) => flight.no === "LH 1135").arr !== "22:07") {
   throw new Error("LH 1135 board time drifted");
@@ -569,7 +571,7 @@ if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) |
   throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
-if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning")) {
+if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("två personer") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte")) {
   throw new Error("the compensation page is missing");
 }
 if (appSource.includes('data-tab="ersattning"')) throw new Error("compensation landed in the tab bar");
