@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r10";
+} from "./data.js?v=r11";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -678,6 +678,9 @@ function dayRideNote(day) {
 
 function viewClaim() {
   const taken = CLAIM.taken;
+  const sheet = CLAIM.lathund;
+  const players = teamById("spanga").players;
+  const forms = Math.ceil(players.length / sheet.perForm);
   return `
     <section class="view">
       <header class="topbar">
@@ -739,6 +742,46 @@ function viewClaim() {
           <p class="small" style="margin-top:6px"><a href="${esc(CLAIM.power)}" target="_blank" rel="noopener">Fullmakt, pdf</a></p>
           <p class="small" style="margin-top:6px"><a href="${esc(CLAIM.feedback)}" target="_blank" rel="noopener">Feedbacksidan</a></p>
           <p class="tiny" style="margin-top:6px"><a href="${esc(CLAIM.rights)}" target="_blank" rel="noopener">EU:s regler för flygpassagerare</a></p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>${esc(sheet.title)}</h2></div>
+        <div class="card pad">
+          <p class="small">Blanketten är på engelska. Skriv av de här raderna på varje exemplar. ${players.length} spelare och ${sheet.perForm} namn per blankett blir ${forms} blanketter. Den sista har ett namn.</p>
+          <div class="flight">
+            <div><b>Flight</b></div>
+            <div><div class="times small">${esc(sheet.flight)}</div></div>
+          </div>
+          <div class="flight">
+            <div><b>Date</b></div>
+            <div><div class="times small">${esc(sheet.flightDate)}</div></div>
+          </div>
+          <div class="flight">
+            <div><b>IATA number</b></div>
+            <div><div class="times small">Lämna tomt</div></div>
+          </div>
+          <div class="flight">
+            <div><b>Feedback ID</b></div>
+            <div><p class="small">Lämna tomt tills referensnumret finns. Skriv sedan samma nummer på alla blanketter.</p></div>
+          </div>
+          <div class="flight">
+            <div><b>Accept any due payments</b></div>
+            <div><div class="times small">${esc(sheet.payment)}</div><p class="tiny">No betyder att personen får prata med Lufthansa, inte att pengarna betalas till den personen.</p></div>
+          </div>
+        </div>
+        <div class="card pad" style="margin-top:12px">
+          <p class="small">Det här ska vara likadant på alla blanketter, och det kan vi inte fylla i åt er.</p>
+          <p class="small" style="margin-top:8px"><b>Name of the authorized person</b> och <b>Address of the authorized person</b>. Namn och adress för den som skickar in ansökan.</p>
+          <p class="small" style="margin-top:8px"><b>Booking code</b>. Samma kod på alla blanketter. Den står på biljetten, inte här.</p>
+        </div>
+        <div class="card pad" style="margin-top:12px">
+          <p class="small">Det här fyller varje familj i. Namnet ska stavas som på biljetten. Listan under är förnamn och initial, så ni ser att ingen spelare saknas.</p>
+          <p class="small" style="margin-top:8px"><b>Full name of all passenger(s) involved</b>. Last name, First name. Två personer per blankett.</p>
+          <p class="small" style="margin-top:8px"><b>Passenger address(es)</b>. Adressen för personen på blanketten.</p>
+          <p class="small" style="margin-top:8px"><b>Place, Date</b> och <b>Passenger signature(s)</b>. Ort och datum är där ni skriver under. Vårdnadshavaren skriver under för spelaren.</p>
+          <p class="small" style="margin-top:8px">Vuxna på samma biljett behöver en egen rad om samma person ska företräda dem.</p>
+          ${players.map((player) => `<div class="tiny" style="padding:8px 0;border-top:1px solid var(--line)">${esc(player.name)}</div>`).join("")}
+          <p class="tiny" style="margin-top:8px"><a href="${esc(CLAIM.power)}" target="_blank" rel="noopener">Öppna fullmakten</a></p>
         </div>
       </div>
     </section>`;

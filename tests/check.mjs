@@ -442,6 +442,14 @@ if (!CLAIM.facts.some((fact) => fact.includes("Hela gruppen")) || !CLAIM.facts.s
 if (CLAIM.form !== "https://www.lufthansa.com/se/en/fast-compensation" || !CLAIM.feedback.endsWith("/feedback") || !CLAIM.power.endsWith("lh_power-of-attorney_EN.pdf") || !CLAIM.rights.includes("europa.eu")) {
   throw new Error("claim links drifted");
 }
+if (CLAIM.lathund.title !== "Lathund" || CLAIM.lathund.flight !== "LH 1135" || CLAIM.lathund.flightDate !== "19 October 2026" || CLAIM.lathund.payment !== "No" || CLAIM.lathund.perForm !== 2) {
+  throw new Error("power of attorney sheet drifted");
+}
+const spangaPlayers = TEAMS.find((team) => team.id === "spanga").players.map((player) => player.name);
+if (spangaPlayers.length !== 17 || spangaPlayers[0] !== "Alma K. R." || spangaPlayers.at(-1) !== "Olivia N.") {
+  throw new Error("the player sheet lost a name");
+}
+if (JSON.stringify(CLAIM.lathund).match(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/)) throw new Error("the sheet grew a surname");
 if (JSON.stringify(CLAIM).match(/[A-Z0-9]{6}/) && JSON.stringify(CLAIM).includes("bokningskod:")) throw new Error("a booking code was written into the claim");
 if (FLIGHTS.find((flight) => flight.no === "LH 1135").dep !== "20:10" || FLIGHTS.find((flight) => flight.no === "LH 1135").arr !== "22:07") {
   throw new Error("LH 1135 board time drifted");
@@ -571,7 +579,7 @@ if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) |
   throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
-if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("två personer") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte")) {
+if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("två personer") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte") || !appSource.includes("Vårdnadshavaren") || !appSource.includes('teamById("spanga").players') || !appSource.includes("Accept any due payments")) {
   throw new Error("the compensation page is missing");
 }
 if (appSource.includes('data-tab="ersattning"')) throw new Error("compensation landed in the tab bar");
