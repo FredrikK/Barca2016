@@ -1178,15 +1178,7 @@ export const CLAIM = {
     "Gruppen sov över i Frankfurt. Lufthansa betalade.",
     "Väskorna kom med till Arlanda.",
   ],
-  // Shared answers on every player's own power of attorney. One form per player.
-  lathund: {
-    title: "Lathund",
-    perForm: 1,
-    flight: "LH 1135",
-    flightDate: "19 October 2026",
-    booking: "87ZRTJ",
-    payment: "No",
-  },
+  booking: "87ZRTJ",
 };
 
 // Official airport buses from the tournament list. A36 and D20 are the bus codes, not a coach company.
