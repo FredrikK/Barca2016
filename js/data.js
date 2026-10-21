@@ -1116,12 +1116,64 @@ export const FLIGHTS = [
 // FlightStats for the same date says the same estimate, delayed 1 h 10 min.
 // LH 810 is still scheduled 22:15–00:20 and on time on the Frankfurt board.
 export const FLIGHT_CHECK = {
-  result: "Kollat 19 oktober 2026, klockan 16:26 i Barcelona. LH 1135 är försenat. Barcelonas tavla säger beräknad avgång 20:10 och beräknad ankomst Frankfurt 22:07. Resebladet har 19:00–21:10. LH 810 står kvar på 22:15 och är i tid, framme på Arlanda 00:20 tisdag 20 oktober. Fredagens flyg står kvar som på resebladet: LH 801 09:50–12:00 och LH 1130 13:25–15:30.",
-  text: "LH 1135 beräknas landa 22:07 och LH 810 går 22:15. Mellan de tiderna är det åtta minuter. Buss D20 går fortfarande 15:00 från hotellet. Kolla tavlan på flygplatsen, tiderna kan flytta sig.",
+  result: "Klockan 16:26 den 19 oktober sa Barcelonas tavla beräknad avgång 20:10 och ankomst Frankfurt 22:07. Sedan blev LH 1135 senare och landade 23:34. LH 810 gick 22:29. Gruppen var inte med. Fredagens flyg står kvar som på resebladet: LH 801 09:50–12:00 och LH 1130 13:25–15:30.",
+  text: "Lufthansa bokade om alla till VL 800 tisdag 20 oktober. Planet skulle gå 07:10 och landade på Arlanda 10:33. Ersättningen står under flygen.",
   boards: [
     { label: "Arlanda", url: "https://www.swedavia.se/arlanda/avgangar/" },
     { label: "Frankfurt", url: "https://www.frankfurt-airport.com/de/fluege-und-airlines/abfluege.html?flighttype=departures&q=" },
     { label: "Barcelona", url: "https://www.aeropuertobarcelona-elprat.com/ingl/flight-departure-LH1135" },
+  ],
+};
+
+// What happened on the way home, and the EU compensation that follows from those clocks.
+// LH 1135 landing 23:34 and LH 810 departure 22:29 are FlightRadar24 times converted from UTC to local (CEST, UTC+2).
+// Barcelona's board recorded the LH 1135 departure as 165 minutes late, about 21:45.
+// VL 800 on 20 October: the passenger's ticket says 07:10. FlightRadar24 scheduled 05:10 UTC, which is 07:10 local,
+// scheduled arrival 07:15 UTC = 09:15 local, takeoff 06:49 UTC = 08:49, landing 08:33 UTC = 10:33.
+// Great-circle BCN–ARN is 2,317 km, so the intra-EU band over 1,500 km is 400 euro.
+// Arrival 10:33 is 10 hours 13 minutes after the booked 00:20, so the 50 percent reduction does not apply.
+// The public logs do not say why LH 1135 was late. Extraordinary circumstances stay a question for Lufthansa.
+export const CLAIM = {
+  title: "Ersättning",
+  amount: 400,
+  unit: "euro per person",
+  distanceKm: 2317,
+  originalArrival: "00:20",
+  landed: "10:33",
+  late: "10 timmar och 13 minuter",
+  form: "https://www.lufthansa.com/de/de/kompensation-bei-flugunregelmaessigkeiten",
+  rights: "https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_sv.htm",
+  booked: [
+    {
+      no: "LH 1135",
+      date: "Mån 19 okt",
+      route: "Barcelona → Frankfurt",
+      sheet: "19:00–21:10",
+      actual: "Landade i Frankfurt 23:34.",
+    },
+    {
+      no: "LH 810",
+      date: "Mån 19 okt",
+      route: "Frankfurt → Stockholm",
+      sheet: "22:15–00:20",
+      actual: "Gick 22:29 och landade 00:14. Gruppen var inte med.",
+    },
+  ],
+  taken: {
+    no: "VL 800",
+    airline: "Lufthansa City",
+    date: "Tis 20 okt",
+    route: "Frankfurt → Stockholm",
+    dep: "07:10",
+    arr: "09:15",
+    takeoff: "08:49",
+    landed: "10:33",
+  },
+  facts: [
+    "Hela gruppen åkte med VL 800.",
+    "Lufthansa bokade om resan.",
+    "Gruppen sov över i Frankfurt. Lufthansa betalade.",
+    "Väskorna kom med till Arlanda.",
   ],
 };
 

@@ -6,6 +6,7 @@ import {
   CEREMONY,
   ARLANDA_CARS,
   AREA,
+  CLAIM,
   FLIGHT_CHECK,
   FLIGHTS,
   HOTEL,
@@ -41,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r8";
+} from "./data.js?v=r9";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -113,6 +114,7 @@ function render() {
     method: viewMethod,
     snacks: viewSnacks,
     vinst: viewPrize,
+    ersattning: viewClaim,
   };
   app.innerHTML = (views[page] || viewTrip)();
   paintTheme(page === "team" ? teamById(arg) : null);
@@ -141,6 +143,7 @@ function pageMap(page) {
   if (page === "match") return "schedule";
   if (page === "method") return "rank";
   if (page === "snacks" || page === "vinst") return "";
+  if (page === "ersattning") return "trip";
   return ["trip", "packlista", "schedule", "rank", "area"].includes(page) ? page : "trip";
 }
 
@@ -285,11 +288,19 @@ function viewTrip() {
                 ${flight.sheet ? `<div class="tiny">Resebladet har ${esc(flight.sheet)}.</div>` : ""}
               </div>
             </div>`).join("")}
-          <p class="tiny" style="margin-top:8px">Fredagens tider är resebladets. LH 1135 är Barcelonas beräknade tid. LH 810 står kvar som på resebladet. Tiderna är lokal tid på varje flygplats. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}.</p>
+          <p class="tiny" style="margin-top:8px">Fredagens tider är resebladets. Måndagens klockslag är det som stod innan hemresan. Det som hände sedan står under Ersättning. Samling på Arlanda, terminal 5, kl ${esc(travelStops("fri").find((item) => item.name === "Samling").start)}.</p>
           <p class="small" style="margin-top:10px">${esc(FLIGHT_CHECK.result)}</p>
           <p class="small" style="margin-top:8px">${esc(FLIGHT_CHECK.text)}</p>
           <p class="tiny" style="margin-top:6px">${FLIGHT_CHECK.boards.map((board) => `<a href="${esc(board.url)}" target="_blank" rel="noopener">${esc(board.label)}</a>`).join(" · ")}</p>
         </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2>${esc(CLAIM.title)}</h2><button class="text-btn" data-go="#ersattning">Hela kravet</button></div>
+        <button type="button" class="card pad" data-go="#ersattning">
+          <b>${esc(CLAIM.amount)} ${esc(CLAIM.unit)}</b>
+          <p class="small" style="margin-top:6px">${esc(CLAIM.taken.no)} landade på Arlanda ${esc(CLAIM.landed)} tisdag 20 oktober. Det bokade planet skulle vara framme ${esc(CLAIM.originalArrival)}.</p>
+        </button>
       </div>
 
       <div class="section">
@@ -663,6 +674,69 @@ function dayRideNote(day) {
     return `Ingen tid att åka tillbaka till ${HOTEL.name} mellan de här matcherna. ${out.line} går ${out.time} till planerna och ${back.time} tillbaka. Lunchen är 15:00 på hotellet.${prize}`;
   }
   return "";
+}
+
+function viewClaim() {
+  const taken = CLAIM.taken;
+  return `
+    <section class="view">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Hemresan 19–20 oktober</p>
+          <h1>${esc(CLAIM.title)}</h1>
+          <p class="sub">${esc(CLAIM.amount)} ${esc(CLAIM.unit)}. Landningen på Arlanda var ${esc(CLAIM.late)} efter det bokade planet.</p>
+        </div>
+      </header>
+      <button class="back" data-go="#trip">Tillbaka till resan</button>
+      <div class="callout" style="margin-top:12px">
+        <p>Schablonen är <b>${esc(CLAIM.amount)} ${esc(CLAIM.unit)}</b>. Barcelona–Arlanda är ${esc(CLAIM.distanceKm.toLocaleString("sv-SE"))} km. Inom EU är beloppet 400 euro när slutmålet ligger mer än tre timmar efter tidtabellen. ${esc(CLAIM.landed)} är ${esc(CLAIM.late)} efter ${esc(CLAIM.originalArrival)}, så beloppet halveras inte.</p>
+        <p style="margin-top:8px">Lufthansa kan säga nej om de visar att förseningen berodde på något de inte kunde påverka, till exempel väder eller flygledning. Den öppna flygloggen säger inte varför LH 1135 blev sent.</p>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>Bokat</h2></div>
+        <div class="card pad">
+          ${CLAIM.booked.map((flight) => `
+            <div class="flight">
+              <div>
+                <b>${esc(flight.no)}</b>
+                <div class="tiny">${esc(flight.date)}</div>
+              </div>
+              <div>
+                <div class="route">${esc(flight.route)}</div>
+                <div class="times small">Resebladet ${esc(flight.sheet)}</div>
+                <p class="tiny" style="margin-top:4px">${esc(flight.actual)}</p>
+              </div>
+            </div>`).join("")}
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>Planet ni tog</h2></div>
+        <div class="card pad">
+          <div class="flight">
+            <div>
+              <b>${esc(taken.no)}</b>
+              <div class="tiny">${esc(taken.date)}</div>
+            </div>
+            <div>
+              <div class="route">${esc(taken.route)}</div>
+              <div class="times small">${esc(taken.dep)} – ${esc(taken.arr)}</div>
+              <p class="tiny" style="margin-top:4px">${esc(taken.airline)}. FlightRadar24 har starten ${esc(taken.takeoff)} och landningen ${esc(taken.landed)}.</p>
+            </div>
+          </div>
+          ${CLAIM.facts.map((fact) => `<p class="small" style="margin-top:8px">${esc(fact)}</p>`).join("")}
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>Så skickar ni in</h2></div>
+        <div class="card pad">
+          <p class="small">En vuxen skickar in kravet för sig och för barnen i samma hushåll. Bokningskoden står på biljetten. Skriv den i formuläret. Den ska inte stå här.</p>
+          <p class="small" style="margin-top:8px">Välj missad anslutning. Första flyget är LH 1135 den 19 oktober. Anslutningen är LH 810 samma kväll. Det nya planet är VL 800 den 20 oktober, med landning ${esc(CLAIM.landed)}.</p>
+          <p class="small" style="margin-top:8px">Hotellet är redan betalt av Lufthansa. Det ska inte krävas en gång till. Väskorna kom med, så det finns inget bagagekrav.</p>
+          <p class="small" style="margin-top:10px"><a href="${esc(CLAIM.form)}" target="_blank" rel="noopener">Lufthansas formulär</a></p>
+          <p class="tiny" style="margin-top:6px"><a href="${esc(CLAIM.rights)}" target="_blank" rel="noopener">EU:s regler för flygpassagerare</a></p>
+        </div>
+      </div>
+    </section>`;
 }
 
 function viewSchedule() {
