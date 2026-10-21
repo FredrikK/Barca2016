@@ -1178,10 +1178,10 @@ export const CLAIM = {
     "Gruppen sov över i Frankfurt. Lufthansa betalade.",
     "Väskorna kom med till Arlanda.",
   ],
-  // Fields that are the same on every power of attorney. Names and addresses are not here.
+  // Shared answers on every player's own power of attorney. One form per player.
   lathund: {
     title: "Lathund",
-    perForm: 2,
+    perForm: 1,
     flight: "LH 1135",
     flightDate: "19 October 2026",
     booking: "87ZRTJ",

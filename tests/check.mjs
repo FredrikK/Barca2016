@@ -442,7 +442,7 @@ if (!CLAIM.facts.some((fact) => fact.includes("Hela gruppen")) || !CLAIM.facts.s
 if (CLAIM.form !== "https://www.lufthansa.com/se/en/fast-compensation" || !CLAIM.feedback.endsWith("/feedback") || !CLAIM.power.endsWith("lh_power-of-attorney_EN.pdf") || !CLAIM.rights.includes("europa.eu")) {
   throw new Error("claim links drifted");
 }
-if (CLAIM.lathund.title !== "Lathund" || CLAIM.lathund.flight !== "LH 1135" || CLAIM.lathund.flightDate !== "19 October 2026" || CLAIM.lathund.booking !== "87ZRTJ" || CLAIM.lathund.payment !== "No" || CLAIM.lathund.perForm !== 2) {
+if (CLAIM.lathund.title !== "Lathund" || CLAIM.lathund.flight !== "LH 1135" || CLAIM.lathund.flightDate !== "19 October 2026" || CLAIM.lathund.booking !== "87ZRTJ" || CLAIM.lathund.payment !== "No" || CLAIM.lathund.perForm !== 1) {
   throw new Error("power of attorney sheet drifted");
 }
 const spangaPlayers = TEAMS.find((team) => team.id === "spanga").players.map((player) => player.name);
@@ -578,8 +578,11 @@ if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) |
   throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
-if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("två personer") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte") || !appSource.includes("Vårdnadshavaren") || !appSource.includes('teamById("spanga").players') || !appSource.includes("Accept any due payments")) {
+if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning") || !appSource.includes("fullmakt") || !appSource.includes("en egen blankett") || !appSource.includes("Din blankett") || !appSource.includes("referensnumret") || !appSource.includes("Resebolaget hanterar inte") || !appSource.includes("Vårdnadshavaren") || !appSource.includes('teamById("spanga").players') || !appSource.includes("Accept any due payments") || !appSource.includes("Passenger signature(s)") || !appSource.includes("Feedback ID (if available)")) {
   throw new Error("the compensation page is missing");
+}
+if (appSource.includes("två personer") || appSource.includes("9 blanketter") || appSource.includes("Den sista har ett namn") || appSource.includes("Svara ja")) {
+  throw new Error("the sheet still pairs two players on one form");
 }
 if (appSource.includes('data-tab="ersattning"')) throw new Error("compensation landed in the tab bar");
 if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");

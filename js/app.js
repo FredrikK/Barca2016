@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r12";
+} from "./data.js?v=r13";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -676,11 +676,38 @@ function dayRideNote(day) {
   return "";
 }
 
+function poaLine(label, value, note = "") {
+  const body = value
+    ? `<div class="fill">${esc(value)}</div>`
+    : `<p class="small">${esc(note)}</p>`;
+  const extra = value && note ? `<p class="tiny">${esc(note)}</p>` : "";
+  return `<div class="poa"><b>${esc(label)}</b>${body}${extra}</div>`;
+}
+
+function playerForm(player, sheet) {
+  return `
+    <div class="card pad" style="margin-top:12px">
+      <p class="eyebrow">${esc(player.name)}</p>
+      <h3>Din blankett</h3>
+      ${poaLine("Full name of all passenger(s) involved", "", "Skriv ditt namn som på biljetten, Last name, First name, på den första raden. De andra tre raderna lämnar du tomma.")}
+      ${poaLine("Passenger address(es)", "", "Skriv din hemadress.")}
+      ${poaLine("Name of the authorized person", "", "Skriv efternamn och förnamn på den som skickar in ansökan. Samma namn på alla blanketter.")}
+      ${poaLine("Address of the authorized person", "", "Skriv adressen till den som skickar in ansökan. Samma adress på alla blanketter.")}
+      ${poaLine("For travel agencies: IATA number", "", "Skriv inget. Raden är för resebyråer.")}
+      ${poaLine("Flight", sheet.flight)}
+      ${poaLine("Date", sheet.flightDate)}
+      ${poaLine("Booking code", sheet.booking)}
+      ${poaLine("Feedback ID (if available)", "", "Skriv inget nu. När referensnumret finns skriver du samma nummer här.")}
+      ${poaLine("Accept any due payments", sheet.payment, "Kryssa i No. Personen får prata med Lufthansa. Pengarna betalas inte till den personen.")}
+      ${poaLine("Place, Date", "", "Skriv orten och datumet där du skriver under.")}
+      ${poaLine("Passenger signature(s)", "", "Vårdnadshavaren skriver under.")}
+    </div>`;
+}
+
 function viewClaim() {
   const taken = CLAIM.taken;
   const sheet = CLAIM.lathund;
   const players = teamById("spanga").players;
-  const forms = Math.ceil(players.length / sheet.perForm);
   return `
     <section class="view">
       <header class="topbar">
@@ -735,7 +762,7 @@ function viewClaim() {
           <p class="small">Resebolaget hanterar inte ersättningen och får inte skicka in ansökan åt er. Det gör ni själva hos Lufthansa.</p>
           <p class="small" style="margin-top:8px">En person skickar in ansökan. Bokningskoden är ${esc(sheet.booking)}. Skriv den i formuläret och på varje fullmakt. Spara referensnumret.</p>
           <p class="small" style="margin-top:8px">Välj missad anslutning. Första flyget är LH 1135 den 19 oktober. Anslutningen är LH 810 samma kväll. Det nya planet är VL 800 den 20 oktober, med landning ${esc(CLAIM.landed)}.</p>
-          <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Blanketten rymmer två personer, så det blir flera. Skriv ut, fyll i och skriv under. På blanketten finns en fråga om personen också får ta emot pengarna. Svara ja bara om ni vill det.</p>
+          <p class="small" style="margin-top:8px">När en person företräder gruppen behöver de andra en fullmakt. Varje spelare gör en egen blankett. Skriv ut den, fyll i fälten och låt vårdnadshavaren skriva under. Kryssa i No på Accept any due payments.</p>
           <p class="small" style="margin-top:8px">Ladda upp blanketterna på feedbacksidan och hänvisa till referensnumret från ansökan.</p>
           <p class="small" style="margin-top:8px">Hotellet är redan betalt av Lufthansa. Det ska inte krävas en gång till. Väskorna kom med, så det finns inget bagagekrav.</p>
           <p class="small" style="margin-top:10px"><a href="${esc(CLAIM.form)}" target="_blank" rel="noopener">Lufthansas ansökan</a></p>
@@ -747,45 +774,11 @@ function viewClaim() {
       <div class="section">
         <div class="section-head"><h2>${esc(sheet.title)}</h2></div>
         <div class="card pad">
-          <p class="small">Blanketten är på engelska. Skriv av de här raderna på varje exemplar. ${players.length} spelare och ${sheet.perForm} namn per blankett blir ${forms} blanketter. Den sista har ett namn.</p>
-          <div class="flight">
-            <div><b>Flight</b></div>
-            <div><div class="times small">${esc(sheet.flight)}</div></div>
-          </div>
-          <div class="flight">
-            <div><b>Date</b></div>
-            <div><div class="times small">${esc(sheet.flightDate)}</div></div>
-          </div>
-          <div class="flight">
-            <div><b>Booking code</b></div>
-            <div><div class="times small">${esc(sheet.booking)}</div></div>
-          </div>
-          <div class="flight">
-            <div><b>IATA number</b></div>
-            <div><div class="times small">Lämna tomt</div></div>
-          </div>
-          <div class="flight">
-            <div><b>Feedback ID</b></div>
-            <div><p class="small">Lämna tomt tills referensnumret finns. Skriv sedan samma nummer på alla blanketter.</p></div>
-          </div>
-          <div class="flight">
-            <div><b>Accept any due payments</b></div>
-            <div><div class="times small">${esc(sheet.payment)}</div><p class="tiny">No betyder att personen får prata med Lufthansa, inte att pengarna betalas till den personen.</p></div>
-          </div>
-        </div>
-        <div class="card pad" style="margin-top:12px">
-          <p class="small">Det här ska vara likadant på alla blanketter, och det kan vi inte fylla i åt er.</p>
-          <p class="small" style="margin-top:8px"><b>Name of the authorized person</b> och <b>Address of the authorized person</b>. Namn och adress för den som skickar in ansökan.</p>
-        </div>
-        <div class="card pad" style="margin-top:12px">
-          <p class="small">Det här fyller varje familj i. Namnet ska stavas som på biljetten. Listan under är förnamn och initial, så ni ser att ingen spelare saknas.</p>
-          <p class="small" style="margin-top:8px"><b>Full name of all passenger(s) involved</b>. Last name, First name. Två personer per blankett.</p>
-          <p class="small" style="margin-top:8px"><b>Passenger address(es)</b>. Adressen för personen på blanketten.</p>
-          <p class="small" style="margin-top:8px"><b>Place, Date</b> och <b>Passenger signature(s)</b>. Ort och datum är där ni skriver under. Vårdnadshavaren skriver under för spelaren.</p>
-          <p class="small" style="margin-top:8px">Vuxna på samma biljett behöver en egen rad om samma person ska företräda dem.</p>
-          ${players.map((player) => `<div class="tiny" style="padding:8px 0;border-top:1px solid var(--line)">${esc(player.name)}</div>`).join("")}
+          <p class="small">Hitta ditt namn. Varje spelare gör en egen blankett. Fälten står i samma ordning som på pdf:en. Det som står stort skriver du av. På de andra fälten står det vad du själv skriver.</p>
+          <p class="small" style="margin-top:8px">Varje vuxen på samma biljett gör också en egen blankett.</p>
           <p class="tiny" style="margin-top:8px"><a href="${esc(CLAIM.power)}" target="_blank" rel="noopener">Öppna fullmakten</a></p>
         </div>
+        ${players.map((player) => playerForm(player, sheet)).join("")}
       </div>
     </section>`;
 }
