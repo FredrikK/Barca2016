@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, SUN_MEET, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupFinish, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, tournamentRow, travelStops, usableMeal } from "../js/data.js";
+import { AGE_CHECK, AIRPORT_BUS, ARLANDA_CARS, AREA, CEREMONY, CLAIM, FLIGHT_CHECK, FLIGHTS, GROUP, HOTEL, KIT, MATCHES, MEALS, PACK, PITCH_BUSES, PLAYER_MEET, PLAYOFFS, RIDES, RULES, SNACK_PAGE, STAY, SUN_MEET, TEAMS, WEATHER, awayBlocks, canReturnBetween, cupFinish, cupForm, fieldSurface, hotelBack, indexOf, morningPrep, pitchBus, pitchPlan, snackStops, teamById, teamTheme, tournamentRow, travelStops, usableMeal } from "../js/data.js";
 
 const ids = TEAMS.map((team) => team.id);
 if (new Set(ids).size !== 6) throw new Error("expected 6 teams");
@@ -418,15 +418,29 @@ if (AIRPORT_BUS.arrival.flight !== "LH 1130" || AIRPORT_BUS.arrival.land !== "15
 if (AIRPORT_BUS.arrival.airport !== "Barcelona El Prat") throw new Error("arrival airport drifted");
 if (!AIRPORT_BUS.arrival.meet.includes("ankomsthallen")) throw new Error("Barcelona meeting point missing");
 if (AIRPORT_BUS.departure.flight !== "LH 1135" || AIRPORT_BUS.departure.flightTime !== "20:10") throw new Error("departure flight drifted");
-if (!FLIGHT_CHECK.text.includes("22:07") || !FLIGHT_CHECK.text.includes("22:15") || !FLIGHT_CHECK.text.includes("åtta minuter") || !FLIGHT_CHECK.text.includes("15:00")) {
+if (!FLIGHT_CHECK.text.includes("VL 800") || !FLIGHT_CHECK.text.includes("07:10") || !FLIGHT_CHECK.text.includes("10:33")) {
   throw new Error("flight board reminder drifted");
 }
-if (!FLIGHT_CHECK.result.includes("19 oktober 2026") || !FLIGHT_CHECK.result.includes("20:10") || !FLIGHT_CHECK.result.includes("22:07") || !FLIGHT_CHECK.result.includes("09:50–12:00") || !FLIGHT_CHECK.result.includes("22:15")) {
+if (!FLIGHT_CHECK.result.includes("23:34") || !FLIGHT_CHECK.result.includes("20:10") || !FLIGHT_CHECK.result.includes("22:29") || !FLIGHT_CHECK.result.includes("09:50–12:00") || !FLIGHT_CHECK.result.includes("inte med")) {
   throw new Error("flight check result drifted");
 }
-if (!FLIGHT_CHECK.result.includes("19:00–21:10") || !FLIGHT_CHECK.result.includes("beräknad avgång") || !FLIGHT_CHECK.result.includes("i tid")) {
+if (!FLIGHT_CHECK.result.includes("beräknad avgång") || FLIGHT_CHECK.text.includes("åtta minuter")) {
   throw new Error("flight check is no longer tied to the travel dates");
 }
+if (CLAIM.amount !== 400 || CLAIM.distanceKm !== 2317 || CLAIM.originalArrival !== "00:20" || CLAIM.landed !== "10:33" || CLAIM.late !== "10 timmar och 13 minuter") {
+  throw new Error("compensation amount drifted");
+}
+if (CLAIM.taken.no !== "VL 800" || CLAIM.taken.airline !== "Lufthansa City" || CLAIM.taken.dep !== "07:10" || CLAIM.taken.arr !== "09:15" || CLAIM.taken.landed !== "10:33") {
+  throw new Error("replacement flight drifted");
+}
+if (CLAIM.booked.map((flight) => `${flight.no}:${flight.sheet}`).join() !== "LH 1135:19:00–21:10,LH 810:22:15–00:20") {
+  throw new Error("booked flights on the claim drifted");
+}
+if (!CLAIM.facts.some((fact) => fact.includes("Hela gruppen")) || !CLAIM.facts.some((fact) => fact.includes("Lufthansa betalade")) || !CLAIM.facts.some((fact) => fact.includes("Väskorna kom med"))) {
+  throw new Error("claim facts drifted");
+}
+if (!CLAIM.form.startsWith("https://www.lufthansa.com/") || !CLAIM.rights.includes("europa.eu")) throw new Error("claim links drifted");
+if (JSON.stringify(CLAIM).match(/[A-Z0-9]{6}/) && JSON.stringify(CLAIM).includes("bokningskod:")) throw new Error("a booking code was written into the claim");
 if (FLIGHTS.find((flight) => flight.no === "LH 1135").dep !== "20:10" || FLIGHTS.find((flight) => flight.no === "LH 1135").arr !== "22:07") {
   throw new Error("LH 1135 board time drifted");
 }
@@ -555,6 +569,10 @@ if (appSource.includes("${game.mm}") || /\bmm\b/.test(WEATHER.days.sat.advice) |
   throw new Error("millimetres are still in the weather text");
 }
 if (!appSource.includes('["trip", "packlista", "schedule", "rank", "area"]')) throw new Error("tab bar drifted");
+if (!appSource.includes("function viewClaim") || !appSource.includes('data-go="#ersattning"') || !appSource.includes("ersattning: viewClaim") || !appSource.includes("missad anslutning")) {
+  throw new Error("the compensation page is missing");
+}
+if (appSource.includes('data-tab="ersattning"')) throw new Error("compensation landed in the tab bar");
 if (!appSource.includes("rulesSection") || !appSource.includes("RULES.rules")) throw new Error("the front page lost the team rules");
 if (RULES.rules.length !== 10) throw new Error("expected 10 team rules");
 const ruleTitles = RULES.rules.map((rule) => rule.title).join("|");
