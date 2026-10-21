@@ -42,7 +42,7 @@ import {
   teamTheme,
   travelStops,
   usableMeal,
-} from "./data.js?v=r14";
+} from "./data.js?v=r15";
 
 const app = document.querySelector("#app");
 const tabs = document.querySelector("#tabbar");
@@ -690,7 +690,25 @@ function viewClaim() {
       <button class="back" data-go="#trip">Tillbaka till resan</button>
       <div class="callout" style="margin-top:12px">
         <p>Schablonen är <b>${esc(CLAIM.amount)} ${esc(CLAIM.unit)}</b>. Barcelona–Arlanda är ${esc(CLAIM.distanceKm.toLocaleString("sv-SE"))} km. Inom EU är beloppet 400 euro när slutmålet ligger mer än tre timmar efter tidtabellen. ${esc(CLAIM.landed)} är ${esc(CLAIM.late)} efter ${esc(CLAIM.originalArrival)}, så beloppet halveras inte.</p>
-        <p style="margin-top:8px">Lufthansa kan säga nej om de visar att förseningen berodde på något de inte kunde påverka, till exempel väder eller flygledning. Den öppna flygloggen säger inte varför LH 1135 blev sent.</p>
+        <p style="margin-top:8px">Lufthansa kan säga nej om de visar att förseningen berodde på något de inte kunde påverka, till exempel väder eller flygledning. Kedjan för samma plan står här under.</p>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2>${esc(CLAIM.cause.title)}</h2></div>
+        <div class="card pad">
+          <p class="small">${esc(CLAIM.cause.lead)}</p>
+          ${CLAIM.cause.steps.map((step) => `
+            <div class="flight">
+              <div>
+                <b>${esc(step.no)}</b>
+              </div>
+              <div>
+                <div class="route">${esc(step.route)}</div>
+                <div class="times small">Tidtabell ${esc(step.sheet)}</div>
+                <p class="tiny" style="margin-top:4px">${esc(step.actual)}</p>
+              </div>
+            </div>`).join("")}
+          ${CLAIM.cause.notes.map((note) => `<p class="small" style="margin-top:8px">${esc(note)}</p>`).join("")}
+        </div>
       </div>
       <div class="section">
         <div class="section-head"><h2>Bokat</h2></div>
