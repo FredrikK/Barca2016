@@ -1178,6 +1178,14 @@ export const CLAIM = {
     "Gruppen sov över i Frankfurt. Lufthansa betalade.",
     "Väskorna kom med till Arlanda.",
   ],
+  // Fields that are the same on every power of attorney. Names and addresses are not here.
+  lathund: {
+    title: "Lathund",
+    perForm: 2,
+    flight: "LH 1135",
+    flightDate: "19 October 2026",
+    payment: "No",
+  },
 };
 
 // Official airport buses from the tournament list. A36 and D20 are the bus codes, not a coach company.
